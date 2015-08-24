@@ -6,7 +6,7 @@ import javax.ejb.EJB;
 public class ControladorUsuario {
     
     @EJB
-    ManejadorUsuario mAdmin;
+    ManejadorUsuario mUsr;
     
     /**
      * Crea un Usuario y lo persiste.
@@ -19,7 +19,7 @@ public class ControladorUsuario {
      */
     public Usuario CrearUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario){
         Usuario usr = new Usuario(NombreUsuario,ApellidoUsuario,CorreoUsuario,PasswordUsuario,CedulaUsuario);
-        if (mAdmin.CrearUsuario(usr)!=-1){
+        if (mUsr.CrearUsuario(usr)!=-1){
             return usr;
         }
         return null;
@@ -31,7 +31,7 @@ public class ControladorUsuario {
      * @return Devuelve -1 si no se pudo actualizar.
      */
     public int ModificarUsuario(Usuario usuario){
-        return mAdmin.ModificarUsuario(usuario);
+        return mUsr.ModificarUsuario(usuario);
     }
     
     /**
@@ -40,7 +40,7 @@ public class ControladorUsuario {
      * @return Devuelve -1 si no se pudo borrar.
      */
     public int BorrarUsuario(Usuario usuario){
-        return mAdmin.BorrarUsuario(usuario);
+        return mUsr.BorrarUsuario(usuario);
     }
     
     /**
@@ -49,7 +49,7 @@ public class ControladorUsuario {
      * @return Devuelve null si no se pudo encontrar.
      */
     public Usuario BuscarUsuario(int id){
-        return mAdmin.BuscarUsuario(id);
+        return mUsr.BuscarUsuario(id);
     }
     
     /**
@@ -57,7 +57,7 @@ public class ControladorUsuario {
      * @return 
      */
     public List<Usuario> ListarUsuarios(){
-        return mAdmin.ListarUsuarios();
+        return mUsr.ListarUsuarios();
     }
     
 }
