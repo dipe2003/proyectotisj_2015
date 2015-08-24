@@ -23,15 +23,14 @@ public class Encuesta implements Serializable{
     private int IdAsignatura;
     
     @OneToMany
-    private List<Pregunta> Preguntas;
+    private List<Pregunta> PreguntasEncuesta;
 
     public Encuesta() {
     }
 
-    public Encuesta(Date FechaEncuesta, int IdAsignatura, List<Pregunta> preguntas) {
+    public Encuesta(Date FechaEncuesta, int IdAsignatura) {
         this.FechaEncuesta = FechaEncuesta;
         this.IdAsignatura = IdAsignatura;
-        this.Preguntas = preguntas;
     }
 
     public int getIdEncuesta() {
@@ -59,12 +58,15 @@ public class Encuesta implements Serializable{
     }
 
     public List<Pregunta> getPreguntas() {
-        return Preguntas;
+        return PreguntasEncuesta;
     }
 
-    public void setPreguntas(List<Pregunta> Preguntas) {
-        this.Preguntas = Preguntas;
+    public void setPreguntas(List<Pregunta> PreguntasEncuesta) {
+        this.PreguntasEncuesta = PreguntasEncuesta;
     }
     
+    public void addPreguntasEncuesta(Pregunta pregunta){PreguntasEncuesta.add(pregunta);}
+    
+    public void removePreguntasEncuesta(Pregunta pregunta){PreguntasEncuesta.remove(pregunta);}
     
 }
