@@ -53,7 +53,7 @@ public class ManejadorParcial {
         }
     }
     
-    public List<Parcial> ListarParcials(){
+    public List<Parcial> ListarParciales(){
         List<Parcial> lista = new ArrayList<>();
         try{
             TypedQuery<Parcial> query = em.createQuery("SELECT p FROM Parcial p", Parcial.class);
