@@ -31,71 +31,46 @@ public class Asignatura implements Serializable{
     public Asignatura() {
     }
 
-    public Asignatura(String NombreAsignatura, int SemestreAsignatura, int CreditosAsignatura, int AnioAsignatura, Docente DocenteAsignatura, 
-            List<Estudiante> EstudiantesAsignatura) {
+    public Asignatura(String NombreAsignatura, int SemestreAsignatura, int CreditosAsignatura, 
+            int AnioAsignatura) {
         this.NombreAsignatura = NombreAsignatura;
         this.SemestreAsignatura = SemestreAsignatura;
         this.CreditosAsignatura = CreditosAsignatura;
-        this.AnioAsignatura = AnioAsignatura;
-        this.DocenteAsignatura = DocenteAsignatura;
-        this.EstudiantesAsignatura = EstudiantesAsignatura;
+        this.AnioAsignatura = AnioAsignatura;;
     }
 
     public int getIdAsignatura() {
         return IdAsignatura;
     }
 
-    public void setIdAsignatura(int IdAsignatura) {
-        this.IdAsignatura = IdAsignatura;
-    }
+    public void setIdAsignatura(int IdAsignatura) {this.IdAsignatura = IdAsignatura;}
 
-    public String getNombreAsignatura() {
-        return NombreAsignatura;
-    }
+    public String getNombreAsignatura() {return NombreAsignatura;}
 
-    public void setNombreAsignatura(String NombreAsignatura) {
-        this.NombreAsignatura = NombreAsignatura;
-    }
+    public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
 
-    public int getSemestreAsignatura() {
-        return SemestreAsignatura;
-    }
+    public int getSemestreAsignatura() {return SemestreAsignatura;}
 
-    public void setSemestreAsignatura(int SemestreAsignatura) {
-        this.SemestreAsignatura = SemestreAsignatura;
-    }
+    public void setSemestreAsignatura(int SemestreAsignatura) {this.SemestreAsignatura = SemestreAsignatura;}
 
-    public int getCreditosAsignatura() {
-        return CreditosAsignatura;
-    }
+    public int getCreditosAsignatura() {return CreditosAsignatura;}
 
-    public void setCreditosAsignatura(int CreditosAsignatura) {
-        this.CreditosAsignatura = CreditosAsignatura;
-    }
+    public void setCreditosAsignatura(int CreditosAsignatura) {this.CreditosAsignatura = CreditosAsignatura;}
 
-    public int getAnioAsignatura() {
-        return AnioAsignatura;
-    }
+    public int getAnioAsignatura() {return AnioAsignatura;}
 
-    public void setAnioAsignatura(int AnioAsignatura) {
-        this.AnioAsignatura = AnioAsignatura;
-    }
+    public void setAnioAsignatura(int AnioAsignatura) {this.AnioAsignatura = AnioAsignatura;}
 
-    public Docente getDocenteAsignatura() {
-        return DocenteAsignatura;
-    }
+    public Docente getDocenteAsignatura() {return DocenteAsignatura;}
 
-    public void setDocenteAsignatura(Docente DocenteAsignatura) {
-        this.DocenteAsignatura = DocenteAsignatura;
-    }
+    public void setDocenteAsignatura(Docente DocenteAsignatura) {this.DocenteAsignatura = DocenteAsignatura;}
 
-    public List<Estudiante> getEstudiantesAsignatura() {
-        return EstudiantesAsignatura;
-    }
+    public List<Estudiante> getEstudiantesAsignatura() {return EstudiantesAsignatura;}
 
-    public void setEstudiantesAsignatura(List<Estudiante> EstudiantesAsignatura) {
-        this.EstudiantesAsignatura = EstudiantesAsignatura;
-    }
+    public void setEstudiantesAsignatura(List<Estudiante> EstudiantesAsignatura) {this.EstudiantesAsignatura = EstudiantesAsignatura;}
     
+    public void addEstudianteAsignatura(Estudiante estudiante){EstudiantesAsignatura.add(estudiante);}
+    
+    public void removeEstudianteAsignatura(Estudiante estudiante){EstudiantesAsignatura.remove(estudiante);}
     
 }

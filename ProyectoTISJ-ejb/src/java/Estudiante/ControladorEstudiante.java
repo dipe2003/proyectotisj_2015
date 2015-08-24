@@ -17,7 +17,7 @@ public class ControladorEstudiante {
      * @param CorreoUsuario
      * @param PasswordUsuario
      * @param CedulaIdentidadUsuario
-     * @return Devulve un Admininstrador si fue creado, de lo contrario devuelve null.
+     * @return Devulve un Estudiante si fue creado, de lo contrario devuelve null.
      */
     public Estudiante CrearEstudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,  int CedulaIdentidadUsuario){
         Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,  CedulaIdentidadUsuario);
@@ -46,7 +46,7 @@ public class ControladorEstudiante {
     }
     
     /**
-     * Busca un Admininstrador en la base de datos.
+     * Busca un Estudiante en la base de datos.
      * @param id
      * @return Devuelve null si el Estudiante no se pudo encontrar.
      */
