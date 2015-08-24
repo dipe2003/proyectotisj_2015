@@ -53,7 +53,7 @@ public class ManejadorAdmininstrador {
         }
     }
     
-    public List<Administrador> ListarAdministradors(){
+    public List<Administrador> ListarAdministradores(){
         List<Administrador> lista = new ArrayList<>();
         try{
             TypedQuery<Administrador> query = em.createQuery("SELECT a FROM Administrador a", Administrador.class);
