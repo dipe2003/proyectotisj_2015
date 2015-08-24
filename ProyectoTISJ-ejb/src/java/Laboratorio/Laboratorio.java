@@ -12,9 +12,8 @@ public class Laboratorio extends Evaluacion{
     public Laboratorio() {
     }
 
-    public Laboratorio(EnumResultadoLab ResultadoLaboratorio, Date FechaEvaluacion, int IdAsignatura) {
+    public Laboratorio(Date FechaEvaluacion, int IdAsignatura) {
         super(FechaEvaluacion, IdAsignatura);
-        this.ResultadoLaboratorio = ResultadoLaboratorio;
     }
 
     public EnumResultadoLab getResultadoLaboratorio() {
