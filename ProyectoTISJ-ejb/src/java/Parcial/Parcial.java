@@ -10,21 +10,15 @@ import javax.persistence.Entity;
 public class Parcial extends Evaluacion implements Serializable{
     private int ResultadoParcial;
 
-    public Parcial(int ResultadoParcial, Date FechaEvaluacion, int IdAsignatura) {
+    public Parcial(Date FechaEvaluacion, int IdAsignatura) {
         super(FechaEvaluacion, IdAsignatura);
-        this.ResultadoParcial = ResultadoParcial;
     }
 
-    public Parcial() {
-    }
+    public Parcial() {}
 
-    public int getResultadoParcial() {
-        return ResultadoParcial;
-    }
+    public int getResultadoParcial() {return ResultadoParcial;}
 
-    public void setResultadoParcial(int ResultadoParcial) {
-        this.ResultadoParcial = ResultadoParcial;
-    }
+    public void setResultadoParcial(int ResultadoParcial) {this.ResultadoParcial = ResultadoParcial;}
     
     
 }

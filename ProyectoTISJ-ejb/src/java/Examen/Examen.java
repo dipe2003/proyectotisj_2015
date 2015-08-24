@@ -9,21 +9,15 @@ import javax.persistence.Entity;
 public class Examen extends Evaluacion {
     private int ResultadoExamen;
 
-    public Examen() {
-    }
+    public Examen() {}
 
-    public Examen(int ResultadoExamen, Date FechaEvaluacion, int IdAsignatura) {
+    public Examen(Date FechaEvaluacion, int IdAsignatura) {
         super(FechaEvaluacion, IdAsignatura);
-        this.ResultadoExamen = ResultadoExamen;
     }
 
-    public int getResultadoExamen() {
-        return ResultadoExamen;
-    }
+    public int getResultadoExamen() {return ResultadoExamen;}
 
-    public void setResultadoExamen(int ResultadoExamen) {
-        this.ResultadoExamen = ResultadoExamen;
-    }
+    public void setResultadoExamen(int ResultadoExamen) {this.ResultadoExamen = ResultadoExamen;}
     
     
 }
