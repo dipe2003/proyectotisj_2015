@@ -53,7 +53,7 @@ public class ManejadorEvaluacion {
         }
     }
     
-    public List<Evaluacion> ListarEvaluacions(){
+    public List<Evaluacion> ListarEvaluaciones(){
         List<Evaluacion> lista = new ArrayList<>();
         try{
             TypedQuery<Evaluacion> query = em.createQuery("SELECT e FROM Evaluacion e", Evaluacion.class);

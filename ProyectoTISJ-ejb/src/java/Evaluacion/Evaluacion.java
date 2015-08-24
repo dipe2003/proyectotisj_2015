@@ -19,37 +19,24 @@ public class Evaluacion implements Serializable{
     private Date FechaEvaluacion;
     private int IdAsignatura;
 
-    public Evaluacion() {
-    }
+    public Evaluacion() {}
 
     public Evaluacion(Date FechaEvaluacion, int IdAsignatura) {
         this.FechaEvaluacion = FechaEvaluacion;
         this.IdAsignatura = IdAsignatura;
     }
 
-    public int getIdEvaluacion() {
-        return IdEvaluacion;
-    }
+    public int getIdEvaluacion() {return IdEvaluacion;}
 
-    public void setIdEvaluacion(int IdEvaluacion) {
-        this.IdEvaluacion = IdEvaluacion;
-    }
+    public void setIdEvaluacion(int IdEvaluacion) {this.IdEvaluacion = IdEvaluacion;}
 
-    public Date getFechaEvaluacion() {
-        return FechaEvaluacion;
-    }
+    public Date getFechaEvaluacion() {return FechaEvaluacion;}
 
-    public void setFechaEvaluacion(Date FechaEvaluacion) {
-        this.FechaEvaluacion = FechaEvaluacion;
-    }
+    public void setFechaEvaluacion(Date FechaEvaluacion) {this.FechaEvaluacion = FechaEvaluacion;}
 
-    public int getIdAsignatura() {
-        return IdAsignatura;
-    }
+    public int getIdAsignatura() {return IdAsignatura;}
 
-    public void setIdAsignatura(int IdAsignatura) {
-        this.IdAsignatura = IdAsignatura;
-    }
+    public void setIdAsignatura(int IdAsignatura) {this.IdAsignatura = IdAsignatura;}
     
     
 }
