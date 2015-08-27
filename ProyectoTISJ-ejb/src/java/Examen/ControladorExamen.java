@@ -1,6 +1,7 @@
 
 package Examen;
 
+import Curso.Curso;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -13,11 +14,11 @@ public class ControladorExamen {
     /**
      * Crea un Examen y lo persiste.
      * @param FechaEvaluacion 
-     * @param IdAsignatura
+     * @param CursoExamen
      * @return Devuelve un Examen si fue creado, de lo contrario devuelve null.
      */
-    public Examen CrearExamen(Date FechaEvaluacion, int IdAsignatura){
-        Examen examen = new Examen(FechaEvaluacion, IdAsignatura);
+    public Examen CrearExamen(Date FechaEvaluacion, Curso CursoExamen){
+        Examen examen = new Examen(FechaEvaluacion, CursoExamen);
         if (mExamen.CrearExamen(examen)!=-1) {
             return examen;
         }

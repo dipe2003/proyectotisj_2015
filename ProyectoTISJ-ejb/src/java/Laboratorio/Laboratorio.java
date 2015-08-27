@@ -1,6 +1,7 @@
 
 package Laboratorio;
 
+import Curso.Curso;
 import Evaluacion.Evaluacion;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -9,20 +10,15 @@ import javax.persistence.Entity;
 public class Laboratorio extends Evaluacion{
     private EnumResultadoLab ResultadoLaboratorio;
 
-    public Laboratorio() {
+    public Laboratorio() {}
+
+    public Laboratorio(Date FechaEvaluacion, Curso CursoLaboratorio) {
+        super(FechaEvaluacion, CursoLaboratorio);
     }
 
-    public Laboratorio(Date FechaEvaluacion, int IdAsignatura) {
-        super(FechaEvaluacion, IdAsignatura);
-    }
+    public EnumResultadoLab getResultadoLaboratorio() {return ResultadoLaboratorio;}
 
-    public EnumResultadoLab getResultadoLaboratorio() {
-        return ResultadoLaboratorio;
-    }
-
-    public void setResultadoLaboratorio(EnumResultadoLab ResultadoLaboratorio) {
-        this.ResultadoLaboratorio = ResultadoLaboratorio;
-    }
+    public void setResultadoLaboratorio(EnumResultadoLab ResultadoLaboratorio) {this.ResultadoLaboratorio = ResultadoLaboratorio;}
     
     
 }

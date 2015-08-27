@@ -1,5 +1,6 @@
 package Laboratorio;
 
+import Curso.Curso;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -12,11 +13,11 @@ public class ControladorLaboratorio {
     /**
      * Crea un Laboratorio y lo persiste.
      * @param FechaEvaluacion 
-     * @param IdAsignatura 
+     * @param CursoLaboratorio 
      * @return Devuelve un Laboratorio si fue creado, de lo contrario devuelve null.
      */
-    public Laboratorio CrearLaboratorio(Date FechaEvaluacion, int IdAsignatura){
-        Laboratorio lab = new Laboratorio(FechaEvaluacion, IdAsignatura);
+    public Laboratorio CrearLaboratorio(Date FechaEvaluacion, Curso CursoLaboratorio){
+        Laboratorio lab = new Laboratorio(FechaEvaluacion, CursoLaboratorio);
         if (mLab.CrearLaboratorio(lab)!=-1){
             return lab;
         }

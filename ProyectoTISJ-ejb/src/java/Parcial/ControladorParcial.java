@@ -1,6 +1,7 @@
 
 package Parcial;
 
+import Curso.Curso;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -13,11 +14,11 @@ public class ControladorParcial {
     /**
      * Crea un Parcial y lo persiste.
      * @param FechaEvaluacion 
-     * @param IdAsignatura
+     * @param CursoParcial
      * @return Devuelve un Parcial si fue creado, de lo contrario devuelve null.
      */
-    public Parcial CrearParcial(Date FechaEvaluacion, int IdAsignatura){
-        Parcial parcial = new Parcial(FechaEvaluacion, IdAsignatura);
+    public Parcial CrearParcial(Date FechaEvaluacion, Curso CursoParcial){
+        Parcial parcial = new Parcial(FechaEvaluacion, CursoParcial);
         if (mParcial.CrearParcial(parcial)!=-1) {
             return parcial;
         }

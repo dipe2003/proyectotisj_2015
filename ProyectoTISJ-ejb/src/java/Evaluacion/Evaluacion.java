@@ -1,12 +1,14 @@
 
 package Evaluacion;
 
+import Curso.Curso;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,14 +19,16 @@ public class Evaluacion implements Serializable{
     private int IdEvaluacion;
     @Temporal(TemporalType.DATE)
     private Date FechaEvaluacion;
-    private int IdAsignatura;
+    
+    @OneToOne
+    private Curso CursoEvaluacion;
 
     public Evaluacion() {}
 
-    public Evaluacion(Date FechaEvaluacion, int IdAsignatura) {
+    public Evaluacion(Date FechaEvaluacion, Curso CursoEvaluacion) {
         this.FechaEvaluacion = FechaEvaluacion;
-        this.IdAsignatura = IdAsignatura;
-    }
+        this.CursoEvaluacion = CursoEvaluacion;
+    }   
 
     public int getIdEvaluacion() {return IdEvaluacion;}
 
@@ -34,9 +38,9 @@ public class Evaluacion implements Serializable{
 
     public void setFechaEvaluacion(Date FechaEvaluacion) {this.FechaEvaluacion = FechaEvaluacion;}
 
-    public int getIdAsignatura() {return IdAsignatura;}
+    public Curso getCursoEvaluacion() {return CursoEvaluacion;}
 
-    public void setIdAsignatura(int IdAsignatura) {this.IdAsignatura = IdAsignatura;}
+    public void setCursoEvaluacion(Curso CursoEvaluacion) {this.CursoEvaluacion = CursoEvaluacion;}
     
     
 }

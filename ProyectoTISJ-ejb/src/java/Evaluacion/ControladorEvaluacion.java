@@ -1,6 +1,7 @@
 
 package Evaluacion;
 
+import Curso.Curso;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -13,11 +14,11 @@ public class ControladorEvaluacion {
     /**
      * Crea un Evaluacion y lo persiste.
      * @param FechaEvaluacion  
-     * @param IdAsignatura
+     * @param CursoEvaluacion
      * @return Devuelve una Evaluacion si fue creada, de lo contrario devuelve null.
      */
-    public Evaluacion CrearEvaluacion(Date FechaEvaluacion, int IdAsignatura){
-        Evaluacion asig = new Evaluacion(FechaEvaluacion, IdAsignatura);
+    public Evaluacion CrearEvaluacion(Date FechaEvaluacion, Curso CursoEvaluacion){
+        Evaluacion asig = new Evaluacion(FechaEvaluacion, CursoEvaluacion);
         if (mEva.CrearEvaluacion(asig)!=-1) {
             return asig;
         }

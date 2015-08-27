@@ -1,6 +1,7 @@
 
 package Examen;
 
+import Curso.Curso;
 import Evaluacion.Evaluacion;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -11,8 +12,8 @@ public class Examen extends Evaluacion {
 
     public Examen() {}
 
-    public Examen(Date FechaEvaluacion, int IdAsignatura) {
-        super(FechaEvaluacion, IdAsignatura);
+    public Examen(Date FechaEvaluacion, Curso CursoExamen) {
+        super(FechaEvaluacion, CursoExamen);
     }
 
     public int getResultadoExamen() {return ResultadoExamen;}
