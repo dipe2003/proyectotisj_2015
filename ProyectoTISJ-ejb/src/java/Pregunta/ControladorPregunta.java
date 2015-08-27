@@ -10,13 +10,12 @@ public class ControladorPregunta {
     
     /**
      * Crea una Pregunta y la persiste.
-     * @param ResultadoPregunta 
      * @param TextoPregunta 
      * @param TipoPregunta 
      * @return Devuelve una Pregunta si fue creada, de lo contrario devuelve null.
      */
-    public Pregunta CrearPregunta(String TextoPregunta, int ResultadoPregunta, EnumTipoPregunta TipoPregunta){
-        Pregunta preg = new Pregunta(TextoPregunta, ResultadoPregunta, TipoPregunta);
+    public Pregunta CrearPregunta(String TextoPregunta, EnumTipoPregunta TipoPregunta){
+        Pregunta preg = new Pregunta(TextoPregunta, TipoPregunta);
         if (mPreg.CrearPregunta(preg)!=-1){
             return preg;
         }

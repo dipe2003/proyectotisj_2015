@@ -12,11 +12,10 @@ public class ControladorEncuesta {
     /**
      * Crea una Encuesta y la persiste.
      * @param FechaEncuesta 
-     * @param IdAsignatura 
      * @return Devuelve una Encuesta si fue creada, de lo contrario devuelve null.
      */
-    public Encuesta CrearEncuesta(Date FechaEncuesta, int IdAsignatura){
-        Encuesta enc = new Encuesta(FechaEncuesta, IdAsignatura);
+    public Encuesta CrearEncuesta(Date FechaEncuesta){
+        Encuesta enc = new Encuesta(FechaEncuesta);
         if (mEnc.CrearEncuesta(enc)!=-1){
             return enc;
         }
