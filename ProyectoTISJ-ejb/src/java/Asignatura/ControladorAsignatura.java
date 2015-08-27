@@ -11,14 +11,12 @@ public class ControladorAsignatura {
     
     /**
      * Crea un Asignatura y lo persiste.
-     * @param NombreAsignatura 
-     * @param SemestreAsignatura 
+     * @param NombreAsignatura
      * @param CreditosAsignatura 
-     * @param AnioAsignatura
      * @return Devuelve una Asignatura si fue creada, de lo contrario devuelve null.
      */
-    public Asignatura CrearAsignatura(String NombreAsignatura, int SemestreAsignatura, int CreditosAsignatura, int AnioAsignatura){
-        Asignatura asig = new Asignatura(NombreAsignatura, SemestreAsignatura, CreditosAsignatura, AnioAsignatura);
+    public Asignatura CrearAsignatura(String NombreAsignatura, int CreditosAsignatura){
+        Asignatura asig = new Asignatura(NombreAsignatura, CreditosAsignatura);
         if (mAsig.CrearAsignatura(asig)!=-1) {
             return asig;
         }
