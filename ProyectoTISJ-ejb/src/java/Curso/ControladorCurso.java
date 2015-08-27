@@ -1,66 +1,64 @@
 package Curso;
 
+import Asignatura.Asignatura;
 import Docente.Docente;
-import Docente.ManejadorDocente;
 import java.util.List;
 import javax.ejb.EJB;
 
 public class ControladorCurso {
     
     @EJB
-    ManejadorDocente mDoc;
+    ManejadorCurso mDoc;
     
     /**
-     * Crea un Docente y lo persiste.
-     * @param ContratoDocente 
-     * @param NombreUsuario
-     * @param ApellidoUsuario
-     * @param CorreoUsuario
-     * @param PasswordUsuario
-     * @param CedulaUsuario
-     * @return Devuelve un Docente si fue creado, de lo contrario devuelve null.
+     * Crea un Curso y lo persiste.
+     * @param SemestreCurso  
+     * @param AnioCurso 
+     * @param DocenteCurso 
+     * @param AsignaturaCurso
+     * @return Devuelve un Curso si fue creado, de lo contrario devuelve null.
      */
-    public Docente CrearDocente(String ContratoDocente, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario){
-        Docente doc = new Docente(ContratoDocente, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
-        if (mDoc.CrearDocente(doc)!=-1){
-            return doc;
+    public Curso CrearCurso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso){
+        Curso curso = new Curso(SemestreCurso, AnioCurso, DocenteCurso, AsignaturaCurso);
+        if (mDoc.CrearCurso(curso)!=-1){
+            return curso;
         }
         return null;
     }
     
     /**
-     * Modifica los datos de un Docente en la base de datos.
-     * @param docente
+     * Modifica los datos de un Curso en la base de datos.
+     * @param curso
      * @return Devuelve -1 si no se pudo actualizar.
      */
-    public int ModificarDocente(Docente docente){
-        return mDoc.ModificarDocente(docente);
+    public int ModificarCurso(Curso curso){
+        return mDoc.ModificarCurso(curso);
     }
     
     /**
-     * Borra los datos de un Docente en la base de datos.
-     * @param docente
+     * Borra los datos de un Curso en la base de datos.
+     * @param curso
      * @return Devuelve -1 si no se pudo borrar.
      */
-    public int BorrarDocente(Docente docente){
-        return mDoc.BorrarDocente(docente);
+    public int BorrarCurso(Curso curso){
+        return mDoc.BorrarCurso(curso);
     }
     
     /**
-     * Busca un Docente en la base de datos.
+     * Busca un Curso en la base de datos.
      * @param id
      * @return Devuelve null si no se pudo encontrar.
      */
-    public Docente BuscarDocente(int id){
-        return mDoc.BuscarDocente(id);
+    public Curso BuscarCurso(int id){
+        return mDoc.BuscarCurso(id);
     }
     
     /**
-     * Devuelve una lista de Docentes desde la base de datos.
+     * Devuelve una lista de Cursos desde la base de datos.
      * @return 
      */
-    public List<Docente> ListarDocentes(){
-        return mDoc.ListarDocentes();
+    public List<Curso> ListarCursos(){
+        return mDoc.ListarCursos();
     }
     
 }
