@@ -5,6 +5,7 @@ import Encuesta.Encuesta;
 import Evaluacion.Evaluacion;
 import Respuesta.Respuesta;
 import Usuario.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -22,6 +23,8 @@ public class Estudiante extends Usuario {
     public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
         super(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
         this.FormInscripcion = FormInscripcion;
+        this.EvaluacionesEstudiante = new ArrayList<>();
+        this.RespuestasEstudiante = new ArrayList<>();
     }
 
     public Estudiante() {}
