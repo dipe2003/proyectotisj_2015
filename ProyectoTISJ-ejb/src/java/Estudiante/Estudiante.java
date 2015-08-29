@@ -20,8 +20,8 @@ public class Estudiante extends Usuario {
     @OneToMany
     private List<Respuesta> RespuestasEstudiante;
 
-    public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
-        super(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+    public Estudiante(String FormInscripcion, String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
+        super(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
         this.FormInscripcion = FormInscripcion;
         this.EvaluacionesEstudiante = new ArrayList<>();
         this.RespuestasEstudiante = new ArrayList<>();

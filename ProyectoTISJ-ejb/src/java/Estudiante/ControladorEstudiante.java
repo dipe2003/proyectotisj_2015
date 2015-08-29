@@ -12,15 +12,15 @@ public class ControladorEstudiante {
     /**
      * Crea un Estudiante y lo persiste.
      * @param FormInscripcion 
+     * @param NickUsuario
      * @param NombreUsuario
-     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
      * @param CedulaIdentidadUsuario
      * @return Devulve un Estudiante si fue creado, de lo contrario devuelve null.
      */
-    public Estudiante CrearEstudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,  int CedulaIdentidadUsuario){
-        Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,  CedulaIdentidadUsuario);
+    public Estudiante CrearEstudiante(String FormInscripcion, String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario,  int CedulaIdentidadUsuario){
+        Estudiante est = new Estudiante(FormInscripcion, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario,  CedulaIdentidadUsuario);
         if (mEst.CrearEstudiante(est)!=-1) {
             return est;
         }

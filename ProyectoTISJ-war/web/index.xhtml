@@ -1,12 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"          
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+
+
+        <h:form style="text-align: center">
+            <h:panelGrid columns="2" border="1"  id="customLayoutStyles">
+
+                <h:outputText style="font-family: sans-serif" value="Usuario:"/>
+                <h:inputText label="Usuario" id="nick" value="#{login.usuario}" required="true" requiredMessage="Falta ingresar Nickname.">
+                </h:inputText>
+                <h:outputText style="font-family: sans-serif" value="Password:"/>
+                <h:inputSecret label="Password" id="Password" value="#{login.password}" required="true" requiredMessage="Falta ingresar Password.">                    
+                </h:inputSecret>
+                <p:selectOneRadio id="chkHabilidades" value="#{login.rolSeleccionado}" >
+                        <f:selectItems value="#{login.roles}"/>
+                    </p:selectOneRadio>
+
+                <h:panelGroup style="display:block; text-align:center">
+                    <h:commandButton style="font-family: sans-serif" type="submit" 
+                                     value="Ingresar" action="#{login.login()}"/>
+                </h:panelGroup>
+
+
+            </h:panelGrid>        
+        </h:form>
+
     </h:body>
 </html>
 

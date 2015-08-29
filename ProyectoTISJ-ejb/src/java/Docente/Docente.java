@@ -12,8 +12,8 @@ public class Docente extends Usuario implements Serializable{
     public Docente() {
     }
 
-    public Docente(String ContratoDocente, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
-        super(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+    public Docente(String ContratoDocente, String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
+        super(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
         this.ContratoDocente = ContratoDocente;
     }
 

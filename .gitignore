@@ -1,3 +1,7 @@
 /nbproject/private/
 /ProyectoTISJ-ejb/nbproject/private/
 /ProyectoTISJ-war/nbproject/private/
+/build/
+/dist/
+/ProyectoTISJ-war/dist/
+/ProyectoTISJ-war/build/
