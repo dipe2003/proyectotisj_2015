@@ -4,7 +4,11 @@ import Asignatura.Asignatura;
 import Docente.Docente;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
 
+@Stateless
+@ManagedBean
 public class ControladorCurso {
     
     @EJB

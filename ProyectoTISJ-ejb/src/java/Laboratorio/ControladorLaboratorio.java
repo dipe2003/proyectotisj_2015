@@ -4,7 +4,11 @@ import Curso.Curso;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.faces.bean.ManagedBean;
 
+@Stateless
+@ManagedBean
 public class ControladorLaboratorio {
     
     @EJB
