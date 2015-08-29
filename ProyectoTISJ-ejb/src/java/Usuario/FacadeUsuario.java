@@ -26,8 +26,7 @@ public class FacadeUsuario implements Serializable {
     @EJB
     private ControladorEstudiante cEst;
     
-    public FacadeUsuario() {
-    }
+    public FacadeUsuario() {}
     
     
     /**

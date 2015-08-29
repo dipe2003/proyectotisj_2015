@@ -1,18 +1,19 @@
 package interfaz;
 
 import Usuario.FacadeUsuario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+
 import javax.inject.Named;
 
-@Named
+
+@Named("login")
 @SessionScoped
-@Stateless
-public class Login {
+public class Login implements Serializable {
    private String Usuario;
    private String Password;
    private List<String> Roles;
@@ -71,7 +72,7 @@ public class Login {
         Roles.add("Docente");
         Roles.add("Estudiante");
         
-        fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "");
+        //fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "");
     }
    
 }
