@@ -61,11 +61,11 @@ public class FacadeUsuario implements Serializable {
         Usuario Usr = null;
         if (ExisteUsuario(NickUsuario, PasswordUsuario, Rol)== -1) {
             switch(Rol){
-                case "Adminitrador":
+                case "Administrador":
                     Usr = cAdministrador.CrearAdministrador(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
                     break;
 
-                case "Admininstrativo":
+                case "Administrativo":
                     Usr = cAdministrativo.CrearAdministrativo(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
                     break;
 

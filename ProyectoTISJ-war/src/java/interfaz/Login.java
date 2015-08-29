@@ -70,6 +70,8 @@ public class Login {
         Roles.add("Administrativo");
         Roles.add("Docente");
         Roles.add("Estudiante");
+        
+        fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "");
     }
    
 }

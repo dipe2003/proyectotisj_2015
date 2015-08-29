@@ -3,12 +3,16 @@ package Laboratorio;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+@ManagedBean
+@Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ManejadorLaboratorio {
     @PersistenceContext(unitName = "ProyectoTISJ_PU")
