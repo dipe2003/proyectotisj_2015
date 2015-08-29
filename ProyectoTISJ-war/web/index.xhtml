@@ -8,30 +8,20 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-
-
         <h:form style="text-align: center">
             <h:panelGrid columns="2" border="1"  id="customLayoutStyles">
-
                 <h:outputText style="font-family: sans-serif" value="Usuario:"/>
-                <h:inputText label="Usuario" id="nick" value="#{login.usuario}" required="true" requiredMessage="Falta ingresar Nickname.">
-                </h:inputText>
+                <h:inputText label="Usuario" id="nick" value="#{login.usuario}" required="true" requiredMessage="Falta ingresar Nickname."/>
                 <h:outputText style="font-family: sans-serif" value="Password:"/>
-                <h:inputSecret label="Password" id="Password" value="#{login.password}" required="true" requiredMessage="Falta ingresar Password.">                    
-                </h:inputSecret>
+                <h:inputSecret label="Password" id="Password" value="#{login.password}" required="true" requiredMessage="Falta ingresar Password."/>                    
                 <p:selectOneRadio id="chkHabilidades" value="#{login.rolSeleccionado}" >
-                        <f:selectItems value="#{login.roles}"/>
-                    </p:selectOneRadio>
-
+                    <f:selectItems value="#{login.roles}"/>
+                </p:selectOneRadio>
                 <h:panelGroup style="display:block; text-align:center">
-                    <h:commandButton style="font-family: sans-serif" type="submit" 
-                                     value="Ingresar" action="#{login.login()}"/>
+                    <h:commandButton style="font-family: sans-serif" type="submit" value="Ingresar" action="#{login.login()}"/>
                 </h:panelGroup>
-
-
             </h:panelGrid>        
         </h:form>
-
     </h:body>
 </html>
 
