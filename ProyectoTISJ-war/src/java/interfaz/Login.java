@@ -1,14 +1,21 @@
 package interfaz;
 
+import Administrador.Administrador;
+import Administrativo.Administrativo;
+import Docente.Docente;
+import Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
+import Usuario.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 
 @Named("login")
@@ -58,10 +65,30 @@ public class Login implements Serializable {
     }
     
     public String login(){
-        if (fUsr.ExisteUsuario(Usuario, Password, RolSeleccionado)!= -1) {
-            System.out.println("Existe!!!!!!!!!!");
+        int idUsr= fUsr.ExisteUsuario(Usuario, Password, RolSeleccionado);        
+        if (idUsr!= -1) {            
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            Usuario Usr = fUsr.BuscarUsuario(idUsr);
+            switch(RolSeleccionado){
+                case "Administrador":
+                    request.getSession().setAttribute("Administrador", (Administrador) Usr);
+                    return "homeAdministrador";
+                    
+                case "Administrativo":
+                    request.getSession().setAttribute("Administrativo", (Administrativo) Usr);
+                    return "homeAdministrativo";
+                    
+                case "Docente":
+                    request.getSession().setAttribute("Docente", (Docente) Usr);
+                    return "homeDocente";
+                    
+                case "Estudiante":
+                    request.getSession().setAttribute("Estudiante", (Estudiante) Usr);
+                    return "homeEstudiante";
+            }
         }        
-        return "logueado";
+        return "nologueado";
     }
    
     @PostConstruct
@@ -72,7 +99,7 @@ public class Login implements Serializable {
         Roles.add("Docente");
         Roles.add("Estudiante");
         
-        //fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "");
+        fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "");
     }
    
 }

@@ -83,4 +83,15 @@ public class FacadeUsuario implements Serializable {
             return Usr.getIdUsuario();
         }
     }
+   
+    /**
+     * Devuelve el usuario identificado por su id.
+     * PRE: existe el usuario en la base de datos.
+     * @param Id
+     * @return 
+     */
+    public Usuario BuscarUsuario(int Id){
+        return cUsr.BuscarUsuario(Id);
+    }
+    
 }
