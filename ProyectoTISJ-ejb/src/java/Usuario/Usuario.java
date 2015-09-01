@@ -27,7 +27,7 @@ public class Usuario implements Serializable{
         this.CorreoUsuario = CorreoUsuario;
         this.PasswordUsuario = PasswordUsuario;
         this.CedulaUsuario = CedulaUsuario;  
-        this.ImagenURL = "../Resources/Images/userProfile.jpg";
+        this.ImagenURL = "./Resources/Images/userProfile.jpg";
     }
 
     public int getIdUsuario() { return IdUsuario; }

@@ -98,3 +98,8 @@
     color:#222933;
     background-color: white;
 }
+
+.nav a {
+    color:white;
+    text-decoration: none;
+}

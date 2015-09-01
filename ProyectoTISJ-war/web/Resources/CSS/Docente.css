@@ -1,0 +1,39 @@
+
+.docente{
+    float:left;
+    margin: 25px;
+    width:200px;
+    height: 350px; /*auto;*/
+    -webkit-box-shadow: 10px 10px 5px #888888;
+    -moz-box-shadow: 10px 10px 5px #888888;
+    box-shadow: 10px 10px 5px #888888;
+    border:rgba(0, 0, 0, 0.3) 1px solid;
+    //display:none;
+    overflow: hidden;
+}
+
+.nombreDocente{
+    z-index: 2;
+    top:0px; /*-100px*/
+    font-size:20px;
+    font-family:RobotoBold;
+    text-align:center;
+    border-bottom:rgba(0, 0, 0, 0.3) 1px solid;
+    background-color: #222933;
+    color: #FFFFFF;
+    height: 50px;
+    display: inline-block;
+    line-height: 50px;
+    width: 100%;
+}
+
+.addContainer{
+    background-color: #37474F;
+    line-height: 350px;
+    height: 300px;
+}
+
+@font-face {
+    font-family: RobotoBold;
+    src: url(../Fonts/Roboto-Bold.ttf);
+}

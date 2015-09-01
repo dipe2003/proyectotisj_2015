@@ -7,15 +7,23 @@
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>homeAdministrador</from-outcome>
-            <to-view-id>/Administrador/Home.xhtml</to-view-id>
+            <to-view-id>/Administrador/AdministradorHome.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>homeAdministrativo</from-outcome>
-            <to-view-id>/Administrativo/Home.xhtml</to-view-id>
+            <to-view-id>/Administrativo/AdministrativoHome.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+           <from-outcome>homeDocente</from-outcome>
+            <to-view-id>/Docente/DocenteHome.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+           <from-outcome>homeEstudiante</from-outcome>
+            <to-view-id>/Estudiante/EstudianteHome.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>nologueado</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>        
+        </navigation-case>
     </navigation-rule>
 </faces-config>
