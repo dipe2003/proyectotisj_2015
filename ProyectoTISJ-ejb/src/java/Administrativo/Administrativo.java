@@ -11,8 +11,8 @@ public class Administrativo extends Usuario implements Serializable{
     public Administrativo() {
     }
 
-    public Administrativo(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
-        super(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+    public Administrativo(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
+        super(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
     }
     
 }

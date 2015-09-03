@@ -16,8 +16,7 @@
     </h:head>
     <h:body>
         <ui:include src="AdministradorMenu.xhtml" />
-        <div class="contentBody"> 
-            
+        <div class="contentBody">            
             <ui:insert name="interfazDocente" >
                 
                 <c:forEach var="docente" items="#{docenteListadoBean.docentes}">
@@ -53,7 +52,7 @@
                 </c:forEach>
                 <div class="docente">
                     <div class="nombreDocente">Registrar Docente</div>
-                    <a href="../Interfaces/RegistrarDocente.xhtml">
+                    <a href="../Docente/RegistrarDocente.xhtml">
                         <div class="addContainer"> 
                             <h:graphicImage url="../Resources/Images/add.png" id="add"/> 
                         </div>

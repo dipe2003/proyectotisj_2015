@@ -16,18 +16,18 @@ public class Usuario implements Serializable{
     private String NombreUsuario;
     private String CorreoUsuario;
     private String PasswordUsuario;
-    private String ImagenURL;
+    private String ImagenUsuario;
     private int CedulaUsuario;
     
     public Usuario() { }
 
-    public Usuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario) {
+    public Usuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
         this.NickUsuario = NickUsuario;
         this.NombreUsuario = NombreUsuario;
         this.CorreoUsuario = CorreoUsuario;
         this.PasswordUsuario = PasswordUsuario;
         this.CedulaUsuario = CedulaUsuario;  
-        this.ImagenURL = "./Resources/Images/userProfile.jpg";
+        this.ImagenUsuario = ImagenUsuario;
     }
 
     public int getIdUsuario() { return IdUsuario; }
@@ -54,9 +54,9 @@ public class Usuario implements Serializable{
 
     public void setCedulaUsuario(int CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
     
-    public String getImagenURL(){return this.ImagenURL;}
+    public String getImagenURL(){return this.ImagenUsuario;}
     
-    public void setImagenURL(String ImagenURL){this.ImagenURL = ImagenURL;}
+    public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}
    
     
 }

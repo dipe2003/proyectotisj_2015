@@ -19,10 +19,11 @@ public class ControladorAdministrativo {
      * @param CorreoUsuario
      * @param PasswordUsuario
      * @param CedulaUsuario
+     * @param ImagenUsuario
      * @return Devuelve un Administrativo si fue creado, de lo contrario devuelve null.
      */
-    public Administrativo CrearAdministrativo(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario){
-        Administrativo admin = new Administrativo(NickUsuario,NombreUsuario,CorreoUsuario,PasswordUsuario,CedulaUsuario);
+    public Administrativo CrearAdministrativo(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
+        Administrativo admin = new Administrativo(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
         if (mAdmin.CrearAdministrativo(admin)!=-1){
             return admin;
         }

@@ -54,26 +54,29 @@ public class FacadeUsuario implements Serializable {
      * @param CedulaUsuario
      * @param Rol
      * @param FormInscripcion Strig de ubicacion del formulario de Inscripcion.
+     * @param ImagenUsuario 
      * @return -1 si no se pudo registrar.
      */
-    public int RegistrarUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String Rol, String FormInscripcion){
+    public int RegistrarUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, 
+            String Rol, String FormInscripcion, String ImagenUsuario){
+        if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(NickUsuario, PasswordUsuario, Rol)== -1) {
             switch(Rol){
                 case "Administrador":
-                    Usr = cAdministrador.CrearAdministrador(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+                    Usr = cAdministrador.CrearAdministrador(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
 
                 case "Administrativo":
-                    Usr = cAdministrativo.CrearAdministrativo(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+                    Usr = cAdministrativo.CrearAdministrativo(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
 
                 case "Docente":
-                    Usr = cDoc.CrearDocente(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+                    Usr = cDoc.CrearDocente(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
 
                 case "Estudiante":
-                    if(!FormInscripcion.isEmpty()) Usr = cEst.CrearEstudiante(FormInscripcion, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+                    if(!FormInscripcion.isEmpty()) Usr = cEst.CrearEstudiante(FormInscripcion, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
             }
         }

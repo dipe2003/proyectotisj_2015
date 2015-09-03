@@ -23,10 +23,11 @@ public class ControladorUsuario {
      * @param CorreoUsuario
      * @param PasswordUsuario
      * @param CedulaUsuario
+     * @param ImagenUsuario 
      * @return Devuelve un Usuario si fue creado, de lo contrario devuelve null.
      */
-    public Usuario CrearUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario){
-        Usuario usr = new Usuario(NickUsuario,NombreUsuario,CorreoUsuario,PasswordUsuario,CedulaUsuario);
+    public Usuario CrearUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
+        Usuario usr = new Usuario(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
         if (mUsr.CrearUsuario(usr)!=-1){
             return usr;
         }
