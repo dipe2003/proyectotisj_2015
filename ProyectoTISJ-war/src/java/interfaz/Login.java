@@ -99,8 +99,8 @@ public class Login implements Serializable {
         Roles.add("Docente");
         Roles.add("Estudiante");
         
-        fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "");
-        fUsr.RegistrarUsuario("Admtivo", "Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "");
+        fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "", "");
+        fUsr.RegistrarUsuario("Admtivo", "Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "", "");
     }
    
 }

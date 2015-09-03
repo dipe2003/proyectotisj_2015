@@ -3,12 +3,10 @@ package interfaz.Docente;
 
 import Usuario.FacadeUsuario;
 import Utilidades.FileUpload;
-import java.io.File;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.servlet.http.Part;
 
 @Named
 @SessionScoped
@@ -60,7 +58,7 @@ public class DocenteRegistroBean implements Serializable{
     public void setPasswordDocente(String PasswordDocente) {this.PasswordDocente = PasswordDocente;}
                
     public String registrarDocente(){      
-        if(fUsr.RegistrarUsuario(NickDocente, NombreDocente, CorreoDocente, PasswordDocente, CedulaDocente, "Docente", "ubicacion_contrato")!=-1){
+        if(fUsr.RegistrarUsuario(NickDocente, NombreDocente, CorreoDocente, PasswordDocente, CedulaDocente, "Docente", "" ,"ubicacion_imagen" )!=-1){
             return "registrado";
         }        
         return "";
