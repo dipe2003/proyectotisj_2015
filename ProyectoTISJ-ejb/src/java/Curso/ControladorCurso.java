@@ -22,8 +22,8 @@ public class ControladorCurso {
      * @param AsignaturaCurso
      * @return Devuelve un Curso si fue creado, de lo contrario devuelve null.
      */
-    public Curso CrearCurso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso){
-        Curso curso = new Curso(SemestreCurso, AnioCurso, DocenteCurso, AsignaturaCurso);
+    public Curso CrearCurso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso, String ContratoDocenteCurso){
+        Curso curso = new Curso(SemestreCurso, AnioCurso, DocenteCurso, AsignaturaCurso, ContratoDocenteCurso);
         if (mDoc.CrearCurso(curso)!=-1){
             return curso;
         }

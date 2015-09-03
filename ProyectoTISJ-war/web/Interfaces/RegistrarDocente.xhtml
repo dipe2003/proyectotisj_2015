@@ -4,7 +4,29 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <ui:define name="interfazDocente">
-        <h:outputLabel value="Interfaz Docente" />
+        <div id="titulo">
+            Registrar Nuevo Docente
+        </div>
+        <div id="inputBox">
+            <h:form>
+                <h:outputLabel value="Nombre: "/><br></br>
+                    <h:inputText value="#{docenteRegistroBean.nombreDocente}" required="true" requiredMessage="Debes ingresar un nombre."/><br></br>
+                <h:outputLabel value="Nickname: "/><br></br>
+                    <h:inputText value="#{docenteRegistroBean.nickDocente}" required="true" requiredMessage="Debes ingresar un nickname."/><br></br>
+                <h:outputLabel value="Correo "/><br></br>
+                    <h:inputText value="#{docenteRegistroBean.correoDocente}" required="true" requiredMessage="Debes ingresar un correo."/><br></br>
+                <h:outputLabel value="Cedula: "/><br></br>
+                    <h:inputText value="#{docenteRegistroBean.cedulaDocente}" required="true" requiredMessage="Debes ingresar una cedula." /><br></br>
+                <h:outputLabel value="Contrato: "/><br></br>
+                <input type="file" name="Contrato" value="#{docenteRegistroBean.uploadedFile}" width="75" required="true" requiredMessage="Debes ingresar un contrato."/><br></br>
+                <h:outputLabel value="Contraseña: "/><br></br>
+                    <h:inputSecret value="#{docenteRegistroBean.passwordDocente}" required="true" requiredMessage="Debes ingresar una contraseña." /><br></br>
+                 
+                <h:commandButton action="#{docenteRegistroBean.registrarDocente()}" type="submit" value="Registrar"/>                    
+                <h:commandButton type="reset" value="Reset"/>                    
+            </h:form>
+        </div>        
+        
     </ui:define>
 </ui:composition>
 

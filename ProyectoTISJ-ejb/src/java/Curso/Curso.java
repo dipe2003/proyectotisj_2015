@@ -21,6 +21,7 @@ public class Curso implements Serializable{
     private int IdCurso;
     private int SemestreCurso;
     private int AnioCurso;
+    private String ContratoDocenteCurso;
     
     @OneToOne
     private Docente DocenteCurso;
@@ -31,12 +32,13 @@ public class Curso implements Serializable{
     @OneToMany
     private List<Estudiante> EstudiantesCurso;
 
-    public Curso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso) {
+    public Curso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso, String ContratoDocenteCurso) {
         this.SemestreCurso = SemestreCurso;
         this.AnioCurso = AnioCurso;
         this.DocenteCurso = DocenteCurso;
         this.AsignaturaCurso = AsignaturaCurso;
         this.EstudiantesCurso = new ArrayList<>();
+        this.ContratoDocenteCurso = ContratoDocenteCurso;
     }
 
     public Curso() {}
@@ -60,6 +62,10 @@ public class Curso implements Serializable{
     public Asignatura getAsignaturaCurso() {return AsignaturaCurso;}
 
     public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
+
+    public String getContratoDocenteCurso() {return ContratoDocenteCurso;}
+
+    public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     
     public void addEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.add(EstudianteCurso);}
     

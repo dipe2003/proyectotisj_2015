@@ -53,10 +53,10 @@ public class FacadeUsuario implements Serializable {
      * @param PasswordUsuario
      * @param CedulaUsuario
      * @param Rol
-     * @param Extra Strig de ubicacion del formualrio de Inscripcion (Estudiante) o Contrato (Docente).
+     * @param FormInscripcion Strig de ubicacion del formulario de Inscripcion.
      * @return -1 si no se pudo registrar.
      */
-    public int RegistrarUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String Rol, String Extra){
+    public int RegistrarUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String Rol, String FormInscripcion){
         Usuario Usr = null;
         if (ExisteUsuario(NickUsuario, PasswordUsuario, Rol)== -1) {
             switch(Rol){
@@ -69,11 +69,11 @@ public class FacadeUsuario implements Serializable {
                     break;
 
                 case "Docente":
-                    if(!Extra.isEmpty()) Usr = cDoc.CrearDocente(Extra, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+                    Usr = cDoc.CrearDocente(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
                     break;
 
                 case "Estudiante":
-                    if(!Extra.isEmpty()) Usr = cEst.CrearEstudiante(Extra, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
+                    if(!FormInscripcion.isEmpty()) Usr = cEst.CrearEstudiante(FormInscripcion, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario);
                     break;
             }
         }

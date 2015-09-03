@@ -27,13 +27,96 @@
     width: 100%;
 }
 
+.nombreDocente:hover{
+    text-shadow: 0px 0px 10px white;
+}
+
+.imagenDocente{
+    width:100%;
+    height:150px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    -webkit-filter: blur(50px);
+    overflow:hidden;
+}
+
 .addContainer{
     background-color: #37474F;
     line-height: 350px;
     height: 300px;
 }
 
+.optionContainer{
+    background-color: rgba(55,71,79,0.7);
+    width: 100%;
+    height: 150px;
+    display: none;   
+}
+
+.optionButton{
+    width: 100px;
+    height: 150px;
+    display: block;
+    text-align: center;
+    float: left;
+}
+
+.optButtonImagen{
+    width: 100%;
+    position: relative;
+    height: 75px;
+    line-height: 150px;
+}
+
+.optButtonTexto{
+    font-size:14px;
+    font-family:myFirstFont;
+    text-align:center;
+    color: white;
+    height: 75px;
+}
+
+.asignaturaContainer{
+    overflow: auto;
+    height: 150px;
+    width: 200px; /*215px; quita scrollbar*/
+}
+
+.nombreAsignatura{
+    z-index: 2;
+    position:relative;
+    top:0px;
+    font-size:20px;
+    font-family:myFirstFont;
+    text-align:center;
+    color:#222933;
+    border-bottom:rgba(0, 0, 0, 0.3) 1px solid;
+}
+
+.nombreAsignatura:hover{
+    background-color: #222933;
+    color: #FFFFFF;
+}
+
 @font-face {
     font-family: RobotoBold;
     src: url(../Fonts/Roboto-Bold.ttf);
 }
+
+#titulo{
+    font-family: RobotoBold;
+    color: #37474f;
+    font-size: 30px;
+    text-align: center;    
+}
+
+#inputBox{
+    font-family: RobotoRegular;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #37474F;    
+}
+
+

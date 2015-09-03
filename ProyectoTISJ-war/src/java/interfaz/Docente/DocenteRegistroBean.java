@@ -1,25 +1,35 @@
 
 package interfaz.Docente;
 
-import Docente.Docente;
+import Usuario.FacadeUsuario;
+import Utilidades.FileUpload;
+import java.io.File;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 @Named
 @SessionScoped
-public class DocenteBean implements Serializable{
-    
+public class DocenteRegistroBean implements Serializable{
+        
     private String NickDocente;
     private String NombreDocente; 
     private String ImagenDocente;
     private String CorreoDocente;
     private int CedulaDocente;
+    private String ContratoDocente;
+    private String PasswordDocente;
     
-    public DocenteBean() {}
+    
+    @EJB
+    private FacadeUsuario fUsr;
+    
+    @EJB
+    private FileUpload fUp;
+    
+    public DocenteRegistroBean() {}
 
     public String getNickDocente() {return NickDocente;}
 
@@ -40,18 +50,20 @@ public class DocenteBean implements Serializable{
     public int getCedulaDocente() {return CedulaDocente;}
 
     public void setCedulaDocente(int CedulaDocente) {this.CedulaDocente = CedulaDocente;}
-        
-    @PostConstruct
-    public void init(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        Docente  Doc = (Docente)request.getSession().getAttribute("Docente");
-        this.NickDocente = Doc.getNickUsuario();
-        this.NombreDocente = Doc.getNombreUsuario();
-        this.ImagenDocente = Doc.getImagenURL();
-        this.CorreoDocente = Doc.getCorreoUsuario();
-        this.CedulaDocente = Doc.getCedulaUsuario();
-    }
-    
+
+    public String getContratoDocente() {return ContratoDocente;}
+
+    public void setContratoDocente(String ContratoDocente) {this.ContratoDocente = ContratoDocente;}
+
+    public String getPasswordDocente() {return PasswordDocente;}
+
+    public void setPasswordDocente(String PasswordDocente) {this.PasswordDocente = PasswordDocente;}
+               
+    public String registrarDocente(){      
+        if(fUsr.RegistrarUsuario(NickDocente, NombreDocente, CorreoDocente, PasswordDocente, CedulaDocente, "Docente", "ubicacion_contrato")!=-1){
+            return "registrado";
+        }        
+        return "";
+    }    
     
 }
