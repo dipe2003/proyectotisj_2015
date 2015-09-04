@@ -8,13 +8,14 @@ import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FilenameUtils;
 
 @Named
 @Stateless
 @SessionScoped
 public class FileUpload implements Serializable{
 
-    private String homeDir = System.getProperty("user.home");
+    private String homeDir = System.getProperty("user.dir");
     private String separator = System.getProperty("file.separator");
 
     public FileUpload() {}    
@@ -30,11 +31,13 @@ public class FileUpload implements Serializable{
      */
     public String getSeparator(){return separator;}
     /**
-     * Crea el directorio y el archivo de propiedades si estos no estan creados.
+     * Crea el directorio (si no existe) y guarda el archivo. <b>Si existe el archivo se sobreescribe</b>
      * @param Archivo 
-     * @param DirectorioArchivo 
+     * @param DirectorioArchivo
+     * @param NombreArchivo Nombre delk archivo extension
+     * @return Devuelve la ubicacion del archivo guardado. Null si no se pudo guardar.
      */
-    public void guardarArchivo(String DirectorioArchivo, Part Archivo){
+    public String guardarArchivo(String DirectorioArchivo, Part Archivo, String NombreArchivo){
         try{
             Path path = Paths.get(homeDir+separator+DirectorioArchivo+separator);
             try{
@@ -43,10 +46,15 @@ public class FileUpload implements Serializable{
                 System.out.println("Error al subir el archivo: " + e.getMessage());
             }
             InputStream input = Archivo.getInputStream();
+            String extensionArchivo = FilenameUtils.getExtension(Archivo.getSubmittedFileName());
+            NombreArchivo += "."+extensionArchivo;
+            path = Paths.get(path.toString()+separator+NombreArchivo);
             Files.copy(input, path, StandardCopyOption.REPLACE_EXISTING);
+            return path.toString();
         }catch(Exception err){
             System.out.println("Error: "+err.getMessage());
         }
+        return null;
     }
     
 }
