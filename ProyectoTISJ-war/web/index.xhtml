@@ -2,27 +2,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"          
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" >
     <h:head>
         <title>Facelet Title</title>        
     </h:head>
     <h:body>
-        <h:form style="text-align: center">
-            <h:panelGrid columns="2" border="1"  id="customLayoutStyles">
-                <h:outputText style="font-family: sans-serif" value="Usuario:"/>
-                <h:inputText label="Usuario" id="nick" value="#{login.usuario}" required="true" requiredMessage="Falta ingresar Nickname."/>
-                <h:outputText style="font-family: sans-serif" value="Password:"/>
-                <h:inputSecret label="Password" id="Password" value="#{login.password}" required="true" requiredMessage="Falta ingresar Password."/>                    
-                <p:selectOneRadio id="chkHabilidades" value="#{login.rolSeleccionado}" >
-                    <f:selectItems value="#{login.roles}"/>
-                </p:selectOneRadio>
+        <div style="font-family: sans-serif; font-size: 14px; color: #ffffff; background-color: #37474F;">
+            <h:form style="text-align: center" rendered="#{!login.usuarioLogueado}">
+                <table border="1" cellspacing="2" cellpadding="1">
+                    <tbody>
+                        <tr>
+                            <td><h:outputText value="Usuario:"/></td>
+                            <td><h:inputText style="width: 98%; background-color: transparent; color: #ffffff;" label="Usuario" value="#{login.usuario}" 
+                                             required="true" requiredMessage="Falta ingresar Nickname."/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputText value="Password:"/></td>
+                            <td><h:inputSecret style="width: 98%;background-color: transparent; color: #ffffff" label="Password" id="Password" value="#{login.password}" 
+                                               required="true" requiredMessage="Falta ingresar Password."/></td>
+                        </tr>
+                        <tr>
+                            <td>Rol</td>
+                            <td><h:selectOneRadio value="#{login.rolSeleccionado}">
+                                    <f:selectItems value="#{login.roles}"/>
+                                </h:selectOneRadio></td>
+                        </tr>
+                    </tbody>
+                </table>                
                 <h:panelGroup style="display:block; text-align:center">
-                    <h:commandButton style="font-family: sans-serif" type="submit" value="Ingresar" action="#{login.login()}"/>
-                </h:panelGroup>
-            </h:panelGrid>        
-        </h:form>
-        
+                    <h:commandButton type="submit" value="Ingresar" action="#{login.login()}"/>
+                </h:panelGroup>    
+            </h:form>
+        </div>
+        <div>
+            <h:form rendered="#{login.usuarioLogueado}">
+                <h:outputText value="Ya estas logueado"/>
+                <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
+            </h:form>
+        </div>
     </h:body>
 </html>
 

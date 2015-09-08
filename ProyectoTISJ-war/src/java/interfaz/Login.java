@@ -25,45 +25,33 @@ public class Login implements Serializable {
    private String Password;
    private List<String> Roles;
    private String RolSeleccionado;
+   private boolean UsuarioLogueado;
    
    @EJB
    private FacadeUsuario fUsr;
 
-    public Login() {
-    }
+    public Login() {}
 
-    public String getRolSeleccionado() {
-        return RolSeleccionado;
-    }
+    public String getRolSeleccionado() {return RolSeleccionado;}
 
-    public void setRolSeleccionado(String RolSeleccionado) {
-        this.RolSeleccionado = RolSeleccionado;
-    }
+    public void setRolSeleccionado(String RolSeleccionado) {this.RolSeleccionado = RolSeleccionado;}
 
-    public String getUsuario() {
-        return Usuario;
-    }
+    public String getUsuario() {return Usuario;}
 
-    public void setUsuario(String Usuario) {
-        this.Usuario = Usuario;
-    }
+    public void setUsuario(String Usuario) {this.Usuario = Usuario;}
 
-    public String getPassword() {
-        return Password;
-    }
+    public String getPassword() {return Password;}
 
-    public void setPassword(String Password) {
-        this.Password = Password;
-    }
+    public void setPassword(String Password) {this.Password = Password;}
 
-    public List<String> getRoles() {
-        return Roles;
-    }
+    public List<String> getRoles() {return Roles;}
 
-    public void setRoles(List<String> Roles) {
-        this.Roles = Roles;
-    }
-    
+    public void setRoles(List<String> Roles) {this.Roles = Roles;}
+
+    public boolean isUsuarioLogueado() {return UsuarioLogueado;}
+
+    public void setUsuarioLogueado(boolean UsuarioLogueado) {this.UsuarioLogueado = UsuarioLogueado;}
+        
     public String login(){
         int idUsr= fUsr.ExisteUsuario(Usuario, Password, RolSeleccionado);        
         if (idUsr!= -1) {            
@@ -73,21 +61,33 @@ public class Login implements Serializable {
             switch(RolSeleccionado){
                 case "Administrador":
                     request.getSession().setAttribute("Administrador", (Administrador) Usr);
+                    this.UsuarioLogueado = true;
                     return "homeAdministrador";
                     
                 case "Administrativo":
                     request.getSession().setAttribute("Administrativo", (Administrativo) Usr);
+                    this.UsuarioLogueado = true;
                     return "homeAdministrativo";
                     
                 case "Docente":
                     request.getSession().setAttribute("Docente", (Docente) Usr);
+                    this.UsuarioLogueado = true;
                     return "homeDocente";
                     
                 case "Estudiante":
                     request.getSession().setAttribute("Estudiante", (Estudiante) Usr);
+                    this.UsuarioLogueado = true;
                     return "homeEstudiante";
             }
         }        
+        return "nologueado";
+    }
+    
+    public String logout(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        request.getSession().invalidate();
+        this.UsuarioLogueado = false;
         return "nologueado";
     }
    
