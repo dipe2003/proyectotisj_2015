@@ -25,11 +25,13 @@ public class FileUpload implements Serializable{
      * @return directorio de usuario (home)
      */
     public String getHome(){return homeDir;}
+    
     /**
-     * Devuelve el valor del caracter separador ("/"-"\")
+     * Devuelve el valor del caracter separador ("/"-"\") del sistema operativo del host
      * @return caracter separador
      */
     public String getSeparator(){return separator;}
+    
     /**
      * Crea el directorio (si no existe) y guarda el archivo. <b>Si existe el archivo se sobreescribe</b>
      * @param Archivo 
@@ -39,7 +41,7 @@ public class FileUpload implements Serializable{
      */
     public String guardarArchivo(String DirectorioArchivo, Part Archivo, String NombreArchivo){
         try{
-            Path path = Paths.get(homeDir+separator+DirectorioArchivo+separator);
+            Path path = Paths.get(homeDir+separator+"images"+separator+DirectorioArchivo+separator);
             try{
                 Files.createDirectory(path);
             }catch(Exception e){

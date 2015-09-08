@@ -12,7 +12,6 @@ public class Usuario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int IdUsuario;
-    private String NickUsuario;
     private String NombreUsuario;
     private String CorreoUsuario;
     private String PasswordUsuario;
@@ -21,8 +20,7 @@ public class Usuario implements Serializable{
     
     public Usuario() { }
 
-    public Usuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
-        this.NickUsuario = NickUsuario;
+    public Usuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
         this.NombreUsuario = NombreUsuario;
         this.CorreoUsuario = CorreoUsuario;
         this.PasswordUsuario = PasswordUsuario;
@@ -33,10 +31,6 @@ public class Usuario implements Serializable{
     public int getIdUsuario() { return IdUsuario; }
 
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
-
-    public String getNickUsuario() {return NickUsuario;}
-
-    public void setNickUsuario(String NickUsuario) {this.NickUsuario = NickUsuario;}
 
     public String getNombreUsuario() {return NombreUsuario;}
 
@@ -56,7 +50,6 @@ public class Usuario implements Serializable{
     
     public String getImagenURL(){return this.ImagenUsuario;}
     
-    public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}
-   
+    public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}   
     
 }

@@ -13,17 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class AdministrativoBean implements Serializable{
     
-    private String NickAdministrativo;
     private String NombreAdministrativo; 
     private String ImagenAdministrativo;
     private String CorreoAdministrativo;
-    private int CedulaAdministrativo;
+    private String CedulaAdministrativo;
     
     public AdministrativoBean() {}
-
-    public String getNickAdministrativo() {return NickAdministrativo;}
-
-    public void setNickAdministrativo(String NickAdministrativo) {this.NickAdministrativo = NickAdministrativo;}
 
     public String getNombreAdministrativo() {return NombreAdministrativo;}
 
@@ -37,21 +32,19 @@ public class AdministrativoBean implements Serializable{
 
     public void setCorreoAdministrativo(String CorreoAdministrativo) {this.CorreoAdministrativo = CorreoAdministrativo;}
 
-    public int getCedulaAdministrativo() {return CedulaAdministrativo;}
+    public String getCedulaAdministrativo() {return CedulaAdministrativo;}
 
-    public void setCedulaAdministrativo(int CedulaAdministrativo) {this.CedulaAdministrativo = CedulaAdministrativo;}
+    public void setCedulaAdministrativo(String CedulaAdministrativo) {this.CedulaAdministrativo = CedulaAdministrativo;}
     
     @PostConstruct
     public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Administrativo  Admin = (Administrativo)request.getSession().getAttribute("Administrativo");
-        this.NickAdministrativo = Admin.getNickUsuario();
         this.NombreAdministrativo = Admin.getNombreUsuario();
         this.ImagenAdministrativo = Admin.getImagenURL();
         this.CorreoAdministrativo = Admin.getCorreoUsuario();
-        this.CedulaAdministrativo = Admin.getCedulaUsuario();
-    }
-    
+        this.CedulaAdministrativo = String.valueOf(Admin.getCedulaUsuario());
+    }    
     
 }

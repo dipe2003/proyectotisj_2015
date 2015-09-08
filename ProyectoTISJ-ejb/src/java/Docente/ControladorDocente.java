@@ -14,7 +14,6 @@ public class ControladorDocente {
     
     /**
      * Crea un Docente y lo persiste.
-     * @param NickUsuario
      * @param NombreUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
@@ -22,8 +21,8 @@ public class ControladorDocente {
      * @param ImagenUsuario
      * @return Devuelve un Docente si fue creado, de lo contrario devuelve null.
      */
-    public Docente CrearDocente(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
-        Docente doc = new Docente(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+    public Docente CrearDocente(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
+        Docente doc = new Docente(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
         if (mDoc.CrearDocente(doc)!=-1){
             return doc;
         }

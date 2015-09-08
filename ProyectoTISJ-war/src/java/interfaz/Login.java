@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @Named("login")
 @SessionScoped
 public class Login implements Serializable {
-   private String Usuario;
+   private String Cedula;
    private String Password;
    private List<String> Roles;
    private String RolSeleccionado;
@@ -36,9 +36,9 @@ public class Login implements Serializable {
 
     public void setRolSeleccionado(String RolSeleccionado) {this.RolSeleccionado = RolSeleccionado;}
 
-    public String getUsuario() {return Usuario;}
+    public String getUsuario() {return Cedula;}
 
-    public void setUsuario(String Usuario) {this.Usuario = Usuario;}
+    public void setUsuario(String Usuario) {this.Cedula = Usuario;}
 
     public String getPassword() {return Password;}
 
@@ -53,7 +53,7 @@ public class Login implements Serializable {
     public void setUsuarioLogueado(boolean UsuarioLogueado) {this.UsuarioLogueado = UsuarioLogueado;}
         
     public String login(){
-        int idUsr= fUsr.ExisteUsuario(Usuario, Password, RolSeleccionado);        
+        int idUsr= fUsr.ExisteUsuario(Integer.valueOf(Cedula), Password, RolSeleccionado);        
         if (idUsr!= -1) {            
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -98,9 +98,10 @@ public class Login implements Serializable {
         Roles.add("Administrativo");
         Roles.add("Docente");
         Roles.add("Estudiante");
+        RolSeleccionado = Roles.get(0);
         
-        fUsr.RegistrarUsuario("Admin", "Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "", "");
-        fUsr.RegistrarUsuario("Admtivo", "Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "", "");
+        fUsr.RegistrarUsuario("Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "", "");
+        fUsr.RegistrarUsuario("Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "", "");
     }
    
 }

@@ -12,19 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 @Named
 @SessionScoped
 public class EstudianteBean implements Serializable{
-    
-    private String NickEstudiante;
+
     private String NombreEstudiante; 
     private String ImagenEstudiante;
     private String CorreoEstudiante;
-    private int CedulaEstudiante;
+    private String CedulaEstudiante;
     private String FormInscripcion;
     
     public EstudianteBean() {}
-
-    public String getNickEstudiante() {return NickEstudiante;}
-
-    public void setNickEstudiante(String NickEstudiante) {this.NickEstudiante = NickEstudiante;}
 
     public String getNombreEstudiante() {return NombreEstudiante;}
 
@@ -38,9 +33,9 @@ public class EstudianteBean implements Serializable{
 
     public void setCorreoEstudiante(String CorreoEstudiante) {this.CorreoEstudiante = CorreoEstudiante;}
 
-    public int getCedulaEstudiante() {return CedulaEstudiante;}
+    public String getCedulaEstudiante() {return CedulaEstudiante;}
 
-    public void setCedulaEstudiante(int CedulaEstudiante) {this.CedulaEstudiante = CedulaEstudiante;}
+    public void setCedulaEstudiante(String CedulaEstudiante) {this.CedulaEstudiante = CedulaEstudiante;}
 
     public String getFormInscripcion() {return FormInscripcion;}
 
@@ -51,11 +46,10 @@ public class EstudianteBean implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Estudiante  Est = (Estudiante)request.getSession().getAttribute("Estudiante");
-        this.NickEstudiante = Est.getNickUsuario();
         this.NombreEstudiante = Est.getNombreUsuario();
         this.ImagenEstudiante = Est.getImagenURL();
         this.CorreoEstudiante = Est.getCorreoUsuario();
-        this.CedulaEstudiante = Est.getCedulaUsuario();
+        this.CedulaEstudiante = String.valueOf(Est.getCedulaUsuario());
         this.FormInscripcion = Est.getFormInscripcion();
     }
     

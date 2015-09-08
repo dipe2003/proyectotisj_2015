@@ -31,13 +31,13 @@ public class FacadeUsuario implements Serializable {
     
     /**
      * Devuelve el id del usuario especificado si existe.
-     * @param NickUsuario
+     * @param CedulaUsuario
      * @param Password
      * @param Rol
      * @return -1 si no existe.
      */
-    public int ExisteUsuario(String NickUsuario, String Password, String Rol){
-        Usuario usuario = cUsr.ExisteUsuario(NickUsuario, Password, Rol);
+    public int ExisteUsuario(int CedulaUsuario, String Password, String Rol){
+        Usuario usuario = cUsr.ExisteUsuario(CedulaUsuario, Password, Rol);
         if (usuario != null) {
             return usuario.getIdUsuario();
         }else{
@@ -47,7 +47,6 @@ public class FacadeUsuario implements Serializable {
     
     /**
      * Devuelve el id del usuario registrado.
-     * @param NickUsuario
      * @param NombreUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
@@ -57,26 +56,26 @@ public class FacadeUsuario implements Serializable {
      * @param ImagenUsuario 
      * @return -1 si no se pudo registrar.
      */
-    public int RegistrarUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, 
+    public int RegistrarUsuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, 
             String Rol, String FormInscripcion, String ImagenUsuario){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
-        if (ExisteUsuario(NickUsuario, PasswordUsuario, Rol)== -1) {
+        if (ExisteUsuario(CedulaUsuario, PasswordUsuario, Rol)== -1) {
             switch(Rol){
                 case "Administrador":
-                    Usr = cAdministrador.CrearAdministrador(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
 
                 case "Administrativo":
-                    Usr = cAdministrativo.CrearAdministrativo(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
 
                 case "Docente":
-                    Usr = cDoc.CrearDocente(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    Usr = cDoc.CrearDocente(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
 
                 case "Estudiante":
-                    if(!FormInscripcion.isEmpty()) Usr = cEst.CrearEstudiante(FormInscripcion, NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    if(!FormInscripcion.isEmpty()) Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
             }
         }

@@ -1,7 +1,6 @@
 
 package Estudiante;
 
-import Encuesta.Encuesta;
 import Evaluacion.Evaluacion;
 import Respuesta.Respuesta;
 import Usuario.Usuario;
@@ -20,8 +19,8 @@ public class Estudiante extends Usuario {
     @OneToMany
     private List<Respuesta> RespuestasEstudiante;
 
-    public Estudiante(String FormInscripcion, String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
-        super(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+    public Estudiante(String FormInscripcion, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
+        super(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
         this.FormInscripcion = FormInscripcion;
         this.EvaluacionesEstudiante = new ArrayList<>();
         this.RespuestasEstudiante = new ArrayList<>();

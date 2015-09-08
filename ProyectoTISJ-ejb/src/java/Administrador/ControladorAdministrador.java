@@ -14,7 +14,6 @@ public class ControladorAdministrador {
     
     /**
      * Crea un Administrador y lo persiste.
-     * @param NickUsuario
      * @param NombreUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
@@ -22,8 +21,8 @@ public class ControladorAdministrador {
      * @param ImagenUsuario
      * @return Devulve un Admininstrador si fue creado, de lo contrario devuelve null.
      */
-    public Administrador CrearAdministrador(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario,  int CedulaIdentidadUsuario, String ImagenUsuario){
-        Administrador admin = new Administrador(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario,  CedulaIdentidadUsuario, ImagenUsuario);
+    public Administrador CrearAdministrador(String NombreUsuario, String CorreoUsuario, String PasswordUsuario,  int CedulaIdentidadUsuario, String ImagenUsuario){
+        Administrador admin = new Administrador(NombreUsuario, CorreoUsuario, PasswordUsuario,  CedulaIdentidadUsuario, ImagenUsuario);
         if (mAdmin.CrearAdministrador(admin)!=-1) {
             return admin;
         }

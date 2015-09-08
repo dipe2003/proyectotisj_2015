@@ -13,17 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class DocenteBean implements Serializable{
     
-    private String NickDocente;
     private String NombreDocente; 
     private String ImagenDocente;
     private String CorreoDocente;
     private int CedulaDocente;
     
     public DocenteBean() {}
-
-    public String getNickDocente() {return NickDocente;}
-
-    public void setNickDocente(String NickDocente) {this.NickDocente = NickDocente;}
 
     public String getNombreDocente() {return NombreDocente;}
 
@@ -46,7 +41,6 @@ public class DocenteBean implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Docente  Doc = (Docente)request.getSession().getAttribute("Docente");
-        this.NickDocente = Doc.getNickUsuario();
         this.NombreDocente = Doc.getNombreUsuario();
         this.ImagenDocente = Doc.getImagenURL();
         this.CorreoDocente = Doc.getCorreoUsuario();

@@ -18,7 +18,6 @@ public class ControladorUsuario {
     
     /**
      * Crea un Usuario y lo persiste.
-     * @param NickUsuario
      * @param NombreUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
@@ -26,8 +25,8 @@ public class ControladorUsuario {
      * @param ImagenUsuario 
      * @return Devuelve un Usuario si fue creado, de lo contrario devuelve null.
      */
-    public Usuario CrearUsuario(String NickUsuario, String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
-        Usuario usr = new Usuario(NickUsuario, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+    public Usuario CrearUsuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
+        Usuario usr = new Usuario(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
         if (mUsr.CrearUsuario(usr)!=-1){
             return usr;
         }
@@ -63,13 +62,13 @@ public class ControladorUsuario {
     
     /**
      * Devuelve el usuario que coincida con los datos especificados.
-     * @param NickName
+     * @param Cedula
      * @param Password
      * @param Rol
      * @return Devuelve null si no existe.
      */
-    public Usuario ExisteUsuario(String NickName, String Password, String Rol){
-        List<Usuario> Usuarios = mUsr.BuscarUsuario(NickName, Password);
+    public Usuario ExisteUsuario(int Cedula, String Password, String Rol){
+        List<Usuario> Usuarios = mUsr.BuscarUsuario(Cedula, Password);
         if (!Usuarios.isEmpty()) {
             for (int i = 0; i < Usuarios.size(); i++) {
                 if (EsRol(Usuarios.get(i), Rol)) {
