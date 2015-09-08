@@ -105,16 +105,78 @@
     src: url(../Fonts/Roboto-Bold.ttf);
 }
 
-#titulo{
-    font-family: RobotoBold;
-    color: #37474f;
-    font-size: 30px;
-    text-align: center;    
+@font-face {
+    font-family: RobotoRegular;
+    src: url(../Fonts/Roboto-Regular.ttf);
 }
 
-#inputBox{
+#menuContainer{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.menuOpcion{
+    width: 300px;
+    height: 300px;
+    background-color: #222933;
+    float: left;
+    margin: 5px;
+    display: inline;
+}
+
+.imagenMenuOpcion{
+    height: 200px;
+}
+
+.Texto{
+    margin: 10px;
+    width: 80%;
+    height: 30px;
     font-family: RobotoRegular;
-    font-size: 14px;
-    color: #ffffff;
-    background-color: #37474F;
+    color: #FFFFFF;
+    background-color: transparent;
+    border-color: #FFFFFF;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.Texto:focus{
+    color: #222933;
+    background-color: #FFFFFF;
+}
+
+.boton{    
+    text-align: center;
+    width: 100px;    
+    height: 50px;    
+    background-color: white;    
+    border: none;
+    font-family: RobotoRegular;
+    font-size: 16px;
+    color: #222933;
+}
+
+.boton:active{
+    background-color: #222933;
+    border: white solid 1px;
+    color: #FFFFFF;
+}
+
+input:-webkit-autofill {
+    color: #2a2a2a !important; 
+}
+
+.subirImagen{
+    overflow: hidden;
+    opacity: 0;
+}
+
+.botonImagen{
+    background-image: url(../Images/upload.png);
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 50px;
+    margin: 0 auto;
 }
