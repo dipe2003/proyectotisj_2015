@@ -52,4 +52,8 @@ public class Usuario implements Serializable{
     
     public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}   
     
+    public boolean isValidPass(String Password){
+        return Password.equals(this.PasswordUsuario);
+    }
+    
 }

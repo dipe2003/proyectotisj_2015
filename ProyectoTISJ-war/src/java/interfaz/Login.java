@@ -100,7 +100,7 @@ public class Login implements Serializable {
         Roles.add("Estudiante");
         RolSeleccionado = Roles.get(0);
         
-        fUsr.RegistrarUsuario("Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "", "");
+        fUsr.RegistrarUsuario("Administrador", "Admin@strador.edu.uy", "1234", 12345672, "Administrador", "", "");
         fUsr.RegistrarUsuario("Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "", "");
     }
    
