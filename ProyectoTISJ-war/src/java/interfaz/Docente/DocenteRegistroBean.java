@@ -3,7 +3,7 @@ package interfaz.Docente;
 
 import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
-import Utilidades.FileUpload;
+import interfaz.FileUpload;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;

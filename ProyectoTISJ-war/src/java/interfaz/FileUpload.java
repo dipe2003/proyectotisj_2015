@@ -1,12 +1,14 @@
 
-package Utilidades;
+package interfaz;
 
 import java.io.InputStream;
 import java.io.Serializable;
 import java.nio.file.*;
 import javax.ejb.Stateless;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 import org.apache.commons.io.FilenameUtils;
 
@@ -15,7 +17,7 @@ import org.apache.commons.io.FilenameUtils;
 @SessionScoped
 public class FileUpload implements Serializable{
 
-    private String homeDir = System.getProperty("user.dir");
+    private String homeDir = System.getProperty("user.home");
     private String separator = System.getProperty("file.separator");
 
     public FileUpload() {}    
@@ -41,18 +43,22 @@ public class FileUpload implements Serializable{
      */
     public String guardarArchivo(String DirectorioArchivo, Part Archivo, String NombreArchivo){
         try{
-            Path path = Paths.get(homeDir+separator+"images"+separator+DirectorioArchivo+separator);
-            try{
-                Files.createDirectory(path);
-            }catch(Exception e){
-                System.out.println("Error al subir el archivo: " + e.getMessage());
-            }
+            ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+            String resPath = "Resources"+separator+"Images"+separator+DirectorioArchivo+separator;
+            String realPath = context.getRealPath(separator)+separator+resPath;
             InputStream input = Archivo.getInputStream();
             String extensionArchivo = FilenameUtils.getExtension(Archivo.getSubmittedFileName());
             NombreArchivo += "."+extensionArchivo;
-            path = Paths.get(path.toString()+separator+NombreArchivo);
+            Path real = Paths.get(realPath);
+            try{
+                Files.createDirectory(real);
+            }catch(Exception e){
+                System.out.println("Error al subir el archivo: " + e.getMessage());
+            }
+            Path path = Paths.get(realPath+separator+NombreArchivo);
             Files.copy(input, path, StandardCopyOption.REPLACE_EXISTING);
-            return path.toString();
+            realPath = "../"+resPath.replace(separator, "/")+NombreArchivo;
+            return realPath;
         }catch(Exception err){
             System.out.println("Error: "+err.getMessage());
         }

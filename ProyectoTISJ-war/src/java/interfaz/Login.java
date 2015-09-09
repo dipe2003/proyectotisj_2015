@@ -57,6 +57,7 @@ public class Login implements Serializable {
         if (idUsr!= -1) {            
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            
             Usuario Usr = fUsr.BuscarUsuario(idUsr);
             switch(RolSeleccionado){
                 case "Administrador":
