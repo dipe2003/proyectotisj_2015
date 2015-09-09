@@ -72,7 +72,7 @@
 
 .optButtonTexto{
     font-size:14px;
-    font-family:myFirstFont;
+    font-family:RobotoRegular;
     text-align:center;
     color: white;
     height: 75px;
@@ -89,7 +89,7 @@
     position:relative;
     top:0px;
     font-size:20px;
-    font-family:myFirstFont;
+    font-family:RobotoRegular;
     text-align:center;
     color:#222933;
     border-bottom:rgba(0, 0, 0, 0.3) 1px solid;
@@ -179,4 +179,13 @@ input:-webkit-autofill {
     width: 100px;
     height: 50px;
     margin: 0 auto;
+}
+
+.botonImagen:active{
+    background-image: url(../Images/uploadclick.png);
+}
+
+.circulo{
+    border: white solid 5px;
+    border-radius: 100%;
 }

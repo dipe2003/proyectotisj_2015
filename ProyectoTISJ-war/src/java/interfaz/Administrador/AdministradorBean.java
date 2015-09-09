@@ -2,8 +2,11 @@
 package interfaz.Administrador;
 
 import Administrador.Administrador;
+import Administrador.FacadeAdministrador;
+import Utilidades.Cedula;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -17,6 +20,12 @@ public class AdministradorBean implements Serializable{
     private String NombreAdministrador; 
     private String ImagenAdministrador;
     private String CorreoAdministrador;
+    
+   @EJB
+   private FacadeAdministrador fAdmin;
+   
+   @EJB
+   private Cedula CI;
     
     public AdministradorBean() {}
 
@@ -45,6 +54,20 @@ public class AdministradorBean implements Serializable{
         this.ImagenAdministrador = Admin.getImagenURL();
         this.CorreoAdministrador = Admin.getCorreoUsuario();
         this.CedulaAdministrador = String.valueOf(Admin.getCedulaUsuario());
-    }    
+    }
     
+    public void modificarAdministrador(String actualPass, String newPass, String confrimPass){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        Administrador  Admin = (Administrador)request.getSession().getAttribute("Administrador");
+        if ((CI.EsCedulaValida(this.CedulaAdministrador)) && (newPass.equals(confrimPass)) && (Admin.isValidPass(actualPass))){
+            Admin.setCedulaUsuario(Integer.valueOf(this.CedulaAdministrador));
+            Admin.setNombreUsuario(this.NombreAdministrador);
+            Admin.setPasswordUsuario(newPass);
+            Admin.setCorreoUsuario(this.CorreoAdministrador);
+            Admin.setImagenURL(this.ImagenAdministrador);
+            fAdmin.ModificarAdministrador(Admin);
+        }
+        
+    }  
 }
