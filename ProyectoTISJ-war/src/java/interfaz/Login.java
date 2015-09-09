@@ -57,6 +57,7 @@ public class Login implements Serializable {
         if (idUsr!= -1) {            
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            
             Usuario Usr = fUsr.BuscarUsuario(idUsr);
             switch(RolSeleccionado){
                 case "Administrador":
@@ -101,7 +102,7 @@ public class Login implements Serializable {
         RolSeleccionado = Roles.get(0);
         
         fUsr.RegistrarUsuario("Administrador", "Admin@strador.edu.uy", "1234", 1234567, "Administrador", "", "");
-        fUsr.RegistrarUsuario("Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "", "");
+        fUsr.RegistrarUsuario("Administrativo", "Admin@istrativo.edu.uy", "1234", 2345678, "Administrativo", "", "");
     }
    
 }
