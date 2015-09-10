@@ -6,7 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="interfazDocente">
-        <h:form enctype="multipart/form-data">
+        <h:form id="frmIngresoDatos" enctype="multipart/form-data">
             <div id="menuContainer">
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
@@ -14,7 +14,8 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputText value="#{docenteRegistroBean.cedulaDocente}" required="true" requiredMessage="Debes ingresar una cedula." 
-                                     p:placeholder="Cedula de Docente" class="Texto" />
+                                     p:placeholder="Cedula de Docente" class="Texto" id="inputCedula"/><br/>
+                       <h:message class="error" for="inputCedula"/>              
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -23,7 +24,7 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputText value="#{docenteRegistroBean.nombreDocente}" required="true" requiredMessage="Debes ingresar un nombre."
-                                     p:placeholder="Nombre de Docente " class="Texto"/>
+                                     p:placeholder="Nombre de Docente " class="Texto" id="inputNombre"/><br/><h:message for="inputNombre"/>
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -32,7 +33,7 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputSecret value="#{docenteRegistroBean.passwordDocente}" required="true" requiredMessage="Debes ingresar una contraseña."
-                                       p:placeholder="Contraseña de Docente" class="Texto"/>
+                                       p:placeholder="Contraseña de Docente" class="Texto" id="inputPass"/><br/><h:message for="inputPass"/>
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -41,7 +42,7 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputText value="#{docenteRegistroBean.correoDocente}" required="true" requiredMessage="Debes ingresar un correo." 
-                                     p:placeholder="Correo de Docente" class="Texto"/>
+                                     p:placeholder="Correo de Docente" class="Texto" id="inputCorreo"/><br/><h:message for="inputCorreo"/>
                     </div>
                 </div>
                 <div class="menuOpcion">

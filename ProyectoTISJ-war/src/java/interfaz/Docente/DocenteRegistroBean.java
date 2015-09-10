@@ -6,12 +6,15 @@ import Utilidades.Cedula;
 import interfaz.FileUpload;
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class DocenteRegistroBean implements Serializable{
 
     private String NombreDocente; 
@@ -64,6 +67,9 @@ public class DocenteRegistroBean implements Serializable{
                 }                
             }
         }
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
+        context.addMessage("frmIngresoDatos:inputCedula", fm);
         return "";
     }
 }
