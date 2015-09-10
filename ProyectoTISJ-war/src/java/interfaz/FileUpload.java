@@ -45,6 +45,7 @@ public class FileUpload implements Serializable{
         try{
             ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
             String resPath = "Resources"+separator+"Images"+separator+DirectorioArchivo+separator;
+            // para utilizar desde debuggin quitar el separator antes de resPath
             String realPath = context.getRealPath(separator)+separator+resPath;
             InputStream input = Archivo.getInputStream();
             String extensionArchivo = FilenameUtils.getExtension(Archivo.getSubmittedFileName());

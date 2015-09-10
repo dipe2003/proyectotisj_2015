@@ -30,14 +30,14 @@ public class FacadeUsuario implements Serializable {
     
     
     /**
-     * Devuelve el id del usuario especificado si existe.
+     * Devuelve el id del usuario especificado por su id, password y Rol, si existe.
      * @param CedulaUsuario
      * @param Password
      * @param Rol
      * @return -1 si no existe.
      */
-    public int ExisteUsuario(int CedulaUsuario, String Password, String Rol){
-        Usuario usuario = cUsr.ExisteUsuario(CedulaUsuario, Password, Rol);
+    public int ValidarLogin(int CedulaUsuario, String Password, String Rol){
+        Usuario usuario = cUsr.ValidarUsuario(CedulaUsuario, Password, Rol);
         if (usuario != null) {
             return usuario.getIdUsuario();
         }else{
@@ -60,7 +60,7 @@ public class FacadeUsuario implements Serializable {
             String Rol, String FormInscripcion, String ImagenUsuario){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
-        if (ExisteUsuario(CedulaUsuario, PasswordUsuario, Rol)== -1) {
+        if (ExisteUsuario(CedulaUsuario, Rol)== -1) {
             switch(Rol){
                 case "Administrador":
                     Usr = cAdministrador.CrearAdministrador(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
@@ -94,6 +94,22 @@ public class FacadeUsuario implements Serializable {
      */
     public Usuario BuscarUsuario(int Id){
         return cUsr.BuscarUsuario(Id);
+    }
+    
+    /**
+     * Devuelve el id del usuario especificado si existe.
+     * @param CedulaUsuario
+     * @param Password
+     * @param Rol
+     * @return -1 si no existe.
+     */
+    private int ExisteUsuario(int CedulaUsuario, String Rol){
+        Usuario usuario = cUsr.ExisteUsuario(CedulaUsuario, Rol);
+        if (usuario != null) {
+            return usuario.getIdUsuario();
+        }else{
+            return -1;
+        }
     }
     
 }

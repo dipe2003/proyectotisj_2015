@@ -57,7 +57,7 @@ public class ControladorUsuario {
      * @return Devuelve null si no se pudo encontrar.
      */
     public Usuario BuscarUsuario(int id){
-        return mUsr.BuscarUsuario(id);
+        return mUsr.BuscarUsuarioPorId(id);
     }
     
     /**
@@ -67,8 +67,26 @@ public class ControladorUsuario {
      * @param Rol
      * @return Devuelve null si no existe.
      */
-    public Usuario ExisteUsuario(int Cedula, String Password, String Rol){
-        List<Usuario> Usuarios = mUsr.BuscarUsuario(Cedula, Password);
+    public Usuario ValidarUsuario(int Cedula, String Password, String Rol){
+        List<Usuario> Usuarios = mUsr.BuscarUsuarioLogin(Cedula, Password);
+        if (!Usuarios.isEmpty()) {
+            for (int i = 0; i < Usuarios.size(); i++) {
+                if (EsRol(Usuarios.get(i), Rol)) {
+                    return Usuarios.get(i);
+                }
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Devuelve el usuario que coincida con los datos especificados.
+     * @param Cedula
+     * @param Rol
+     * @return Devuelve null si no existe.
+     */
+    public Usuario ExisteUsuario(int Cedula, String Rol){
+        List<Usuario> Usuarios = mUsr.BuscarUsuarioPorCedula(Cedula);
         if (!Usuarios.isEmpty()) {
             for (int i = 0; i < Usuarios.size(); i++) {
                 if (EsRol(Usuarios.get(i), Rol)) {

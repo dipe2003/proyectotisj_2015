@@ -53,7 +53,7 @@ public class Login implements Serializable {
     public void setUsuarioLogueado(boolean UsuarioLogueado) {this.UsuarioLogueado = UsuarioLogueado;}
         
     public String login(){
-        int idUsr= fUsr.ExisteUsuario(Integer.valueOf(Cedula), Password, RolSeleccionado);        
+        int idUsr= fUsr.ValidarLogin(Integer.valueOf(Cedula), Password, RolSeleccionado);        
         if (idUsr!= -1) {            
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
