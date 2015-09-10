@@ -48,7 +48,7 @@ public class ManejadorUsuario {
         }
     }
     
-    public Usuario BuscarUsuario(int id){
+    public Usuario BuscarUsuarioPorId(int id){
         try{
             return em.find(Usuario.class, id);
         }catch(Exception ex){
@@ -57,11 +57,23 @@ public class ManejadorUsuario {
         }
     }
     
-    public List<Usuario> BuscarUsuario(int Cedula, String Password){
+    public List<Usuario> BuscarUsuarioLogin(int Cedula, String Password){
         List<Usuario> Usuarios = new ArrayList<>();
         try{
             TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.CedulaUsuario= :cedula AND u.PasswordUsuario= :pass", Usuario.class);
             query.setParameter("pass", Password);
+            query.setParameter("cedula", Cedula);
+            Usuarios = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return Usuarios;
+    }
+    
+    public List<Usuario> BuscarUsuarioPorCedula(int Cedula){
+        List<Usuario> Usuarios = new ArrayList<>();
+        try{
+            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.CedulaUsuario= :cedula", Usuario.class);
             query.setParameter("cedula", Cedula);
             Usuarios = query.getResultList();
         }catch(Exception ex){
