@@ -6,7 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="interfazDocente">
-        <h:form enctype="multipart/form-data">
+        <h:form enctype="multipart/form-data" id="frmIngresoDatos">
             <div id="menuContainer">
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
@@ -14,7 +14,8 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputText value="#{administradorBean.cedulaAdministrador}" required="true" requiredMessage="Debes ingresar una cedula." 
-                                     p:placeholder="Cedula de Docente" class="Texto" />
+                                     p:placeholder="Cedula de Docente" class="Texto" id="inputCedula"/><br/>
+                        <h:message class="error" for="inputCedula"/>
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -23,20 +24,20 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputText value="#{administradorBean.nombreAdministrador}" required="true" requiredMessage="Debes ingresar un nombre."
-                                     p:placeholder="Nombre de Docente " class="Texto"/>
+                                     p:placeholder="Nombre de Docente " class="Texto" id="inputNombre"/><br/>
+                        <h:message class="error" for="inputNombre"/> 
                     </div>
                 </div>
                 <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
+                    <div class="imagenMenuOpcion">
+                        <h:message class="error" for="inputActualPass" style="margin-bottom: -35px; display: inherit;"/>
+                        <h:message class="error" for="inputConfirmPass" style="margin-bottom: -35px; display: inherit;"/> 
                         <img src="../Resources/Images/pass.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
-                    <div class="textoMenuOpcion" style="margin-top: -50px;"> 
-                        <h:inputSecret value="#{actualPass}" required="true" requiredMessage="Debes ingresar una contraseña."
-                                       p:placeholder="Contraseña Actual" class="Texto" style="margin: 5px;"/>
-                        <h:inputSecret value="#{newPass}" required="true" requiredMessage="Debes ingresar una contraseña."
-                                       p:placeholder="Contraseña Nueva" class="Texto" style="margin: 5px;"/>
-                        <h:inputSecret value="#{confirmPass}" required="true" requiredMessage="Debes ingresar una contraseña."
-                                       p:placeholder="Confirmar Contraseña" class="Texto" style="margin: 5px;"/>
+                    <div class="textoMenuOpcion" style="margin-top: -50px;">                        
+                        <h:inputSecret value="#{actualPass}" p:placeholder="Contraseña Actual" class="Texto" style="margin: 5px;" id="inputActualPass"/>
+                        <h:inputSecret value="#{newPass}" p:placeholder="Contraseña Nueva" class="Texto" style="margin: 5px;" id="inputNewPass"/>
+                        <h:inputSecret value="#{confirmPass}" p:placeholder="Confirmar Contraseña" class="Texto" style="margin: 5px;" id="inputConfirmPass"/>
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -45,7 +46,7 @@
                     </div>
                     <div class="textoMenuOpcion"> 
                         <h:inputText value="#{administradorBean.correoAdministrador}" required="true" requiredMessage="Debes ingresar un correo." 
-                                     p:placeholder="Correo de Docente" class="Texto"/>
+                                     p:placeholder="Correo de Docente" class="Texto" id="inputCorreo"/><h:message class="error" for="inputCorreo"/> 
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -53,7 +54,7 @@
                         <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
                     </div>
                     <div class="botonImagen">
-                        <h:inputFile value="#{administradorBean.imagenAdministrador}" required="false" p:accept="image/*" class="boton subirImagen"/>
+                        <h:inputFile value="#{administradorBean.partImagenAdministrador}" required="false" p:accept="image/*" class="boton subirImagen"/>
                     </div>   
                 </div>
                 <div class="menuOpcion">
