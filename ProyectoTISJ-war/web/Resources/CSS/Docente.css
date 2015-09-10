@@ -78,12 +78,6 @@
     height: 75px;
 }
 
-.asignaturaContainer{
-    overflow: auto;
-    height: 150px;
-    width: 200px; /*215px; quita scrollbar*/
-}
-
 .nombreAsignatura{
     z-index: 2;
     position:relative;
