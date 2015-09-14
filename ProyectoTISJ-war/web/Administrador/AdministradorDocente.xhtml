@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Administrador: Docente</title>
+        <link rel="stylesheet" href="../Resources/CSS/Docente.css" />
+        <link rel="stylesheet" href="../Resources/CSS/Base.css" />
+        <link rel="stylesheet" href="../Resources/CSS/Mensajes.css" />
+        
+        <script src="../Resources/Scripts/jquery-1.11.3.min.js"></script>
+        <script src="../Resources/Scripts/jquery-ui.js"></script>
+        <script src="../Resources/Scripts/MouseOverDocente.js"></script>
+        <script src="../Resources/Scripts/RotateAddButton.js"></script>
+        <script src="../Resources/Scripts/optionMenuDocente.js"></script>
+        <script src="../Resources/Scripts/UpdateImage.js"></script>
+        <script src="../Resources/Scripts/Slimscroll.js"></script>
+        <script src="../Resources/Scripts/ScrollBar.js"></script>
+        <script src="../Resources/Scripts/LlenarCamposFadeIn.js"></script>
+    </h:head>
+    <h:body>
+        <ui:include src="AdministradorMenu.xhtml" />
+        <div class="contentBody">            
+            <ui:insert name="interfazDocente" >
+                
+                <c:forEach var="docente" items="#{docenteListadoBean.docentes}">
+                    <div class="docente">
+                        <div class="nombreDocente"><h:outputText value="#{docente.nombreUsuario}"/></div>
+                        <div class="imagenDocente" style="background-image: url('#{docente.imagenURL}')" >
+                            <div class="optionContainer">
+                                <div class="optionButton">
+                                    <div class="optButtonImagen">
+                                        <img src="../Resources/Images/edit.png" width="48" height="48" alt="edit"/>
+                                    </div>
+                                    <div class="optButtonTexto">
+                                        Editar
+                                    </div>
+                                </div>
+                                <div class="optionButton">
+                                    <div class="optButtonImagen">
+                                        <img src="../Resources/Images/delete.png" width="48" height="48" alt="edit"/>
+                                    </div>
+                                    <div class="optButtonTexto">
+                                        Eliminar
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="asignaturaContainer"> 
+                            <div class="nombreAsignatura">Arquitectuda del Computador</div>
+                            <div class="nombreAsignatura">Matematica dicreta y logica 1</div>
+                            <div class="nombreAsignatura">Matematica dicreta y logica 1</div>
+                            <div class="nombreAsignatura">Matematica dicreta y logica 1</div>
+                        </div>
+                    </div>
+                </c:forEach>
+                <div class="docente">
+                    <div class="nombreDocente">Registrar Docente</div>
+                    <a href="../Docente/RegistrarDocente.xhtml">
+                        <div class="addContainer"> 
+                            <h:graphicImage url="../Resources/Images/add.png" id="add"/> 
+                        </div>
+                    </a>
+                </div>                
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+
