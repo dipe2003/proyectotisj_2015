@@ -3,40 +3,27 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>homeAdministrador</from-outcome>
-            <to-view-id>/Administrador/AdministradorHome.xhtml</to-view-id>
+            <from-outcome>logueado</from-outcome>
+            <to-view-id>Views/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>        
-        <navigation-case>
-            <from-outcome>homeAdministrativo</from-outcome>
-            <to-view-id>/Administrativo/AdministrativoHome.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-         <navigation-case>
-           <from-outcome>homeDocente</from-outcome>
-            <to-view-id>/Docente/DocenteHome.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-           <from-outcome>homeEstudiante</from-outcome>
-            <to-view-id>/Estudiante/EstudianteHome.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
     </navigation-rule>  
     
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>registrado</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>Views/index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>nologueado</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>    
+
 </faces-config>

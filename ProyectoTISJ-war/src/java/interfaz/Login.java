@@ -63,23 +63,24 @@ public class Login implements Serializable {
                 case "Administrador":
                     request.getSession().setAttribute("Administrador", (Administrador) Usr);
                     this.UsuarioLogueado = true;
-                    return "homeAdministrador";
+                    break;
                     
                 case "Administrativo":
                     request.getSession().setAttribute("Administrativo", (Administrativo) Usr);
                     this.UsuarioLogueado = true;
-                    return "homeAdministrativo";
+                    break;
                     
                 case "Docente":
                     request.getSession().setAttribute("Docente", (Docente) Usr);
                     this.UsuarioLogueado = true;
-                    return "homeDocente";
+                    break;
                     
                 case "Estudiante":
                     request.getSession().setAttribute("Estudiante", (Estudiante) Usr);
                     this.UsuarioLogueado = true;
-                    return "homeEstudiante";
+                    break;
             }
+            return "logueado";
         }        
         return "nologueado";
     }
