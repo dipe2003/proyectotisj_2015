@@ -13,8 +13,8 @@
                         <img src="../Resources/Images/cedula.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{docenteRegistroBean.cedulaDocente}" required="true" requiredMessage="Debes ingresar una cedula." 
-                                     p:placeholder="Cedula de Docente" class="Texto" id="inputCedula"/><br/>
+                        <h:inputText value="#{datosUsuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." 
+                                     p:placeholder="Cedula" class="Texto" id="inputCedula"/><br/>
                         <h:message class="error" for="inputCedula"/>              
                     </div>
                 </div>
@@ -23,8 +23,8 @@
                         <img src="../Resources/Images/nombre.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{docenteRegistroBean.nombreDocente}" required="true" requiredMessage="Debes ingresar un nombre."
-                                     p:placeholder="Nombre de Docente " class="Texto" id="inputNombre"/><br/>
+                        <h:inputText value="#{datosUsuarioBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar un nombre."
+                                     p:placeholder="Nombre" class="Texto" id="inputNombre"/><br/>
                         <h:message class="error" for="inputNombre"/>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                         <img src="../Resources/Images/pass.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputSecret value="#{docenteRegistroBean.passwordDocente}" required="true" requiredMessage="Debes ingresar una contraseña."
-                                       p:placeholder="Contraseña de Docente" class="Texto" id="inputPass"/><br/>
+                        <h:inputSecret value="#{datosUsuarioBean.passwordDocente}" required="true" requiredMessage="Debes ingresar una contraseña."
+                                       p:placeholder="Contraseña" class="Texto" id="inputPass"/><br/>
                         <h:message class="error" for="inputPass"/>
                     </div>
                 </div>
@@ -43,8 +43,8 @@
                         <img src="../Resources/Images/mail.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{docenteRegistroBean.correoDocente}" required="true" requiredMessage="Debes ingresar un correo." 
-                                     p:placeholder="Correo de Docente" class="Texto" id="inputCorreo"/><br/>
+                        <h:inputText value="#{datosUsuarioBean.correoUsuario}" required="true" requiredMessage="Debes ingresar un correo." 
+                                     p:placeholder="Correo" class="Texto" id="inputCorreo"/><br/>
                         <h:message class="error" for="inputCorreo"/>
                     </div>
                 </div>
@@ -53,14 +53,14 @@
                         <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
                     </div>
                     <div class="botonImagen">
-                        <h:inputFile value="#{docenteRegistroBean.imagenDocente}" required="false" p:accept="image/*" class="boton subirImagen"/>
+                        <h:inputFile value="#{datosUsuarioBean.imagenUsuario}" required="false" p:accept="image/*" class="boton subirImagen"/>
                     </div>   
                 </div>
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
                         <img src="../Resources/Images/siguiente.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
-                    <h:commandButton action="#{docenteRegistroBean.registrarDocente()}" type="submit" value="Registrar" class="boton siguiente"/>
+                    <h:commandButton action="#{datosUsuarioBean.registrarUsuario()}" type="submit" value="Registrar" class="boton siguiente"/>
                 </div>
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
@@ -69,6 +69,7 @@
                     <h:commandButton type="reset" value="Reset" class="boton"/>
                 </div>
             </div>
+            <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
         </h:form>      
     </ui:define>
 </ui:composition>

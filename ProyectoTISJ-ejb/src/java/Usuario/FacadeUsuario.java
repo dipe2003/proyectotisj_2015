@@ -1,10 +1,14 @@
 
 package Usuario;
 
+import Administrador.Administrador;
 import Administrador.ControladorAdministrador;
+import Administrativo.Administrativo;
 import Administrativo.ControladorAdministrativo;
 import Docente.ControladorDocente;
+import Docente.Docente;
 import Estudiante.ControladorEstudiante;
+import Estudiante.Estudiante;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -110,6 +114,29 @@ public class FacadeUsuario implements Serializable {
         }else{
             return -1;
         }
+    }
+    
+    /**
+     * Actualiza los datos de un usuario en la base de datos.
+     * @param usuario
+     * @param Rol
+     * @return -1 si no se pudo actualizar
+     */
+    public int ModificarUsuario(Usuario usuario, String Rol){
+        switch(Rol){
+            case "Administrador":
+                return cAdministrador.ModificarAdministrador((Administrador)usuario);
+                
+            case "Administrativo":
+                return cAdministrativo.ModificarAdministrativo((Administrativo)usuario);
+                
+            case "Docente":
+                return cDoc.ModificarDocente((Docente)usuario);
+                
+            case "Estudiante":
+                return cEst.ModificarEstudiante((Estudiante)usuario);                
+        }
+        return -1;
     }
     
 }

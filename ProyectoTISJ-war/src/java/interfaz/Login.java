@@ -21,67 +21,47 @@ import javax.servlet.http.HttpServletRequest;
 @Named("login")
 @SessionScoped
 public class Login implements Serializable {
-   private String Cedula;
-   private String Password;
-   private List<String> Roles;
-   private String RolSeleccionado;
-   private boolean UsuarioLogueado;
-   
-   @EJB
-   private FacadeUsuario fUsr;
-
+    private String Cedula;
+    private String Password;
+    private List<String> Roles;
+    private String RolSeleccionado;
+    private boolean UsuarioLogueado;
+    
+    @EJB
+    private FacadeUsuario fUsr;
+    
     public Login() {}
-
+    
     public String getRolSeleccionado() {return RolSeleccionado;}
-
+    
     public void setRolSeleccionado(String RolSeleccionado) {this.RolSeleccionado = RolSeleccionado;}
-
+    
     public String getUsuario() {return Cedula;}
-
+    
     public void setUsuario(String Usuario) {this.Cedula = Usuario;}
-
+    
     public String getPassword() {return Password;}
-
+    
     public void setPassword(String Password) {this.Password = Password;}
-
+    
     public List<String> getRoles() {return Roles;}
-
+    
     public void setRoles(List<String> Roles) {this.Roles = Roles;}
-
+    
     public boolean isUsuarioLogueado() {return UsuarioLogueado;}
-
+    
     public void setUsuarioLogueado(boolean UsuarioLogueado) {this.UsuarioLogueado = UsuarioLogueado;}
-        
+    
     public String login(){
-        int idUsr= fUsr.ValidarLogin(Integer.valueOf(Cedula), Password, RolSeleccionado);        
-        if (idUsr!= -1) {            
+        int idUsr= fUsr.ValidarLogin(Integer.valueOf(Cedula), Password, RolSeleccionado);
+        if (idUsr!= -1) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-            
             Usuario Usr = fUsr.BuscarUsuario(idUsr);
-            switch(RolSeleccionado){
-                case "Administrador":
-                    request.getSession().setAttribute("Administrador", (Administrador) Usr);
-                    this.UsuarioLogueado = true;
-                    break;
-                    
-                case "Administrativo":
-                    request.getSession().setAttribute("Administrativo", (Administrativo) Usr);
-                    this.UsuarioLogueado = true;
-                    break;
-                    
-                case "Docente":
-                    request.getSession().setAttribute("Docente", (Docente) Usr);
-                    this.UsuarioLogueado = true;
-                    break;
-                    
-                case "Estudiante":
-                    request.getSession().setAttribute("Estudiante", (Estudiante) Usr);
-                    this.UsuarioLogueado = true;
-                    break;
-            }
+            request.getSession().setAttribute("Usuario", Usr);
+            this.UsuarioLogueado = true;
             return "logueado";
-        }        
+        }
         return "nologueado";
     }
     
@@ -92,7 +72,7 @@ public class Login implements Serializable {
         this.UsuarioLogueado = false;
         return "nologueado";
     }
-   
+    
     @PostConstruct
     public void Init(){
         this.Roles = new ArrayList<>();
@@ -105,5 +85,5 @@ public class Login implements Serializable {
         fUsr.RegistrarUsuario("Administrador", "Admin@strador.edu.uy", "1234", 12345672, "Administrador", "", "");
         fUsr.RegistrarUsuario("Administrativo", "Admin@istrativo.edu.uy", "1234", 3456789, "Administrativo", "", "");
     }
-   
+    
 }

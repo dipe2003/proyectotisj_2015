@@ -13,8 +13,8 @@
                         <img src="../Resources/Images/cedula.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{administradorBean.cedulaAdministrador}" required="true" requiredMessage="Debes ingresar una cedula." 
-                                     p:placeholder="Cedula de Docente" class="Texto" id="inputCedula"/><br/>
+                        <h:inputText value="#{usuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." 
+                                     p:placeholder="Cedula" class="Texto" id="inputCedula"/><br/>
                         <h:message class="error" for="inputCedula"/>
                     </div>
                 </div>
@@ -23,8 +23,8 @@
                         <img src="../Resources/Images/nombre.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{administradorBean.nombreAdministrador}" required="true" requiredMessage="Debes ingresar un nombre."
-                                     p:placeholder="Nombre de Docente " class="Texto" id="inputNombre"/><br/>
+                        <h:inputText value="#{usuarioBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar un nombre."
+                                     p:placeholder="Nombre" class="Texto" id="inputNombre"/><br/>
                         <h:message class="error" for="inputNombre"/> 
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                         <img src="../Resources/Images/mail.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{administradorBean.correoAdministrador}" required="true" requiredMessage="Debes ingresar un correo." 
-                                     p:placeholder="Correo de Docente" class="Texto" id="inputCorreo"/><h:message class="error" for="inputCorreo"/> 
+                        <h:inputText value="#{usuarioBean.correoUsuario}" required="true" requiredMessage="Debes ingresar un correo." 
+                                     p:placeholder="Correo" class="Texto" id="inputCorreo"/><h:message class="error" for="inputCorreo"/> 
                     </div>
                 </div>
                 <div class="menuOpcion">
@@ -54,14 +54,14 @@
                         <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
                     </div>
                     <div class="botonImagen">
-                        <h:inputFile value="#{administradorBean.partImagenAdministrador}" required="false" p:accept="image/*" class="boton subirImagen"/>
+                        <h:inputFile value="#{usuarioBean.partImagenUsuario}" required="false" p:accept="image/*" class="boton subirImagen"/>
                     </div>   
                 </div>
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
                         <img src="../Resources/Images/siguiente.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
-                    <h:commandButton action="#{administradorBean.modificarAdministrador(actualPass, newPass, confirmPass)}" type="submit" value="Actualizar" class="boton"/>
+                    <h:commandButton action="#{usuarioBean.modificarUsuario(actualPass, newPass, confirmPass)}" type="submit" value="Actualizar" class="boton"/>
                 </div>
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
