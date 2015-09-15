@@ -1,7 +1,6 @@
 
 package interfaz;
 
-import Administrador.Administrador;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import Utilidades.Cedula;
@@ -11,11 +10,12 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-@Named("usuarioBean")
+@Named("usuarioLogueadoBean")
 @SessionScoped
 public class UsuarioLogueadoBean implements Serializable{
     
@@ -25,8 +25,9 @@ public class UsuarioLogueadoBean implements Serializable{
     private String CorreoUsuario;
     private Part PartImagenUsuario;
     private String RolSeleccionado;
+    private Part PartImagenFormInscripcion;
     
-    @EJB
+    @Inject
     private Login login;
     
     @EJB
@@ -60,11 +61,20 @@ public class UsuarioLogueadoBean implements Serializable{
     
     public void setPartImagenUsuario(Part PartImagenUsuario) {this.PartImagenUsuario = PartImagenUsuario;}
     
+    /*
+    Solo Estudiante
+    */
+
+    public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
+
+    public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
+    
+
     @PostConstruct
-    public void Init(){
+    public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        Usuario  User = (Administrador)request.getSession().getAttribute("Usuario");
+        Usuario  User = (Usuario)request.getSession().getAttribute("Usuario");
         this.NombreUsuario = User.getNombreUsuario();
         this.ImagenUsuario = User.getImagenURL();
         this.CorreoUsuario = User.getCorreoUsuario();

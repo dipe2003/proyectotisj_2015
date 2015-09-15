@@ -13,7 +13,7 @@
                         <img src="../Resources/Images/cedula.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{usuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." 
+                        <h:inputText value="#{usuarioLogueadoBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." 
                                      p:placeholder="Cedula" class="Texto" id="inputCedula"/><br/>
                         <h:message class="error" for="inputCedula"/>
                     </div>
@@ -23,7 +23,7 @@
                         <img src="../Resources/Images/nombre.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{usuarioBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar un nombre."
+                        <h:inputText value="#{usuarioLogueadoBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar un nombre."
                                      p:placeholder="Nombre" class="Texto" id="inputNombre"/><br/>
                         <h:message class="error" for="inputNombre"/> 
                     </div>
@@ -45,7 +45,7 @@
                         <img src="../Resources/Images/mail.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
                     <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{usuarioBean.correoUsuario}" required="true" requiredMessage="Debes ingresar un correo." 
+                        <h:inputText value="#{usuarioLogueadoBean.correoUsuario}" required="true" requiredMessage="Debes ingresar un correo." 
                                      p:placeholder="Correo" class="Texto" id="inputCorreo"/><h:message class="error" for="inputCorreo"/> 
                     </div>
                 </div>
@@ -54,14 +54,24 @@
                         <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
                     </div>
                     <div class="botonImagen">
-                        <h:inputFile value="#{usuarioBean.partImagenUsuario}" required="false" p:accept="image/*" class="boton subirImagen"/>
+                        <h:inputFile value="#{usuarioLogueadoBean.partImagenUsuario}" required="false" p:accept="image/*" class="boton subirImagen"/>
                     </div>   
                 </div>
+                <h:panelGroup rendered="#{login.rolSeleccionado == 'Docente'}">
+                    <div class="menuOpcion">
+                        <div class="imagenMenuOpcion" rendered=""> 
+                            <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
+                        </div>
+                        <div class="botonImagen">
+                            <h:inputFile value="#{usuarioLogueadoBean.partImagenFormInscripcion}" required="false" p:accept="image/*" class="boton subirImagen"/>
+                        </div>   
+                    </div>
+                </h:panelGroup>
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 
                         <img src="../Resources/Images/siguiente.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
                     </div>
-                    <h:commandButton action="#{usuarioBean.modificarUsuario(actualPass, newPass, confirmPass)}" type="submit" value="Actualizar" class="boton"/>
+                    <h:commandButton action="#{usuarioLogueadoBean.modificarUsuario(actualPass, newPass, confirmPass)}" type="submit" value="Actualizar" class="boton"/>
                 </div>
                 <div class="menuOpcion">
                     <div class="imagenMenuOpcion"> 

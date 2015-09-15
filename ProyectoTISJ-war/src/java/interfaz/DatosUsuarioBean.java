@@ -23,6 +23,7 @@ public class DatosUsuarioBean implements Serializable{
     private String CedulaUsuario;
     private String PasswordUsuario;
     private String Rol;
+    private Part PartImagenFormInscripcion;
     
     @EJB
     private FacadeUsuario fUsr;
@@ -33,9 +34,7 @@ public class DatosUsuarioBean implements Serializable{
     @EJB
     private Cedula verifCedula;
     
-    public DatosUsuarioBean() {
-        
-    }
+    public DatosUsuarioBean() {}
 
     public String getNombreUsuario() {return NombreUsuario;}
 
@@ -61,6 +60,13 @@ public class DatosUsuarioBean implements Serializable{
 
     public void setRol(String Rol) {this.Rol = Rol;}
     
+    /*
+    Solo Estudiante
+    */
+
+    public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
+
+    public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
     
                
     public String registrarUsuario(){        
