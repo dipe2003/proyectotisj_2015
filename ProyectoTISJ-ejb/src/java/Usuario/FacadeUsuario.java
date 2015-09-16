@@ -12,12 +12,13 @@ import Estudiante.Estudiante;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
 @Named
 @Stateless
-@SessionScoped
+@RequestScoped
 public class FacadeUsuario implements Serializable {
     @EJB
     private ControladorUsuario cUsr;

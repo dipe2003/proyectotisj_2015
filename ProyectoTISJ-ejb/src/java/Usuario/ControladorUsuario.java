@@ -14,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 public class ControladorUsuario {
     
     @EJB
-    ManejadorUsuario mUsr;
+            ManejadorUsuario mUsr;
     
     /**
      * Crea un Usuario y lo persiste.
@@ -22,7 +22,7 @@ public class ControladorUsuario {
      * @param CorreoUsuario
      * @param PasswordUsuario
      * @param CedulaUsuario
-     * @param ImagenUsuario 
+     * @param ImagenUsuario
      * @return Devuelve un Usuario si fue creado, de lo contrario devuelve null.
      */
     public Usuario CrearUsuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
@@ -100,7 +100,7 @@ public class ControladorUsuario {
     
     /**
      * Devuelve una lista de Usuarios desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Usuario> ListarUsuarios(){
         return mUsr.ListarUsuarios();
@@ -112,27 +112,31 @@ public class ControladorUsuario {
      * @param Rol
      * @return True: si coincide el rol.
      */
-    private boolean EsRol(Usuario usuario,String Rol){
+    private boolean EsRol(Usuario usuario, String Rol){
         switch(Rol){
             case "Administrador":
                 if (usuario instanceof Administrador) {
                     return true;
                 }
+                break;
                 
             case "Administrativo":
                 if (usuario instanceof Administrativo) {
                     return true;
                 }
+                break;
                 
             case "Docente":
                 if (usuario instanceof Docente) {
                     return true;
                 }
+                break;
                 
             case "Estudiante":
                 if (usuario instanceof Estudiante) {
                     return true;
                 }
+                break;
         }
         return false;
     }
