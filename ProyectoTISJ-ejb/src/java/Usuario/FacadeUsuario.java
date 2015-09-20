@@ -178,10 +178,8 @@ public class FacadeUsuario implements Serializable {
                         EstadoCivilEstudiante, CredencialCivicaEstudiante, DomicilioEstudiante, DepartamentoEstudiante,
                         LocalidadEstudiante, TelefonoEstudiante, CelularEstudiante, FormInscripcion, NombreUsuario,
                         CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
-            }
-            
-        }
-        
+            }            
+        }        
         if (Usr==null) {
             return -1;
         }else{
@@ -189,16 +187,4 @@ public class FacadeUsuario implements Serializable {
         }
     }
     
-    /**
-     * Agrega el estudio especificado al estudiante indicado por Id
-     * @param TipoEstudio
-     * @param Orientacion
-     * @param idEstudiante 
-     */
-    public void agregarEstudiosEstudiante(EnumTipoEstudio TipoEstudio, String Orientacion, int idEstudiante){
-        Estudiante estudiante = cEst.BuscarEstudiante(idEstudiante);
-        Estudio estudio = cEstudio.CrearEstudio(TipoEstudio, Orientacion);
-        estudiante.addEstudioCursado(estudio);
-        cEst.ModificarEstudiante(estudiante);
-    }
  }

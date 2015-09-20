@@ -3,9 +3,9 @@ package interfaz.estudiante;
 
 import Estudiante.EnumEstadoCivil;
 import Estudiante.EnumSexo;
-import interfaz.*;
 import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
+import interfaz.FileUpload;
 import java.io.Serializable;
 import java.util.Date;
 import javax.ejb.EJB;
