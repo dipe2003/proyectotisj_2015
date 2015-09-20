@@ -68,7 +68,11 @@ public class DatosUsuarioBean implements Serializable{
 
     public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
     
-               
+    /**
+     * Registra un usuario del segun el rol seleccionado.
+     * Sino se selecciono imagen de perfil se registra con imagen por defecto.
+     * @return 
+     */         
     public String registrarUsuario(){        
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
             String ubicacion = fUp.guardarArchivo("ImagenesPerfil", ImagenUsuario, CedulaUsuario);

@@ -8,12 +8,17 @@ import Administrativo.ControladorAdministrativo;
 import Docente.ControladorDocente;
 import Docente.Docente;
 import Estudiante.ControladorEstudiante;
+import Estudiante.EnumEstadoCivil;
+import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
+import Estudiante.estudios.ControladorEstudio;
+import Estudiante.estudios.EnumTipoEstudio;
+import Estudiante.estudios.Estudio;
 import java.io.Serializable;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.inject.Named;
 
 @Named
@@ -30,6 +35,8 @@ public class FacadeUsuario implements Serializable {
     private ControladorDocente cDoc;
     @EJB
     private ControladorEstudiante cEst;
+    @EJB
+    private ControladorEstudio cEstudio;
     
     public FacadeUsuario() {}
     
@@ -51,17 +58,18 @@ public class FacadeUsuario implements Serializable {
     }
     
     /**
-     * Devuelve el id del usuario registrado.
+     * Devuelve el id del usuario registrado.<br/>
+     * <b>No realiza el registro de usuario estudiante</b>
      * @param NombreUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
      * @param CedulaUsuario
      * @param Rol
      * @param FormInscripcion Strig de ubicacion del formulario de Inscripcion.
-     * @param ImagenUsuario 
+     * @param ImagenUsuario
      * @return -1 si no se pudo registrar.
      */
-    public int RegistrarUsuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, 
+    public int RegistrarUsuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario,
             String Rol, String FormInscripcion, String ImagenUsuario){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
@@ -70,17 +78,13 @@ public class FacadeUsuario implements Serializable {
                 case "Administrador":
                     Usr = cAdministrador.CrearAdministrador(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
-
+                    
                 case "Administrativo":
                     Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
-
+                    
                 case "Docente":
                     Usr = cDoc.CrearDocente(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
-                    break;
-
-                case "Estudiante":
-                    if(!FormInscripcion.isEmpty()) Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
                     break;
             }
         }
@@ -90,12 +94,12 @@ public class FacadeUsuario implements Serializable {
             return Usr.getIdUsuario();
         }
     }
-   
+    
     /**
      * Devuelve el usuario identificado por su id.
      * PRE: existe el usuario en la base de datos.
      * @param Id
-     * @return 
+     * @return
      */
     public Usuario BuscarUsuario(int Id){
         return cUsr.BuscarUsuario(Id);
@@ -135,9 +139,66 @@ public class FacadeUsuario implements Serializable {
                 return cDoc.ModificarDocente((Docente)usuario);
                 
             case "Estudiante":
-                return cEst.ModificarEstudiante((Estudiante)usuario);                
+                return cEst.ModificarEstudiante((Estudiante)usuario);
         }
         return -1;
     }
     
-}
+    /**
+     * Devuelve el id del usuario registrado.<br/>
+     * <b>Solo registra usuario estudiante</b>
+     * @param SexoEstudiante
+     * @param LugarNcimientoEstudiante
+     * @param FechaNacimientoEstudiante
+     * @param LugarNacimietoEstudiante
+     * @param EstadoCivilEstudiante
+     * @param CredencialCivicaEstudiante
+     * @param DomicilioEstudiante
+     * @param DepartamentoEstudiante
+     * @param LocalidadEstudiante
+     * @param TelefonoEstudiante
+     * @param CelularEstudiante
+     * @param FormInscripcion
+     * @param NombreUsuario
+     * @param CorreoUsuario
+     * @param PasswordUsuario
+     * @param CedulaUsuario
+     * @param ImagenUsuario
+     * @return
+     */
+    public int RegistrarUsuario(EnumSexo SexoEstudiante, String LugarNcimientoEstudiante, Date FechaNacimientoEstudiante, String LugarNacimietoEstudiante,
+            EnumEstadoCivil EstadoCivilEstudiante, String CredencialCivicaEstudiante, String DomicilioEstudiante, String DepartamentoEstudiante,
+            String LocalidadEstudiante, String TelefonoEstudiante, String CelularEstudiante, String FormInscripcion, String NombreUsuario,
+            String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
+        if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
+        Usuario Usr = null;
+        if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
+            if(!FormInscripcion.isEmpty()) {
+                Usr = cEst.CrearEstudiante(SexoEstudiante, LugarNcimientoEstudiante, FechaNacimientoEstudiante, LugarNacimietoEstudiante,
+                        EstadoCivilEstudiante, CredencialCivicaEstudiante, DomicilioEstudiante, DepartamentoEstudiante,
+                        LocalidadEstudiante, TelefonoEstudiante, CelularEstudiante, FormInscripcion, NombreUsuario,
+                        CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+            }
+            
+        }
+        
+        if (Usr==null) {
+            return -1;
+        }else{
+            return Usr.getIdUsuario();
+        }
+    }
+    
+    /**
+     * Agrega el estudio especificado al estudiante indicado por Id
+     * @param TipoEstudio
+     * @param Orientacion
+     * @param idEstudiante 
+     */
+    public void agregarEstudiosEstudiante(EnumTipoEstudio TipoEstudio, String Orientacion, int idEstudiante){
+        Estudiante estudiante = cEst.BuscarEstudiante(idEstudiante);
+        Estudio estudio = cEstudio.CrearEstudio(TipoEstudio, Orientacion);
+        estudiante.addEstudioCursado(estudio);
+        cEst.ModificarEstudiante(estudiante);
+    }
+ }
