@@ -1,5 +1,8 @@
 package Administrativo;
 
+import Enumerados.EstadoCivil.EstadoCivil;
+import Estudiante.EnumSexo;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -10,19 +13,51 @@ import javax.faces.bean.ManagedBean;
 public class ControladorAdministrativo {
     
     @EJB
-    ManejadorAdministrativo mAdmin;
+            ManejadorAdministrativo mAdmin;
     
     /**
      * Crea un Administrativo y lo persiste.
      * @param NombreUsuario
+     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param CedulaUsuario
      * @param ImagenUsuario
+     * @param CedulaUsuario
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
      * @return Devuelve un Administrativo si fue creado, de lo contrario devuelve null.
      */
-    public Administrativo CrearAdministrativo(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
-        Administrativo admin = new Administrativo(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+    /**
+     * Crea un Administrativo y lo persiste.
+     * @param NombreUsuario
+     * @param ApellidoUsuario
+     * @param CorreoUsuario
+     * @param PasswordUsuario
+     * @param ImagenUsuario
+     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
+     * @param EstadoCivilUsuario
+     * @param FechaNacimientoUsuario
+     * @param LugarNacimientoUsuario
+     * @param SexoUsuario
+     * @return Devuelve un Administrativo si fue creado, de lo contrario devuelve null.
+     */
+    public Administrativo CrearAdministrativo(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario, 
+            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, 
+            String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, EnumSexo SexoUsuario){
+        Administrativo admin = new Administrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                FechaNacimientoUsuario, LugarNacimientoUsuario, 
+            SexoUsuario);
         if (mAdmin.CrearAdministrativo(admin)!=-1){
             return admin;
         }
@@ -58,7 +93,7 @@ public class ControladorAdministrativo {
     
     /**
      * Devuelve una lista de Administrativos desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Administrativo> ListarAdministrativos(){
         return mAdmin.ListarAdministrativos();

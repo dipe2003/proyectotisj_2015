@@ -1,6 +1,7 @@
 
 package Estudiante;
 
+import Enumerados.EstadoCivil.EstadoCivil;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -14,33 +15,33 @@ public class ControladorEstudiante {
     ManejadorEstudiante mEst;
     
     /**
-     * Crea un Estudiante y lo persiste
-     * @param SexoEstudiante
-     * @param LugarNcimientoEstudiante
-     * @param FechaNacimientoEstudiante
-     * @param LugarNacimietoEstudiante
-     * @param EstadoCivilEstudiante
-     * @param CredencialCivicaEstudiante
-     * @param DomicilioEstudiante
-     * @param DepartamentoEstudiante
-     * @param LocalidadEstudiante
-     * @param TelefonoEstudiante
-     * @param CelularEstudiante
+     * Crea un estudiante y los persiste.
      * @param FormInscripcion
      * @param NombreUsuario
+     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param CedulaUsuario
      * @param ImagenUsuario
-     * @return Devulve un Estudiante si fue creado, de lo contrario devuelve null.
+     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
+     * @param EstadoCivilUsuario
+     * @param FechaNacimientoUsuario
+     * @param LugarNacimientoUsuario
+     * @param SexoUsuario
+     * @return null si no se creo el estudiante
      */
-    public Estudiante CrearEstudiante(EnumSexo SexoEstudiante, String LugarNcimientoEstudiante, Date FechaNacimientoEstudiante, String LugarNacimietoEstudiante, 
-            EnumEstadoCivil EstadoCivilEstudiante, String CredencialCivicaEstudiante, String DomicilioEstudiante, String DepartamentoEstudiante, 
-            String LocalidadEstudiante, String TelefonoEstudiante, String CelularEstudiante, String FormInscripcion, String NombreUsuario, 
-            String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario) {
-        Estudiante est = new Estudiante(SexoEstudiante, LugarNcimientoEstudiante, FechaNacimientoEstudiante, LugarNacimietoEstudiante, EstadoCivilEstudiante, 
-                CredencialCivicaEstudiante, DomicilioEstudiante, DepartamentoEstudiante, LocalidadEstudiante, TelefonoEstudiante, CelularEstudiante, FormInscripcion, 
-                NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);        
+    public Estudiante CrearEstudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+            String LugarNacimientoUsuario, EnumSexo SexoUsuario) {
+        Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);        
         if (mEst.CrearEstudiante(est)!=-1) {
             return est;
         }

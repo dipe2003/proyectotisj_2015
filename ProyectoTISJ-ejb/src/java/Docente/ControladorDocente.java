@@ -1,5 +1,8 @@
 package Docente;
 
+import Enumerados.EstadoCivil.EstadoCivil;
+import Estudiante.EnumSexo;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,14 +18,30 @@ public class ControladorDocente {
     /**
      * Crea un Docente y lo persiste.
      * @param NombreUsuario
+     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param CedulaUsuario
      * @param ImagenUsuario
-     * @return Devuelve un Docente si fue creado, de lo contrario devuelve null.
+     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
+     * @param EstadoCivilUsuario
+     * @param FechaNacimientoUsuario
+     * @param LugarNacimientoUsuario
+     * @param SexoUsuario
+     * @return  Devuelve un Docente si fue creado, de lo contrario devuelve null.
      */
-    public Docente CrearDocente(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
-        Docente doc = new Docente(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+    public Docente CrearDocente(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, 
+            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, 
+            EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, EnumSexo SexoUsuario){
+        Docente doc = new Docente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
+            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
         if (mDoc.CrearDocente(doc)!=-1){
             return doc;
         }

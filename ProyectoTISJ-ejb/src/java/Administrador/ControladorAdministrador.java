@@ -1,6 +1,9 @@
 
 package Administrador;
 
+import Enumerados.EstadoCivil.EstadoCivil;
+import Estudiante.EnumSexo;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -15,14 +18,30 @@ public class ControladorAdministrador {
     /**
      * Crea un Administrador y lo persiste.
      * @param NombreUsuario
+     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param CedulaIdentidadUsuario
      * @param ImagenUsuario
+     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
+     * @param EstadoCivilUsuario
+     * @param FechaNacimientoUsuario
+     * @param LugarNacimientoUsuario
+     * @param SexoUsuario
      * @return Devulve un Admininstrador si fue creado, de lo contrario devuelve null.
      */
-    public Administrador CrearAdministrador(String NombreUsuario, String CorreoUsuario, String PasswordUsuario,  int CedulaIdentidadUsuario, String ImagenUsuario){
-        Administrador admin = new Administrador(NombreUsuario, CorreoUsuario, PasswordUsuario,  CedulaIdentidadUsuario, ImagenUsuario);
+    public Administrador CrearAdministrador(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario, 
+            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, 
+            String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
+            EnumSexo SexoUsuario){
+        Administrador admin = new Administrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
+                EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario,SexoUsuario);
         if (mAdmin.CrearAdministrador(admin)!=-1) {
             return admin;
         }
@@ -58,7 +77,7 @@ public class ControladorAdministrador {
     
     /**
      * Devuelve una lista de Administradores desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Administrador> ListarAdministradores(){
         return mAdmin.ListarAdministradores();

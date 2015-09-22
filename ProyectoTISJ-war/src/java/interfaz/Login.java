@@ -3,11 +3,14 @@ package interfaz;
 import Administrador.Administrador;
 import Administrativo.Administrativo;
 import Docente.Docente;
+import Enumerados.FacadeEnumerados;
+import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -26,6 +29,9 @@ public class Login implements Serializable {
     private List<String> Roles;
     private String RolSeleccionado;
     private boolean UsuarioLogueado;
+    
+    @EJB
+    private FacadeEnumerados fEnum;
     
     @EJB
     private FacadeUsuario fUsr;
@@ -82,7 +88,15 @@ public class Login implements Serializable {
         Roles.add("Estudiante");
         RolSeleccionado = Roles.get(0);
         
-        fUsr.RegistrarUsuario("Administrador", "Admin@strador.edu.uy", "1234", 12345672, "Administrador", "", "");
+        fEnum.crearEstadoCivil("Soltero");
+        fEnum.crearEstadoCivil("Casado");
+        fEnum.crearEstadoCivil("Divorciado");
+        
+        
+        
+        fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234", 
+                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), new Date(1990, 1, 1), "Lugar de Nacimiento", 
+                EnumSexo.Masculino, "Administrador");
     }
     
 }

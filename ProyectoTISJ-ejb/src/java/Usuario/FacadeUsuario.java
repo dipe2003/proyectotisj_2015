@@ -7,13 +7,11 @@ import Administrativo.Administrativo;
 import Administrativo.ControladorAdministrativo;
 import Docente.ControladorDocente;
 import Docente.Docente;
+import Enumerados.EstadoCivil.EstadoCivil;
 import Estudiante.ControladorEstudiante;
-import Estudiante.EnumEstadoCivil;
 import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
 import Estudiante.estudios.ControladorEstudio;
-import Estudiante.estudios.EnumTipoEstudio;
-import Estudiante.estudios.Estudio;
 import java.io.Serializable;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -61,30 +59,48 @@ public class FacadeUsuario implements Serializable {
      * Devuelve el id del usuario registrado.<br/>
      * <b>No realiza el registro de usuario estudiante</b>
      * @param NombreUsuario
+     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param CedulaUsuario
-     * @param Rol
-     * @param FormInscripcion Strig de ubicacion del formulario de Inscripcion.
      * @param ImagenUsuario
+     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
+     * @param EstadoCivilUsuario
+     * @param FechaNacimientoUsuario
+     * @param LugarNacimientoUsuario
+     * @param SexoUsuario
+     * @param Rol
      * @return -1 si no se pudo registrar.
      */
-    public int RegistrarUsuario(String NombreUsuario, String CorreoUsuario, String PasswordUsuario, int CedulaUsuario,
-            String Rol, String FormInscripcion, String ImagenUsuario){
+    public int RegistrarUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario, 
+            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, 
+            String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
+            EnumSexo SexoUsuario, String Rol){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, Rol)== -1) {
             switch(Rol){
                 case "Administrador":
-                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, 
+            CedulaUsuario, CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
+            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
                     
                 case "Administrativo":
-                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
                     
                 case "Docente":
-                    Usr = cDoc.CrearDocente(NombreUsuario, CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
+                    Usr = cDoc.CrearDocente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
+            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
             }
         }
@@ -147,39 +163,38 @@ public class FacadeUsuario implements Serializable {
     /**
      * Devuelve el id del usuario registrado.<br/>
      * <b>Solo registra usuario estudiante</b>
-     * @param SexoEstudiante
-     * @param LugarNcimientoEstudiante
-     * @param FechaNacimientoEstudiante
-     * @param LugarNacimietoEstudiante
-     * @param EstadoCivilEstudiante
-     * @param CredencialCivicaEstudiante
-     * @param DomicilioEstudiante
-     * @param DepartamentoEstudiante
-     * @param LocalidadEstudiante
-     * @param TelefonoEstudiante
-     * @param CelularEstudiante
      * @param FormInscripcion
      * @param NombreUsuario
+     * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param CedulaUsuario
      * @param ImagenUsuario
-     * @return
+     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
+     * @param CredencialCivicaUsuario
+     * @param DomicilioUsuario
+     * @param DepartamentoUsuario
+     * @param LocalidadUsuario
+     * @param TelefonoUsuario
+     * @param CelularUsuario
+     * @param EstadoCivilUsuario
+     * @param FechaNacimientoUsuario
+     * @param LugarNacimientoUsuario
+     * @param SexoUsuario
+     * @return 
      */
-    public int RegistrarUsuario(EnumSexo SexoEstudiante, String LugarNcimientoEstudiante, Date FechaNacimientoEstudiante, String LugarNacimietoEstudiante,
-            EnumEstadoCivil EstadoCivilEstudiante, String CredencialCivicaEstudiante, String DomicilioEstudiante, String DepartamentoEstudiante,
-            String LocalidadEstudiante, String TelefonoEstudiante, String CelularEstudiante, String FormInscripcion, String NombreUsuario,
-            String CorreoUsuario, String PasswordUsuario, int CedulaUsuario, String ImagenUsuario){
+    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+            String LugarNacimientoUsuario, EnumSexo SexoUsuario){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
             if(!FormInscripcion.isEmpty()) {
-                Usr = cEst.CrearEstudiante(SexoEstudiante, LugarNcimientoEstudiante, FechaNacimientoEstudiante, LugarNacimietoEstudiante,
-                        EstadoCivilEstudiante, CredencialCivicaEstudiante, DomicilioEstudiante, DepartamentoEstudiante,
-                        LocalidadEstudiante, TelefonoEstudiante, CelularEstudiante, FormInscripcion, NombreUsuario,
-                        CorreoUsuario, PasswordUsuario, CedulaUsuario, ImagenUsuario);
-            }            
-        }        
+                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                        FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+            }
+        }
         if (Usr==null) {
             return -1;
         }else{
@@ -187,4 +202,4 @@ public class FacadeUsuario implements Serializable {
         }
     }
     
- }
+}
