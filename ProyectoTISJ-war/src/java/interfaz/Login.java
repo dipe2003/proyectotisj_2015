@@ -10,6 +10,7 @@ import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -92,10 +93,13 @@ public class Login implements Serializable {
         fEnum.crearEstadoCivil("Casado");
         fEnum.crearEstadoCivil("Divorciado");
         
-        
-        
+        Date fNac = new Date();
+        Calendar cal = Calendar.getInstance();
+        // mes de 0 a 11
+        cal.set(1990, 1-1, 1);
+        fNac = cal.getTime();
         fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234", 
-                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), new Date(1990, 1, 1), "Lugar de Nacimiento", 
+                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento", 
                 EnumSexo.Masculino, "Administrador");
     }
     
