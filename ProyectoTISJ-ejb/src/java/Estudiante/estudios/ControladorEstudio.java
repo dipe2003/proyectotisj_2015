@@ -1,5 +1,6 @@
 package Estudiante.estudios;
 
+import Enumerados.TipoDeEstudio.TipoEstudio;
 import Estudio.estudios.ManejadorEstudio;
 import java.util.List;
 import javax.ejb.EJB;
@@ -14,12 +15,12 @@ public class ControladorEstudio {
     
     /**
      * Crea un Estudio y lo persiste.
-     * @param TipoEstudio 
+     * @param TipoDeEstudio 
      * @param Orientacion
      * @return Devulve un Estudio si fue creado, de lo contrario devuelve null.
      */
-    public Estudio CrearEstudio(EnumTipoEstudio TipoEstudio, String Orientacion){
-        Estudio est = new Estudio(TipoEstudio, Orientacion);
+    public Estudio CrearEstudio(TipoEstudio TipoDeEstudio, String Orientacion){
+        Estudio est = new Estudio(TipoDeEstudio, Orientacion);
         if (mEst.CrearEstudio(est)!=-1) {
             return est;
         }

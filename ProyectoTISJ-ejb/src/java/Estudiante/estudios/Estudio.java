@@ -1,37 +1,38 @@
 
 package Estudiante.estudios;
 
+import Enumerados.TipoDeEstudio.TipoEstudio;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Estudio implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int IdEstudio;
-    private EnumTipoEstudio TipoEstudio;
+    @ManyToOne
+    private TipoEstudio TipoDeEstudio;
     private String OrientacionEstudio;
-
+    
     public Estudio() {}
-
-    public Estudio(EnumTipoEstudio TipoEstudio, String OrientacionEstudio) {
-        this.TipoEstudio = TipoEstudio;
+    
+    public Estudio(TipoEstudio TipoEstudio, String OrientacionEstudio) {
+        this.TipoDeEstudio = TipoEstudio;
         this.OrientacionEstudio = OrientacionEstudio;
     }
 
-    public int getIdEstudio() {return IdEstudio;}
-
+    /*  Setters */
     public void setIdEstudio(int IdEstudio) {this.IdEstudio = IdEstudio;}
-
-    public EnumTipoEstudio getTipoEstudio() {return TipoEstudio;}
-
-    public void setTipoEstudio(EnumTipoEstudio TipoEstudio) {this.TipoEstudio = TipoEstudio;}
-
-    public String getOrientacionEstudio() {return OrientacionEstudio;}
-
-    public void setOrientacionEstudio(String OrientacionEstudio) {this.OrientacionEstudio = OrientacionEstudio;}    
+    public void setTipoEstudio(TipoEstudio TipoEstudio) {this.TipoDeEstudio = TipoEstudio;}
+    public void setOrientacionEstudio(String OrientacionEstudio) {this.OrientacionEstudio = OrientacionEstudio;}
+    
+    /*  Getters */
+    public TipoEstudio getTipoEstudio() {return TipoDeEstudio;}
+    public int getIdEstudio() {return IdEstudio;}    
+    public String getOrientacionEstudio() {return OrientacionEstudio;}    
     
 }
