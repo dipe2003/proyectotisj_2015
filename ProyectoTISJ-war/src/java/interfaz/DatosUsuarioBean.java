@@ -136,10 +136,13 @@ public class DatosUsuarioBean implements Serializable{
     /**
      * Registra un usuario del segun el rol seleccionado.
      * Sino se selecciono imagen de perfil se registra con imagen por defecto.
+     * [ESTUDIANTE] Sino se selecciono formulario de inscripcion no se registra.
      * @return
      */
     public String registrarUsuario(){
         FacesContext context = FacesContext.getCurrentInstance();
+//        if (this.EnumSexoSeleccionado == null) this.EnumSexoSeleccionado = EnumSexo.valueOf(this.SexoSeleccionado);
+//        if (this.EstadoCivilUsuario == null) this.EstadoCivilUsuario = getEstadoCivilPorNombre(this.EstadoCivilSeleccionado);
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
             String ubicacionPerfil = fUp.guardarArchivo("ImagenesPerfil", PartImagenPerfil, CedulaUsuario);
             if (Rol.equals("Estudiante")) {
