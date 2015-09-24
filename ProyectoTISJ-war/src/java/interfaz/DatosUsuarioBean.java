@@ -7,6 +7,8 @@ import Estudiante.EnumSexo;
 import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,15 +36,18 @@ public class DatosUsuarioBean implements Serializable{
     private String LocalidadUsuario;
     private String TelefonoUsuario;
     private String CelularUsuario;
-    protected EstadoCivil EstadoCivilUsuario;
-    protected Date FechaNacimientoUsuario;
-    protected String LugarNacimientoUsuario;
-    protected EnumSexo SexoUsuario;
+    private EstadoCivil EstadoCivilUsuario;
+    private Date FechaNacimientoUsuario;
+    private String LugarNacimientoUsuario;
+    private String SexoSeleccionado;
+    private List<String> ListaSexo;
     private String Rol;
     private Part PartImagenFormInscripcion;
     private Part PartImagenPerfil;
-    private List<EstadoCivil> ListEstadoCivil;
-    private EstadoCivil EstadoCivilSeleccionado;
+    private List<String> ListEstadoCivil;
+    private String EstadoCivilSeleccionado;
+    private EnumSexo EnumSexoSeleccionado;
+    private String strFechaNacimiento;
     
     @EJB
     private FacadeUsuario fUsr;
@@ -72,14 +77,28 @@ public class DatosUsuarioBean implements Serializable{
     public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
     public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
     public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
-    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
+    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {
+        this.FechaNacimientoUsuario = FechaNacimientoUsuario;
+    }
     public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
-    public void setSexoUsuario(EnumSexo SexoUsuario) {this.SexoUsuario = SexoUsuario;}
+    public void setSexoSeleccionado(String SexoSeleccionado) {
+        this.SexoSeleccionado = SexoSeleccionado;
+        EnumSexoSeleccionado = EnumSexo.valueOf(SexoSeleccionado);
+    }
+    public void setListaSexo(List<String> ListaSexo){this.ListaSexo = ListaSexo;}
     public void setRol(String Rol) {this.Rol = Rol;}
     public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
-    public void setListEstadoCivil(List<EstadoCivil> ListEstadoCivil) {this.ListEstadoCivil = ListEstadoCivil;}
-    public void setEstadoCivilSeleccionado(EstadoCivil EstadoCivilSeleccionado) {this.EstadoCivilSeleccionado = EstadoCivilSeleccionado;}
+    public void setListEstadoCivil(List<String> ListEstadoCivil) {this.ListEstadoCivil = ListEstadoCivil;}
+    public void setEstadoCivilSeleccionado(String EstadoCivilSeleccionado) {
+        this.EstadoCivilSeleccionado = EstadoCivilSeleccionado;
+        this.EstadoCivilUsuario = getEstadoCivilPorNombre(EstadoCivilSeleccionado);
+    }
     public void setPartImagenPerfil(Part PartImagenPerfil) {this.PartImagenPerfil = PartImagenPerfil;}
+    public void setStrFechaNacimiento(String strFechaNacimiento) {
+        Date fecha = new Date(strFechaNacimiento);
+        this.strFechaNacimiento = strFechaNacimiento;
+        this.FechaNacimientoUsuario = fecha;
+    }
     
     /*  Getters */
     public String getNombreUsuario() {return NombreUsuario;}
@@ -97,12 +116,20 @@ public class DatosUsuarioBean implements Serializable{
     public EstadoCivil getEstadoCivilUsuario() {return EstadoCivilUsuario;}
     public Date getFechaNacimientoUsuario() {return FechaNacimientoUsuario;}
     public String getLugarNacimientoUsuario() {return LugarNacimientoUsuario;}
-    public EnumSexo getSexoUsuario() {return SexoUsuario;}
+    public String getSexoSeleccionado() {return SexoSeleccionado;}
+    public List<String> getListaSexo(){return this.ListaSexo;}
     public String getRol() {return Rol;}
-    public List<EstadoCivil> getListEstadoCivil() {return ListEstadoCivil;}
-    public EstadoCivil getEstadoCivilSeleccionado() {return EstadoCivilSeleccionado;}
+    public List<String> getListEstadoCivil() {return this.ListEstadoCivil;}
+    public String getEstadoCivilSeleccionado() {return this.EstadoCivilSeleccionado;}
     public Part getPartImagenPerfil() {return PartImagenPerfil;}
-    
+    public String getStrFechaNacimiento(){
+        SimpleDateFormat fDate = new SimpleDateFormat("dd/mm/yyyy");
+        if (FechaNacimientoUsuario == null) {
+            return this.strFechaNacimiento;
+        }else{
+            return fDate.format(FechaNacimientoUsuario);
+        }
+    }
     /*  Solo Estudiante   */
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
     
@@ -120,14 +147,14 @@ public class DatosUsuarioBean implements Serializable{
                 if (ubicacionFrmInscripcion!=null) {
                     if (ubicacionPerfil!=null) {
                         if (fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
-                                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilSeleccionado,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario)!=-1) {
+                                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado)!=-1) {
                             return "registrado";
                         }
                     }else{
                         if (fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
-                                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilSeleccionado,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario)!=-1) {
+                                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado)!=-1) {
                             return "registrado";
                         }
                     }
@@ -139,14 +166,14 @@ public class DatosUsuarioBean implements Serializable{
             }else{
                 if (ubicacionPerfil!=null) {
                     if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
-                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilSeleccionado,
-                            FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, Rol)!=-1){
+                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
                         return "registrado";
                     }
                 }else{
                     if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
-                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilSeleccionado,
-                            FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, Rol)!=-1){
+                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
                         return "registrado";
                     }
                 }
@@ -157,14 +184,38 @@ public class DatosUsuarioBean implements Serializable{
         return "";
     }
     
+    /**
+     * Busca el estado civil segun su nombre.
+     * @param NombreEstadoCivil
+     * @return 
+     */
+    private EstadoCivil getEstadoCivilPorNombre(String NombreEstadoCivil){
+        List<EstadoCivil> lstEstadoCivil =fEnum.ListarEstadosCiviles();
+        for (int i = 0; i < lstEstadoCivil.size(); i++) {
+            if (lstEstadoCivil.get(i).getEstadoCivil().equals(NombreEstadoCivil)) {
+                return lstEstadoCivil.get(i);
+            }
+        }
+        return null;
+    }
+    
     @PostConstruct
-    private void init(){
+    public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Rol = request.getParameter("rol");
-        
-        this.ListEstadoCivil = fEnum.ListarEstadosCiviles();
+        List<EstadoCivil> lstEstadoCivil = fEnum.ListarEstadosCiviles();
+        this.ListEstadoCivil = new ArrayList<>();
+        for (int i = 0; i < lstEstadoCivil.size(); i++) {
+            this.ListEstadoCivil.add(lstEstadoCivil.get(i).getEstadoCivil());
+        }
         this.EstadoCivilSeleccionado = this.ListEstadoCivil.get(0);
+        
+        this.ListaSexo = new ArrayList<>();
+        for (int i = 0; i < EnumSexo.values().length; i++) {
+            this.ListaSexo.add(EnumSexo.values()[i].toString());
+        }
+        this.SexoSeleccionado = ListaSexo.get(0);
     }
 }
 

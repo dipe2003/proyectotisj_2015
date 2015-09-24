@@ -93,7 +93,7 @@ public class Login implements Serializable {
         fEnum.crearEstadoCivil("Casado");
         fEnum.crearEstadoCivil("Divorciado");
         
-        Date fNac = new Date();
+        Date fNac;
         Calendar cal = Calendar.getInstance();
         // mes de 0 a 11
         cal.set(1990, 1-1, 1);
