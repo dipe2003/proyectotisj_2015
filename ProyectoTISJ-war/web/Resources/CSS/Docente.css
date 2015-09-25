@@ -1,4 +1,13 @@
+@charset "utf-8";
 
+.cabecera{
+    width: 100%;
+    height: 100px;
+    background-color: #B0BEC5;
+    border-bottom: #444444 solid 1px;
+	position: fixed;
+	z-index: 1;
+}
 .docente{
     float:left;
     margin: 25px;
@@ -110,7 +119,7 @@
     margin: 0 auto;
     display: inline;
     min-width: 500px;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
     margin-top: 15px;
     -webkit-box-shadow: 10px 0px 5px #888888;
     -moz-box-shadow: 10px 0px 5px #888888;
@@ -164,21 +173,19 @@
     border-bottom: #FFFFFF solid 3px;
 }
 
-.boton{    
+.boton{
     text-align: center;
-    width: 100px;    
-    height: 50px;    
-    background-color: white;    
+    width: 40%;
+    height: 50px;
+    background-color: #222933;
     border: none;
     font-family: RobotoRegular;
     font-size: 16px;
-    color: #222933;
-}
-
-.boton:active{
-    background-color: #222933;
-    border: white solid 1px;
     color: #FFFFFF;
+    margin: 15px;
+    display: inline-block;
+    line-height: 50px;
+    background-image: url(../edit.png)
 }
 
 input:-webkit-autofill {
@@ -233,4 +240,18 @@ input:-webkit-autofill {
 
 .imagenMenuOpcionFocused{
     background-color: white;
+}
+
+.butonIcon{
+    background-size: cover; 
+    width: 20px; 
+    height: 20px; 
+    float: left; 
+    line-height: 20px;
+    margin-top: 15px;
+    margin-left: 3px;
+}
+
+.boton:active{
+    background-color: #37474F;
 }
