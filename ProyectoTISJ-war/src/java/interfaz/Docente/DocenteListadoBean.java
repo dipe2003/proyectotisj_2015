@@ -1,8 +1,8 @@
 
 package interfaz.Docente;
 
-import Docente.Docente;
 import Docente.FacadeDocente;
+import Docente.Docente;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -20,11 +20,11 @@ public class DocenteListadoBean implements Serializable{
     private List<Docente> Docentes;
     private Docente DocenteSeleccionado;
 
-    public List<Docente> getDocentes() {return Docentes;}
+    public List<Docente> getDocentes() {return this.Docentes;}
 
     public void setDocentes(List<Docente> Docentes) {this.Docentes = Docentes;}
 
-    public Docente getDocenteSeleccionado() {return DocenteSeleccionado;}
+    public Docente getDocenteSeleccionado() {return this.DocenteSeleccionado;}
 
     public void setDocenteSeleccionado(Docente DocenteSeleccionado) {this.DocenteSeleccionado = DocenteSeleccionado;}
     

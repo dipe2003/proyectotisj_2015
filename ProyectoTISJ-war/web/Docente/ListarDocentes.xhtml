@@ -4,6 +4,11 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="page_content">
+        <div class="cabecera" >
+            <div class="titulo" >
+                Listado de Docentes Registrados
+            </div>
+        </div>
         <div id="contenedor" style="margin-top: 120px">
             <c:forEach var="docente" items="#{docenteListadoBean.docentes}">
                 <div class="ListItemContainer" >
@@ -37,7 +42,7 @@
                         <div class="negrita">Telefono: </div> #{docente.telefonoUsuario}<br/>
                         <div class="negrita">Celular: </div> #{docente.celularUsuario} <br/>
                         <div class="negrita">Fecha de Nacimiento: </div> #{docente.fechaNacimientoUsuario} <br/>
-                        <div class="negrita">Lugar de Nacimiento: </div> lugar <br/>
+                        <div class="negrita">Lugar de Nacimiento: </div>  #{docente.lugarNacimientoUsuario}<br/>
                         <div class="negrita">Estado Civil: </div> #{docente.estadoCivilUsuario} <br/>
                         <div class="negrita">Sexo: </div> #{docente.sexoUsuario} <br/>
                         <div class="negrita">Cursos Dictados: </div> Arquitectura del Computador, Matematica Discreta y Logica 1, Matematica Discreta y Logica 2<br/>

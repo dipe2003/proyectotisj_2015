@@ -14,6 +14,7 @@ import Estudiante.Estudiante;
 import Estudiante.estudios.ControladorEstudio;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.RequestScoped;

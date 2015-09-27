@@ -1,11 +1,7 @@
 package interfaz;
 
-import Administrador.Administrador;
-import Administrativo.Administrativo;
-import Docente.Docente;
 import Enumerados.FacadeEnumerados;
 import Estudiante.EnumSexo;
-import Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.Serializable;
@@ -92,6 +88,14 @@ public class Login implements Serializable {
             fEnum.crearEstadoCivil("Soltero");
             fEnum.crearEstadoCivil("Casado");
             fEnum.crearEstadoCivil("Divorciado");
+        }catch(Exception ex){}
+        
+         try{
+            fEnum.crearTipoDeEstudio("Universidad");
+            fEnum.crearTipoDeEstudio("UTU");
+            fEnum.crearTipoDeEstudio("Secundaria");
+            fEnum.crearTipoDeEstudio("Formacion Docente");
+            fEnum.crearTipoDeEstudio("Estudios Militares");
         }catch(Exception ex){}
         
         Date fNac;

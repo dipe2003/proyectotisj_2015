@@ -4,38 +4,40 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="page_content">
-        <c:forEach var="asignatura" items="#{asignaturaListadoBean.asignaturas}">
-            <div class="docente">
-                <div class="nombreDocente"><h:outputText value="#{asignatura.nombreAsignatura}"/></div>
-                <div class="imagenDocente" style="background-image: url('#{docente.imagenURL}')" >
-                    <div class="optionContainer">
-                        <div class="optionButton">
-                            <div class="optButtonImagen">
-                                <img src="../Resources/Images/edit.png" width="48" height="48" alt="edit"/>
-                            </div>
-                            <div class="optButtonTexto">
-                                Editar
-                            </div>
-                        </div>
-                        <div class="optionButton">
-                            <div class="optButtonImagen">
-                                <img src="../Resources/Images/delete.png" width="48" height="48" alt="edit"/>
-                            </div>
-                            <div class="optButtonTexto">
-                                Eliminar
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="cabecera" >
+            <div class="titulo" >
+                Listado de Asignaturas Registradas
             </div>
-        </c:forEach>
-        <div class="docente">
-            <div class="nombreDocente">Registrar Asignatura</div>
-            <a href="../Asignatura/RegistrarAsignatura.xhtml">
-                <div class="addContainer"> 
-                    <h:graphicImage url="../Resources/Images/add.png" id="add"/> 
+        </div>
+        <div id="contenedor" style="margin-top: 120px">
+            <c:forEach var="asignatura" items="#{asignaturaListadoBean.asignaturas}">
+                <div class="ListItemContainer" >
+                    <div class="ListItem" >
+
+                        <div class="item">
+                            #{asignatura.nombreAsignatura}
+                        </div>
+                        <div class="item">
+                            #{asignatura.creditosAsignatura}
+                        </div>
+
+                        <div class="optionItem" style="background-image: url(ListarDocentes_files/delete.png)"></div>
+                        <div class="optionItem" style="background-image: url(ListarDocentes_files/edit.png)"></div>
+                    </div>
+                    <div class="columna">
+                        <div class="negrita">Nombre: </div> #{asignatura.nombreAsignatura}<br/>
+                        <div class="negrita">Creditos </div> #{asignatura.creditosAsignatura}<br/>                        
+                        <div class="negrita">Cursos Dictados: </div> Arquitectura del Computador, Matematica Discreta y Logica 1, Matematica Discreta y Logica 2<br/>
+                    </div>
+                </div>            
+            </c:forEach>
+            <div class="ListItemContainer" style="background-color: #37474F; text-align: center; ">
+                <a href="../Asignatura/RegistrarAsignatura.xhtml">
+                <div class="ImagenItem" style="margin: 0 auto; margin-top: 5px; border: none; box-shadow: none">
+                    <img src="../Resources/Images/add.png" height="100%" width="100%"/>
                 </div>
-            </a>
+                </a>
+            </div>
         </div>
     </ui:define>
 </ui:composition>

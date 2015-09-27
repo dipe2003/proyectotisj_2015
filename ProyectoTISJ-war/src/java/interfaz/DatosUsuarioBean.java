@@ -3,6 +3,7 @@ package interfaz;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Enumerados.FacadeEnumerados;
+import Enumerados.TipoDeEstudio.TipoEstudio;
 import Estudiante.EnumSexo;
 import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
@@ -48,6 +49,8 @@ public class DatosUsuarioBean implements Serializable{
     private String EstadoCivilSeleccionado;
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
+    private List<String> ListaEstudiosCursados;
+    private String EstudioSeleccionado; 
     
     @EJB
     private FacadeUsuario fUsr;
@@ -99,6 +102,8 @@ public class DatosUsuarioBean implements Serializable{
         this.strFechaNacimiento = strFechaNacimiento;
         this.FechaNacimientoUsuario = fecha;
     }
+    public void setListaEstudiosCursados(List<String> ListaEstudiosCursados) {this.ListaEstudiosCursados = ListaEstudiosCursados;}
+    public void setEstudioSeleccionado(String EstudioSeleccionado) {this.EstudioSeleccionado = EstudioSeleccionado;}
     
     /*  Getters */
     public String getNombreUsuario() {return NombreUsuario;}
@@ -130,6 +135,9 @@ public class DatosUsuarioBean implements Serializable{
             return fDate.format(FechaNacimientoUsuario);
         }
     }
+    public List<String> getListaEstudiosCursados() {return ListaEstudiosCursados;}
+    public String getEstudioSeleccionado() {return EstudioSeleccionado;}
+    
     /*  Solo Estudiante   */
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
     
@@ -219,6 +227,13 @@ public class DatosUsuarioBean implements Serializable{
             this.ListaSexo.add(EnumSexo.values()[i].toString());
         }
         this.SexoSeleccionado = ListaSexo.get(0);
-    }
+        
+        this.ListaEstudiosCursados = new ArrayList<>();
+        
+        List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
+        for (int i = 0; i < lstTipoEstudios.size(); i++) {
+            this.ListaEstudiosCursados.add(lstTipoEstudios.get(i).getTipoDeEstudio());
+        }
+    }    
 }
 

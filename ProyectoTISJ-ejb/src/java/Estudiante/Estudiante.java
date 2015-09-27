@@ -33,10 +33,6 @@ public class Estudiante extends Usuario {
                 DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, 
                 SexoUsuario);
         this.FormInscripcion = FormInscripcion;
-        this.SexoUsuario = SexoUsuario;
-        this.LugarNacimientoUsuario = LugarNacimientoUsuario;
-        this.FechaNacimientoUsuario = FechaNacimientoUsuario;
-        this.EstadoCivilUsuario = EstadoCivilUsuario;
         this.FormInscripcion = FormInscripcion;
         this.EvaluacionesEstudiante = new ArrayList<>();
         this.EvaluacionesEstudiante = new ArrayList<>();
@@ -49,8 +45,7 @@ public class Estudiante extends Usuario {
     public void setEvaluacionesEstudiante(List<Evaluacion> EvaluacionesEstudiante) {this.EvaluacionesEstudiante = EvaluacionesEstudiante;}
     public void setRespuestasEstudiante(List<Respuesta> RespuestasEstudiante) {this.RespuestasEstudiante = RespuestasEstudiante;}
     public void setEstudiosCursadosEstudiante(List<Estudio> EstudiosCursadosEstudiante) {this.EstudiosCursadosEstudiante = EstudiosCursadosEstudiante;}
-    
-    public String getLugarNacimientoEstudiante() {return LugarNacimientoUsuario;}
+
     public String getFormInscripcion() {return FormInscripcion;}
     public List<Evaluacion> getEvaluacionesEstudiante() {return EvaluacionesEstudiante;}
     public List<Respuesta> getRespuestasEstudiante() {return RespuestasEstudiante;}

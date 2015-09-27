@@ -31,11 +31,11 @@ public class Usuario implements Serializable{
     private String TelefonoUsuario;
     private String CelularUsuario;
     @ManyToOne
-    protected EstadoCivil EstadoCivilUsuario;
+    private EstadoCivil EstadoCivilUsuario;
     @Temporal(value = TemporalType.DATE)
-    protected Date FechaNacimientoUsuario;
-    protected String LugarNacimientoUsuario;
-    protected EnumSexo SexoUsuario;
+    private Date FechaNacimientoUsuario;
+    private String LugarNacimientoUsuario;
+    private EnumSexo SexoUsuario;
     
     public Usuario() { }
 
@@ -103,7 +103,8 @@ public class Usuario implements Serializable{
     public String getImagenURL(){return this.ImagenUsuario;}
     public EstadoCivil getEstadoCivilUsuario() {return EstadoCivilUsuario;}
     public Date getFechaNacimientoUsuario() {return FechaNacimientoUsuario;}
-    public EnumSexo getSexoUsuario() {return SexoUsuario;}    
+    public EnumSexo getSexoUsuario() {return SexoUsuario;}
+    public String getLugarNacimientoUsuario() {return LugarNacimientoUsuario;}
     
     public boolean isValidPass(String Password){return Password.equals(this.PasswordUsuario);}
     public String getNombreCompleto(){return this.NombreUsuario + " " + this.ApellidoUsuario;}
