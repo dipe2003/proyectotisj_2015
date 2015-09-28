@@ -115,6 +115,7 @@
                             <h:dataTable var="estudio" value="#{datosUsuarioBean.listaEstudiosCursados}" id="inputEstudio">
                                 <h:column >#{estudio}</h:column>
                                 <h:column ><h:inputText value="#{datosUsuarioBean.estudioSeleccionado}" p:placeholder="Orientacion"/></h:column>
+                                <h:column><h:commandButton action="#{datosUsuarioBean.addEstudio(estudio)}" value="Agregar"/></h:column>
                             </h:dataTable>
                         </div><h:message class="error" for="inputEsudio"/>    
                     </div>

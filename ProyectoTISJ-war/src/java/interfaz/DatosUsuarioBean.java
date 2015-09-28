@@ -234,6 +234,10 @@ public class DatosUsuarioBean implements Serializable{
         for (int i = 0; i < lstTipoEstudios.size(); i++) {
             this.ListaEstudiosCursados.add(lstTipoEstudios.get(i).getTipoDeEstudio());
         }
-    }    
+    }
+    
+    public void addEstudio(String estudio){
+        this.ListaEstudiosCursados.add(estudio);
+    }
 }
 

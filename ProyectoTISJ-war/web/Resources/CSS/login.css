@@ -1,0 +1,29 @@
+
+.loginContainer {	
+	padding-top: 25px;
+	margin-right: 25%;
+	margin-left: 25%;
+	text-align: center;
+	height: 90px;
+	background-color: #FFF;
+	box-shadow: 0px 0px 15px 0px grey;
+}
+
+
+.barraGris {
+	padding-top: 10%;
+	height: 100px;
+	margin-top: 20%;
+	margin-bottom: 20%;
+	box-shadow: 0px 0px 15px 0px grey;
+	background-color: black;
+}
+
+.titulo {
+	color: #FFF;
+	font-family: sans-serif;
+	text-align: center;
+	margin-bottom: 2%;
+
+	
+}

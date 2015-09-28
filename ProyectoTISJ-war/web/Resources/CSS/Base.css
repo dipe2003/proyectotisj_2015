@@ -104,3 +104,31 @@
     color:white;
     text-decoration: none;
 }
+
+.loginContainer {
+    margin-top:25%;
+    margin-bottom: 25%;
+    font-family: RobotoRegular; 
+    font-size: 14px; 
+    background-color: #37474F;
+    height: 50%;
+    width: 100%;
+    border: #3a4450 4px solid;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.tableContainter {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    background-color: #37474F;
+    margin-left: 25%;
+    margin-right: 25%;
+    border: #3a4450 4px solid;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 4px;
+}
