@@ -149,8 +149,6 @@ public class DatosUsuarioBean implements Serializable{
      */
     public String registrarUsuario(){
         FacesContext context = FacesContext.getCurrentInstance();
-//        if (this.EnumSexoSeleccionado == null) this.EnumSexoSeleccionado = EnumSexo.valueOf(this.SexoSeleccionado);
-//        if (this.EstadoCivilUsuario == null) this.EstadoCivilUsuario = getEstadoCivilPorNombre(this.EstadoCivilSeleccionado);
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
             String ubicacionPerfil = fUp.guardarArchivo("ImagenesPerfil", PartImagenPerfil, CedulaUsuario);
             if (Rol.equals("Estudiante")) {

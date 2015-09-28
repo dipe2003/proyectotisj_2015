@@ -13,6 +13,7 @@ import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
 import Estudiante.estudios.ControladorEstudio;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -201,6 +202,28 @@ public class FacadeUsuario implements Serializable {
         }else{
             return Usr.getIdUsuario();
         }
+    }
+    
+    /**
+     * Devuleve una lista de usuarios del rol especificado.
+     * @param Rol Estudiante, Docente, Administrador, Administrativo
+     * @return una lista vacia si no existen usuarios del rol especificado.
+     */
+    public List<Usuario> listarUsuarios(String Rol){
+        switch(Rol){
+            case "Administrador":
+                return (List<Usuario>) (ArrayList<?>) cAdministrador.ListarAdministradores();
+                
+            case "Administrativo":
+                return (List<Usuario>) (ArrayList<?>) cAdministrativo.ListarAdministrativos();
+                
+            case "Docente":
+                return (List<Usuario>) (ArrayList<?>) cDoc.ListarDocentes();
+                
+            case "Estudiante":
+                return (List<Usuario>) (ArrayList<?>) cDoc.ListarDocentes();
+        }
+        return new ArrayList<>();
     }
     
 }

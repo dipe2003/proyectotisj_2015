@@ -2,35 +2,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core" >
     <h:head>
         <link rel="stylesheet" href="./Resources/CSS/Base.css" />
+        <link rel="stylesheet" href="./Resources/CSS/login.css" />        
         <title>Login</title>        
     </h:head>
-    <h:body>
-        <div class="barraGris">
+    <h:body>        
         <h:form style="text-align: center" rendered="#{!login.usuarioLogueado}">
-            <div class="loginContainer">
-                <h:inputText value="#{login.usuario}" p:placeholder="Cedula"/>
-                <h:inputSecret value="#{login.password}" p:placeholder="Cedula"/><br/>
-                
-                            <td>Rol</td>
-                            <td><h:selectOneRadio value="#{login.rolSeleccionado}">
-                                    <f:selectItems value="#{login.roles}"/>                                    
-                                </h:selectOneRadio></td>
-            
-                <h:panelGroup style="display:block; text-align:center">
-                    <h:commandButton type="submit" value="Ingresar" action="#{login.login()}"/>
-                </h:panelGroup> 
+            <div class="barraGris"><div class="tituloLogin">Login</div>
+                <div class="loginContainerForm">
+                    <h:inputText value="#{login.usuario}" p:placeholder="Cedula"/><br/>
+                    <h:inputSecret value="#{login.password}" p:placeholder="Password"/><br/>
+                    <fieldset><legend>Rol</legend>
+                        <h:selectOneRadio value="#{login.rolSeleccionado}">
+                            <f:selectItems value="#{login.roles}"/>                                    
+                        </h:selectOneRadio>
+                    </fieldset>            
+                    <h:panelGroup >
+                        <h:commandButton type="submit" value="Ingresar" action="#{login.login()}"/>
+                    </h:panelGroup> 
+                    <div>
+                        <h:form rendered="#{login.usuarioLogueado}">
+                            <h:outputText value="Ya estas logueado"/>
+                            <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
+                        </h:form>
+                    </div>
+                </div>                
             </div>
-        </h:form>
-        </div>
-        <div>
-            <h:form rendered="#{login.usuarioLogueado}">
-                <h:outputText value="Ya estas logueado"/>
-                <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
-            </h:form>
-        </div>
+        </h:form>        
+        
     </h:body>
 </html>
 

@@ -35,7 +35,7 @@
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/pass.png"/>
-                        <h:inputText id="inputPass" value="#{datosUsuarioBean.passwordUsuario}" required="true" requiredMessage="Debes ingresar una contraseña." class="Texto" p:placeholder="Contraseña"/>             
+                        <h:inputSecret id="inputPass" value="#{datosUsuarioBean.passwordUsuario}" required="true" requiredMessage="Debes ingresar una contraseña." class="Texto" p:placeholder="Contraseña"/>             
                     </div><h:message class="error" for="inputPass"/>
                 </div>
                     
@@ -128,7 +128,8 @@
                         <div class="boton "> <img src="../Resources/Images/reset.png" class="butonIcon"/> Reset </div>
                     </h:commandButton>
                 </div>
+                <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
             </h:form>
-        </div>
+        </div> 
     </ui:define>
 </ui:composition>

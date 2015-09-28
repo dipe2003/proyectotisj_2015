@@ -25,7 +25,7 @@ public class ManejadorUsuario {
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
             return -1;
-        }        
+        }
     }
     
     public int ModificarUsuario(Usuario usuario){
@@ -92,6 +92,6 @@ public class ManejadorUsuario {
         }
         return lista;
     }
-        
-}
     
+}
+

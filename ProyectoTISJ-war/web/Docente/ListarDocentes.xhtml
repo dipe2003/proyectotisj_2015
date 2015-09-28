@@ -1,12 +1,13 @@
 <ui:composition template="../Views/index.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
-                Listado de Docentes Registrados
+                Listado de #{usuarioListadoBean.Rol} Registrados
             </div>
         </div>
         <div id="contenedor" style="margin-top: 120px">
@@ -55,7 +56,7 @@
                     <img src="../Resources/Images/add.png" height="100%" width="100%"/>
                 </div>
                 </a>
-            </div>
+            </div><f:param name="rol"/>
         </div>
     </ui:define>
 </ui:composition>
