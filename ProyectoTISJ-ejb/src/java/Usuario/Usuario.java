@@ -5,11 +5,14 @@ import Enumerados.EstadoCivil.EstadoCivil;
 import Estudiante.EnumSexo;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -30,7 +33,8 @@ public class Usuario implements Serializable{
     private String LocalidadUsuario;
     private String TelefonoUsuario;
     private String CelularUsuario;
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name="EstadoCivil_Id", insertable=true, updatable=true)
     private EstadoCivil EstadoCivilUsuario;
     @Temporal(value = TemporalType.DATE)
     private Date FechaNacimientoUsuario;
@@ -61,8 +65,6 @@ public class Usuario implements Serializable{
         this.LugarNacimientoUsuario = LugarNacimientoUsuario;
         this.SexoUsuario = SexoUsuario;
     }
-
-    
     
     /*
     * Setters

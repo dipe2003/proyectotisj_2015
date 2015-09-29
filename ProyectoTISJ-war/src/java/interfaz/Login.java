@@ -106,6 +106,9 @@ public class Login implements Serializable {
         fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
                 "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
                 EnumSexo.Masculino, "Administrador");
+        fUsr.RegistrarUsuario("Docente", "ApellidoDocente", "Docente@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
+                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
+                EnumSexo.Masculino, "Docente");
     }
     
 }
