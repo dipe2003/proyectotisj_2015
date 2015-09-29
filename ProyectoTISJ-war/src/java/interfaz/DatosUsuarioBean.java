@@ -50,7 +50,7 @@ public class DatosUsuarioBean implements Serializable{
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
     private List<String> ListaEstudiosCursados;
-    private String EstudioSeleccionado; 
+    private String EstudioSeleccionado;
     
     @EJB
     private FacadeUsuario fUsr;
@@ -187,16 +187,17 @@ public class DatosUsuarioBean implements Serializable{
                     }
                 }
             }
+        }else{
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
+            context.addMessage("frmIngresoDatos:inputCedula", fm);
         }
-        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
-        context.addMessage("frmIngresoDatos:inputCedula", fm);
         return "";
     }
     
     /**
      * Busca el estado civil segun su nombre.
      * @param NombreEstadoCivil
-     * @return 
+     * @return
      */
     private EstadoCivil getEstadoCivilPorNombre(String NombreEstadoCivil){
         List<EstadoCivil> lstEstadoCivil =fEnum.ListarEstadosCiviles();
