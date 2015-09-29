@@ -6,33 +6,54 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" >
     <h:head>
         <link rel="stylesheet" href="./Resources/CSS/Base.css" />
-        <link rel="stylesheet" href="./Resources/CSS/login.css" />        
-        <title>Login</title>        
+        <link rel="stylesheet" href="./Resources/CSS/login.css" /> 
+        <script src="Resources/Scripts/jquery-1.11.3.min.js"></script>
+        <script src="Resources/Scripts/SelecRadioButton.js"></script>
+        <title>Login</title>      
     </h:head>
     <h:body>        
-        <h:form style="text-align: center" rendered="#{!login.usuarioLogueado}">
-            <div class="barraGris"><div class="tituloLogin">Login</div>
-                <div class="loginContainerForm">
-                    <h:inputText value="#{login.usuario}" p:placeholder="Cedula"/><br/>
-                    <h:inputSecret value="#{login.password}" p:placeholder="Password"/><br/>
-                    <fieldset><legend>Rol</legend>
-                        <h:selectOneRadio value="#{login.rolSeleccionado}">
-                            <f:selectItems value="#{login.roles}"/>                                    
-                        </h:selectOneRadio>
-                    </fieldset>            
-                    <h:panelGroup >
-                        <h:commandButton type="submit" value="Ingresar" action="#{login.login()}"/>
-                    </h:panelGroup> 
-                    <div>
-                        <h:form rendered="#{login.usuarioLogueado}">
-                            <h:outputText value="Ya estas logueado"/>
-                            <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
-                        </h:form>
+        <h:form id="login" style="text-align: center" rendered="#{!login.usuarioLogueado}">
+            <div id="linea">
+                <div id="titulo">
+                    <img src="./Resources/Images/lock.png"/><br/>
+                    Login
+                </div>
+                <div id="contenedor">
+                    <h:inputText value="#{login.usuario}" class="Texto" p:placeholder="Cedula"/><br/>
+                    <h:inputSecret value="#{login.password}" class="Texto" p:placeholder="Password"/><br/>
+                    <div id="contenedorBotones">
+                        <div class="menuOpcion" name="Estudiante" style="text-align: center">
+                            <div class="textoMenuOpcion">Estudiante</div>
+                            <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
+                            <div class="imagenMenuOpcion"></div>
+                        </div>
+                        <div class="menuOpcion" name="Docente" style="text-align: center">
+                            <div class="textoMenuOpcion">Docente</div>
+                            <img src="./Resources/Images/docente.png" width="100" height="100" alt="edit"/>
+                            <div class="imagenMenuOpcion"></div>
+                        </div>
+                        <div class="menuOpcion" name="Administrativo" style="text-align: center">
+                            <div class="textoMenuOpcion">Administrativo</div>
+                            <img src="./Resources/Images/administrativo.png" width="100" height="100" alt="edit"/>
+                            <div class="imagenMenuOpcion"></div>
+                        </div>
+                        <div class="menuOpcion clickeado" name="Administrador" style="text-align: center">
+                            <div class="textoMenuOpcion">Administrador</div>
+                            <img src="./Resources/Images/administrador.png" width="100" height="100" alt="edit"/>
+                            <div class="imagenMenuOpcion imagenMenuOpcionClick"></div>
+                        </div>
                     </div>
-                </div>                
+                    <h:commandButton type="submit" class="botonLogin" value="Ingresar" action="#{login.login()}"/>
+                </div>
             </div>
-        </h:form>        
-        
+            <h:selectOneRadio class="escondido" id="opcion" value="#{login.rolSeleccionado}">
+                <f:selectItems value="#{login.roles}"/>                                    
+            </h:selectOneRadio>
+        </h:form>  
+        <h:form rendered="#{login.usuarioLogueado}">
+            <h:outputText value="Ya estas logueado"/>
+            <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
+        </h:form>
     </h:body>
 </html>
 

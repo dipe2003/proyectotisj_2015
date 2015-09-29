@@ -1,28 +1,134 @@
-
-.loginContainerForm {
-    font-family: RobotoRegular; 
-	padding-top: 25px;
-	margin-right: 25%;
-	margin-left: 25%;
-	text-align: center;
-	height: 120px;
-	background-color: #FFF;
-	box-shadow: 0px 0px 15px 0px grey;
+body{
+    margin: 0;
 }
 
-
-.barraGris {
-	padding-top: 10%;
-	height: 150px;
-	margin-top: 10%;
-	margin-bottom: 20%;
-	box-shadow: 0px 0px 15px 0px grey;
-	background-color: #37474F;
+#linea{
+    top:50%;
+    position: absolute;
+    height: 300px;
+    margin-top: -250px;
+    /* left: 50%; */
+    width: 100%;
+    box-shadow: gray 0px 5px 5px;
+    background-color: #222933;
 }
 
-.tituloLogin {
-	color: #FFF;
-	font-family: sans-serif;
-	text-align: center;
-	margin-bottom: 2%;	
+#titulo{
+    background-color: #222933;
+    color: #FFFFFF;
+    font-family: RobotoRegular;
+    font-size: 20px;
+    float: left;
+    /* height: auto; */
+    top: 500px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#contenedor{
+    width: 900px;
+    text-align: center;
+    height: 400px;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* margin-top: -200px; */
+    margin-left: -450px;
+    border-radius: 20px 20px 20px 20px;
+    /* overflow: hidden; */
+    box-shadow: grey 5px 5px 15px;
+    border: grey solid 1px;
+}
+
+.Texto{
+    padding-left: 10px;
+    margin: 10px;
+    width: 80%;
+    height: 30px;
+    font-family: RobotoRegular;
+    color: #FFFFFF;
+    background-color: #222933;
+    border-color: #222933;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.Texto:focus{
+    color: #222933;
+    background-color: #FFFFFF;
+    outline: none;
+    //border: none;
+}
+
+#contenedorBotones{
+    width: 100%;
+    border: #222933 solid;
+    border-left: none;
+    border-right: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.menuOpcion{
+    width: 200px;
+    height: 200px;
+    background-color: #263238;
+    /* float: left; */
+    margin: 5px;
+    display: inline-table;
+    margin: 0 auto;
+}
+
+.textoMenuOpcion{
+    font-family: RobotoRegular;
+    color: #FFFFFF;
+    margin-top: 15px;
+}
+
+.imagenMenuOpcion{
+    background-image: url(../Images/uncheck.png);
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position:center;
+}
+
+.imagenMenuOpcionClick{
+    background-image: url(../Images/check.png);
+}
+
+.botonLogin{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 50px;
+    top: 25px;
+    position: relative;
+    background-color: #222933;
+    line-height: 50px;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-family: RobotoRegular;
+}
+
+.botonLogin:hover{
+    background-color: #37474F;
+}
+
+.botonLogin:active{
+    outline: #222933 solid 2px;
+    background-color: #FFFFFF;
+    color: #222933;
+}
+
+.escondido{
+    visibility: hidden;
+}
+
+.clickeado{
+    background-color: #222933;
 }
