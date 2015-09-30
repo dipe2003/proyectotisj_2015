@@ -1,6 +1,7 @@
 
 package Estudiante;
 
+import Enumerados.TipoDeEstudio.ControladorTipoEstudio;
 import Enumerados.TipoDeEstudio.TipoEstudio;
 import Estudiante.estudios.ControladorEstudio;
 import Estudiante.estudios.Estudio;
@@ -19,20 +20,24 @@ public class FacadeEstudiante implements Serializable {
     private ControladorEstudiante cEst;
     @EJB
     private ControladorEstudio cEstudio;
+    @EJB
+    private ControladorTipoEstudio cTEstudio;
     
     public FacadeEstudiante() {}
 
     /**
      * Agrega el estudio especificado al estudiante indicado por Id
-     * @param TipoDeEstudio
+     * @param IdTipoDeEstudio
      * @param Orientacion
      * @param idEstudiante 
      */
-    public void agregarEstudiosEstudiante(TipoEstudio TipoDeEstudio, String Orientacion, int idEstudiante){
+    public void agregarEstudiosEstudiante(int IdTipoDeEstudio, String Orientacion, int idEstudiante){
+        TipoEstudio tipo = cTEstudio.getTipoEstudio(IdTipoDeEstudio);
         Estudiante estudiante = cEst.BuscarEstudiante(idEstudiante);
-        Estudio estudio = cEstudio.CrearEstudio(TipoDeEstudio, Orientacion);
+        Estudio estudio = cEstudio.CrearEstudio(tipo, Orientacion);
         estudiante.addEstudioCursado(estudio);
         cEst.ModificarEstudiante(estudiante);
+        cEstudio.ModificarEstudio(estudio);
     }
     
     /**

@@ -92,6 +92,13 @@ public class FacadeEnumerados implements Serializable {
         return cTEstudio.ListarTiposDeEstudios();
     }
     
-    
+    /**
+     * Devuelve el tipo de estudio especificado por su id
+     * @param IdEstudio
+     * @return 
+     */
+    public TipoEstudio getEstudio(int IdEstudio){
+        return cTEstudio.getTipoEstudio(IdEstudio);
+    }
     
  }

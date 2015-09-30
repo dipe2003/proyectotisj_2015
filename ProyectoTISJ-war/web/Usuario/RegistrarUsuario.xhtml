@@ -113,11 +113,16 @@
                         <div class="nombreDocente">Estudios Cursados</div>
                         <div class="inputContainer">
                             <img class="imagenMenuOpcion" src="../Resources/Images/LugarNacimiento.png"/><br/>
-                            <h:dataTable var="estudio" value="#{datosUsuarioBean.listaEstudiosCursados}" id="inputEstudio">
-                                <h:column >#{estudio}</h:column>
-                                <h:column ><h:inputText value="#{datosUsuarioBean.estudioSeleccionado}" p:placeholder="Orientacion"/></h:column>
-                                <h:column><h:commandButton action="#{datosUsuarioBean.addEstudio(estudio)}" value="Agregar"/></h:column>
-                            </h:dataTable>
+                                <h:dataTable value="#{datosUsuarioBean.listaEstudiosCursados}" var="estudio">
+                                    <h:column>    				
+                                        <f:facet name="header">Estudio</f:facet>
+                                        <h:outputText value="#{estudio.tipoEstudio}" />
+                                    </h:column>
+                                    <h:column>    				
+                                        <f:facet name="header">Orientacion</f:facet>
+                                        <h:inputText class="Texto" value="#{estudio.orientacionEstudio}"/>
+                                    </h:column>
+                                </h:dataTable>
                         </div><h:message class="error" for="inputEsudio"/>    
                     </div>
                 </h:panelGroup>
@@ -125,11 +130,14 @@
                     <h:commandLink action="#{datosUsuarioBean.registrarUsuario()}">
                         <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
                     </h:commandLink>
+                    <h:commandButton action="#{datosUsuarioBean.registrarUsuario()}">
+                        <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar boton</div>
+                    </h:commandButton>
                     <h:commandButton type="reset">
                         <div class="boton "> <img src="../Resources/Images/reset.png" class="butonIcon"/> Reset </div>
                     </h:commandButton>
-                </div>
-                
+                    
+                </div>                    
             </h:form>
         </div> 
     </ui:define>

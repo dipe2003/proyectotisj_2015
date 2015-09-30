@@ -43,4 +43,13 @@ public class ControladorTipoEstudio {
         return mTEstudios.ListarTipoDeEstudios();
     }
     
+    /**
+     * Devuelve el tipo de estudio especificado por su id
+     * @param IdTipoEstudio
+     * @return 
+     */
+    public TipoEstudio getTipoEstudio(int IdTipoEstudio){
+        return mTEstudios.BuscarTipoEstudio(IdTipoEstudio);
+    }
+    
 }
