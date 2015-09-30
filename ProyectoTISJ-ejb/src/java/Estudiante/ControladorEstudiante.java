@@ -79,7 +79,7 @@ public class ControladorEstudiante {
      * Devuelve una lista de Estudiantes desde la base de datos.
      * @return 
      */
-    public List<Estudiante> ListarEstudiantees(){
+    public List<Estudiante> ListarEstudiantes(){
         return mEst.ListarEstudiantes();
     }
 }

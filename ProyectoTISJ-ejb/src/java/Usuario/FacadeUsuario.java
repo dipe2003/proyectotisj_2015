@@ -221,7 +221,7 @@ public class FacadeUsuario implements Serializable {
                 return (List<Usuario>) (ArrayList<?>) cDoc.ListarDocentes();
                 
             case "Estudiante":
-                return (List<Usuario>) (ArrayList<?>) cDoc.ListarDocentes();
+                return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantes();
         }
         return new ArrayList<>();
     }

@@ -19,10 +19,10 @@
                     Login
                 </div>
                 <div id="contenedor">
-                    <h:inputText value="#{login.usuario}" class="Texto" p:placeholder="Cedula"/><br/>
+                    <h:inputText value="#{login.usuario}" class="Texto" p:placeholder="Cedula" required="true" requiredMessage="Debes ingresar una cedula"/><br/>
                     <h:inputSecret value="#{login.password}" class="Texto" p:placeholder="Password"/><br/>
                     <div id="contenedorBotones">
-                        <div class="menuOpcion" name="Estudiante" style="text-align: center">
+                        <div class="menuOpcion" name="Estudiante" style="text-align: center" required="true" requiredMessage="Debes ingresar una contraseña.">
                             <div class="textoMenuOpcion">Estudiante</div>
                             <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
                             <div class="imagenMenuOpcion"></div>

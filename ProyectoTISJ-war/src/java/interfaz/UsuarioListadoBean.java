@@ -9,11 +9,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class UsuarioListadoBean implements Serializable{
     private String Rol;
     
