@@ -52,7 +52,7 @@ public class DatosUsuarioBean implements Serializable{
     private String EstadoCivilSeleccionado;
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
-    private List<EstudioCursado> ListaEstudiosCursados = new ArrayList<>();
+    private List<EstudioCursado> ListaEstudiosCursados;
     private EstudioCursado estudio;
     @EJB
     private FacadeUsuario fUsr;
@@ -236,8 +236,8 @@ public class DatosUsuarioBean implements Serializable{
             this.ListaSexo.add(EnumSexo.values()[i].toString());
         }
         this.SexoSeleccionado = ListaSexo.get(0);
-        
         List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
+        ListaEstudiosCursados = new ArrayList<>();
         if (ListaEstudiosCursados.isEmpty()) {
             for (int i = 0; i < lstTipoEstudios.size(); i++) {
                 ListaEstudiosCursados.add(new EstudioCursado(lstTipoEstudios.get(i).getIdTipoEstudio(), lstTipoEstudios.get(i).getTipoDeEstudio(),""));
