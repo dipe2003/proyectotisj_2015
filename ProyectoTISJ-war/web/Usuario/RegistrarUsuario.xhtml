@@ -14,6 +14,7 @@
         </div>
         <div id="contenedor" style="margin-top: 120px">
             <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+                <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
                 <div class="menuOpcion" style="display: block;">
                     
                     <div class="nombreDocente">Cuenta</div>
@@ -124,11 +125,14 @@
                     <h:commandLink type="submit" action="#{datosUsuarioBean.registrarUsuario()}">
                         <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
                     </h:commandLink>
+                    <h:commandButton type="submit" action="#{datosUsuarioBean.registrarUsuario()}">
+                        <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
+                    </h:commandButton>
                     <h:commandButton type="reset">
                         <div class="boton "> <img src="../Resources/Images/reset.png" class="butonIcon"/> Reset </div>
                     </h:commandButton>
                 </div>
-                <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
+                
             </h:form>
         </div> 
     </ui:define>
