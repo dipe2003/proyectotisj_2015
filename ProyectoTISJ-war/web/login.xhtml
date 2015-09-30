@@ -5,13 +5,18 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core" >
     <h:head>
-        <link rel="stylesheet" href="./Resources/CSS/login.css" /> 
+        <link rel="stylesheet" href="./Resources/CSS/Base.css" />
+        <link rel="stylesheet" href="./Resources/CSS/login.css" />
+        <link rel="stylesheet" href="./Resources/CSS/Mensajes.css" />
         <script src="Resources/Scripts/jquery-1.11.3.min.js"></script>
         <script src="Resources/Scripts/SelecRadioButton.js"></script>
         <title>Login</title>      
     </h:head>
     <h:body>        
         <h:form id="login" style="text-align: center" rendered="#{!login.usuarioLogueado}">
+            <span style="text-align: center;">
+                <h:messages class="error" />
+            </span>            
             <div id="linea">
                 <div id="titulo">
                     <img src="./Resources/Images/lock.png"/><br/>
@@ -19,9 +24,9 @@
                 </div>
                 <div id="contenedor">
                     <h:inputText value="#{login.usuario}" class="Texto" p:placeholder="Cedula" required="true" requiredMessage="Debes ingresar una cedula"/><br/>
-                    <h:inputSecret value="#{login.password}" class="Texto" p:placeholder="Password"/><br/>
+                    <h:inputSecret value="#{login.password}" class="Texto" p:placeholder="Password" required="true" requiredMessage="Debes ingresar una contraseña."/><br/>
                     <div id="contenedorBotones">
-                        <div class="menuOpcion" name="Estudiante" style="text-align: center" required="true" requiredMessage="Debes ingresar una contraseña.">
+                        <div class="menuOpcion" name="Estudiante" style="text-align: center" >
                             <div class="textoMenuOpcion">Estudiante</div>
                             <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
                             <div class="imagenMenuOpcion"></div>
@@ -41,7 +46,7 @@
                             <img src="./Resources/Images/administrador.png" width="100" height="100" alt="edit"/>
                             <div class="imagenMenuOpcion imagenMenuOpcionClick"></div>
                         </div>
-                    </div>
+                    </div>                        
                     <h:commandButton type="submit" class="botonLogin" value="Ingresar" action="#{login.login()}"/>
                 </div>
             </div>

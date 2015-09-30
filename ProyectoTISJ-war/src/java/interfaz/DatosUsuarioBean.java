@@ -5,6 +5,7 @@ import Enumerados.EstadoCivil.EstadoCivil;
 import Enumerados.FacadeEnumerados;
 import Enumerados.TipoDeEstudio.TipoEstudio;
 import Estudiante.EnumSexo;
+import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
 import java.io.Serializable;
@@ -16,13 +17,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
+import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-@Named
+
 @RequestScoped
+@ManagedBean
 public class DatosUsuarioBean implements Serializable{
     
     private String NombreUsuario;
@@ -49,11 +52,13 @@ public class DatosUsuarioBean implements Serializable{
     private String EstadoCivilSeleccionado;
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
-    private List<String> ListaEstudiosCursados;
-    private String EstudioSeleccionado;
-    
+    private List<EstudioCursado> ListaEstudiosCursados = new ArrayList<>();
+    private EstudioCursado estudio;
     @EJB
     private FacadeUsuario fUsr;
+    
+    @EJB
+    private FacadeEstudiante fEst;
     
     @EJB
     private FileUpload fUp;
@@ -64,7 +69,6 @@ public class DatosUsuarioBean implements Serializable{
     @EJB
     private FacadeEnumerados fEnum;
     
-    public DatosUsuarioBean() {}
     
     /*  Setters */
     public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
@@ -80,9 +84,7 @@ public class DatosUsuarioBean implements Serializable{
     public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
     public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
     public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
-    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {
-        this.FechaNacimientoUsuario = FechaNacimientoUsuario;
-    }
+    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
     public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
     public void setSexoSeleccionado(String SexoSeleccionado) {
         this.SexoSeleccionado = SexoSeleccionado;
@@ -102,8 +104,6 @@ public class DatosUsuarioBean implements Serializable{
         this.strFechaNacimiento = strFechaNacimiento;
         this.FechaNacimientoUsuario = fecha;
     }
-    public void setListaEstudiosCursados(List<String> ListaEstudiosCursados) {this.ListaEstudiosCursados = ListaEstudiosCursados;}
-    public void setEstudioSeleccionado(String EstudioSeleccionado) {this.EstudioSeleccionado = EstudioSeleccionado;}
     
     /*  Getters */
     public String getNombreUsuario() {return NombreUsuario;}
@@ -135,8 +135,7 @@ public class DatosUsuarioBean implements Serializable{
             return fDate.format(FechaNacimientoUsuario);
         }
     }
-    public List<String> getListaEstudiosCursados() {return ListaEstudiosCursados;}
-    public String getEstudioSeleccionado() {return EstudioSeleccionado;}
+    public List<EstudioCursado> getListaEstudiosCursados() {return ListaEstudiosCursados;}
     
     /*  Solo Estudiante   */
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
@@ -148,22 +147,33 @@ public class DatosUsuarioBean implements Serializable{
      * @return
      */
     public String registrarUsuario(){
+        int idUsr = -1;
         FacesContext context = FacesContext.getCurrentInstance();
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
             String ubicacionPerfil = fUp.guardarArchivo("ImagenesPerfil", PartImagenPerfil, CedulaUsuario);
             if (Rol.equals("Estudiante")) {
-                String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));
-                if (ubicacionFrmInscripcion!=null) {
+                String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));                
+                if (ubicacionFrmInscripcion==null) {
                     if (ubicacionPerfil!=null) {
-                        if (fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
+                        if ((idUsr = fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado)!=-1) {
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado))!=-1) {
+                            for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
+                                if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
+                                    fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
+                                }
+                            }
                             return "registrado";
                         }
                     }else{
-                        if (fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
+                        if ((idUsr = fUsr.RegistrarUsuario("al", NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado)!=-1) {
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado))!=-1) {
+                            for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
+                                if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
+                                    fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
+                                }
+                            }
                             return "registrado";
                         }
                     }
@@ -227,16 +237,52 @@ public class DatosUsuarioBean implements Serializable{
         }
         this.SexoSeleccionado = ListaSexo.get(0);
         
-        this.ListaEstudiosCursados = new ArrayList<>();
-        
         List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
-        for (int i = 0; i < lstTipoEstudios.size(); i++) {
-            this.ListaEstudiosCursados.add(lstTipoEstudios.get(i).getTipoDeEstudio());
+        if (ListaEstudiosCursados.isEmpty()) {
+            for (int i = 0; i < lstTipoEstudios.size(); i++) {
+                ListaEstudiosCursados.add(new EstudioCursado(lstTipoEstudios.get(i).getIdTipoEstudio(), lstTipoEstudios.get(i).getTipoDeEstudio(),""));
+            }
         }
     }
-    
-    public void addEstudio(String estudio){
-        this.ListaEstudiosCursados.add(estudio);
+
+    public EstudioCursado getEstudio() {
+        return estudio;
     }
+
+    public void setEstudio(EstudioCursado estudio) {
+        this.estudio = estudio;
+    }
+    
+    
+    
+        
+    public class EstudioCursado {
+        private int IdEstudio;
+        private String TipoEstudio;
+        private String OrientacionEstudio;
+        boolean editable;
+        
+        public EstudioCursado(int IdEstudio, String TipoEstudio, String OrientacionEstudio) {
+            this.IdEstudio = IdEstudio;
+            this.TipoEstudio = TipoEstudio;
+            this.OrientacionEstudio = OrientacionEstudio;
+        }
+        
+        public EstudioCursado() {}
+        
+        //  Setters
+        
+        public void setIdEstudio(int IdEstudio) {this.IdEstudio = IdEstudio;}
+        public void setTipoEstudio(String TipoEstudio) {this.TipoEstudio = TipoEstudio;}
+        public void setOrientacionEstudio(String OrientacionEstudio) {this.OrientacionEstudio = OrientacionEstudio;}
+        
+        // Getters
+        
+        public int getIdEstudio() {return IdEstudio;}
+        public String getTipoEstudio() {return TipoEstudio;}
+        public String getOrientacionEstudio() {return OrientacionEstudio;}
+        
+    }
+    
 }
 

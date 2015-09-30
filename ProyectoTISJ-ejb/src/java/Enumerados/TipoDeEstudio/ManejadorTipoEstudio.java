@@ -48,6 +48,15 @@ public class ManejadorTipoEstudio {
         }
         return lista;
     }
+    
+    public TipoEstudio BuscarTipoEstudio(int IdTipoEstudio){
+        try{
+            return em.find(TipoEstudio.class, IdTipoEstudio);
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+        }
+    }
         
 }
     
