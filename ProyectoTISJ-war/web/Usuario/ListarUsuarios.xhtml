@@ -10,7 +10,7 @@
                 Listado de #{usuarioListadoBean.rol}s Registrados
             </div>
         </div>
-        <div id="contenedor" style="margin-top: 120px">
+        <div id="contenedor">
             <c:forEach var="usuario" items="#{usuarioListadoBean.usuarios}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
@@ -28,8 +28,8 @@
                         <div class="item">
                             #{usuario.correoUsuario}
                         </div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/delete.png)"></div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/edit.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                     </div>
                     <div class="columna">
                         <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
