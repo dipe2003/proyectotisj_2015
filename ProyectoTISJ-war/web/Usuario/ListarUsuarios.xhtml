@@ -46,10 +46,13 @@
                         <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
                         <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario} <br/>
                         <div class="negrita">Sexo: </div> #{docente.sexoUsuario} <br/>
-                        <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Estudiante'}">
-                            <div class="negrita">Estudios Cursados: </div> UTU, Formacion Docente<br/>
+                        <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Estudiante'}">
+                            <div class="negrita">Estudios Cursados: </div>
+                            <c:forEach var="estudiante" items="#{ usuarioListadoBean.estudiantes }">
+                                estudios cursados<br/>
+                            </c:forEach>
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Docente'}">
+                        <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Docente'}">
                             <div class="negrita">Cursos Dictados: </div> Arquitectura del Computador, Matematica Discreta y Logica 1, Matematica Discreta y Logica 2<br/>
                         </h:panelGroup>
                         

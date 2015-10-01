@@ -15,16 +15,15 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class DatosUsuarioBean implements Serializable{
     
@@ -52,8 +51,12 @@ public class DatosUsuarioBean implements Serializable{
     private String EstadoCivilSeleccionado;
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
-    private List<EstudioCursado> ListaEstudiosCursados = new ArrayList<>();
-    private EstudioCursado estudio;
+    
+    /**
+     * Lista de EstudiosCursados para utilizarse desde la pagina para registrar los estudios del estudiante.
+     */ 
+    private static List<EstudioCursado> ListaEstudiosCursados;
+
     @EJB
     private FacadeUsuario fUsr;
     
@@ -219,11 +222,18 @@ public class DatosUsuarioBean implements Serializable{
         return null;
     }
     
+    /**
+     * Se piden los datos de los estados civiles registrados y se llena la lista para utilizarse desde la pagina.
+     * Se piden los datos de sexos registrados y se llena la lista para utilizarse desde la pagina.
+     * Se piden los datos de los tipos de estudios registrados y se llena la lista con la inner class EstudioCursado para utilizarse desde la pagina.
+     */
     @PostConstruct
     public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Rol = request.getParameter("rol");
+        
+        //  Estado Civil
         List<EstadoCivil> lstEstadoCivil = fEnum.ListarEstadosCiviles();
         this.ListEstadoCivil = new ArrayList<>();
         for (int i = 0; i < lstEstadoCivil.size(); i++) {
@@ -231,12 +241,15 @@ public class DatosUsuarioBean implements Serializable{
         }
         this.EstadoCivilSeleccionado = this.ListEstadoCivil.get(0);
         
+        //  Sexo
         this.ListaSexo = new ArrayList<>();
         for (int i = 0; i < EnumSexo.values().length; i++) {
             this.ListaSexo.add(EnumSexo.values()[i].toString());
         }
         this.SexoSeleccionado = ListaSexo.get(0);
         
+        //  Estudios
+        ListaEstudiosCursados = new ArrayList<>();
         List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
         if (ListaEstudiosCursados.isEmpty()) {
             for (int i = 0; i < lstTipoEstudios.size(); i++) {
@@ -244,23 +257,14 @@ public class DatosUsuarioBean implements Serializable{
             }
         }
     }
-
-    public EstudioCursado getEstudio() {
-        return estudio;
-    }
-
-    public void setEstudio(EstudioCursado estudio) {
-        this.estudio = estudio;
-    }
     
-    
-    
-        
-    public class EstudioCursado {
+    /**
+     * clase para representar los estudios cursados por el estudiante.
+     */
+    public static class EstudioCursado {
         private int IdEstudio;
         private String TipoEstudio;
         private String OrientacionEstudio;
-        boolean editable;
         
         public EstudioCursado(int IdEstudio, String TipoEstudio, String OrientacionEstudio) {
             this.IdEstudio = IdEstudio;
