@@ -251,6 +251,7 @@ public class DatosUsuarioBean implements Serializable{
         //  Estudios
         ListaEstudiosCursados = new ArrayList<>();
         List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
+        ListaEstudiosCursados = new ArrayList<>();
         if (ListaEstudiosCursados.isEmpty()) {
             for (int i = 0; i < lstTipoEstudios.size(); i++) {
                 ListaEstudiosCursados.add(new EstudioCursado(lstTipoEstudios.get(i).getIdTipoEstudio(), lstTipoEstudios.get(i).getTipoDeEstudio(),""));
