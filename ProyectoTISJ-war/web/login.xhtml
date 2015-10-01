@@ -5,7 +5,6 @@
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core" >
     <h:head>
-        <link rel="stylesheet" href="./Resources/CSS/Base.css" />
         <link rel="stylesheet" href="./Resources/CSS/login.css" />
         <link rel="stylesheet" href="./Resources/CSS/Mensajes.css" />
         <script src="Resources/Scripts/jquery-1.11.3.min.js"></script>
@@ -55,8 +54,7 @@
             </h:selectOneRadio>
         </h:form>  
         <h:form rendered="#{login.usuarioLogueado}">
-            <h:outputText value="Ya estas logueado"/>
-            <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
+            <meta http-equiv="refresh" content="0;url=Views/index.xhtml"></meta>
         </h:form>
     </h:body>
 </html>

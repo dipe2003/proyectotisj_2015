@@ -1,0 +1,98 @@
+.menuOpcion{
+    width: 80%;
+    background-color: #FFFFFF;
+    margin: 0 auto;
+    display: inline;
+    min-width: 500px;
+    margin-top: 15px;
+    -webkit-box-shadow: 10px 0px 5px #888888;
+    -moz-box-shadow: 10px 0px 5px #888888;
+    box-shadow: 5px 5px 5px #888888;
+    border: #AAAAAA solid 1px;
+}
+
+.nombreDocente{
+    font-size:20px;
+    font-family:RobotoBold;
+    text-align:center;
+    color: #FFFFFF;
+    width: 100%;
+    background-color: #78909C;
+    line-height: 50px;
+}
+
+.nombreDocente:hover{
+    text-shadow: 0px 0px 10px white;
+}
+
+.inputContainer{
+    text-align: left;
+    margin: 20px;
+}
+
+.imagenMenuOpcion{
+    height: 30px;
+    width: 30px;
+    float: left;
+    border: black solid 3px;
+    border-right: none;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-left: none;
+    border-top: none;  
+}
+
+.Texto{
+    width: calc(100% - 40px);
+    height: 30px;
+    font-family: RobotoRegular;
+    color: #000000;
+    background-color: transparent;
+    border-bottom: black solid 3px;
+    font-size: 20px;
+    padding: 0px;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
+
+.Texto:focus{
+    outline: 0;
+}
+
+.Texto:-webkit-autofill,
+.Texto:-webkit-autofill:hover,
+.Texto:-webkit-autofill:focus,
+.Texto:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #D50000;
+    border-bottom: black solid 3px;
+}
+
+.boton{
+    text-align: center;
+    width: 40%;
+    height: 50px;
+    background-color: #222933;
+    border: none;
+    font-family: RobotoRegular;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 15px;
+    display: inline-block;
+    line-height: 50px;
+}
+
+.boton:active{
+    background-color: #37474F;
+}
+
+.butonIcon{
+    background-size: cover; 
+    width: 20px; 
+    height: 20px; 
+    float: left; 
+    line-height: 20px;
+    margin-top: 15px;
+    margin-left: 3px;
+}

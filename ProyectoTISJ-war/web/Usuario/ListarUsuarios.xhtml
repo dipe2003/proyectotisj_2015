@@ -10,7 +10,7 @@
                 Listado de #{usuarioListadoBean.rol}s Registrados
             </div>
         </div>
-        <div id="contenedor" style="margin-top: 120px">
+        <div id="contenedor">
             <c:forEach var="usuario" items="#{usuarioListadoBean.usuarios}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
@@ -28,8 +28,8 @@
                         <div class="item">
                             #{usuario.correoUsuario}
                         </div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/delete.png)"></div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/edit.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                     </div>
                     <div class="columna">
                         <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
@@ -59,6 +59,25 @@
                     </div>
                 </div>            
             </c:forEach>
+            
+            <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Administrador'}">
+                <div class="ListItemContainer" style="background-color: #37474F; text-align: center">
+                    <a href="../Usuario/RegistrarUsuario.xhtml?rol=Administrador">
+                        <div class="ImagenItem" style="margin: 0 auto; margin-top: 5px; border: none; box-shadow: none">
+                            <img src="../Resources/Images/add.png" height="100%" width="100%"/>
+                        </div>
+                    </a>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Administrativo'}">
+                <div class="ListItemContainer" style="background-color: #37474F; text-align: center">
+                    <a href="../Usuario/RegistrarUsuario.xhtml?rol=Administrativo">
+                        <div class="ImagenItem" style="margin: 0 auto; margin-top: 5px; border: none; box-shadow: none">
+                            <img src="../Resources/Images/add.png" height="100%" width="100%"/>
+                        </div>
+                    </a>
+                </div>
+            </h:panelGroup>
             <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Estudiante'}">
                 <div class="ListItemContainer" style="background-color: #37474F; text-align: center">
                     <a href="../Usuario/RegistrarUsuario.xhtml?rol=Estudiante">
