@@ -51,12 +51,8 @@ public class DatosUsuarioBean implements Serializable{
     private String EstadoCivilSeleccionado;
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
-    
-    /**
-     * Lista de EstudiosCursados para utilizarse desde la pagina para registrar los estudios del estudiante.
-     */ 
-    private static List<EstudioCursado> ListaEstudiosCursados;
-
+    private List<EstudioCursado> ListaEstudiosCursados;
+    private EstudioCursado estudio;
     @EJB
     private FacadeUsuario fUsr;
     
@@ -247,9 +243,6 @@ public class DatosUsuarioBean implements Serializable{
             this.ListaSexo.add(EnumSexo.values()[i].toString());
         }
         this.SexoSeleccionado = ListaSexo.get(0);
-        
-        //  Estudios
-        ListaEstudiosCursados = new ArrayList<>();
         List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
         ListaEstudiosCursados = new ArrayList<>();
         if (ListaEstudiosCursados.isEmpty()) {
