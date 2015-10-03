@@ -3,6 +3,11 @@
     src: url(../Fonts/Roboto-Regular.ttf);
 }
 
+@font-face {
+    font-family: RobotoBold;
+    src: url(../Fonts/Roboto-Bold.ttf);
+}
+
 body{
     margin: 0;
 }
@@ -33,7 +38,7 @@ body{
 #contenedor{
     width: 900px;
     text-align: center;
-    height: 400px;
+    height: 175px;
     background-color: #FFFFFF;
     position: absolute;
     top: 50%;
@@ -67,7 +72,6 @@ body{
 
 #contenedorBotones{
     width: 100%;
-    border: #222933 solid;
     border-left: none;
     border-right: none;
     padding-top: 10px;
@@ -76,7 +80,7 @@ body{
 
 .menuOpcion{
     width: 200px;
-    height: 200px;
+    height: 150px;
     background-color: #263238;
     margin: 5px;
     display: inline-table;
@@ -87,17 +91,6 @@ body{
     font-family: RobotoRegular;
     color: #FFFFFF;
     margin-top: 15px;
-}
-
-.imagenMenuOpcion{
-    background-image: url(../Images/uncheck.png);
-    height: 50px;
-    background-repeat: no-repeat;
-    background-position:center;
-}
-
-.imagenMenuOpcionClick{
-    background-image: url(../Images/check.png);
 }
 
 .botonLogin{

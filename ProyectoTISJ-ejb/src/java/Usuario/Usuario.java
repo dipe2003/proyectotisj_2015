@@ -106,7 +106,17 @@ public class Usuario implements Serializable{
     public EnumSexo getSexoUsuario() {return SexoUsuario;}
     public String getLugarNacimientoUsuario() {return LugarNacimientoUsuario;}
     
+    /**
+     * Compara si el password coincide con el de usuario.
+     * @param Password
+     * @return 
+     */
     public boolean isValidPass(String Password){return Password.equals(this.PasswordUsuario);}
+    
+    /**
+     * Devuelve el nombre completo del usuario.
+     * @return 
+     */
     public String getNombreCompleto(){return this.NombreUsuario + " " + this.ApellidoUsuario;}
 
 }

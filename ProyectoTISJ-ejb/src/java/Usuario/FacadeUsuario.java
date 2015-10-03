@@ -56,6 +56,15 @@ public class FacadeUsuario implements Serializable {
             return -1;
         }
     }
+    /**
+     * Devuelve los roles del usuario especificado por su cedula y password, si existe.
+     * @param CedulaUsuario
+     * @param Password
+     * @return -1 si no existe.
+     */
+    public List<String> ValidarLogin(int CedulaUsuario, String Password){
+        return cUsr.ValidarUsuario(CedulaUsuario, Password);
+    }
     
     /**
      * Devuelve el id del usuario registrado.<br/>

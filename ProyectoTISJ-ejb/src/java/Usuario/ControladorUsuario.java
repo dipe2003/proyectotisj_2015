@@ -6,6 +6,7 @@ import Docente.Docente;
 import Enumerados.EstadoCivil.EstadoCivil;
 import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -17,8 +18,8 @@ import javax.faces.bean.ManagedBean;
 public class ControladorUsuario {
     
     @EJB
-    ManejadorUsuario mUsr;
-        
+            ManejadorUsuario mUsr;
+    
     /**
      * Crea un Usuario y lo persiste.
      * @param NombreUsuario
@@ -39,14 +40,14 @@ public class ControladorUsuario {
      * @param SexoUsuario
      * @return Devuelve un Usuario si fue creado, de lo contrario devuelve null.
      */
-    public Usuario CrearUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, 
-            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, 
-            EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
+    public Usuario CrearUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario,
+            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario,
+            EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario,
             EnumSexo SexoUsuario){
-        Usuario usr = new Usuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,ImagenUsuario, CedulaUsuario, 
-                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
-            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+        Usuario usr = new Usuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,ImagenUsuario, CedulaUsuario,
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
+                EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
         if (mUsr.CrearUsuario(usr)!=-1){
             return usr;
         }
@@ -98,6 +99,24 @@ public class ControladorUsuario {
         }
         return null;
     }
+    /**
+     * Devuelve todos los roles del usuario que coincida con los datos especificados.
+     * @param Cedula
+     * @param Password
+     * @return Devuelve al menos un rol si el usuario existe.
+     */
+    public List<String> ValidarUsuario(int Cedula, String Password){
+        List<Usuario> Usuarios = mUsr.BuscarUsuarioLogin(Cedula, Password);
+        List<String> Roles = new ArrayList<>();
+        if (!Usuarios.isEmpty()) {
+            for (int i = 0; i < Usuarios.size(); i++) {
+                Roles.add(getRol(Usuarios.get(i)));
+            }
+        }
+        return Roles;
+    }
+    
+    
     
     /**
      * Devuelve el usuario que coincida con los datos especificados.
@@ -159,6 +178,29 @@ public class ControladorUsuario {
                 break;
         }
         return false;
+    }
+    /**
+     * Comprueba y devuelve el Rol del Usuario especificado
+     * @param usuario
+     * @return
+     */
+    private String getRol(Usuario usuario){
+        if (usuario instanceof Administrador) {
+            return "Administrador";
+        }
+        
+        if (usuario instanceof Administrativo) {
+            return "Administrativo";
+        }
+        
+        if (usuario instanceof Docente) {
+            return "Docente";
+        }
+        
+        if (usuario instanceof Estudiante) {
+            return "Estudiante";
+        }
+        return "";
     }
     
 }
