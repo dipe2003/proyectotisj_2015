@@ -25,38 +25,38 @@
                     <div id="contenedorBotones">
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Estudiante')}">
                             <h:commandLink action="#{login.loginRol('Estudiante')}">
-                            <div class="menuOpcion" name="Estudiante" style="text-align: center" >
-                                <div class="textoMenuOpcion">Estudiante</div>
-                                <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
-                                <div class="imagenMenuOpcion"></div>
-                            </div>
-                        </h:commandLink>
+                                <div class="menuOpcion" name="Estudiante" style="text-align: center" >
+                                    <div class="textoMenuOpcion">Estudiante</div>
+                                    <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
+                                    <div class="imagenMenuOpcion"></div>
+                                </div>
+                            </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Docente')}">
                             <h:commandLink action="#{login.loginRol('Docente')}">
-                            <div class="menuOpcion" name="Docente" style="text-align: center">
-                                <div class="textoMenuOpcion">Docente</div>
-                                <img src="./Resources/Images/docente.png" width="100" height="100" alt="edit"/>
-                                <div class="imagenMenuOpcion"></div>
-                            </div>
+                                <div class="menuOpcion" name="Docente" style="text-align: center">
+                                    <div class="textoMenuOpcion">Docente</div>
+                                    <img src="./Resources/Images/docente.png" width="100" height="100" alt="edit"/>
+                                    <div class="imagenMenuOpcion"></div>
+                                </div>
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Administrativo')}">
                             <h:commandLink action="#{login.loginRol('Administrativo')}">
-                            <div class="menuOpcion" name="Administrativo" style="text-align: center">
-                                <div class="textoMenuOpcion">Administrativo</div>
-                                <img src="./Resources/Images/administrativo.png" width="100" height="100" alt="edit"/>
-                                <div class="imagenMenuOpcion"></div>
-                            </div>
+                                <div class="menuOpcion" name="Administrativo" style="text-align: center">
+                                    <div class="textoMenuOpcion">Administrativo</div>
+                                    <img src="./Resources/Images/administrativo.png" width="100" height="100" alt="edit"/>
+                                    <div class="imagenMenuOpcion"></div>
+                                </div>
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Administrador')}">
                             <h:commandLink action="#{login.loginRol('Administrador')}">
-                            <div class="menuOpcion" name="Administrador" style="text-align: center">
-                                <div class="textoMenuOpcion">Administrador</div>
-                                <img src="./Resources/Images/administrador.png" width="100" height="100" alt="edit"/>
-                                <div class="imagenMenuOpcion"></div>
-                            </div>
+                                <div class="menuOpcion" name="Administrador" style="text-align: center">
+                                    <div class="textoMenuOpcion">Administrador</div>
+                                    <img src="./Resources/Images/administrador.png" width="100" height="100" alt="edit"/>
+                                    <div class="imagenMenuOpcion"></div>
+                                </div>
                             </h:commandLink>
                         </h:panelGroup>
                     </div>
@@ -65,8 +65,21 @@
             
         </h:form>  
         <h:form rendered="#{login.usuarioLogueado}">
-            <h:outputText value="Ya estas logueado"/>
-            <h:commandButton style="font-family: sans-serif" type="submit" value="Salir" action="#{login.logout()}"/>
+            <div id="linea">
+                <div id="titulo">
+                    <img src="./Resources/Images/lock.png"/><br/>
+                    Ya estas Logueado.
+                </div>
+                <div id="contenedor">
+                    <div id="contendorBotones" style="margin-top: 15px;">
+                        <h:commandLink action="#{login.logout()}">
+                            <div class="menuOpcion" name="logout" style="text-align: center">
+                                <div class="textoMenuOpcion" style="margin-top: 65px;">Salir</div>
+                            </div>
+                        </h:commandLink>
+                    </div>                    
+                </div>
+            </div>            
         </h:form>
     </h:body>
 </html>
