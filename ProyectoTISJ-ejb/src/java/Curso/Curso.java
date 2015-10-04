@@ -31,7 +31,9 @@ public class Curso implements Serializable{
     
     @OneToMany
     private List<Estudiante> EstudiantesCurso;
-
+    
+    //  Constructores
+    
     public Curso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso, String ContratoDocenteCurso) {
         this.SemestreCurso = SemestreCurso;
         this.AnioCurso = AnioCurso;
@@ -40,38 +42,33 @@ public class Curso implements Serializable{
         this.EstudiantesCurso = new ArrayList<>();
         this.ContratoDocenteCurso = ContratoDocenteCurso;
     }
-
+    
     public Curso() {}
-
-    public int getIdCurso() {return IdCurso;}
-
+    
+    //  Setters
+    
     public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
-
-    public int getSemestreCurso() {return SemestreCurso;}
-
     public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
-
-    public int getAnioCurso() {return AnioCurso;}
-
     public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
-
-    public Docente getDocenteCurso() {return DocenteCurso;}
-
     public void setDocenteCurso(Docente DocenteCurso) {this.DocenteCurso = DocenteCurso;}
-
-    public Asignatura getAsignaturaCurso() {return AsignaturaCurso;}
-
     public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
-
-    public String getContratoDocenteCurso() {return ContratoDocenteCurso;}
-
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
-    
-    public void addEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.add(EstudianteCurso);}
-    
-    public void removeEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.remove(EstudianteCurso);}
-    
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     
+    //  Getters
+    
+    public int getIdCurso() {return IdCurso;}    
+    public int getSemestreCurso() {return SemestreCurso;}    
+    public int getAnioCurso() {return AnioCurso;}    
+    public Docente getDocenteCurso() {return DocenteCurso;}
+    public Asignatura getAsignaturaCurso() {return AsignaturaCurso;}    
+    public String getContratoDocenteCurso() {return ContratoDocenteCurso;}   
     public List<Estudiante> getEstudiantesCurso(){return this.EstudiantesCurso;}
+    
+    //  Listas
+    
+    public void addEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.add(EstudianteCurso);}
+    public void removeEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.remove(EstudianteCurso);}
+    
+    
 }

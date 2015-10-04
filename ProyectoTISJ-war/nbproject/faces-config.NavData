@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
-    <Scope Scope="Project"/>
+    <Scope Scope="Project">
+        <Node id="Usuario/ListarUsuarios.xhtml" x="150" y="150" zoom="false"/>
+        <Node id="Asignatura/RegistrarAsignatura.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="Administrador/AdministradorMenu.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="Views/index.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="*" x="400" y="150" zoom="true"/>
+        <Node id="Usuario/RegistrarUsuario.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="loginRol.xhtml" x="150" y="300" zoom="false"/>
+        <Node id="Estudiante/EstudianteMenu.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="Administrativo/AdministrativoMenu.xhtml" x="109" y="547" zoom="true"/>
+        <Node id="Docente/DocenteMenu.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="Asignatura/ListarAsignaturas.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="Curso/RegistrarCurso.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="Usuario/EditarPerfil.xhtml" x="559" y="600" zoom="true"/>
+    </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>

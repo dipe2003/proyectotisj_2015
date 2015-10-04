@@ -67,6 +67,14 @@ public class ManejadorAsignatura {
         }
         return lista;
     }
-        
+    
+    public String getNombreAsignatura(int id){
+        try{
+            return em.find(Asignatura.class, id).getNombreAsignatura();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+        }
+    }
 }
     

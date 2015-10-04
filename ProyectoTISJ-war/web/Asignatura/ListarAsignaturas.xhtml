@@ -2,7 +2,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
@@ -18,11 +19,19 @@
                             #{asignatura.nombreAsignatura}
                         </div>
                         <div class="item">
-                            #{asignatura.creditosAsignatura}
+                            #{asignatura.creditosAsignatura} creditos.
                         </div>
 
-                        <div class="optionItem" style="background-image: url(ListarDocentes_files/delete.png)"></div>
-                        <div class="optionItem" style="background-image: url(ListarDocentes_files/edit.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
+                        <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo'}">
+                            <h:form>                                
+                                <h:commandLink  action="#{asignaturaListadoBean.seleccionarDocente()}" >
+                                <f:setPropertyActionListener target="#{datosCursoBean.idAsignatura}" value="#{asignatura.idAsignatura}" />
+                                <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
+                            </h:commandLink>
+                            </h:form>
+                        </h:panelGroup>
                     </div>
                     <div class="columna">
                         <div class="negrita">Nombre: </div> #{asignatura.nombreAsignatura}<br/>

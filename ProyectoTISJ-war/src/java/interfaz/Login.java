@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import javax.inject.Named;
@@ -21,11 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 @Named("login")
 @SessionScoped
 public class Login implements Serializable {
-    private String Cedula;
+    private String CedulaUsuario;
     private String Password;
     private List<String> Roles;
     private String RolSeleccionado;
     private boolean UsuarioLogueado;
+    List<String> rolesUsuario;
     
     @EJB
     private FacadeEnumerados fEnum;
@@ -33,41 +35,78 @@ public class Login implements Serializable {
     @EJB
     private FacadeUsuario fUsr;
     
+    //  Constructor
     public Login() {}
     
-    public String getRolSeleccionado() {return RolSeleccionado;}
-    
+    //  Setters
     public void setRolSeleccionado(String RolSeleccionado) {this.RolSeleccionado = RolSeleccionado;}
-    
-    public String getUsuario() {return Cedula;}
-    
-    public void setUsuario(String Usuario) {this.Cedula = Usuario;}
-    
-    public String getPassword() {return Password;}
-    
+    public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
     public void setPassword(String Password) {this.Password = Password;}
-    
-    public List<String> getRoles() {return Roles;}
-    
     public void setRoles(List<String> Roles) {this.Roles = Roles;}
-    
-    public boolean isUsuarioLogueado() {return UsuarioLogueado;}
-    
     public void setUsuarioLogueado(boolean UsuarioLogueado) {this.UsuarioLogueado = UsuarioLogueado;}
+    public void setRolesUsuario(List<String> rolesUsuario) {this.rolesUsuario = rolesUsuario;}
     
+    //  Getters
+    public String getRolSeleccionado() {return RolSeleccionado;}
+    public String getCedulaUsuario() {return CedulaUsuario;}
+    public String getPassword() {return Password;}
+    public List<String> getRoles() {return Roles;}
+    public List<String> getRolesUsuario() {return rolesUsuario;}
+    
+    //  Otras
+    public boolean isUsuarioLogueado() {return UsuarioLogueado;}
+    public int cantidadRoles(){return this.rolesUsuario.size();}
+    
+    /**
+     * Realiza el login del usuario. Si tiene un solo rol se loguea automaticamente, sino redirige a otra pagina para seleccionar el rol.
+     * @return
+     */
     public String login(){
-        int idUsr= fUsr.ValidarLogin(Integer.valueOf(Cedula), Password, RolSeleccionado);
-        if (idUsr!= -1) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-            Usuario Usr = fUsr.BuscarUsuario(idUsr);
-            request.getSession().setAttribute("Usuario", Usr);
-            this.UsuarioLogueado = true;
-            return "logueado";
+        FacesContext context = FacesContext.getCurrentInstance();
+        rolesUsuario = fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password);
+        if (rolesUsuario.isEmpty()) {
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Los datos ingresados no son correctos");
+            context.addMessage("login:msj", fm);
+            return null;
+        }else{
+            if (rolesUsuario.size()==1) {
+                HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+                Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, rolesUsuario.get(0)));
+                request.getSession().setAttribute("Usuario", Usr);
+                this.UsuarioLogueado = true;
+                this.RolSeleccionado = rolesUsuario.get(0);
+                return "logueado";
+            }else{
+                LlenarRoles(this.rolesUsuario);
+                return "seleccionarRol";
+            }
         }
-        return "nologueado";
     }
     
+    /**
+     * Completa el login con un rol seleccionado.
+     * @param RolSeleccionado
+     * @return
+     */
+    public String loginRol(String RolSeleccionado){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        this.RolSeleccionado = RolSeleccionado;
+        Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, RolSeleccionado));
+        if (Usr!=null) {
+            request.getSession().setAttribute("Usuario", Usr);
+        this.UsuarioLogueado = true;
+        return "logueado";
+        }            
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Datos incorrectos");
+        context.addMessage("login:msj", fm);
+        return "";
+    }
+    
+    /**
+     *
+     * @return
+     */
     public String logout(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -76,21 +115,29 @@ public class Login implements Serializable {
         return "nologueado";
     }
     
+    /**
+     * Llena la lista de roles de usuario para utilizarlos en la seleccion en LoginRol.
+     * @param RolesUsuario 
+     */
+    private void LlenarRoles(List<String> RolesUsuario){
+        for (int i = 0; i < RolesUsuario.size(); i++) {
+            this.Roles.add(RolesUsuario.get(i));
+        }
+        RolSeleccionado = "";
+    }
+    
     @PostConstruct
     public void Init(){
+        this.rolesUsuario = new ArrayList<>();
         this.Roles = new ArrayList<>();
-        Roles.add("Administrador");
-        Roles.add("Administrativo");
-        Roles.add("Docente");
-        Roles.add("Estudiante");
-        RolSeleccionado = Roles.get(0);
+
         try{
             fEnum.crearEstadoCivil("Soltero");
             fEnum.crearEstadoCivil("Casado");
             fEnum.crearEstadoCivil("Divorciado");
         }catch(Exception ex){}
         
-         try{
+        try{
             fEnum.crearTipoDeEstudio("Universidad");
             fEnum.crearTipoDeEstudio("UTU");
             fEnum.crearTipoDeEstudio("Secundaria");

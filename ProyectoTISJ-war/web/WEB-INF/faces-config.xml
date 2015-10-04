@@ -16,6 +16,11 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
+            <from-outcome>logueado</from-outcome>
+            <to-view-id>/Views/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>  
+        <navigation-case>
             <from-outcome>registrado</from-outcome>
             <to-view-id>/Views/index.xhtml</to-view-id>
         </navigation-case>
@@ -24,6 +29,17 @@
             <to-view-id>/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
-    </navigation-rule>    
-
+        <navigation-case>
+            <from-outcome>seleccionarRol</from-outcome>
+            <to-view-id>/loginRol.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Asignatura/ListarAsignaturas.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>regCurso</from-outcome>
+            <to-view-id>/Curso/RegistrarCurso.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

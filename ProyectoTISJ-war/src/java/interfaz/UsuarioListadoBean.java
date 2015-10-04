@@ -1,6 +1,8 @@
 
 package interfaz;
 
+import Enumerados.FacadeEnumerados;
+import Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
@@ -26,6 +28,8 @@ public class UsuarioListadoBean implements Serializable{
     @EJB
     private FacadeUsuario fUsr;
     
+    @EJB
+    private FacadeEnumerados fEnum;
     @Inject
     private DatosUsuarioBean UsrData;
     
@@ -45,10 +49,18 @@ public class UsuarioListadoBean implements Serializable{
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     
+    /**
+     * Se piden los usuario segun el rol indicado en el parametro.
+     * Se piden los datos de los estados civiles registrados y se llena la lista para utilizarse desde la pagina.
+     * Se piden los datos de sexos registrados y se llena la lista para utilizarse desde la pagina.
+     * Si el rol seleccionado es estudiante se piden los estudiantes para poder visualizar la informacion particular de esta clase.
+     */
     @PostConstruct
     public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        //  Roles
         Rol = request.getParameter("rol");
         String currentURL = context.getViewRoot().getViewId();
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){

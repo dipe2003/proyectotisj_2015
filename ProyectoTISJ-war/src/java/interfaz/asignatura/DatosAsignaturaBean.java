@@ -19,21 +19,24 @@ public class DatosAsignaturaBean implements Serializable{
     
     public DatosAsignaturaBean() {}
     
-    public String getNombreAsignatura() {return NombreAsignatura;}
-    
+    //  Setters
     public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
-    
-    public int getCreditosAsignatura() {return CreditosAsignatura;}
-    
     public void setCreditosAsignatura(int CreditosAsignatura) {this.CreditosAsignatura = CreditosAsignatura;}
     
+    //  Getters
+    public int getCreditosAsignatura() {return CreditosAsignatura;}
+    public String getNombreAsignatura() {return NombreAsignatura;}
     
+    
+    /**
+     * Registra la asignatura con los datos ingresados.
+     * @return 
+     */
     public String registrarAsignatura(){
         if (fAsig.RegistrarAsignatura(NombreAsignatura, CreditosAsignatura)!=-1) {
             return "registrado";
         }
         return "";
-    }
-    
+    }    
 }
 

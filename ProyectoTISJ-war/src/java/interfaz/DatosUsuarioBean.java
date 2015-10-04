@@ -15,16 +15,15 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class DatosUsuarioBean implements Serializable{
     
@@ -47,13 +46,18 @@ public class DatosUsuarioBean implements Serializable{
     private List<String> ListaSexo;
     private String Rol;
     private Part PartImagenFormInscripcion;
+    private int GeneracionAnioEstudiante;
     private Part PartImagenPerfil;
     private List<String> ListEstadoCivil;
     private String EstadoCivilSeleccionado;
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
-    private List<EstudioCursado> ListaEstudiosCursados;
-    private EstudioCursado estudio;
+    
+    /**
+     * Lista de EstudiosCursados para utilizarse desde la pagina para registrar los estudios del estudiante.
+     */ 
+    private static List<EstudioCursado> ListaEstudiosCursados;
+
     @EJB
     private FacadeUsuario fUsr;
     
@@ -104,6 +108,7 @@ public class DatosUsuarioBean implements Serializable{
         this.strFechaNacimiento = strFechaNacimiento;
         this.FechaNacimientoUsuario = fecha;
     }
+    public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     
     /*  Getters */
     public String getNombreUsuario() {return NombreUsuario;}
@@ -139,6 +144,7 @@ public class DatosUsuarioBean implements Serializable{
     
     /*  Solo Estudiante   */
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
+    public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
     
     /**
      * Registra el usuario si este no esta ya registrado
@@ -173,7 +179,7 @@ public class DatosUsuarioBean implements Serializable{
                     if (ubicacionPerfil!=null) {
                         if ((idUsr = fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado))!=-1) {
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
                                 if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
@@ -184,7 +190,7 @@ public class DatosUsuarioBean implements Serializable{
                     }else{
                         if ((idUsr = fUsr.RegistrarUsuario("al", NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado))!=-1) {
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
                                 if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
@@ -235,11 +241,18 @@ public class DatosUsuarioBean implements Serializable{
         return null;
     }
     
+    /**
+     * Se piden los datos de los estados civiles registrados y se llena la lista para utilizarse desde la pagina.
+     * Se piden los datos de sexos registrados y se llena la lista para utilizarse desde la pagina.
+     * Se piden los datos de los tipos de estudios registrados y se llena la lista con la inner class EstudioCursado para utilizarse desde la pagina.
+     */
     @PostConstruct
     public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Rol = request.getParameter("rol");
+        
+        //  Estado Civil
         List<EstadoCivil> lstEstadoCivil = fEnum.ListarEstadosCiviles();
         this.ListEstadoCivil = new ArrayList<>();
         for (int i = 0; i < lstEstadoCivil.size(); i++) {
@@ -247,13 +260,16 @@ public class DatosUsuarioBean implements Serializable{
         }
         this.EstadoCivilSeleccionado = this.ListEstadoCivil.get(0);
         
+        //  Sexo
         this.ListaSexo = new ArrayList<>();
         for (int i = 0; i < EnumSexo.values().length; i++) {
             this.ListaSexo.add(EnumSexo.values()[i].toString());
         }
         this.SexoSeleccionado = ListaSexo.get(0);
-        List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
+        
+        //  Estudios
         ListaEstudiosCursados = new ArrayList<>();
+        List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
         if (ListaEstudiosCursados.isEmpty()) {
             for (int i = 0; i < lstTipoEstudios.size(); i++) {
                 ListaEstudiosCursados.add(new EstudioCursado(lstTipoEstudios.get(i).getIdTipoEstudio(), lstTipoEstudios.get(i).getTipoDeEstudio(),""));
@@ -261,22 +277,13 @@ public class DatosUsuarioBean implements Serializable{
         }
     }
     
-    public EstudioCursado getEstudio() {
-        return estudio;
-    }
-    
-    public void setEstudio(EstudioCursado estudio) {
-        this.estudio = estudio;
-    }
-    
-    
-    
-    
-    public class EstudioCursado {
+    /**
+     * clase para representar los estudios cursados por el estudiante.
+     */
+    public static class EstudioCursado {
         private int IdEstudio;
         private String TipoEstudio;
         private String OrientacionEstudio;
-        boolean editable;
         
         public EstudioCursado(int IdEstudio, String TipoEstudio, String OrientacionEstudio) {
             this.IdEstudio = IdEstudio;

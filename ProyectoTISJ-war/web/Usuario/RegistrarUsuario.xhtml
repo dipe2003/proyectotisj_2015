@@ -96,8 +96,13 @@
                     </div><h:message class="error" for="inputLugarNacimiento"/>                    
                 </div>
                 <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Estudiante'}">
-                    <div class="menuOpcion" >                    
-                        <div class="nombreDocente">Estudios Cursados</div>
+                    <div class="menuOpcion" style="display: block;">                    
+                        <div class="nombreDocente">Estudios</div>
+                        <div class="inputContainer">
+                            <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
+                            <h:inputText id="inputGeneracion" value="#{datosUsuarioBean.generacionAnioEstudiante}" required="true" requiredMessage="Debes ingresar la generacion" class="Texto" p:placeholder="Año"/>              
+                        </div><h:message class="error" for="inputGeneracion"/>
+                        
                         <div class="inputContainer">
                             <img class="imagenMenuOpcion" src="../Resources/Images/LugarNacimiento.png"/><br/>
                             <h:dataTable value="#{datosUsuarioBean.listaEstudiosCursados}" var="estudio">

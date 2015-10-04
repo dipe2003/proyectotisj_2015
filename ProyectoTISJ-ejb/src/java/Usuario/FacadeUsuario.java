@@ -56,6 +56,15 @@ public class FacadeUsuario implements Serializable {
             return -1;
         }
     }
+    /**
+     * Devuelve los roles del usuario especificado por su cedula y password, si existe.
+     * @param CedulaUsuario
+     * @param Password
+     * @return -1 si no existe.
+     */
+    public List<String> ValidarLogin(int CedulaUsuario, String Password){
+        return cUsr.ValidarUsuario(CedulaUsuario, Password);
+    }
     
     /**
      * Devuelve el id del usuario registrado.<br/>
@@ -182,19 +191,20 @@ public class FacadeUsuario implements Serializable {
      * @param FechaNacimientoUsuario
      * @param LugarNacimientoUsuario
      * @param SexoUsuario
-     * @return
+     * @param GeneracionAnioEstudiante
+     * @return 
      */
-    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario,
-            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario,
-            String LugarNacimientoUsuario, EnumSexo SexoUsuario){
+    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+            String LugarNacimientoUsuario, EnumSexo SexoUsuario, int GeneracionAnioEstudiante){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
             if(!FormInscripcion.isEmpty()) {
-                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
-                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                        FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                        FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);
             }
         }
         if (Usr==null) {
