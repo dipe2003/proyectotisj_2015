@@ -141,6 +141,22 @@ public class DatosUsuarioBean implements Serializable{
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
     
     /**
+     * Registra el usuario si este no esta ya registrado
+     * @return 
+     */
+    public String registrarUsuarioInterfaz(){
+        int idUsr = -1;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (!fUsr.ExisteUsuario(CedulaUsuario)){
+            registrarUsuario();
+        }else{
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
+            context.addMessage("frmIngresoDatos:inputCedula", fm);
+        }
+        return "";
+    }
+    
+    /**
      * Registra un usuario del segun el rol seleccionado.
      * Sino se selecciono imagen de perfil se registra con imagen por defecto.
      * [ESTUDIANTE] Sino se selecciono formulario de inscripcion no se registra.
@@ -152,7 +168,7 @@ public class DatosUsuarioBean implements Serializable{
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
             String ubicacionPerfil = fUp.guardarArchivo("ImagenesPerfil", PartImagenPerfil, CedulaUsuario);
             if (Rol.equals("Estudiante")) {
-                String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));                
+                String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));
                 if (ubicacionFrmInscripcion==null) {
                     if (ubicacionPerfil!=null) {
                         if ((idUsr = fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
@@ -244,18 +260,18 @@ public class DatosUsuarioBean implements Serializable{
             }
         }
     }
-
+    
     public EstudioCursado getEstudio() {
         return estudio;
     }
-
+    
     public void setEstudio(EstudioCursado estudio) {
         this.estudio = estudio;
     }
     
     
     
-        
+    
     public class EstudioCursado {
         private int IdEstudio;
         private String TipoEstudio;
