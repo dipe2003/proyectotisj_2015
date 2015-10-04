@@ -17,8 +17,8 @@ import javax.faces.bean.ManagedBean;
 public class ControladorUsuario {
     
     @EJB
-    ManejadorUsuario mUsr;
-        
+            ManejadorUsuario mUsr;
+    
     /**
      * Crea un Usuario y lo persiste.
      * @param NombreUsuario
@@ -39,14 +39,14 @@ public class ControladorUsuario {
      * @param SexoUsuario
      * @return Devuelve un Usuario si fue creado, de lo contrario devuelve null.
      */
-    public Usuario CrearUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, 
-            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, 
-            EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
+    public Usuario CrearUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario,
+            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario,
+            EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario,
             EnumSexo SexoUsuario){
-        Usuario usr = new Usuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,ImagenUsuario, CedulaUsuario, 
-                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
-            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+        Usuario usr = new Usuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,ImagenUsuario, CedulaUsuario,
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
+                EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
         if (mUsr.CrearUsuario(usr)!=-1){
             return usr;
         }
@@ -132,7 +132,7 @@ public class ControladorUsuario {
      * @param Rol
      * @return True: si coincide el rol.
      */
-    private boolean EsRol(Usuario usuario, String Rol){
+    public boolean EsRol(Usuario usuario, String Rol){
         switch(Rol){
             case "Administrador":
                 if (usuario instanceof Administrador) {
@@ -159,6 +159,49 @@ public class ControladorUsuario {
                 break;
         }
         return false;
+    }
+    
+    /**
+     * Quita todos los usuarios de cedula CI de la lista de usuarios
+     * @param cedula
+     * @param usuarios
+     */
+    public void removeUsrByCI(int CI, List<Usuario> usuarios){
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getCedulaUsuario() == CI){
+                usuarios.remove(i);
+                i--;
+            }
+        }
+    }
+    
+    /**
+     * Quita los usuarios repetidos, dejando una unica instancia de cada uno
+     * @param usuarios 
+     */
+    public void removeRepeatUsr(List<Usuario> usuarios){
+        boolean UsrRepetido;
+        for (int i = 0; i < usuarios.size(); i++) {
+            UsrRepetido = false;
+            for (int j = i+1; j < usuarios.size(); j++) {
+                if (usuarios.get(i).getCedulaUsuario() == usuarios.get(j).getCedulaUsuario()){
+                    UsrRepetido = true;
+                }
+            }
+            if (UsrRepetido){
+                usuarios.remove(i);
+                i--;
+            }
+        }
+    }
+    
+    /**
+     * retorna true si el usuario de cedula Cedula existe en la base de datos
+     * @param Cedula
+     * @return 
+     */
+    public boolean ExisteUsuario(int Cedula){
+        return mUsr.ExisteUsuario(Cedula);
     }
     
 }

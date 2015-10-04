@@ -79,30 +79,30 @@ public class FacadeUsuario implements Serializable {
      * @param Rol
      * @return -1 si no se pudo registrar.
      */
-    public int RegistrarUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario, 
-            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, 
-            String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
+    public int RegistrarUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario,
+            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario,
+            String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario,
             EnumSexo SexoUsuario, String Rol){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, Rol)== -1) {
             switch(Rol){
                 case "Administrador":
-                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, 
-            CedulaUsuario, CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
-            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario,
+                            CedulaUsuario, CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
+                            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
                     
                 case "Administrativo":
-                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
-                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                             FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
                     
                 case "Docente":
-                    Usr = cDoc.CrearDocente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
-                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
-            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+                    Usr = cDoc.CrearDocente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                            CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
+                            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
             }
         }
@@ -182,18 +182,18 @@ public class FacadeUsuario implements Serializable {
      * @param FechaNacimientoUsuario
      * @param LugarNacimientoUsuario
      * @param SexoUsuario
-     * @return 
+     * @return
      */
-    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
-            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario,
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario,
             String LugarNacimientoUsuario, EnumSexo SexoUsuario){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
             if(!FormInscripcion.isEmpty()) {
-                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
-                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                         FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
             }
         }
@@ -226,4 +226,31 @@ public class FacadeUsuario implements Serializable {
         return new ArrayList<>();
     }
     
+    /**
+     * Devuleve una lista de usuarios que no son del rol especificado.
+     * @param Rol Estudiante, Docente, Administrador, Administrativo
+     * @return una lista vacia si no existen usuarios que no son del rol especificado.
+     */
+    public List<Usuario> listarUsuariosSinRol(String Rol){
+        List<Usuario> allUsr = cUsr.ListarUsuarios();
+        List<Integer> cedulasParaBorrar = new ArrayList<>();
+        for(Usuario usr : allUsr){
+            if (cUsr.EsRol(usr, Rol)) cedulasParaBorrar.add(usr.getCedulaUsuario());
+        }
+        for (Integer cedula : cedulasParaBorrar){
+            cUsr.removeUsrByCI(cedula, allUsr);
+        }
+        cUsr.removeRepeatUsr(allUsr);
+        return allUsr;
+    }
+    
+    /**
+     * retorna true si el usuario de cedula Cedula existe en la base de datos
+     * @param Cedula
+     * @return 
+     */
+    public boolean ExisteUsuario(String Cedula){
+        int CI = Integer.valueOf(Cedula);
+        return cUsr.ExisteUsuario(CI);
+    }
 }

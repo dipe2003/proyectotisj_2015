@@ -9,6 +9,7 @@ import javax.ejb.TransactionManagementType;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 @ManagedBean
@@ -91,6 +92,17 @@ public class ManejadorUsuario {
             System.out.println("Error: " + ex.getMessage());
         }
         return lista;
+    }
+    
+     public boolean ExisteUsuario(int Cedula){
+        try{
+            Query query = em.createQuery("SELECT u.CedulaUsuario FROM Usuario u WHERE u.CedulaUsuario= :cedula");
+            query.setParameter("cedula", Cedula);
+            if (!query.getResultList().isEmpty()) return true;
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return false;
     }
     
 }

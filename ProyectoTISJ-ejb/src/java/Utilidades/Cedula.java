@@ -43,5 +43,5 @@ public class Cedula implements Serializable{
       }      
       return true;
    }
-    
+   
 }
