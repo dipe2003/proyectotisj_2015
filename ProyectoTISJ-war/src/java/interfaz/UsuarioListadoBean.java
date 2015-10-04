@@ -28,8 +28,6 @@ public class UsuarioListadoBean implements Serializable{
     @EJB
     private FacadeUsuario fUsr;
     
-    @EJB
-    private FacadeEnumerados fEnum;
     @Inject
     private DatosUsuarioBean UsrData;
     

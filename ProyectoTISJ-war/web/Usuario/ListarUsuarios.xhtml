@@ -48,9 +48,6 @@
                         <div class="negrita">Sexo: </div> #{docente.sexoUsuario} <br/>
                         <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Estudiante'}">
                             <div class="negrita">Estudios Cursados: </div>
-                            <c:forEach var="estudiante" items="#{ usuarioListadoBean.estudiantes }">
-                                estudios cursados<br/>
-                            </c:forEach>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Docente'}">
                             <div class="negrita">Cursos Dictados: </div> Arquitectura del Computador, Matematica Discreta y Logica 1, Matematica Discreta y Logica 2<br/>
