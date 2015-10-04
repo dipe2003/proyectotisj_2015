@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="../Views/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="page_content">
+        <div class="cabecera" >
+            <div class="titulo" >
+                Registro de nuevo Curso
+            </div>
+        </div>
+        <div id="contenedor" style="margin-top: 120px">
+            <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+                <div class="menuOpcion" style="display: block;">
+                    
+                    <div class="nombreDocente">Curso</div>
+                        
+                    <div class="inputContainer">
+                        <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
+                        <h:inputText id="inputAnio" value="#{datosCursoBean.anioCurso}" required="true" requiredMessage="Debes ingresar un año." class="Texto" p:placeholder="Año en que se va a dictar el curso."/>                                 
+                    </div><h:message class="error" for="inputAnio"/>
+                        
+                    <div class="inputContainer">
+                        <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
+                        <h:inputText id="inputSemestre" value="#{datosCursoBean.semestreCurso}" required="true" requiredMessage="Debes ingresar un semestre." class="Texto" p:placeholder="Semestre en que se va a dictar el curso"/>                                 
+                    </div><h:message class="error" for="inputSemestre"/>
+                        
+                    <div class="inputContainer">
+                        <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
+                        <h:outputText id="outputDocente" value="#{datosCursoBean.docenteSeleccionado}" class="Texto" />
+                    </div>
+                    <div>
+                        <h:dataTable var="docente" value="#{usuarioListadoBean.usuarios}">
+                            <h:column>#{docente.idUsuario}</h:column>
+                            <h:column>#{docente.nombreCompleto}</h:column>
+                            
+                        </h:dataTable>
+                    </div>
+                        
+                    <div class="inputContainer">
+                        <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
+                        <h:outputText id="outputAsignatura" value="#{datosCursoBean.asignaturaSeleccionada}" class="Texto" />                                 
+                    </div><h:message class="error" for="outputAsignatura"/>
+                        
+                        
+                    <div class="menuOpcion" style="display: block;">
+                        <h:commandLink action="#{datosCursoBean.registrarCurso()}">
+                            <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
+                        </h:commandLink>
+                        <h:commandButton type="reset">
+                            <div class="boton "> <img src="../Resources/Images/reset.png" class="butonIcon"/> Reset </div>
+                        </h:commandButton>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -67,6 +67,15 @@ public class ManejadorDocente {
         }
         return lista;
     }
+    
+    public String getNombreDocente(int id){
+        try{
+            return em.find(Docente.class, id).getNombreCompleto();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+            return null;
+        }
+    }
         
 }
     

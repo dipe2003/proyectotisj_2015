@@ -67,7 +67,7 @@ public class Login implements Serializable {
         if (rolesUsuario.isEmpty()) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Los datos ingresados no son correctos");
             context.addMessage("login:msj", fm);
-            return "";
+            return null;
         }else{
             if (rolesUsuario.size()==1) {
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();

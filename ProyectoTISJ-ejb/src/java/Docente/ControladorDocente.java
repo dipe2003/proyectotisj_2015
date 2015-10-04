@@ -83,4 +83,13 @@ public class ControladorDocente {
         return mDoc.ListarDocentes();
     }
     
+    /**
+     * Devuelve el nombre del docente especificado por su id.
+     * @param IdDocente
+     * @return 
+     */
+    public String getNombreDocente(int IdDocente){
+        return mDoc.getNombreDocente(IdDocente);
+    }
+    
 }

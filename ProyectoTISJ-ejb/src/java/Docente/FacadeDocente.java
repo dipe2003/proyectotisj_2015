@@ -27,5 +27,14 @@ public class FacadeDocente implements Serializable {
         return cDoc.ListarDocentes();
     }
     
+    /**
+     * Devuelve el nombre del docente especificado por su id.
+     * @param IdDocente
+     * @return 
+     */
+    public String BuscarNombreDocente(int IdDocente){
+        return cDoc.getNombreDocente(IdDocente);
+    }
+    
     
 }

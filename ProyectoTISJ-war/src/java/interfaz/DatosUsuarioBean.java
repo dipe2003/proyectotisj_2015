@@ -46,6 +46,7 @@ public class DatosUsuarioBean implements Serializable{
     private List<String> ListaSexo;
     private String Rol;
     private Part PartImagenFormInscripcion;
+    private int GeneracionAnioEstudiante;
     private Part PartImagenPerfil;
     private List<String> ListEstadoCivil;
     private String EstadoCivilSeleccionado;
@@ -107,6 +108,7 @@ public class DatosUsuarioBean implements Serializable{
         this.strFechaNacimiento = strFechaNacimiento;
         this.FechaNacimientoUsuario = fecha;
     }
+    public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     
     /*  Getters */
     public String getNombreUsuario() {return NombreUsuario;}
@@ -142,6 +144,7 @@ public class DatosUsuarioBean implements Serializable{
     
     /*  Solo Estudiante   */
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
+    public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
     
     /**
      * Registra un usuario del segun el rol seleccionado.
@@ -160,7 +163,7 @@ public class DatosUsuarioBean implements Serializable{
                     if (ubicacionPerfil!=null) {
                         if ((idUsr = fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado))!=-1) {
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
                                 if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
@@ -171,7 +174,7 @@ public class DatosUsuarioBean implements Serializable{
                     }else{
                         if ((idUsr = fUsr.RegistrarUsuario("al", NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
-                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado))!=-1) {
+                                FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
                                 if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);

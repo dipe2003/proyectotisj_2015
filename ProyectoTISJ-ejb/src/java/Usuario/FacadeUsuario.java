@@ -191,19 +191,20 @@ public class FacadeUsuario implements Serializable {
      * @param FechaNacimientoUsuario
      * @param LugarNacimientoUsuario
      * @param SexoUsuario
+     * @param GeneracionAnioEstudiante
      * @return 
      */
     public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
             String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
             String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
-            String LugarNacimientoUsuario, EnumSexo SexoUsuario){
+            String LugarNacimientoUsuario, EnumSexo SexoUsuario, int GeneracionAnioEstudiante){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
             if(!FormInscripcion.isEmpty()) {
                 Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
                         CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
-                        FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+                        FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);
             }
         }
         if (Usr==null) {

@@ -60,4 +60,13 @@ public class ControladorAsignatura {
     public List<Asignatura> ListarAsignaturas(){
         return mAsig.ListarAsignaturas();
     }
+    
+    /**
+     * Devuelve el nombre de la asignatura especificada por su id.
+     * @param IdAsignatura
+     * @return 
+     */
+    public String getNombreAsignatura(int IdAsignatura){
+        return mAsig.getNombreAsignatura(IdAsignatura);
+    }
 }

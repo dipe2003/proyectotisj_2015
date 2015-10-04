@@ -59,4 +59,13 @@ public class FacadeAsignatura implements Serializable {
         return cAsig.ListarAsignaturas();
     }
     
+    /**
+     * Devuelve el nombre de la asignatura especificada por su id.
+     * @param IdAsignatura
+     * @return 
+     */
+    public String BuscarNombreAsignatura(int IdAsignatura){
+        return cAsig.getNombreAsignatura(IdAsignatura);
+    }
+    
 }
