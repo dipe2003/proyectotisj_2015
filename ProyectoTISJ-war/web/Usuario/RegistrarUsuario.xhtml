@@ -22,24 +22,31 @@
             </div>
             <h:form id="frmIngresoDatos" enctype="multipart/form-data">
                 <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
-                <div class="menuOpcion" >
-                    <div class="nombreDocente">Cuenta</div>
-                    <div class="inputContainer">
-                        <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:inputText id="inputCedula" value="#{datosUsuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula"/>                                 
-                    </div><h:message class="error" for="inputCedula"/>
-                    <div class="inputContainer">
-                        <img class="imagenMenuOpcion" src="../Resources/Images/nombre.png"/>
-                        <h:inputText id="inputNombre" value="#{datosUsuarioBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar nombre." class="Texto" p:placeholder="Nombre"/>             
-                    </div><h:message class="error" for="inputNombre"/>
-                    <div class="inputContainer">
-                        <img class="imagenMenuOpcion" src="../Resources/Images/apellido.png"/>
-                        <h:inputText id="inputApellido" value="#{datosUsuarioBean.apellidoUsuario}" required="true" requiredMessage="Debes ingresar apellido." class="Texto" p:placeholder="Apellido"/>             
-                    </div><h:message class="error" for="inputApellido"/>
-                    <div class="inputContainer">
-                        <img class="imagenMenuOpcion" src="../Resources/Images/pass.png"/>
-                        <h:inputSecret id="inputPass" value="#{datosUsuarioBean.passwordUsuario}" required="true" requiredMessage="Debes ingresar una contraseña." class="Texto" p:placeholder="Contraseña"/>             
-                    </div><h:message class="error" for="inputPass"/>
+                <div class="menuOpcion SinEstilo">   
+                    <div class="menuOpcion Mitad" >
+                        <div class="nombreDocente">Cuenta</div>
+                        <div class="inputContainer">
+                            <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
+                            <h:inputText id="inputCedula" value="#{datosUsuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula"/>                                 
+                        </div><h:message class="error" for="inputCedula"/>
+                        <div class="inputContainer">
+                            <img class="imagenMenuOpcion" src="../Resources/Images/nombre.png"/>
+                            <h:inputText id="inputNombre" value="#{datosUsuarioBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar nombre." class="Texto" p:placeholder="Nombre"/>             
+                        </div><h:message class="error" for="inputNombre"/>
+                        <div class="inputContainer">
+                            <img class="imagenMenuOpcion" src="../Resources/Images/imagen.png"/>
+                            <h:inputText id="inputApellido" value="#{datosUsuarioBean.apellidoUsuario}" required="true" requiredMessage="Debes ingresar apellido." class="Texto" p:placeholder="Apellido"/>             
+                        </div><h:message class="error" for="inputApellido"/>
+                        <div class="inputContainer">
+                            <img class="imagenMenuOpcion" src="../Resources/Images/pass.png"/>
+                            <h:inputSecret id="inputPass" value="#{datosUsuarioBean.passwordUsuario}" required="true" requiredMessage="Debes ingresar una contraseña." class="Texto" p:placeholder="Contraseña"/>             
+                        </div><h:message class="error" for="inputPass"/>
+                    </div>
+                    <div class="menuOpcion Mitad" style="float: right" >
+                        <div class="nombreDocente">Imagen</div>
+                        <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
+                        <div class="botonImagen"><input type="file" name="frmIngresoDatos:j_idt56" class="boton subirImagen perfil" accept="image/*"/></div>
+                    </div>
                 </div>
                 <div class="menuOpcion" >
                     <div class="nombreDocente">Contacto</div>
@@ -75,14 +82,16 @@
                 <div class="menuOpcion" >
                     <div class="nombreDocente">Datos Personales</div>
                     <div class="inputContainer">
-                        <img class="imagenMenuOpcion" src="../Resources/Images/sexo.png"/>
-                        <h:selectOneRadio value="#{datosUsuarioBean.sexoSeleccionado}" required="true" requiredMessage="Debes seleccionar sexo." id="inputSexo">
+                        <img style="border-bottom: none" class="imagenMenuOpcion" src="../Resources/Images/sexo.png"/>
+                        <img class="imagenMenuOpcion genero" id="masculino" src="../Resources/Images/masculinoActivo.png"/>
+                        <img class="imagenMenuOpcion genero" id="femenino" src="../Resources/Images/femenino.png"/>
+                        <h:selectOneRadio style="visibility: hidden" value="#{datosUsuarioBean.sexoSeleccionado}" required="true" requiredMessage="Debes seleccionar sexo." id="inputSexo">
                             <f:selectItems value="#{datosUsuarioBean.listaSexo}"/>                                    
                         </h:selectOneRadio>                                     
                     </div><h:message class="error" for="inputSexo"/>  
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/EstadoCivil.png"/>
-                        <h:selectOneMenu value="#{datosUsuarioBean.estadoCivilSeleccionado}" required="true" requiredMessage="Debes seleccionar un estado civil." id="inputEstadoCivil">
+                        <h:selectOneMenu style="margin-top: 3px" class="Texto" value="#{datosUsuarioBean.estadoCivilSeleccionado}" required="true" requiredMessage="Debes seleccionar un estado civil." id="inputEstadoCivil">
                             <f:selectItems value="#{datosUsuarioBean.listEstadoCivil}"/>
                         </h:selectOneMenu>                                        
                     </div><h:message class="error" for="inputEstadoCivil"/>
@@ -96,30 +105,35 @@
                     </div><h:message class="error" for="inputLugarNacimiento"/>                    
                 </div>
                 <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Estudiante'}">
-                    <div class="menuOpcion" style="display: block;">                    
-                        <div class="nombreDocente">Estudios</div>
-                        <div class="inputContainer">
-                            <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
-                            <h:inputText id="inputGeneracion" value="#{datosUsuarioBean.generacionAnioEstudiante}" required="true" requiredMessage="Debes ingresar la generacion" class="Texto" p:placeholder="Año"/>              
-                        </div><h:message class="error" for="inputGeneracion"/>
-                        
-                        <div class="inputContainer">
-                            <img class="imagenMenuOpcion" src="../Resources/Images/LugarNacimiento.png"/><br/>
-                            <h:dataTable value="#{datosUsuarioBean.listaEstudiosCursados}" var="estudio">
-                                <h:column>    				
-                                    <f:facet name="header">Estudio</f:facet>
-                                    <h:outputText value="#{estudio.tipoEstudio}" />
-                                </h:column>
-                                <h:column>    				
-                                    <f:facet name="header">Orientacion</f:facet>
-                                    <h:inputText class="Texto" value="#{estudio.orientacionEstudio}"/>
-                                </h:column>
-                            </h:dataTable>
-                        </div><h:message class="error" for="inputEsudio"/>    
+                    <div class="menuOpcion SinEstilo" style="display: block;"> 
+                        <div class="menuOpcion Mitad" style="display: block;">                    
+                            <div class="nombreDocente">Estudios</div>
+                            <div class="inputContainer">
+                                <h:dataTable columnClasses="columnaEstudios" value="#{datosUsuarioBean.listaEstudiosCursados}" var="estudio">
+                                    <h:column>    				
+                                        <f:facet name="header">Estudio</f:facet>
+                                        <h:outputText value="#{estudio.tipoEstudio}" />
+                                    </h:column>
+                                    <h:column>    				
+                                        <f:facet name="header">Orientacion</f:facet>
+                                        <h:inputText class="Texto" value="#{estudio.orientacionEstudio}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </div><h:message class="error" for="inputEsudio"/>    
+                        </div>
+                        <div class="menuOpcion Mitad" style="float: right" >
+                            <div class="nombreDocente">Formulario de Inscripcion</div>
+                            <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="formulario"/>
+                            <div class="botonImagen"><input type="file" name="frmIngresoDatos:j_idt56" class="boton subirImagen formulario" accept="image/*"/></div>
+                           <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
+                                <h:inputText id="inputGeneracion" value="#{datosUsuarioBean.generacionAnioEstudiante}" required="true" requiredMessage="Debes ingresar la generacion" class="Texto" p:placeholder="Año de Ingreso"/>              
+                            </div><h:message class="error" for="inputGeneracion"/>
+                        </div>
                     </div>
                 </h:panelGroup>
                 <div class="menuOpcion" >
-                    <h:commandButton class="boton" value="Registrar" action="#{datosUsuarioBean.registrarUsuarioInterfaz()}"/>
+                    <h:commandButton class="boton siguiente" value="Registrar" action="#{datosUsuarioBean.registrarUsuarioInterfaz()}" disabled="true"/>
                     <h:commandButton class="boton" value="Reset" type="reset"/>
                 </div>                    
             </h:form>

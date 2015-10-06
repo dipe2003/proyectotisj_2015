@@ -22,4 +22,5 @@
     color: #D8000C;
     background-color: #FFBABA;
     background-image: url(../Images/Error.png);
+    display: flex;
 }
