@@ -29,6 +29,8 @@
 .inputContainer{
     text-align: left;
     margin: 20px;
+    font-family: RobotoRegular;
+    font-size: 20px;
 }
 
 .imagenMenuOpcion{
@@ -96,4 +98,69 @@
     line-height: 20px;
     margin-top: 15px;
     margin-left: 3px;
+}
+
+.Mitad{
+    float: left; 
+    width:-moz-calc(50% - 10x) !important;
+    width:calc(50% - 10px) !important;
+    min-width: 100px  !important;
+    min-height: 300px !important;
+}
+
+.SinEstilo{
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    display: inline-block !important;
+}
+
+#ImagenSubida{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: black solid 1px; 
+    margin-bottom: 10px;
+    -webkit-box-shadow: 10px 0px 5px #888888;
+    -moz-box-shadow: 10px 0px 5px #888888;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.subirImagen{
+    overflow: hidden;
+    opacity: 0;
+}
+
+.botonImagen{
+    background-image: url(../Images/uploadclick.png);
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 50px;
+    margin: 0 auto;
+    -webkit-box-shadow: 10px 0px 5px #888888;
+    -moz-box-shadow: 10px 0px 5px #888888;
+    box-shadow: 5px 5px 5px #888888;
+}
+
+.botonImagen:active{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+input.boton.subirImagen{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.genero{
+    border: none;
+}
+
+.columnaEstudios{
+    width: 50%;
+}
+
+.tituloColumna{
+    margin-bottom: 20px;
 }
