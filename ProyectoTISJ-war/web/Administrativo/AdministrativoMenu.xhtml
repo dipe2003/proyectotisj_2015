@@ -18,14 +18,14 @@
             </div>
         </div>
         <div class="navDivider"></div>
-        <a href="">
+        <a href="../Usuario/ListarUsuarios.xhtml?rol=Docente">
             <div class="navOptMenu">
-                Docente
+                Docentes
             </div>
         </a>
         
         <div class="navDivider"></div>
-        <a href="">
+        <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante">
             <div class="navOptMenu">
                 Estudiantes
             </div>
@@ -44,6 +44,15 @@
                 Encuestas
             </div>
         </a>
+        
+        <div class="navDivider"></div>
+        <h:form rendered="#{login.usuarioLogueado}">
+            <h:commandLink action="#{login.logout()}">
+                <div class="navOptMenu">
+                    Salir
+                </div>
+            </h:commandLink>            
+        </h:form>
         
         <div class="navDivider"></div>
     </div>

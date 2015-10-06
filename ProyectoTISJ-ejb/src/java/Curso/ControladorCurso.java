@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 public class ControladorCurso {
     
     @EJB
-    ManejadorCurso mDoc;
+    private ManejadorCurso mDoc;
     
     /**
      * Crea un Curso y lo persiste.
@@ -63,6 +63,14 @@ public class ControladorCurso {
      */
     public List<Curso> ListarCursos(){
         return mDoc.ListarCursos();
+    }
+    /**
+     * Devuelve una lista de Cursos del docente especificado por su id desde la base de datos.
+     * @param IdDocente
+     * @return 
+     */
+    public List<Curso> ListarCursos(int IdDocente){
+        return mDoc.ListarCursos(IdDocente);
     }
     
 }
