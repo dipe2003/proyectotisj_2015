@@ -4,21 +4,23 @@ package interfaz.curso;
 import Asignatura.FacadeAsignatura;
 import Curso.FacadeCurso;
 import Docente.FacadeDocente;
+import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class DatosCursoBean implements Serializable{
-    
+public class DatosRegCurso implements Serializable {
+
+    private int idAsignatura;
+    private int idDocente;
     private int SemestreCurso;
     private int AnioCurso;
     private String ContratoDocenteCurso;
-    private int IdAsignatura;
-    private int IdDocente;
     private String AsignaturaSeleccionada;
     private String DocenteSeleccionado;
     
@@ -28,19 +30,17 @@ public class DatosCursoBean implements Serializable{
     private FacadeAsignatura fAsig;
     @EJB
     private FacadeDocente fDoc;
-    
-    public DatosCursoBean() {
-    
-    }
-    
-    //  Setters
+    @Inject 
+    private RegCursoWizard reg;
+      
+//  Setters
 
     public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
     public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     public void setAsignaturaSeleccionada(String AsignaturaSeleccionada) {this.AsignaturaSeleccionada = AsignaturaSeleccionada;}    
-    public void setIdAsignatura(int IdAsignatura) {this.IdAsignatura = IdAsignatura;}
-    public void setIdDocente(int IdDocente) {this.IdDocente = IdDocente;}
+    public void setIdAsignatura(int IdAsignatura) {this.idAsignatura = IdAsignatura;}
+    public void setIdDocente(int IdDocente) {this.idDocente = IdDocente;}
     public void setDocenteSeleccionado(String DocenteSeleccionado) {this.DocenteSeleccionado = DocenteSeleccionado;}
     
     //  Getters
@@ -50,37 +50,38 @@ public class DatosCursoBean implements Serializable{
     public String getContratoDocenteCurso() {return ContratoDocenteCurso;}
     public String getAsignaturaSeleccionada() {
         if (this.AsignaturaSeleccionada == null || this.AsignaturaSeleccionada.isEmpty()) {
-            this.AsignaturaSeleccionada = fAsig.BuscarNombreAsignatura(IdAsignatura);
+            this.AsignaturaSeleccionada = fAsig.BuscarNombreAsignatura(idAsignatura);
         }        
         return AsignaturaSeleccionada;}
-    public int getIdAsignatura() {return IdAsignatura;}
-    public int getIdDocente() {return IdDocente;}
+    public int getIdAsignatura() {return idAsignatura;}
+    public int getIdDocente() {return idDocente;}
     public String getDocenteSeleccionado() {
         if (this.DocenteSeleccionado==null || this.DocenteSeleccionado.isEmpty()) {
-            if (this.IdDocente == 0) {
+            if (this.idDocente == 0) {
                 this.DocenteSeleccionado = "No se ha seleccionado docente";
             }else{
-                this.DocenteSeleccionado = fDoc.BuscarNombreDocente(IdDocente);
+                this.DocenteSeleccionado = fDoc.BuscarNombreDocente(idDocente);
             }            
         }
         return DocenteSeleccionado;
     }
-        
-    /**
-     * Registra la asignatura con los datos ingresados.
-     * @return 
-     */
-    public String registrarCurso(){
-        if ((fCurso.RegistrarCurso(SemestreCurso, AnioCurso, AnioCurso, AnioCurso, ContratoDocenteCurso))!=-1) {
-            return "registrado";
-        }
-        return "";
-    }
     
+    /**
+     * Se traen los valores de docente y asignatura desde el bean de conversacion
+     */
     @PostConstruct
     public void init(){
-        
+        this.idAsignatura = reg.getIdAsignatura();
+        this.idDocente = reg.getIdDocente();
     }
-        
+    
+    /**
+     * Registra el curso y finaliza la conversacion.
+     * @throws IOException 
+     */
+    public void onFinish() throws IOException {
+        if ((fCurso.RegistrarCurso(SemestreCurso, AnioCurso, idDocente, idAsignatura, ContratoDocenteCurso))!=-1) {
+        reg.endConversation();
+        }
+    }
 }
-

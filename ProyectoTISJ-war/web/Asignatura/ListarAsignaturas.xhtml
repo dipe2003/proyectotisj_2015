@@ -5,6 +5,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
+        
         <div class="cabecera" >
             <div class="titulo" >
                 Listado de Asignaturas Registradas
@@ -26,8 +27,8 @@
                         <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                         <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo'}">
                             <h:form>                                
-                                <h:commandLink  action="#{asignaturaListadoBean.seleccionarDocente()}" >
-                                <f:setPropertyActionListener target="#{datosCursoBean.idAsignatura}" value="#{asignatura.idAsignatura}" />
+                                <h:commandLink  action="#{regCursoWizard.seleccionarAsignatura(asignatura.idAsignatura)}" value="..." >
+                                    <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
                                 <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                             </h:commandLink>
                             </h:form>

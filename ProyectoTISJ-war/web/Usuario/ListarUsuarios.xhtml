@@ -30,6 +30,15 @@
                         </div>
                         <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
                         <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
+                        <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo')  }">
+                            <h:form>
+                                <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}" value="...">
+                                    <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
+                            </h:commandLink>
+                                <!--<f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>-->
+                                <f:viewParam name="rol" value="#{usuarioListadoBean.rol}"/>
+                            </h:form>
+                        </h:panelGroup>
                     </div>
                     <div class="columna">
                         <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
@@ -45,7 +54,7 @@
                         <div class="negrita">Fecha de Nacimiento: </div> #{usuario.fechaNacimientoUsuario} <br/>
                         <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
                         <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario} <br/>
-                        <div class="negrita">Sexo: </div> #{docente.sexoUsuario} <br/>
+                        <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
                         <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Estudiante'}">
                             <div class="negrita">Estudios Cursados: </div>
                         </h:panelGroup>
@@ -91,7 +100,7 @@
                         </div>
                     </a>
                 </div>
-            </h:panelGroup> <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
+            </h:panelGroup>
         </div>
     </ui:define>
 </ui:composition>

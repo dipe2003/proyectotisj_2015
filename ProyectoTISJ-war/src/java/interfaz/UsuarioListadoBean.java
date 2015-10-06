@@ -1,8 +1,6 @@
 
 package interfaz;
 
-import Enumerados.FacadeEnumerados;
-import Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
@@ -40,12 +38,13 @@ public class UsuarioListadoBean implements Serializable{
     public Usuario getUsuarioSeleccionado() {return this.UsuarioSeleccionado;}
     public String getRol() {return Rol;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
-    
+
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
     public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
+ 
     
     /**
      * Se piden los usuario segun el rol indicado en el parametro.
@@ -59,7 +58,10 @@ public class UsuarioListadoBean implements Serializable{
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         //  Roles
-        Rol = request.getParameter("rol");
+        if (Rol==null || Rol.isEmpty()) {
+            Rol = request.getParameter("rol");
+        }
+        this.Usuarios = new ArrayList<>();
         String currentURL = context.getViewRoot().getViewId();
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){
             this.Usuarios = fUsr.listarUsuarios(Rol);
@@ -70,6 +72,7 @@ public class UsuarioListadoBean implements Serializable{
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
+        
     }
     
     /**

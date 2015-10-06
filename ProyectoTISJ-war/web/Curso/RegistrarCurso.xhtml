@@ -20,34 +20,28 @@
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:inputText id="inputAnio" value="#{datosCursoBean.anioCurso}" required="true" requiredMessage="Debes ingresar un año." class="Texto" p:placeholder="Año en que se va a dictar el curso."/>                                 
+                        <h:inputText id="inputAnio" value="#{datosRegCurso.anioCurso}" required="true" requiredMessage="Debes ingresar un año." class="Texto" p:placeholder="Año en que se va a dictar el curso."/>                                 
                     </div><h:message class="error" for="inputAnio"/>
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:inputText id="inputSemestre" value="#{datosCursoBean.semestreCurso}" required="true" requiredMessage="Debes ingresar un semestre." class="Texto" p:placeholder="Semestre en que se va a dictar el curso"/>                                 
+                        <h:inputText id="inputSemestre" value="#{datosRegCurso.semestreCurso}" required="true" requiredMessage="Debes ingresar un semestre." class="Texto" p:placeholder="Semestre en que se va a dictar el curso"/>                                 
                     </div><h:message class="error" for="inputSemestre"/>
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:outputText id="outputDocente" value="#{datosCursoBean.docenteSeleccionado}" class="Texto" />
+                        <h:outputText id="outputDocente" value="#{datosRegCurso.docenteSeleccionado}" class="Texto" />
                     </div>
-                    <div>
-                        <h:dataTable var="docente" value="#{usuarioListadoBean.usuarios}">
-                            <h:column>#{docente.idUsuario}</h:column>
-                            <h:column>#{docente.nombreCompleto}</h:column>
-                            
-                        </h:dataTable>
-                    </div>
+  
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:outputText id="outputAsignatura" value="#{datosCursoBean.asignaturaSeleccionada}" class="Texto" />                                 
+                        <h:outputText id="outputAsignatura" value="#{datosRegCurso.asignaturaSeleccionada}" class="Texto" />                                 
                     </div><h:message class="error" for="outputAsignatura"/>
                         
                         
                     <div class="menuOpcion" style="display: block;">
-                        <h:commandLink action="#{datosCursoBean.registrarCurso()}">
+                        <h:commandLink action="#{datosRegCurso.onFinish()}">
                             <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
                         </h:commandLink>
                         <h:commandButton type="reset">

@@ -35,11 +35,5 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-    <navigation-rule>
-        <from-view-id>/Asignatura/ListarAsignaturas.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>regCurso</from-outcome>
-            <to-view-id>/Curso/RegistrarCurso.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
+    
 </faces-config>
