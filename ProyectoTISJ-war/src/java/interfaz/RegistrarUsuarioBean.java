@@ -25,7 +25,7 @@ import javax.servlet.http.Part;
 
 @ViewScoped
 @ManagedBean
-public class DatosUsuarioBean implements Serializable{
+public class RegistrarUsuarioBean implements Serializable{
     
     private String NombreUsuario;
     private String ApellidoUsuario;

@@ -7,15 +7,15 @@
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
-                Seleccione los nuevos #{usuarioListadoBean.rol}s 
+                Seleccione los nuevos #{listarUsuariosBean.rol}s 
             </div>
         </div>
         <div id="contenedor">
             <h:form>
-                <c:forEach var="usuario" items="#{usuarioListadoBean.usuarios}">
+                <c:forEach var="usuario" items="#{listarUsuariosBean.usuarios}">
                     <div class="ListItemContainer" >
                         <div class="item" >
-                            <h:selectBooleanCheckbox class="BotonCheck" value="#{usuarioListadoBean.listChecked[usuario.idUsuario]}" />
+                            <h:selectBooleanCheckbox class="BotonCheck" value="#{listarUsuariosBean.listChecked[usuario.idUsuario]}" />
                         </div>
                         <div class="item">
                             #{usuario.cedulaUsuario}
@@ -29,10 +29,10 @@
                     </div>            
                 </c:forEach>
                 <div class="menuOpcion" >
-                    <h:commandButton class="boton" value="Seleccionar" action="#{usuarioListadoBean.nuevoRol()}"/>
+                    <h:commandButton class="boton" value="Seleccionar" action="#{listarUsuariosBean.nuevoRol()}"/>
                 </div>      
             </h:form>
-            <f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>
+            <f:viewParam name="rol" value="#{registrarUsuarioBean.rol}"/>
         </div>
     </ui:define>
 </ui:composition>

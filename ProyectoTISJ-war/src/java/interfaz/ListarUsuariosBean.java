@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Named
 @ViewScoped
-public class UsuarioListadoBean implements Serializable{
+public class ListarUsuariosBean implements Serializable{
     
     private String Rol;
     
@@ -27,7 +27,7 @@ public class UsuarioListadoBean implements Serializable{
     private FacadeUsuario fUsr;
     
     @Inject
-    private DatosUsuarioBean UsrData;
+    private RegistrarUsuarioBean UsrData;
     
     private List<Usuario> Usuarios;
     private Usuario UsuarioSeleccionado;

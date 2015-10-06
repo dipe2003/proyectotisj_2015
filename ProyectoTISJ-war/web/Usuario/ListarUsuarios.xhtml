@@ -7,11 +7,11 @@
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
-                Listado de #{usuarioListadoBean.rol}s Registrados
+                Listado de #{listarUsuariosBean.rol}s Registrados
             </div>
         </div>
         <div id="contenedor">
-            <c:forEach var="usuario" items="#{usuarioListadoBean.usuarios}">
+            <c:forEach var="usuario" items="#{listarUsuariosBean.usuarios}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
                         <div class="item" >
@@ -35,8 +35,8 @@
                                 <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}" value="...">
                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
                             </h:commandLink>
-                                <!--<f:viewParam name="rol" value="#{datosUsuarioBean.rol}"/>-->
-                                <f:viewParam name="rol" value="#{usuarioListadoBean.rol}"/>
+                                <!--<f:viewParam name="rol" value="#{registrarUsuarioBean.rol}"/>-->
+                                <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
                             </h:form>
                         </h:panelGroup>
                     </div>
@@ -55,17 +55,17 @@
                         <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
                         <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario} <br/>
                         <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
-                        <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Estudiante'}">
+                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
                             <div class="negrita">Estudios Cursados: </div>
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{usuarioListadoBean.rol == 'Docente'}">
+                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
                             <div class="negrita">Cursos Dictados: </div> Arquitectura del Computador, Matematica Discreta y Logica 1, Matematica Discreta y Logica 2<br/>
                         </h:panelGroup>
                         
                     </div>
                 </div>            
             </c:forEach>
-            <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Administrador'}">
+            <h:panelGroup rendered="#{registrarUsuarioBean.rol == 'Administrador'}">
                 <div class="ListItemContainer BotonAdd">
                     <a href="../Usuario/RegistrarUsuario.xhtml?rol=Administrador">
                         <div class="ImagenItem ImagenAdd">
@@ -74,7 +74,7 @@
                     </a>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Administrativo'}">
+            <h:panelGroup rendered="#{registrarUsuarioBean.rol == 'Administrativo'}">
                 <div class="ListItemContainer BotonAdd">
                     <a href="../Usuario/RegistrarUsuario.xhtml?rol=Administrativo">
                         <div class="ImagenItem ImagenAdd">
@@ -83,7 +83,7 @@
                     </a>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Estudiante'}">
+            <h:panelGroup rendered="#{registrarUsuarioBean.rol == 'Estudiante'}">
                 <div class="ListItemContainer BotonAdd">
                     <a href="../Usuario/RegistrarUsuario.xhtml?rol=Estudiante">
                         <div class="ImagenItem ImagenAdd">
@@ -92,7 +92,7 @@
                     </a>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{datosUsuarioBean.rol == 'Docente'}">
+            <h:panelGroup rendered="#{registrarUsuarioBean.rol == 'Docente'}">
                 <div class="ListItemContainer BotonAdd">
                     <a href="../Usuario/RegistrarUsuario.xhtml?rol=Docente">
                         <div class="ImagenItem ImagenAdd" >
