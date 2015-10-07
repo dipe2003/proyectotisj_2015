@@ -12,14 +12,14 @@ import javax.inject.Named;
 
 @Named
 @ViewScoped
-public class AsignaturaListadoBean implements Serializable{    
+public class ListarAsignaturasBean implements Serializable{    
     @EJB
     private FacadeAsignatura fAsig;
     
     private List<Asignatura> Asignaturas;
     private Asignatura AsignaturaSeleccionada;
     
-    public AsignaturaListadoBean(){}
+    public ListarAsignaturasBean(){}
 
     public List<Asignatura> getAsignaturas() {return Asignaturas;}
     public void setAsignaturas(List<Asignatura> Asignaturas) {this.Asignaturas = Asignaturas;}

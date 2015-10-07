@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class DatosAsignaturaBean implements Serializable{
+public class RegistrarAsignaturaBean implements Serializable{
     
     private String NombreAsignatura;
     private int CreditosAsignatura;
@@ -17,7 +17,7 @@ public class DatosAsignaturaBean implements Serializable{
     @EJB
     private FacadeAsignatura fAsig;
     
-    public DatosAsignaturaBean() {}
+    public RegistrarAsignaturaBean() {}
     
     //  Setters
     public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
