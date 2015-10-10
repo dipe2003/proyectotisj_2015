@@ -6,76 +6,12 @@
     
     <ui:composition>
         <div class="nav"> 
-            <div class="navHeader">
-                <div class="navBadge">
-                    <a href="../Usuario/EditarPerfil.xhtml" >
-                        <h:graphicImage url="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
-                    </a> 
-                </div>
-                <div class="navLabel">
-                    <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
-                </div>
-                <div class="navLabel">
-                    (Administrador)
-                </div>
-            </div>
-            
-            <div class="navDivider"></div>
-            <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrador">
-                <div class="navOptMenu">
-                    Administradores
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrativo">
-                <div class="navOptMenu">
-                    Administrativos
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Usuario/ListarUsuarios.xhtml?rol=Docente">
-                <div class="navOptMenu">
-                    Docentes
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante">
-                <div class="navOptMenu">
-                    Estudiantes
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="javascript:toggle_visibility('listar');">
-                <div class="navOptMenu">
-                    Asignaturas                    
-                </div>
-                <div id="listar" class="navOptMenu" style="display: none; font-size: 10pt; height: 10px;">
-                    <a href="../Asignatura/ListarAsignaturas.xhtml">
-                        Listar Asignaturas
-                    </a><br/>
-                    <a href="../Asignatura/RegistrarAsignatura.xhtml">
-                        Registrar Asignaturas
-                    </a>   
-                </div>                
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="">
-                <div class="navOptMenu">
-                    Encuestas
-                </div>
-            </a>  
-            
-            <div class="navDivider"></div>
-            
-            <h:form rendered="#{login.usuarioLogueado}">
-                <h:commandLink action="#{login.logout()}">
-                    <div class="navOptMenu">
-                        Salir
+            <div id="scrollContainer">
+                <div class="navHeader">
+                    <div class="navBadge">
+                        <a href="../Usuario/EditarPerfil.xhtml" >
+                            <h:graphicImage url="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
+                        </a> 
                     </div>
                     <div class="navLabel">
                         <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
@@ -86,26 +22,28 @@
                 </div>
                 
                 <div class="navDivider"></div>
-                    
+                
+                
+                
                 <div class="navOptMenu" id="administradores">
                     <div onclick="location.href='#';" class="submenuTitulo">
                         Administradores
                     </div>
-                        
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrador" class="SubmenuLink">
                             <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
                             Nuevo
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Administrador" class="SubmenuLink">
                             <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
                             Importar
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrador" class="SubmenuLink">
                             <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
@@ -120,21 +58,21 @@
                     <div class="submenuTitulo">
                         Administrativos
                     </div>
-                        
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/RegistrarUsuario.xhtml?rol=Administrtivo" class="SubmenuLink">
                             <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
                             Nuevo
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Administrativo" class="SubmenuLink">
                             <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
                             Importar
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrativo" class="SubmenuLink">
                             <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
@@ -144,26 +82,26 @@
                 </div> 
                 
                 <div class="navDivider"></div>
-                    
+                
                 <div class="navOptMenu" id="docentes">
                     <div class="submenuTitulo">
                         Docentes
                     </div>
-                        
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/RegistrarUsuario.xhtml?rol=Docente" class="SubmenuLink">
                             <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
                             Nuevo
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Doncente" class="SubmenuLink">
                             <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
                             Importar
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/ListarUsuarios.xhtml?rol=Docente" class="SubmenuLink">
                             <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
@@ -173,26 +111,26 @@
                 </div> 
                 
                 <div class="navDivider"></div>
-                    
+                
                 <div class="navOptMenu" id="estudiantes">
                     <div class="submenuTitulo">
                         Estudiantes
                     </div>
-                        
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/RegistrarUsuario.xhtml?rol=Estudiante" class="SubmenuLink">
                             <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
                             Nuevo
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante" class="SubmenuLink">
                             <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
                             Importar
                         </a>
                     </div>
-                            
+                    
                     <div class="submenuOpcion">
                         <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante" class="SubmenuLink">
                             <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
@@ -200,7 +138,7 @@
                         </a>
                     </div>
                 </div> 
-                    
+                
                 <div class="navDivider"></div>
                 <a href="javascript:toggle_visibility('listar');">
                     <div class="navOptMenu">
