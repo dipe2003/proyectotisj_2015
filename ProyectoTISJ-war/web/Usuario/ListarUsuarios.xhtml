@@ -63,7 +63,7 @@
                             <div class="negrita">Estudios Cursados: </div>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
-                            <div class="negrita">Cursos Dictados: </div> Arquitectura del Computador, Matematica Discreta y Logica 1, Matematica Discreta y Logica 2<br/>
+                            <div class="negrita">Cursos Dictados: </div> <h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>
                         </h:panelGroup>
                         
                     </div>

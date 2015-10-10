@@ -1,6 +1,7 @@
 
 package interfaz;
 
+import Asignatura.FacadeAsignatura;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
@@ -25,6 +26,9 @@ public class ListarUsuariosBean implements Serializable{
     
     @EJB
     private FacadeUsuario fUsr;
+    
+    @EJB
+    private FacadeAsignatura fAsig;
     
     @Inject
     private RegistrarUsuarioBean UsrData;
@@ -140,4 +144,17 @@ public class ListarUsuariosBean implements Serializable{
         FacesContext.getCurrentInstance().getExternalContext().redirect("ListarUsuarios.xhtml?rol="+Rol);
     }
 
+    /**
+     * retonra un String con los nombres de las asignaturas dictadas por el docente de Id idDocente
+     * @param idDocente
+     * @return 
+     */
+    public String listarAsignaturasDocente(int idDocente){
+        String result = "";
+        List <String> AsignaturasDocente = fAsig.AsignaturasDocente(idDocente);
+        for (String asignatura : AsignaturasDocente){
+            result = result + " " + asignatura;
+        }
+        return result;
+    }
 }

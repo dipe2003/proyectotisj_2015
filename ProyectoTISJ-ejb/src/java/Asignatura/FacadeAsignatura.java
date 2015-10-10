@@ -1,7 +1,10 @@
 
 package Asignatura;
 
+import Curso.ControladorCurso;
+import Curso.Curso;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -14,6 +17,9 @@ import javax.inject.Named;
 public class FacadeAsignatura implements Serializable {
     @EJB
     private ControladorAsignatura cAsig;
+    @EJB
+    private ControladorCurso cCurso;
+    
     
     public FacadeAsignatura() {}
        
@@ -66,6 +72,20 @@ public class FacadeAsignatura implements Serializable {
      */
     public String BuscarNombreAsignatura(int IdAsignatura){
         return cAsig.getNombreAsignatura(IdAsignatura);
+    }
+    
+    /**
+     * Retorna una lista de los nombres de las asignaturas del docente de Id idDocente
+     * @param idDocente
+     * @return 
+     */
+    public List<String> AsignaturasDocente(int idDocente){
+        List<String> AsignaturasDocente = new ArrayList<>();
+        List<Curso> CursosDocente = cCurso.ListarCursos(idDocente, true);
+        for (Curso curso : CursosDocente){
+            if (!AsignaturasDocente.contains(curso.getAsignaturaCurso().getNombreAsignatura())) AsignaturasDocente.add(curso.getAsignaturaCurso().getNombreAsignatura());
+        }
+        return AsignaturasDocente;
     }
     
 }

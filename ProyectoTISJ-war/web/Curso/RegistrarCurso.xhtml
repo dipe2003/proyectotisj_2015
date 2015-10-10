@@ -12,8 +12,9 @@
                 Registro de nuevo Curso
             </div>
         </div>
-        <div id="contenedor" style="margin-top: 120px">
-            <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+        <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+            <div id="contenedor" style="margin-top: 120px">
+                
                 <div class="menuOpcion" style="display: block;">
                     
                     <div class="nombreDocente">Curso</div>
@@ -30,26 +31,23 @@
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:outputText id="outputDocente" value="#{datosRegCurso.docenteSeleccionado}" class="Texto" />
+                        <h:inputText disabled="true" id="outputDocente" value="#{datosRegCurso.docenteSeleccionado}" class="Texto" />
                     </div>
-  
+                    
                         
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:outputText id="outputAsignatura" value="#{datosRegCurso.asignaturaSeleccionada}" class="Texto" />                                 
+                        <h:inputText disabled="true" id="outputAsignatura" value="#{datosRegCurso.asignaturaSeleccionada}" class="Texto" />                                 
                     </div><h:message class="error" for="outputAsignatura"/>
-                        
-                        
-                    <div class="menuOpcion" style="display: block;">
-                        <h:commandLink action="#{datosRegCurso.onFinish()}">
-                            <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
-                        </h:commandLink>
-                        <h:commandButton type="reset">
-                            <div class="boton "> <img src="../Resources/Images/reset.png" class="butonIcon"/> Reset </div>
-                        </h:commandButton>
-                    </div>
+
                 </div>
-            </h:form>
-        </div>
+                    
+                <div class="menuOpcion">
+                    <h:commandButton class="boton siguiente" value="Registrar" action="#{datosRegCurso.onFinish()}"/>
+                    <h:commandButton class="boton" value="Reset" type="reset"/> 
+                </div>  
+                        
+            </div>
+        </h:form>
     </ui:define>
 </ui:composition>

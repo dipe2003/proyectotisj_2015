@@ -11,30 +11,25 @@
                 Listado de Asignaturas Registradas
             </div>
         </div>
-        <div id="contenedor" style="margin-top: 120px">
-            <h:panelGroup rendered="#{empty listarAsignaturasBean.asignaturas}">
-            <div class="ListItem" >
-                No hay Asignaturas registradas.
-            </div>
-            </h:panelGroup>
+        <div id="contenedor">
             <c:forEach var="asignatura" items="#{listarAsignaturasBean.asignaturas}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
-
+                        
                         <div class="item">
                             #{asignatura.nombreAsignatura}
                         </div>
                         <div class="item">
                             #{asignatura.creditosAsignatura} creditos.
                         </div>
-
+                        
                         <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
                         <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                         <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo'}">
                             <h:form>                                
                                 <h:commandLink  action="#{regCursoWizard.seleccionarAsignatura(asignatura.idAsignatura)}" value="..." >
                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
-                            </h:commandLink>
+                                </h:commandLink>
                             </h:form>
                         </h:panelGroup>
                     </div>
@@ -45,13 +40,15 @@
                     </div>
                 </div>            
             </c:forEach>
-            <div class="ListItemContainer" style="background-color: #37474F; text-align: center; ">
+            
+            <div class="ListItemContainer BotonAdd">
                 <a href="../Asignatura/RegistrarAsignatura.xhtml">
-                <div class="ImagenItem" style="margin: 0 auto; margin-top: 5px; border: none; box-shadow: none">
-                    <img src="../Resources/Images/addOtros.png" height="100%" width="100%"/>
-                </div>
+                    <div class="ImagenItem ImagenAdd" >
+                        <img src="../Resources/Images/addOtros.png" height="100%" width="100%"/>
+                    </div>
                 </a>
             </div>
+            
         </div>
     </ui:define>
 </ui:composition>
