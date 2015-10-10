@@ -39,11 +39,20 @@ $(document).ready(function(){
         }  
     });
     
+    function aumento(cantSubmenu){
+        var result = 0;
+        for (var i = 1; i <= cantSubmenu; i++) {
+            if ((i-1) % 3 === 0) result++;
+        }
+        return(result*80);
+    }
+    
     function calcularAltura(opcionMenu){
         var altura = AlturaOpcion;
         var cantidadSubmenus = 0;
         cantidadSubmenus = opcionMenu.children().length - 1;
-        altura = altura + ((Math.trunc((cantidadSubmenus)/3))*80) ;
+        var alturaExtra = aumento(cantidadSubmenus) ;
+        altura = altura + alturaExtra;
         return altura;
     }
     

@@ -12,32 +12,28 @@
                 Registro de nueva Asignatura
             </div>
         </div>
-        <div id="contenedor" style="margin-top: 120px">
-            <h:form id="frmIngresoDatos" enctype="multipart/form-data">
-                <div class="menuOpcion" style="display: block;">
+        <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+            <div id="contenedor">
+                <div class="menuOpcion">
                     
                     <div class="nombreDocente">Asignatura</div>
-                        
+                    
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:inputText id="inputNombre" value="#{datosAsignaturaBean.nombreAsignatura}" required="true" requiredMessage="Debes ingresar un nombre." class="Texto" p:placeholder="Nombre de Asignatura"/>                                 
+                        <h:inputText id="inputNombre" value="#{registrarAsignaturaBean.nombreAsignatura}" required="true" requiredMessage="Debes ingresar un nombre." class="Texto" p:placeholder="Nombre de Asignatura"/>                                 
                     </div><h:message class="error" for="inputNombre"/>
-                        
+                    
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                        <h:inputText id="inputCredito" value="#{datosAsignaturaBean.creditosAsignatura}" required="true" requiredMessage="Debes ingresar lso creditos." class="Texto" p:placeholder="Creditos de Asignatura"/>                                 
+                        <h:inputText id="inputCredito" value="#{registrarAsignaturaBean.creditosAsignatura}" required="true" requiredMessage="Debes ingresar lso creditos." class="Texto" p:placeholder="Creditos de Asignatura"/>                                 
                     </div><h:message class="error" for="inputCreditos"/>
                         
-                    <div class="menuOpcion" style="display: block;">
-                        <h:commandLink action="#{datosAsignaturaBean.registrarAsignatura()}">
-                            <div class="boton "> <img src="../Resources/Images/siguiente.png" class="butonIcon"/> Registrar</div>
-                        </h:commandLink>
-                        <h:commandButton type="reset">
-                            <div class="boton "> <img src="../Resources/Images/reset.png" class="butonIcon"/> Reset </div>
-                        </h:commandButton>
-                    </div>
-                </div>
-            </h:form>
-        </div>
+                </div> 
+            </div>
+            <div class="menuOpcion">
+                <h:commandButton class="boton siguiente" value="Registrar" action="#{registrarAsignaturaBean.registrarAsignatura()}"/>
+                <h:commandButton class="boton" value="Reset" type="reset"/> 
+            </div>    
+        </h:form>
     </ui:define>
 </ui:composition>

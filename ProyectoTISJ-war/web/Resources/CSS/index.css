@@ -27,7 +27,7 @@
 
 .cabecera{
     width: 100%;
-    height: 100px;
+    height: 50px;
     background-color: #B0BEC5;
     border-bottom: #444444 solid 1px;
     position: fixed;
@@ -47,7 +47,7 @@
 }
 
 #contenedor{
-    margin-top: 120px;
+    margin-top: 70px;
 }
 
 /*----------------------------------MENU---------------------------------------------*/
@@ -135,11 +135,7 @@
 .submenuTitulo{
     width: 100%;
     height: 100px;
-}
-
-.submenuTitulo:target{
-    width: 100%;
-    height: 100px;
+    cursor: pointer;
 }
 
 .submenuOpcion{
