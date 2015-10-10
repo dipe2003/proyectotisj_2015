@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 public class ControladorCurso {
     
     @EJB
-    private ManejadorCurso mDoc;
+    private ManejadorCurso mCurso;
     
     /**
      * Crea un Curso y lo persiste.
@@ -20,11 +20,12 @@ public class ControladorCurso {
      * @param AnioCurso 
      * @param DocenteCurso 
      * @param AsignaturaCurso
+     * @param ContratoDocenteCurso
      * @return Devuelve un Curso si fue creado, de lo contrario devuelve null.
      */
     public Curso CrearCurso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso, String ContratoDocenteCurso){
         Curso curso = new Curso(SemestreCurso, AnioCurso, DocenteCurso, AsignaturaCurso, ContratoDocenteCurso);
-        if (mDoc.CrearCurso(curso)!=-1){
+        if (mCurso.CrearCurso(curso)!=-1){
             return curso;
         }
         return null;
@@ -36,7 +37,7 @@ public class ControladorCurso {
      * @return Devuelve -1 si no se pudo actualizar.
      */
     public int ModificarCurso(Curso curso){
-        return mDoc.ModificarCurso(curso);
+        return mCurso.ModificarCurso(curso);
     }
     
     /**
@@ -45,7 +46,7 @@ public class ControladorCurso {
      * @return Devuelve -1 si no se pudo borrar.
      */
     public int BorrarCurso(Curso curso){
-        return mDoc.BorrarCurso(curso);
+        return mCurso.BorrarCurso(curso);
     }
     
     /**
@@ -54,7 +55,7 @@ public class ControladorCurso {
      * @return Devuelve null si no se pudo encontrar.
      */
     public Curso BuscarCurso(int id){
-        return mDoc.BuscarCurso(id);
+        return mCurso.BuscarCurso(id);
     }
     
     /**
@@ -62,7 +63,7 @@ public class ControladorCurso {
      * @return 
      */
     public List<Curso> ListarCursos(){
-        return mDoc.ListarCursos();
+        return mCurso.ListarCursos();
     }
     /**
      * Devuelve una lista de Cursos del usuario (docente o estudiante) especificado por su id desde la base de datos.
@@ -71,7 +72,16 @@ public class ControladorCurso {
      * @return 
      */
     public List<Curso> ListarCursos(int IdUsuario, boolean docente){
-        return mDoc.ListarCursos(IdUsuario, true);
+        return mCurso.ListarCursos(IdUsuario, true);
+    }
+    
+    /**
+     * Lista los estudiantes de un curso especificado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public List<Integer> ListarEstudiantesCurso(int IdCurso){
+        return mCurso.ListarEstudiantesCurso(IdCurso);
     }
   
 }

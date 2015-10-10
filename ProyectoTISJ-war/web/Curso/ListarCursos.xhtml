@@ -43,7 +43,9 @@
                             </h:panelGroup>
                         </div>
                         <div id="" class="columna">
-                            <div class="negrita">Docente: </div> #{curso.nombreDocente}<br/>
+                            <c:forEach var="estudiante" items="#{curso.estudiantes}">
+                            <div class="negrita">Estudiante: </div> algo <br/>
+                            </c:forEach>
                         </div>
                     </div>
                 </c:forEach>

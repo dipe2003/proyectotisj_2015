@@ -67,6 +67,18 @@ public class ManejadorEstudiante {
         }
         return lista;
     }
+    
+    public List<Estudiante> ListarEstudiantes(List<Integer> IdsEstudiantes){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.IdUsuario IN :(Ids)", Estudiante.class);
+            query.setParameter("Ids", IdsEstudiantes);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
         
 }
     

@@ -82,4 +82,12 @@ public class ControladorEstudiante {
     public List<Estudiante> ListarEstudiantes(){
         return mEst.ListarEstudiantes();
     }
+    /**
+     * Devuelve una lista de Estudiantes desde la base de datos segun sus ids.
+     * @param IdsEstudiantes
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantes(List<Integer> IdsEstudiantes){
+        return mEst.ListarEstudiantes(IdsEstudiantes);
+    }
 }

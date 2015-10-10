@@ -4,6 +4,7 @@ package interfaz.curso;
 
 import Curso.Curso;
 import Curso.FacadeCurso;
+import Estudiante.FacadeEstudiante;
 import Usuario.Usuario;
 import interfaz.Login;
 import java.io.Serializable;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 public class ListarCursosBean implements Serializable{
     @EJB
     private FacadeCurso fCurso;
+    @EJB
+    private FacadeEstudiante fEst;
     @Inject
     private Login login;
     
@@ -74,8 +77,21 @@ public class ListarCursosBean implements Serializable{
     private beanCurso getBeanCurso(Curso curso){
         beanCurso bcurso = new beanCurso(curso.getIdCurso(), curso.getAsignaturaCurso().getNombreAsignatura(),
                 curso.getDocenteCurso().getNombreCompleto(),curso.getAnioCurso(), curso.getSemestreCurso(),
-                new ArrayList<>());
+               getListaEstudiante(curso.getIdCurso()));
         return bcurso;
+    }
+    
+    /**
+     * Devuelve una lista de beanEstudiante que pertenecen al curso.
+     * @param idCurso
+     * @return 
+     */
+    private List<beanEstudiante> getListaEstudiante(int idCurso){
+        List<beanEstudiante> lista = new ArrayList<>();
+        for (int i = 0; i < fEst.ListarEstudiantesCurso(idCurso).size(); i++) {
+            lista.add(new beanEstudiante(fEst.ListarEstudiantesCurso(idCurso).get(i).getIdUsuario(), fEst.ListarEstudiantesCurso(idCurso).get(i).getNombreCompleto()));
+        }
+        return lista;
     }
     
     /**

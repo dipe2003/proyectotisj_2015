@@ -1,6 +1,7 @@
 
 package Estudiante;
 
+import Curso.ControladorCurso;
 import Enumerados.TipoDeEstudio.ControladorTipoEstudio;
 import Enumerados.TipoDeEstudio.TipoEstudio;
 import Estudiante.estudios.ControladorEstudio;
@@ -22,6 +23,8 @@ public class FacadeEstudiante implements Serializable {
     private ControladorEstudio cEstudio;
     @EJB
     private ControladorTipoEstudio cTEstudio;
+    @EJB
+    private ControladorCurso cCurso;
     
     public FacadeEstudiante() {}
 
@@ -46,5 +49,14 @@ public class FacadeEstudiante implements Serializable {
      */
     public List<Estudiante> ListarEstudiates(){
         return cEst.ListarEstudiantes();
+    }
+    
+      /**
+     * Devuelve una lista con todos los estudiantes de un curso especificado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
+        return cEst.ListarEstudiantes(cCurso.ListarEstudiantesCurso(IdCurso));
     }
  }

@@ -12,6 +12,11 @@
             </div>
         </div>
         <div id="contenedor" style="margin-top: 120px">
+            <h:panelGroup rendered="#{empty listarAsignaturasBean.asignaturas}">
+            <div class="ListItem" >
+                No hay Asignaturas registradas.
+            </div>
+            </h:panelGroup>
             <c:forEach var="asignatura" items="#{listarAsignaturasBean.asignaturas}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
