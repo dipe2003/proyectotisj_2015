@@ -61,7 +61,7 @@ public class ListarCursosBean implements Serializable{
         }catch(NullPointerException ex){
             Parametro = "";
         }
-        if (!Parametro.isEmpty()) {
+        if (Parametro!=null && !Parametro.isEmpty()) {
             // cargar las listas segun el parametro
         }else{
             switch(login.getRolSeleccionado()){
