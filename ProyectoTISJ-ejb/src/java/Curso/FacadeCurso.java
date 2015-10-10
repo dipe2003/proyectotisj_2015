@@ -74,8 +74,17 @@ public class FacadeCurso implements Serializable {
      * @param IdDocente
      * @return 
      */
-    public List<Curso> ListarCurso(int IdDocente){
-        return cCurso.ListarCursos(IdDocente);
+    public List<Curso> ListarCursosDocente(int IdDocente){
+        return cCurso.ListarCursos(IdDocente, true);
+    }
+    
+    /**
+     * Lista todos los cursos en los que esta inscripto el estudiante especificado por su id.
+     * @param idEstudiante
+     * @return
+     */
+    public List<Curso> ListarCursosEstudiante(int idEstudiante){
+        return cCurso.ListarCursos(idEstudiante, false);
     }
     
 }

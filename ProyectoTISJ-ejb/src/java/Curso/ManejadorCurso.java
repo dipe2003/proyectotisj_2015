@@ -67,17 +67,26 @@ public class ManejadorCurso {
         }
         return lista;
     }
-    public List<Curso> ListarCursos(int IdDocente){
-        List<Curso> lista = new ArrayList<>();        
-        try{
-            TypedQuery<Curso> query = em.createQuery("SELECT c FROM Curso c WHERE c.DocenteCurso.IdUsuario= :IdDocente", Curso.class);
-            query.setParameter("IdDocente", IdDocente);
+    
+    public List<Curso> ListarCursos(int IdUsuario, boolean docente){
+        List<Curso> lista = new ArrayList<>();
+        TypedQuery<Curso> query;
+        if (docente) {
+            query = em.createQuery("SELECT c FROM Curso c WHERE c.DocenteCurso.IdUsuario= :IdDocente", Curso.class);
+            query.setParameter("IdDocente", IdUsuario);
+        }else{
+            query = em.createQuery("SELECT c FROM Curso c WHERE c.EstudiantesCurso.IdUsuario= :idEstudiante", Curso.class);
+            query.setParameter("idEstudiante", IdUsuario);
+        }
+        try{            
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
         }
         return lista;
     }
+    
+
         
 }
     

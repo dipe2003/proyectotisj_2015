@@ -65,12 +65,13 @@ public class ControladorCurso {
         return mDoc.ListarCursos();
     }
     /**
-     * Devuelve una lista de Cursos del docente especificado por su id desde la base de datos.
-     * @param IdDocente
+     * Devuelve una lista de Cursos del usuario (docente o estudiante) especificado por su id desde la base de datos.
+     * @param IdUsuario
+     * @param docente true si es docente
      * @return 
      */
-    public List<Curso> ListarCursos(int IdDocente){
-        return mDoc.ListarCursos(IdDocente);
+    public List<Curso> ListarCursos(int IdUsuario, boolean docente){
+        return mDoc.ListarCursos(IdUsuario, true);
     }
-    
+  
 }
