@@ -7,7 +7,12 @@
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
+                <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Administrador'}">
+                Listado de #{listarUsuariosBean.rol}es Registrados
+                </h:panelGroup>
+                <h:panelGroup rendered="#{listarUsuariosBean.rol != 'Administrador'}">
                 Listado de #{listarUsuariosBean.rol}s Registrados
+                </h:panelGroup>
             </div>
         </div>
         <div id="contenedor">

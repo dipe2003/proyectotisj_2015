@@ -8,6 +8,7 @@ import Estudiante.EnumSexo;
 import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,15 +16,17 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
-
-@ViewScoped
+@Named
+@RequestScoped
 @ManagedBean
 public class RegistrarUsuarioBean implements Serializable{
     
@@ -133,7 +136,7 @@ public class RegistrarUsuarioBean implements Serializable{
     public String getEstadoCivilSeleccionado() {return this.EstadoCivilSeleccionado;}
     public Part getPartImagenPerfil() {return PartImagenPerfil;}
     public String getStrFechaNacimiento(){
-        SimpleDateFormat fDate = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat fDate = new SimpleDateFormat("dd/MM/yyyy");
         if (FechaNacimientoUsuario == null) {
             return this.strFechaNacimiento;
         }else{
@@ -150,8 +153,7 @@ public class RegistrarUsuarioBean implements Serializable{
      * Registra el usuario si este no esta ya registrado
      * @return 
      */
-    public String registrarUsuarioInterfaz(){
-        int idUsr = -1;
+    public String registrarUsuarioInterfaz() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         if (!fUsr.ExisteUsuario(CedulaUsuario)){
             registrarUsuario();
@@ -163,12 +165,12 @@ public class RegistrarUsuarioBean implements Serializable{
     }
     
     /**
-     * Registra un usuario del segun el rol seleccionado.
+     * Registra un usuario segun el rol seleccionado.
      * Sino se selecciono imagen de perfil se registra con imagen por defecto.
      * [ESTUDIANTE] Sino se selecciono formulario de inscripcion no se registra.
-     * @return
+     * 
      */
-    public String registrarUsuario(){
+    public void registrarUsuario() throws IOException{
         int idUsr = -1;
         FacesContext context = FacesContext.getCurrentInstance();
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
@@ -177,7 +179,7 @@ public class RegistrarUsuarioBean implements Serializable{
                 String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));
                 if (ubicacionFrmInscripcion==null) {
                     if (ubicacionPerfil!=null) {
-                        if ((idUsr = fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
+                        if ((idUsr =fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                                 FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
@@ -185,7 +187,7 @@ public class RegistrarUsuarioBean implements Serializable{
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
                                 }
                             }
-                            return "registrado";
+                            FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
                         }
                     }else{
                         if ((idUsr = fUsr.RegistrarUsuario("al", NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
@@ -196,26 +198,25 @@ public class RegistrarUsuarioBean implements Serializable{
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
                                 }
                             }
-                            return "registrado";
+                             FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
                         }
                     }
                 }else{
                     FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono formulario de inscripcion");
                     context.addMessage("frmIngresoDatos:inputFormIngreso", fm);
-                    return "";
                 }
             }else{
                 if (ubicacionPerfil!=null) {
                     if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
                             FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
-                        return "registrado";
+                       FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
                     }
                 }else{
                     if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
                             FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
-                        return "registrado";
+                        FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
                     }
                 }
             }
@@ -223,7 +224,6 @@ public class RegistrarUsuarioBean implements Serializable{
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             context.addMessage("frmIngresoDatos:inputCedula", fm);
         }
-        return "";
     }
     
     /**

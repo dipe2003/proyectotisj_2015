@@ -6,12 +6,76 @@
     
     <ui:composition>
         <div class="nav"> 
-            <div id="scrollContainer">
-                <div class="navHeader">
-                    <div class="navBadge">
-                        <a href="../Usuario/EditarPerfil.xhtml" >
-                            <h:graphicImage url="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
-                        </a> 
+            <div class="navHeader">
+                <div class="navBadge">
+                    <a href="../Usuario/EditarPerfil.xhtml" >
+                        <h:graphicImage url="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
+                    </a> 
+                </div>
+                <div class="navLabel">
+                    <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
+                </div>
+                <div class="navLabel">
+                    (Administrador)
+                </div>
+            </div>
+            
+            <div class="navDivider"></div>
+            <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrador">
+                <div class="navOptMenu">
+                    Administradores
+                </div>
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrativo">
+                <div class="navOptMenu">
+                    Administrativos
+                </div>
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="../Usuario/ListarUsuarios.xhtml?rol=Docente">
+                <div class="navOptMenu">
+                    Docentes
+                </div>
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante">
+                <div class="navOptMenu">
+                    Estudiantes
+                </div>
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="javascript:toggle_visibility('listar');">
+                <div class="navOptMenu">
+                    Asignaturas                    
+                </div>
+                <div id="listar" class="navOptMenu" style="display: none; font-size: 10pt; height: 10px;">
+                    <a href="../Asignatura/ListarAsignaturas.xhtml">
+                        Listar Asignaturas
+                    </a><br/>
+                    <a href="../Asignatura/RegistrarAsignatura.xhtml">
+                        Registrar Asignaturas
+                    </a>   
+                </div>                
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="">
+                <div class="navOptMenu">
+                    Encuestas
+                </div>
+            </a>  
+            
+            <div class="navDivider"></div>
+            
+            <h:form rendered="#{login.usuarioLogueado}">
+                <h:commandLink action="#{login.logout()}">
+                    <div class="navOptMenu">
+                        Salir
                     </div>
                     <div class="navLabel">
                         <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>

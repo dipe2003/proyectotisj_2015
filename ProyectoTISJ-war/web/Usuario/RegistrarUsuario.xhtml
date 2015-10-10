@@ -45,7 +45,7 @@
                     <div class="menuOpcion Mitad" style="float: right" >
                         <div class="nombreDocente">Imagen</div>
                         <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
-                        <div class="botonImagen"><input type="file" name="frmIngresoDatos:j_idt56" class="boton subirImagen perfil" accept="image/*"/></div>
+                        <div class="botonImagen"><h:inputFile  value="#{registrarUsuarioBean.partImagenPerfil}" class="boton subirImagen perfil" p:accept="image/*"/></div>
                     </div>
                 </div>
                 <div class="menuOpcion" >
@@ -119,13 +119,14 @@
                                         <h:inputText class="Texto" value="#{estudio.orientacionEstudio}"/>
                                     </h:column>
                                 </h:dataTable>
-                            </div><h:message class="error" for="inputEsudio"/>    
+                            </div><h:message class="error" for="inputEstudio"/>    
                         </div>
                         <div class="menuOpcion Mitad" style="float: right" >
                             <div class="nombreDocente">Formulario de Inscripcion</div>
                             <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="formulario"/>
-                            <div class="botonImagen"><input type="file" name="frmIngresoDatos:j_idt56" class="boton subirImagen formulario" accept="image/*"/></div>
-                           <div class="inputContainer">
+                            <h:inputFile value="#{registrarUsuarioBean.partImagenFormInscripcion}" />
+                            <div class="botonImagen"><h:inputFile class="boton subirImagen formulario" value="#{registrarUsuarioBean.partImagenFormInscripcion}" p:accept="image/*"/></div>
+                            <div class="inputContainer">
                                 <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
                                 <h:inputText id="inputGeneracion" value="#{registrarUsuarioBean.generacionAnioEstudiante}" required="true" requiredMessage="Debes ingresar la generacion" class="Texto" p:placeholder="Año de Ingreso"/>              
                             </div><h:message class="error" for="inputGeneracion"/>
@@ -133,7 +134,7 @@
                     </div>
                 </h:panelGroup>
                 <div class="menuOpcion" >
-                    <h:commandButton class="boton siguiente" value="Registrar" action="#{registrarUsuarioBean.registrarUsuarioInterfaz()}" disabled="true"/>
+                    <h:commandButton class="boton siguiente" value="Registrar" action="#{registrarUsuarioBean.registrarUsuarioInterfaz()}" disabled="false"/>
                     <h:commandButton class="boton" value="Reset" type="reset"/>
                 </div>                    
             </h:form>

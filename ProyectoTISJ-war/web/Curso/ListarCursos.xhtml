@@ -12,43 +12,43 @@
             </div>
         </div>
         <h:panelGroup rendered="#{empty listarCursosBean.cursos}">
-            <div class="ListItemContainer">
-                No hay Cursos Registrados para ti.
-            </div>
-        </h:panelGroup>
-        <h:panelGroup rendered="#{ not empty listarCursosBean.cursos}">
-            <div id="contenedor" style="margin-top: 120px">
-                
-                <c:forEach var="curso" items="#{listarCursosBean.cursos}">
-                    <div class="ListItemContainer" >
-                        <div class="ListItem" >
-                            
-                            <div class="item">
-                                Hay un curso
-                            </div>
-                            <div class="item">
-                                
-                            </div>
-                            
-                            
-                            <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
-                            <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
-                        </div>
-                        <div id="" class="columna">
-                            
-                        </div>  
-                    </div>  
-                </c:forEach>
-                
-                
-                <div class="ListItemContainer" style="background-color: #37474F; text-align: center; ">
-                    <a href="../Asignatura/RegistrarAsignatura.xhtml">
-                        <div class="ImagenItem" style="margin: 0 auto; margin-top: 5px; border: none; box-shadow: none">
-                            <img src="../Resources/Images/addOtros.png" height="100%" width="100%"/>
-                        </div>
-                    </a>
+                <div class="ListItemContainer">
+                    No hay Cursos Registrados para ti.
                 </div>
-            </div></h:panelGroup>
-        
+            </h:panelGroup>
+        <h:panelGroup rendered="#{ not empty listarCursosBean.cursos}">
+        <div id="contenedor" style="margin-top: 120px">
+            
+            <c:forEach var="curso" items="#{listarCursosBean.cursos}">
+                <div class="ListItemContainer" >
+                    <div class="ListItem" >
+
+                        <div class="item">
+                            Hay un curso
+                        </div>
+                        <div class="item">
+                            
+                        </div>
+
+
+                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
+                    </div>
+                    <div id="" class="columna">
+                            
+                    </div>
+                </div>
+            </c:forEach>
+            
+            
+            <div class="ListItemContainer" style="background-color: #37474F; text-align: center; ">
+                <a href="../Asignatura/RegistrarAsignatura.xhtml">
+                <div class="ImagenItem" style="margin: 0 auto; margin-top: 5px; border: none; box-shadow: none">
+                    <img src="../Resources/Images/addOtros.png" height="100%" width="100%"/>
+                </div>
+                </a>
+            </div>
+        </div>
+        </h:panelGroup>            
     </ui:define>
 </ui:composition>
