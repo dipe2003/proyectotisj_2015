@@ -20,7 +20,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
@@ -151,6 +150,7 @@ public class RegistrarUsuarioBean implements Serializable{
     
     /**
      * Registra el usuario si este no esta ya registrado
+     * @throws IOException
      * @return 
      */
     public String registrarUsuarioInterfaz() throws IOException{
@@ -168,6 +168,7 @@ public class RegistrarUsuarioBean implements Serializable{
      * Registra un usuario segun el rol seleccionado.
      * Sino se selecciono imagen de perfil se registra con imagen por defecto.
      * [ESTUDIANTE] Sino se selecciono formulario de inscripcion no se registra.
+     * @throws IOException
      * 
      */
     public void registrarUsuario() throws IOException{
