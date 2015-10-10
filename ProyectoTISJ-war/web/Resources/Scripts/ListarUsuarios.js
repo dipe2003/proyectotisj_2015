@@ -1,4 +1,5 @@
 $(document).ready(function(){    
+    
     $( ".ListItem" ).click(function() {
         if ($(this).hasClass("ListItemClick")){
             $(this).removeClass("ListItemClick");
