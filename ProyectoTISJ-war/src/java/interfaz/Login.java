@@ -95,9 +95,27 @@ public class Login implements Serializable {
         Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, RolSeleccionado));
         if (Usr!=null) {
             request.getSession().setAttribute("Usuario", Usr);
-        this.UsuarioLogueado = true;
-        return "logueado";
-        }            
+            this.UsuarioLogueado = true;
+            return "logueado";
+        }
+        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Datos incorrectos");
+        context.addMessage("login:msj", fm);
+        return "";
+    }
+    
+    /**
+     * Cambia el rol del usuario ya logueado.
+     * @param RolSeleccionado
+     * @return 
+     */
+    public String cambiarRol(String RolSeleccionado){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        if(request.getSession().getAttribute("Usuario")!= null){
+            this.RolSeleccionado = RolSeleccionado;
+            return "logueado";
+        }
         FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Datos incorrectos");
         context.addMessage("login:msj", fm);
         return "";
@@ -117,7 +135,7 @@ public class Login implements Serializable {
     
     /**
      * Llena la lista de roles de usuario para utilizarlos en la seleccion en LoginRol.
-     * @param RolesUsuario 
+     * @param RolesUsuario
      */
     private void LlenarRoles(List<String> RolesUsuario){
         for (int i = 0; i < RolesUsuario.size(); i++) {
@@ -130,7 +148,7 @@ public class Login implements Serializable {
     public void Init(){
         this.rolesUsuario = new ArrayList<>();
         this.Roles = new ArrayList<>();
-
+        
         try{
             fEnum.crearEstadoCivil("Soltero");
             fEnum.crearEstadoCivil("Casado");

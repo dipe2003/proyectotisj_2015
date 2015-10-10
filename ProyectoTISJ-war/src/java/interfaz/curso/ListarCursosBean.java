@@ -29,16 +29,18 @@ public class ListarCursosBean implements Serializable{
     private Login login;
     
     private List<beanCurso> Cursos;
+    private String Parametro;
     
     //  Constructores
     public ListarCursosBean(){}
     
     //  Getters
     public List<beanCurso> getCursos() {return Cursos;}
-    
+    public String getParametro(){return this.Parametro;}
     
     //  Setters
     public void setCursos(List<beanCurso> Cursos) {this.Cursos = Cursos;}
+    public void setParametro(String Parametro){this.Parametro = Parametro;}
     
     /**
      * Inicializa las listas del bean.
@@ -52,19 +54,29 @@ public class ListarCursosBean implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Usuario usr = (Usuario) request.getSession().getAttribute("Usuario");
-        List<Curso> cursos;
-        switch(login.getRolSeleccionado()){
-            case "Docente":
-                cursos = fCurso.ListarCursosDocente(usr.getIdUsuario());
-                break;
-                
-            case "Estudiante":
-                cursos = fCurso.ListarCursosEstudiante(usr.getIdUsuario());
-                break;
-                
-            default:
-                cursos = fCurso.ListarCurso();
-                break;
+        List<Curso> cursos = new ArrayList<>();
+        
+        try{
+            Parametro = request.getParameter("parametro");
+        }catch(NullPointerException ex){
+            Parametro = "";
+        }
+        if (!Parametro.isEmpty()) {
+            // cargar las listas segun el parametro
+        }else{
+            switch(login.getRolSeleccionado()){
+                case "Docente":
+                    cursos = fCurso.ListarCursosDocente(usr.getIdUsuario());
+                    break;
+                    
+                case "Estudiante":
+                    cursos = fCurso.ListarCursosEstudiante(usr.getIdUsuario());
+                    break;
+                    
+                default:
+                    cursos = fCurso.ListarCurso();
+                    break;
+            }
         }
         for (int i = 0; i < cursos.size(); i++) {
             this.Cursos.add(getBeanCurso(cursos.get(i)));
@@ -77,14 +89,14 @@ public class ListarCursosBean implements Serializable{
     private beanCurso getBeanCurso(Curso curso){
         beanCurso bcurso = new beanCurso(curso.getIdCurso(), curso.getAsignaturaCurso().getNombreAsignatura(),
                 curso.getDocenteCurso().getNombreCompleto(),curso.getAnioCurso(), curso.getSemestreCurso(),
-               getListaEstudiante(curso.getIdCurso()));
+                getListaEstudiante(curso.getIdCurso()));
         return bcurso;
     }
     
     /**
      * Devuelve una lista de beanEstudiante que pertenecen al curso.
      * @param idCurso
-     * @return 
+     * @return
      */
     private List<beanEstudiante> getListaEstudiante(int idCurso){
         List<beanEstudiante> lista = new ArrayList<>();
