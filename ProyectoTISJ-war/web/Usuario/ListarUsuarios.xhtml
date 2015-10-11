@@ -18,7 +18,7 @@
         <div id="contenedor">
             <h:panelGroup rendered="#{empty listarUsuariosBean.usuarios}">
                 <div class="ListItemContainer" >
-                        No hay #{listarUsuariosBean.rol}s registrados.
+                    No hay #{listarUsuariosBean.rol}s registrados.
                 </div>            
             </h:panelGroup>
             <c:forEach var="usuario" items="#{listarUsuariosBean.usuarios}">
@@ -38,14 +38,14 @@
                         <div class="item">
                             #{usuario.correoUsuario}
                         </div>
-<!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
-                        <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo')  }">
+                        <!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                                                <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
+                        <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
                             <h:form>
                                 <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}">
                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
                                     <div class="optionItem" style="background-image: url(../Resources/Images/select.png)"></div>
-                            </h:commandLink>
+                                </h:commandLink>
                                 <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
                             </h:form>
                         </h:panelGroup>

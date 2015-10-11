@@ -34,11 +34,11 @@ public class RegCursoWizard implements Serializable {
         }
     }
     
-    public String endConversation(){
+    public void endConversation() throws IOException{
         if(!conversation.isTransient()){
             conversation.end();
         }
-        return "index?faces-redirect=true";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");
     }
     
     // Navigation
@@ -47,7 +47,7 @@ public class RegCursoWizard implements Serializable {
         if(this.idAsignatura==0 || conversation == null) {
             // tirar un mensaje de error porque no se selecciono nada
         }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?faces-redirect=true&rol=Docente&cid="+this.conversation.getId());
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?faces-redirect=true&rol=Docente&opt=regcurso&cid="+this.conversation.getId());
     }
     
     public void seleccionarDocente(String idDoc) throws IOException {
