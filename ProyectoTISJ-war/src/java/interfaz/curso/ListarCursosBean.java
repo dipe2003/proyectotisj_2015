@@ -57,11 +57,11 @@ public class ListarCursosBean implements Serializable{
         List<Curso> cursos = new ArrayList<>();
         
         try{
-            Parametro = request.getParameter("parametro");
+            this.Parametro = request.getParameter("parametro");
         }catch(NullPointerException ex){
-            Parametro = "";
+            this.Parametro = "no";
         }
-        if (Parametro!=null && !Parametro.isEmpty()) {
+        if (this.Parametro!=null && !this.Parametro.isEmpty()) {
             // cargar las listas segun el parametro
         }else{
             switch(login.getRolSeleccionado()){

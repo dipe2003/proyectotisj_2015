@@ -36,19 +36,21 @@ public class ListarUsuariosBean implements Serializable{
     private List<Usuario> Usuarios;
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
+    private String Opt;
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
     public Usuario getUsuarioSeleccionado() {return this.UsuarioSeleccionado;}
     public String getRol() {return Rol;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
-
+    public String getOpt(){return this.Opt;}
+    
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
     public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
- 
+    public void setOpt(String Opt){this.Opt = Opt;}
     
     /**
      * Se piden los usuario segun el rol indicado en el parametro.
@@ -60,6 +62,15 @@ public class ListarUsuariosBean implements Serializable{
     public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        try{
+            this.Opt = request.getParameter("opt");
+        }catch(NullPointerException ex){}
+        
+        if (this.Opt==null) {
+            this.Opt = "no";
+        }
+        
         
         //  Roles
         if (Rol==null || Rol.isEmpty()) {
@@ -107,7 +118,7 @@ public class ListarUsuariosBean implements Serializable{
     
     /**
      * Registra el nuevo rol al usuario usr
-     * @param usr 
+     * @param usr
      */
     private void RegistrarRol(Usuario usr){
         UsrData.setNombreUsuario(usr.getNombreUsuario());
@@ -143,11 +154,11 @@ public class ListarUsuariosBean implements Serializable{
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("ListarUsuarios.xhtml?rol="+Rol);
     }
-
+    
     /**
      * retonra un String con los nombres de las asignaturas dictadas por el docente de Id idDocente
      * @param idDocente
-     * @return 
+     * @return
      */
     public String listarAsignaturasDocente(int idDocente){
         String result = "";

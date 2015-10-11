@@ -43,9 +43,11 @@ public class ListarAsignaturasBean implements Serializable{
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
             this.Opt = request.getParameter("opt");
-        }catch(NullPointerException ex){
+        }catch(NullPointerException ex){}
+        
+        if (this.Opt==null) {
             this.Opt = "no";
-        }        
+        }
     }
     
     
