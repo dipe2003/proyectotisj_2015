@@ -93,3 +93,9 @@
     border: none; 
     box-shadow: none;
 }
+
+.registrarCurso{
+    float: right; 
+    display: flex;
+    color: grey;
+}

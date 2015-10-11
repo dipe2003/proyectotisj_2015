@@ -5,7 +5,6 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
-        
         <div class="cabecera" >
             <div class="titulo" >
                 Listado de Asignaturas Registradas
@@ -13,33 +12,28 @@
         </div>
         <div id="contenedor">
             <c:forEach var="asignatura" items="#{listarAsignaturasBean.asignaturas}">
-                <div class="ListItemContainer" >
-                    <div class="ListItem" >
-                        
-                        <div class="item">
-                            #{asignatura.nombreAsignatura}
-                        </div>
-                        <div class="item">
-                            #{asignatura.creditosAsignatura} creditos.
-                        </div>
-                        
-<!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
-                        <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt =='regcurso' }">
+                <div class="ListItemContainer" >     
+                    <div class="item">
+                        #{asignatura.nombreAsignatura}
+                    </div>
+                    <div class="item">
+                        #{asignatura.creditosAsignatura} creditos.
+                    </div>
+                    <!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                                            <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
+                    <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt =='regcurso' }">
+                        <div class="registrarCurso">Seleccionar Curso 
                             <h:form>                                
-                                <h:commandLink  action="#{regCursoWizard.seleccionarAsignatura(asignatura.idAsignatura)}" value="..." >
+                                <h:commandLink  action="#{regCursoWizard.seleccionarAsignatura(asignatura.idAsignatura)}" >
                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
+                                    <div class="optionItem" style="background-image: url(../Resources/Images/agregar.png)"></div>
                                 </h:commandLink>
 <!--                                <f:viewParam name="opt" value="#{listarAsignaturasBean.opt}"/>-->
                             </h:form>
-                        </h:panelGroup>
-                    </div>
-                    <div class="columna">
-                      
-                    </div>
+                        </div>
+                    </h:panelGroup>
                 </div>            
             </c:forEach>
-            
         </div>
     </ui:define>
 </ui:composition>
