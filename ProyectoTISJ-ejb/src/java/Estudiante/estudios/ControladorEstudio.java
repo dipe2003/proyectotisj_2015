@@ -2,6 +2,7 @@ package Estudiante.estudios;
 
 import Enumerados.TipoDeEstudio.TipoEstudio;
 import Estudio.estudios.ManejadorEstudio;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -58,7 +59,21 @@ public class ControladorEstudio {
      * Devuelve una lista de Estudios desde la base de datos.
      * @return 
      */
-    public List<Estudio> ListarEstudioes(){
+    public List<Estudio> ListarEstudios(){
         return mEst.ListarEstudios();
+    }
+    
+    /**
+     * Devuelve uns lista de strings con los estudios cursados y su orientacion
+     * @param IdsEstudios lista de ids de estudios a devolver.
+     * @return 
+     */
+    public List<String> ListarEstudiosOrientacion(List<Integer> IdsEstudios){
+        List<Estudio> estudios = mEst.ListarEstudios(IdsEstudios);
+        List<String> estudiosOrientacion = new ArrayList<>();
+        for (int i = 0; i < estudios.size(); i++) {
+            estudiosOrientacion.add(estudios.get(i).getTipoEstudio().getTipoDeEstudio()+"-"+estudios.get(i).getOrientacionEstudio());
+        }
+        return estudiosOrientacion;
     }
 }

@@ -68,6 +68,18 @@ public class ManejadorEstudio {
         }
         return lista;
     }
+    
+    public List<Estudio> ListarEstudios(List<Integer> IdsEstudios){
+        List<Estudio> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudio> query = em.createQuery("SELECT e FROM Estudio e WHERE e.IdEstudio IN :(Ids)", Estudio.class);
+            query.setParameter("Ids", IdsEstudios);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
         
 }
     

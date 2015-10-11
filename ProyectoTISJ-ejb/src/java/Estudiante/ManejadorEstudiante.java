@@ -9,6 +9,7 @@ import javax.ejb.TransactionManagementType;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 @ManagedBean
@@ -73,6 +74,19 @@ public class ManejadorEstudiante {
         try{
             TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.IdUsuario IN :(Ids)", Estudiante.class);
             query.setParameter("Ids", IdsEstudiantes);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Integer> ListarEstudios(int IdEstudiante){
+        List<Integer> lista = new ArrayList<>();
+        try{
+            Query query = em.createQuery("SELECT estudio.IdEstudio FROM Estudio estudio, Estudiante e WHERE e.IdUsuario= :IdEstudiante AND estudio.IdEstudio IN e.EstudiosCursadosEstudiante");
+            query.setParameter("IdEstudiante", IdEstudiante);
+            query.setParameter("IdEstudiante", IdEstudiante);            
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());

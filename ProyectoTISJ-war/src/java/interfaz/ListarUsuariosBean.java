@@ -2,12 +2,14 @@
 package interfaz;
 
 import Asignatura.FacadeAsignatura;
+import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -26,6 +28,9 @@ public class ListarUsuariosBean implements Serializable{
     
     @EJB
     private FacadeUsuario fUsr;
+    
+    @EJB
+    private FacadeEstudiante fEst;
     
     @EJB
     private FacadeAsignatura fAsig;
@@ -167,5 +172,18 @@ public class ListarUsuariosBean implements Serializable{
             result = result + " " + asignatura;
         }
         return result;
+    }
+    /**
+     * retonra un String con los nombres de los estudios cursados por el estudiante.
+     * @param idEstudiante
+     * @return
+     */
+    public String listarEstudiosCursados(int idEstudiante){
+        String resultado = "";
+        List <String> EstudiosCursados = fEst.ListarEstudiosOrientacionCursados(idEstudiante);
+        for (String estudio : EstudiosCursados) {
+            resultado = resultado + " " + estudio;
+        }
+        return resultado;
     }
 }

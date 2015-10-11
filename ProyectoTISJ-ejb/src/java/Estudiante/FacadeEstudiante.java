@@ -24,7 +24,7 @@ public class FacadeEstudiante implements Serializable {
     @EJB
     private ControladorTipoEstudio cTEstudio;
     @EJB
-    private ControladorCurso cCurso;
+    private ControladorCurso cCurso;    
     
     public FacadeEstudiante() {}
 
@@ -58,5 +58,14 @@ public class FacadeEstudiante implements Serializable {
      */
     public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
         return cEst.ListarEstudiantes(cCurso.ListarEstudiantesCurso(IdCurso));
+    }
+    
+    /**
+     * Devuelve una lista con los estudios cursados y la orientacion del estudiante especificado por su id.
+     * @param IdEstudiante
+     * @return 
+     */
+    public List<String> ListarEstudiosOrientacionCursados(int IdEstudiante){
+        return cEstudio.ListarEstudiosOrientacion(cEst.ListarEstudiosOrientacionCursados(IdEstudiante));        
     }
  }

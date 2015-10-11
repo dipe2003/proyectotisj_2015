@@ -90,4 +90,13 @@ public class ControladorEstudiante {
     public List<Estudiante> ListarEstudiantes(List<Integer> IdsEstudiantes){
         return mEst.ListarEstudiantes(IdsEstudiantes);
     }
+    
+    /**
+     * Devuelve una lista de ids de estudios cursados del estudiante.
+     * @param IdEstudiante
+     * @return 
+     */
+    public List<Integer> ListarEstudiosOrientacionCursados(int IdEstudiante){
+        return mEst.ListarEstudios(IdEstudiante);
+    }
 }
