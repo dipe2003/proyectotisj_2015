@@ -78,7 +78,7 @@ body{
     padding-bottom: 10px;
 }
 
-.menuOpcion{
+.menuOpcionLogin{
     width: 200px;
     height: 150px;
     background-color: #263238;
@@ -123,4 +123,8 @@ body{
 
 .clickeado{
     background-color: #222933;
+}
+
+.corregirLinea{
+    text-decoration: none;
 }
