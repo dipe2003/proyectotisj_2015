@@ -6,7 +6,7 @@
     <h:head>
         <link rel="stylesheet" href="./Resources/CSS/login.css" />
         <link rel="stylesheet" href="./Resources/CSS/Mensajes.css" />
-        <script src="./Resources/Scripts/jquery-1.11.3.min.js"></script>
+<!--        <script src="./Resources/Scripts/jquery-1.11.3.min.js"></script>-->
         <title>Rol</title>      
     </h:head>
     <h:body>        
@@ -22,8 +22,8 @@
                 <div id="contenedor">                     
                     <div id="contenedorBotones">
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Estudiante')}">
-                            <h:commandLink action="#{login.loginRol('Estudiante')}">
-                                <div class="menuOpcion" name="Estudiante" style="text-align: center" >
+                            <h:commandLink class="corregirLinea" action="#{login.loginRol('Estudiante')}">
+                                <div class="menuOpcionLogin" name="Estudiante"  >
                                     <div class="textoMenuOpcion">Estudiante</div>
                                     <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -31,8 +31,8 @@
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Docente')}">
-                            <h:commandLink action="#{login.loginRol('Docente')}">
-                                <div class="menuOpcion" name="Docente" style="text-align: center">
+                            <h:commandLink class="corregirLinea" action="#{login.loginRol('Docente')}">
+                                <div class="menuOpcionLogin" name="Docente" >
                                     <div class="textoMenuOpcion">Docente</div>
                                     <img src="./Resources/Images/docente.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -40,8 +40,8 @@
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Administrativo')}">
-                            <h:commandLink action="#{login.loginRol('Administrativo')}">
-                                <div class="menuOpcion" name="Administrativo" style="text-align: center">
+                            <h:commandLink class="corregirLinea" action="#{login.loginRol('Administrativo')}">
+                                <div class="menuOpcionLogin" name="Administrativo" >
                                     <div class="textoMenuOpcion">Administrativo</div>
                                     <img src="./Resources/Images/administrativo.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -49,8 +49,8 @@
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Administrador')}">
-                            <h:commandLink action="#{login.loginRol('Administrador')}">
-                                <div class="menuOpcion" name="Administrador" style="text-align: center">
+                            <h:commandLink class="corregirLinea" action="#{login.loginRol('Administrador')}">
+                                <div class="menuOpcionLogin" name="Administrador" >
                                     <div class="textoMenuOpcion">Administrador</div>
                                     <img src="./Resources/Images/administrador.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -71,8 +71,8 @@
                 <div id="contenedor">                     
                     <div id="contenedorBotones">
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Estudiante') and login.rolSeleccionado !='Estudiante'}">
-                            <h:commandLink action="#{login.cambiarRol('Estudiante')}">
-                                <div class="menuOpcion" name="Estudiante" style="text-align: center" >
+                            <h:commandLink class="corregirLinea" action="#{login.cambiarRol('Estudiante')}">
+                                <div class="menuOpcionLogin" name="Estudiante" >
                                     <div class="textoMenuOpcion">Estudiante</div>
                                     <img src="./Resources/Images/estudiante.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -80,8 +80,8 @@
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Docente') and login.rolSeleccionado != 'Docente'}">
-                            <h:commandLink action="#{login.cambiarRol('Docente')}">
-                                <div class="menuOpcion" name="Docente" style="text-align: center">
+                            <h:commandLink class="corregirLinea" action="#{login.cambiarRol('Docente')}">
+                                <div class="menuOpcionLogin" name="Docente" >
                                     <div class="textoMenuOpcion">Docente</div>
                                     <img src="./Resources/Images/docente.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -89,8 +89,8 @@
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Administrativo') and login.rolSeleccionado!='Administrativo'}">
-                            <h:commandLink action="#{login.cambiarRol('Administrativo')}">
-                                <div class="menuOpcion" name="Administrativo" style="text-align: center">
+                            <h:commandLink class="corregirLinea" action="#{login.cambiarRol('Administrativo')}">
+                                <div class="menuOpcionLogin" name="Administrativo">
                                     <div class="textoMenuOpcion">Administrativo</div>
                                     <img src="./Resources/Images/administrativo.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>
@@ -98,8 +98,8 @@
                             </h:commandLink>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{ func:contains(login.rolesUsuario, 'Administrador') and login.rolSeleccionado != 'Administrador'}">
-                            <h:commandLink action="#{login.cambiarRol('Administrador')}">
-                                <div class="menuOpcion" name="Administrador" style="text-align: center">
+                            <h:commandLink class="corregirLinea" action="#{login.cambiarRol('Administrador')}">
+                                <div class="menuOpcionLogin" name="Administrador">
                                     <div class="textoMenuOpcion">Administrador</div>
                                     <img src="./Resources/Images/administrador.png" width="100" height="100" alt="edit"/>
                                     <div class="imagenMenuOpcion"></div>

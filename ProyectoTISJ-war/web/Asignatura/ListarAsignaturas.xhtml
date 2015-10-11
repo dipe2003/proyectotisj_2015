@@ -12,6 +12,16 @@
             </div>
         </div>
         <div id="contenedor">
+            <h:panelGroup rendered="#{empty listarAsignaturasBean.asignaturas}">
+                <div class="ListItemContainer" >
+                    No hay Asignaturas registradas.
+                </div>            
+            </h:panelGroup>
+            <h:panelGroup  rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt == 'regcurso' }">
+                <span class="info" style="text-align: center;">
+                    Seleccionar Asignatura
+                </span> 
+            </h:panelGroup>
             <c:forEach var="asignatura" items="#{listarAsignaturasBean.asignaturas}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
@@ -23,19 +33,18 @@
                             #{asignatura.creditosAsignatura} creditos.
                         </div>
                         
-<!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
-                        <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
+                        <!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
+                                                <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
                         <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt =='regcurso' }">
                             <h:form>                                
                                 <h:commandLink  action="#{regCursoWizard.seleccionarAsignatura(asignatura.idAsignatura)}" value="..." >
                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
                                 </h:commandLink>
-<!--                                <f:viewParam name="opt" value="#{listarAsignaturasBean.opt}"/>-->
                             </h:form>
                         </h:panelGroup>
                     </div>
                     <div class="columna">
-                      
+                        
                     </div>
                 </div>            
             </c:forEach>

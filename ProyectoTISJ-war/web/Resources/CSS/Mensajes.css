@@ -6,6 +6,7 @@
     padding:8px 8px 8px 50px;
     background-repeat: no-repeat;
     background-position: 10px center;
+    display: flex;
 }
 .info {
     color: #00529B;
@@ -22,5 +23,4 @@
     color: #D8000C;
     background-color: #FFBABA;
     background-image: url(../Images/Error.png);
-    display: flex;
 }
