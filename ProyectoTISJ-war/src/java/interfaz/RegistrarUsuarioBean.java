@@ -16,16 +16,16 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 @Named
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class RegistrarUsuarioBean implements Serializable{
     
@@ -150,18 +150,20 @@ public class RegistrarUsuarioBean implements Serializable{
     
     /**
      * Registra el usuario si este no esta ya registrado
-     * @throws IOException
-     * @return 
+     * @throws IOException 
      */
-    public String registrarUsuarioInterfaz() throws IOException{
+    public void registrarUsuarioInterfaz() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
-        if (!fUsr.ExisteUsuario(CedulaUsuario)){
-            registrarUsuario();
-        }else{
+        if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
             context.addMessage("frmIngresoDatos:inputCedula", fm);
+        }else{            
+            int idUsr= registrarUsuario();
+            if (idUsr !=-1) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
+            }
         }
-        return "";
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
     }
     
     /**
@@ -171,14 +173,14 @@ public class RegistrarUsuarioBean implements Serializable{
      * @throws IOException
      * 
      */
-    public void registrarUsuario() throws IOException{
+    public int registrarUsuario() throws IOException{
         int idUsr = -1;
         FacesContext context = FacesContext.getCurrentInstance();
         if (verifCedula.EsCedulaValida(CedulaUsuario)) {
             String ubicacionPerfil = fUp.guardarArchivo("ImagenesPerfil", PartImagenPerfil, CedulaUsuario);
             if (Rol.equals("Estudiante")) {
                 String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));
-                if (ubicacionFrmInscripcion==null) {
+                if (ubicacionFrmInscripcion!=null) {
                     if (ubicacionPerfil!=null) {
                         if ((idUsr =fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
@@ -186,9 +188,9 @@ public class RegistrarUsuarioBean implements Serializable{
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
                                 if (!ListaEstudiosCursados.get(i).OrientacionEstudio.equals("")) {
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
-                                }
+                                }                                
                             }
-                            FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
+                            return idUsr;
                         }
                     }else{
                         if ((idUsr = fUsr.RegistrarUsuario("al", NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
@@ -199,7 +201,7 @@ public class RegistrarUsuarioBean implements Serializable{
                                     fEst.agregarEstudiosEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, idUsr);
                                 }
                             }
-                             FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
+                            return idUsr;
                         }
                     }
                 }else{
@@ -211,13 +213,13 @@ public class RegistrarUsuarioBean implements Serializable{
                     if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
                             FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
-                       FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
+                       return idUsr;
                     }
                 }else{
                     if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
                             FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
-                        FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
+                        return idUsr;
                     }
                 }
             }
@@ -225,7 +227,9 @@ public class RegistrarUsuarioBean implements Serializable{
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             context.addMessage("frmIngresoDatos:inputCedula", fm);
         }
+        return idUsr;
     }
+
     
     /**
      * Busca el estado civil segun su nombre.
