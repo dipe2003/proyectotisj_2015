@@ -42,6 +42,8 @@ public class ListarUsuariosBean implements Serializable{
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
     private String Opt;
+    private String NameFilter;
+    private List<Usuario> UsuariosFiltrados;
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
@@ -49,6 +51,8 @@ public class ListarUsuariosBean implements Serializable{
     public String getRol() {return Rol;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public String getOpt(){return this.Opt;}
+    public String getNameFilter() {return NameFilter;}
+    public List<Usuario> getUsuariosFiltrados() {return UsuariosFiltrados;}
     
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
@@ -56,6 +60,10 @@ public class ListarUsuariosBean implements Serializable{
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setOpt(String Opt){this.Opt = Opt;}
+    public void setNameFilter(String NameFilter) {
+        this.NameFilter = NameFilter;
+    }
+    public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
     
     /**
      * Se piden los usuario segun el rol indicado en el parametro.
@@ -92,6 +100,8 @@ public class ListarUsuariosBean implements Serializable{
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
+        
+        this.UsuariosFiltrados = this.Usuarios;
         
     }
     
@@ -151,6 +161,7 @@ public class ListarUsuariosBean implements Serializable{
     
     /**
      * Registra un nuevo Rol a los usuarios checkeados
+     * @throws java.io.IOException
      */
     public void nuevoRol() throws IOException{
         List<Usuario> CheckedUsers = this.getCheckedUsers();
@@ -185,5 +196,12 @@ public class ListarUsuariosBean implements Serializable{
             resultado = resultado + " " + estudio;
         }
         return resultado;
+    }
+    
+    public void filtrarUsrByName(){
+        UsuariosFiltrados = new ArrayList<>();
+        for (int i = 0; i < Usuarios.size(); i++) {
+            if (Usuarios.get(i).getNombreUsuario().contains(this.NameFilter)) UsuariosFiltrados.add(Usuarios.get(i));
+        }
     }
 }

@@ -13,6 +13,9 @@
                 <h:panelGroup rendered="#{listarUsuariosBean.rol != 'Administrador'}">
                     Listado de #{listarUsuariosBean.rol}s Registrados
                 </h:panelGroup>
+                
+                <h:inputText id="algo" onchange="#{listarUsuariosBean.filtrarUsrByName()}" value="#{listarUsuariosBean.nameFilter}"/>
+                
             </div>
         </div>
         <div id="contenedor">
@@ -26,7 +29,7 @@
                     Seleccionar Docente
                 </span> 
             </h:panelGroup>
-            <c:forEach var="usuario" items="#{listarUsuariosBean.usuarios}">
+            <c:forEach var="usuario" items="#{listarUsuariosBean.usuariosFiltrados}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
                         <div class="item" >
@@ -43,13 +46,11 @@
                         <div class="item">
                             #{usuario.correoUsuario}
                         </div>
-                        <!--                        <div class="optionItem" style="background-image: url(../Resources/Images/deleteShadow.png)"></div>
-                                                <div class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>-->
                         <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
                             <h:form>
                                 <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}">
                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
-                                    <div class="optionItem" style="background-image: url(../Resources/Images/select.png)"></div>
+                                    <div class="optionItem" style="background-image: url(../Resources/Images/selectBlack.png)"></div>
                                 </h:commandLink>
                                 <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
                             </h:form>

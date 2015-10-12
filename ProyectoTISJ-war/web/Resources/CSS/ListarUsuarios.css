@@ -19,6 +19,7 @@
 
 .ListItem{
     height: 50px;
+    cursor: pointer;
 }
 
 .ListItemClick{
