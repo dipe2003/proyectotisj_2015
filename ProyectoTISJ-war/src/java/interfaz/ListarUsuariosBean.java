@@ -2,6 +2,7 @@
 package interfaz;
 
 import Asignatura.FacadeAsignatura;
+import Curso.FacadeCurso;
 import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
@@ -33,6 +34,9 @@ public class ListarUsuariosBean implements Serializable{
     
     @EJB
     private FacadeAsignatura fAsig;
+    
+    @EJB
+    private FacadeCurso fCurso;
     
     @Inject
     private RegistrarUsuarioBean UsrData;
@@ -75,6 +79,7 @@ public class ListarUsuariosBean implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
+        // parametros para listado.
         try{
             this.Opt = request.getParameter("opt");
         }catch(NullPointerException ex){}
@@ -92,7 +97,11 @@ public class ListarUsuariosBean implements Serializable{
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){
             this.Usuarios = fUsr.listarUsuarios(Rol);
         }else if(currentURL.equals("/Usuario/SeleccionarUsuarios.xhtml")){
+            if (!this.Opt.equals("no") && !this.Opt.equals("nuevorol")) {
+                this.Usuarios = fUsr.listarUsuarios(Rol);
+            }else{
             this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
+            }
         }
         listChecked = new HashMap<>();
         for (Usuario Usr : Usuarios) {
@@ -167,6 +176,14 @@ public class ListarUsuariosBean implements Serializable{
             RegistrarRol(usr);
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("ListarUsuarios.xhtml?rol="+Rol);
+    }
+    
+    public void agregarEstudianteACurso() throws IOException{
+         List<Usuario> CheckedUsers = this.getCheckedUsers();
+          for (Usuario usr : CheckedUsers) {
+            fCurso.AgregarEstudianteACurso(usr.getIdUsuario(), Integer.parseInt(this.Opt));
+        }
+          FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");
     }
     
     /**

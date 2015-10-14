@@ -33,7 +33,9 @@
                         </div>
                     </h:panelGroup>
                     <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
-                    <div title="Registrar Alumno" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
+                    <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=#{curso.id}" class="SubmenuLink">
+                    <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
+                    </a>
                     <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
                 </div>
             </c:forEach>

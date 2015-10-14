@@ -11,6 +11,11 @@
             </div>
         </div>
         <div id="contenedor">
+            <h:panelGroup rendered="#{empty listarUsuariosBean.usuarios}">
+                <div class="ListItemContainer" >
+                    No hay #{listarUsuariosBean.rol}s registrados.
+                </div>            
+            </h:panelGroup>
             <h:form>
                 <c:forEach var="usuario" items="#{listarUsuariosBean.usuarios}">
                     <div class="ListItemContainer" >
@@ -28,9 +33,16 @@
                         </div>
                     </div>            
                 </c:forEach>
+                <h:panelGroup rendered="#{listarUsuariosBean.opt == 'nuevorol'}">
                 <div class="menuOpcion" >
                     <h:commandButton class="boton" value="Seleccionar" action="#{listarUsuariosBean.nuevoRol()}"/>
-                </div>      
+                </div>
+            </h:panelGroup>
+                <h:panelGroup rendered="#{listarUsuariosBean.opt != 'nuevorol' and listarUsuariosBean.opt != 'regcurso'}">
+                <div class="menuOpcion" >
+                    <h:commandButton class="boton" value="Seleccionar" action="#{listarUsuariosBean.agregarEstudianteACurso()}"/>
+                </div>
+            </h:panelGroup>
             </h:form>
             <f:viewParam name="rol" value="#{registrarUsuarioBean.rol}"/>
         </div>

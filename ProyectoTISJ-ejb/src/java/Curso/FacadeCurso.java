@@ -4,6 +4,7 @@ package Curso;
 
 import Asignatura.ControladorAsignatura;
 import Docente.ControladorDocente;
+import Estudiante.ControladorEstudiante;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
@@ -21,6 +22,8 @@ public class FacadeCurso implements Serializable {
     private ControladorDocente cDoc;
     @EJB
     private ControladorAsignatura cAsig;
+    @EJB
+    private ControladorEstudiante cEst;
     
     public FacadeCurso() {}
        
@@ -85,6 +88,10 @@ public class FacadeCurso implements Serializable {
      */
     public List<Curso> ListarCursosEstudiante(int idEstudiante){
         return cCurso.ListarCursos(idEstudiante, false);
+    }
+    
+    public void AgregarEstudianteACurso(int IdEstudiante, int IdCurso){
+        cCurso.AgregarEstudianteACurso(cEst.BuscarEstudiante(IdEstudiante), IdCurso);
     }
     
 }

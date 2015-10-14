@@ -2,6 +2,7 @@ package Curso;
 
 import Asignatura.Asignatura;
 import Docente.Docente;
+import Estudiante.Estudiante;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -84,4 +85,10 @@ public class ControladorCurso {
         return mCurso.ListarEstudiantesCurso(IdCurso);
     }
   
+    
+    public void AgregarEstudianteACurso(Estudiante estudiante, int IdCurso){
+        Curso curso = mCurso.BuscarCurso(IdCurso);
+        curso.addEstudianteCurso(estudiante);
+        mCurso.ModificarCurso(curso);
+    }
 }
