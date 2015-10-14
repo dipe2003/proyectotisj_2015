@@ -10,35 +10,33 @@
                 Listado de Cursos
             </div>
         </div>
-        <h:panelGroup rendered="#{empty listarCursosBean.cursos}">
-            <div class="ListItemContainer">
-                No hay Cursos Registrados
-            </div>
-        </h:panelGroup>
-        <h:panelGroup rendered="#{ not empty listarCursosBean.cursos}">
-            <div id="contenedor">
-                <c:forEach var="curso" items="#{listarCursosBean.cursos}">
-                    <div class="ListItemContainer" >
-                        <div class="item">
-                            #{curso.anioCurso}
-                        </div>
-                        <div class="item">
-                            #{curso.semestreCurso}° semestre.
-                        </div>
-                        <div class="item">
-                            #{curso.nombreAsignatura}
-                        </div>
-                        <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrativo' or login.rolSeleccionado == 'Administrador'}">
-                            <div class="item">
-                                #{curso.nombreDocente}
-                            </div>
-                        </h:panelGroup>
-                        <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
-                        <div title="Registrar Alumno" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
-                        <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+        <div id="contenedor">
+            <h:panelGroup rendered="#{empty listarCursosBean.cursos}">
+                <div class="ListItemContainer">
+                    No hay Cursos Registrados
+                </div>
+            </h:panelGroup>
+            <c:forEach var="curso" items="#{listarCursosBean.cursos}">
+                <div class="ListItemContainer" >
+                    <div class="item">
+                        #{curso.anioCurso}
                     </div>
-                </c:forEach>
-            </div>
-        </h:panelGroup>
+                    <div class="item">
+                        #{curso.semestreCurso}° semestre.
+                    </div>
+                    <div class="item">
+                        #{curso.nombreAsignatura}
+                    </div>
+                    <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrativo' or login.rolSeleccionado == 'Administrador'}">
+                        <div class="item">
+                            #{curso.nombreDocente}
+                        </div>
+                    </h:panelGroup>
+                    <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
+                    <div title="Registrar Alumno" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
+                    <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+                </div>
+            </c:forEach>
+        </div>
     </ui:define>
 </ui:composition>

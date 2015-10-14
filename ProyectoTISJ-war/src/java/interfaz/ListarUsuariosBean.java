@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -82,8 +81,7 @@ public class ListarUsuariosBean implements Serializable{
         
         if (this.Opt==null) {
             this.Opt = "no";
-        }
-        
+        }        
         
         //  Roles
         if (Rol==null || Rol.isEmpty()) {
@@ -100,9 +98,9 @@ public class ListarUsuariosBean implements Serializable{
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
-        
-        this.UsuariosFiltrados = this.Usuarios;
-        
+        this.UsuariosFiltrados = new ArrayList<>();
+        this.UsuariosFiltrados = this.Usuarios; 
+        this.NameFilter = "";
     }
     
     /**
