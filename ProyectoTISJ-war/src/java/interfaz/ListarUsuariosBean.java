@@ -106,9 +106,8 @@ public class ListarUsuariosBean implements Serializable{
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
-        this.UsuariosFiltrados = new ArrayList<>();
         this.UsuariosFiltrados = this.Usuarios; 
-        this.NameFilter = "";
+        this.nameFilter = "";
     }
     
     /**
