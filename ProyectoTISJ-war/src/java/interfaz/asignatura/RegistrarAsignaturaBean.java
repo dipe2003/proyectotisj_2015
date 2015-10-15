@@ -2,9 +2,11 @@
 package interfaz.asignatura;
 
 import Asignatura.FacadeAsignatura;
+import java.io.IOException;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
@@ -32,11 +34,12 @@ public class RegistrarAsignaturaBean implements Serializable{
      * Registra la asignatura con los datos ingresados.
      * @return 
      */
-    public String registrarAsignatura(){
+    public void registrarAsignatura() throws IOException{
+        FacesContext context = FacesContext.getCurrentInstance();
         if (fAsig.RegistrarAsignatura(NombreAsignatura, CreditosAsignatura)!=-1) {
-            return "registrado";
+               FacesContext.getCurrentInstance().getExternalContext().redirect("../Asignatura/ListarAsignaturas.xhtml");
         }
-        return "";
+          FacesContext.getCurrentInstance().getExternalContext().redirect("../Asignatura/RegistrarAsignatura.xhtml");
     }    
 }
 

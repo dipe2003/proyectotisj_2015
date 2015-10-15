@@ -16,7 +16,7 @@
                     No hay Asignaturas registradas.
                 </div>            
             </h:panelGroup>
-            <h:panelGroup  rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt == 'regcurso' }">
+            <h:panelGroup  rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt == 'regcurso' and not empty listarAsignaturasBean.asignaturas }">
                 <span class="info" style="text-align: center;">
                     Seleccionar Asignatura
                 </span> 

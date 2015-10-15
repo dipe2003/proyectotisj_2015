@@ -2,6 +2,7 @@
 package interfaz;
 
 import Asignatura.FacadeAsignatura;
+import Curso.FacadeCurso;
 import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
@@ -9,7 +10,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -34,6 +34,9 @@ public class ListarUsuariosBean implements Serializable{
     
     @EJB
     private FacadeAsignatura fAsig;
+    
+    @EJB
+    private FacadeCurso fCurso;
     
     @Inject
     private RegistrarUsuarioBean UsrData;
@@ -75,12 +78,15 @@ public class ListarUsuariosBean implements Serializable{
     public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        
+        // parametros para listado.
         try{
             this.Opt = request.getParameter("opt");
         }catch(NullPointerException ex){}
         if (this.Opt==null) {
             this.Opt = "no";
-        }
+        }        
+        
         //  Roles
         if (Rol==null || Rol.isEmpty()) {
             Rol = request.getParameter("rol");
@@ -90,13 +96,19 @@ public class ListarUsuariosBean implements Serializable{
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){
             this.Usuarios = fUsr.listarUsuarios(Rol);
         }else if(currentURL.equals("/Usuario/SeleccionarUsuarios.xhtml")){
+            if (!this.Opt.equals("no") && !this.Opt.equals("nuevorol")) {
+                this.Usuarios = fUsr.listarUsuarios(Rol);
+            }else{
             this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
+            }
         }
         listChecked = new HashMap<>();
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
-        UsuariosFiltrados = Usuarios;
+        this.UsuariosFiltrados = new ArrayList<>();
+        this.UsuariosFiltrados = this.Usuarios; 
+        this.NameFilter = "";
     }
     
     /**
@@ -163,6 +175,14 @@ public class ListarUsuariosBean implements Serializable{
             RegistrarRol(usr);
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("ListarUsuarios.xhtml?rol="+Rol);
+    }
+    
+    public void agregarEstudianteACurso() throws IOException{
+         List<Usuario> CheckedUsers = this.getCheckedUsers();
+          for (Usuario usr : CheckedUsers) {
+            fCurso.AgregarEstudianteACurso(usr.getIdUsuario(), Integer.parseInt(this.Opt));
+        }
+          FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");
     }
     
     /**
