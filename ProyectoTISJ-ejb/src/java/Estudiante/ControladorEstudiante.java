@@ -90,6 +90,14 @@ public class ControladorEstudiante {
     public List<Estudiante> ListarEstudiantes(List<Integer> IdsEstudiantes){
         return mEst.ListarEstudiantes(IdsEstudiantes);
     }
+    /**
+     * Devuelve una lista de Estudiantes que pertenezcan al curso indicado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
+        return mEst.ListarEstudiantesCurso(IdCurso);
+    }
     
     /**
      * Devuelve una lista de ids de estudios cursados del estudiante.
@@ -98,5 +106,55 @@ public class ControladorEstudiante {
      */
     public List<Integer> ListarEstudiosOrientacionCursados(int IdEstudiante){
         return mEst.ListarEstudios(IdEstudiante);
+    }
+    
+    /**
+     * Lista los usuarios estudiantes que estan cursando la asignatura indicada, en el año y el semestre especificado.
+     * @param SemestreCurso si = 0 se devuelven todos los semestres
+     * @param AnioCurso si = 0 se devuelven todos los años
+     * @param IdAsignatura si = 0 se devuelven todas las asignaturas
+     * @return
+     */
+    public List<Estudiante> ListarEstudiantesCurso(int SemestreCurso, int AnioCurso, int IdAsignatura){
+        //  semestre  = 0 | anio  = 0 | asignatura  = 0
+        if (SemestreCurso == 0 && AnioCurso == 0 && IdAsignatura == 0) {
+            return mEst.ListarEstudiantes();
+        }
+        
+        //  semestre  = 0 | anio  = 0 | asingatura != 0
+        if (SemestreCurso == 0 && AnioCurso == 0 && IdAsignatura != 0) {
+            return mEst.ListarEstudiantesCursoAsignatura(IdAsignatura);
+        }
+        
+        //  semestre  = 0 | anio != 0 | asignatura  = 0
+        if (SemestreCurso == 0 && AnioCurso != 0 && IdAsignatura == 0) {
+            return mEst.ListarEstudiantesCursoAnio(AnioCurso);
+        }
+        
+        //  semestre  = 0 | anio != 0 | asignatura != 0
+        if (SemestreCurso == 0 && AnioCurso != 0 && IdAsignatura != 0) {
+            return mEst.ListarEstudiantesCursoAsignaturaAnio(AnioCurso, IdAsignatura);
+        }
+        
+        //  semestre != 0 | anio  = 0 | asignatura  = 0
+        if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura == 0) {
+            return mEst.ListarEstudiantesCursoAnio(AnioCurso);
+        }
+        
+        //  semestre != 0 | anio  = 0 | asingatura != 0
+        if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura != 0) {
+            return mEst.ListarEstudiantesCursoAsignaturaAnio(AnioCurso, IdAsignatura);
+        }
+        
+        //  semestre != 0 | anio != 0 | asignatura  = 0
+        if (SemestreCurso != 0 && AnioCurso != 0 && IdAsignatura == 0) {
+            return mEst.ListarEstudiantesCursoSemestreAnio(SemestreCurso, AnioCurso);
+        }
+        
+        //  semestre != 0 | anio != 0 | asignatura != 0
+        if (SemestreCurso != 0 && AnioCurso != 0 && IdAsignatura != 0) {
+            return mEst.ListarEstudiantesCursoAsignaturaSemestre(SemestreCurso, IdAsignatura, AnioCurso);
+        }
+        return null;
     }
 }

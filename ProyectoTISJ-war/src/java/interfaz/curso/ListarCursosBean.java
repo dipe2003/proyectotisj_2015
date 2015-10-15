@@ -28,18 +28,18 @@ public class ListarCursosBean implements Serializable{
     @Inject
     private Login login;
     
-    private List<beanCurso> Cursos;
+    private List<InnerCurso> Cursos;
     private String Parametro;
     
     //  Constructores
     public ListarCursosBean(){}
     
     //  Getters
-    public List<beanCurso> getCursos() {return Cursos;}
+    public List<InnerCurso> getCursos() {return Cursos;}
     public String getParametro(){return this.Parametro;}
     
     //  Setters
-    public void setCursos(List<beanCurso> Cursos) {this.Cursos = Cursos;}
+    public void setCursos(List<InnerCurso> Cursos) {this.Cursos = Cursos;}
     public void setParametro(String Parametro){this.Parametro = Parametro;}
     
     /**
@@ -79,56 +79,41 @@ public class ListarCursosBean implements Serializable{
             }
         }
         for (int i = 0; i < cursos.size(); i++) {
-            this.Cursos.add(getBeanCurso(cursos.get(i)));
+            this.Cursos.add(getInnerCurso(cursos.get(i)));
         }
     }
     
     /**
      * Devuelve un beanCurso con los datos del curso especificado.
      */
-    private beanCurso getBeanCurso(Curso curso){
-        beanCurso bcurso = new beanCurso(curso.getIdCurso(), curso.getAsignaturaCurso().getNombreAsignatura(),
-                curso.getDocenteCurso().getNombreCompleto(),curso.getAnioCurso(), curso.getSemestreCurso(),
-                getListaEstudiante(curso.getIdCurso()));
+    private InnerCurso getInnerCurso(Curso curso){
+        InnerCurso bcurso = new InnerCurso(curso.getIdCurso(), curso.getAsignaturaCurso().getNombreAsignatura(),
+                curso.getDocenteCurso().getNombreCompleto(),curso.getAnioCurso(), curso.getSemestreCurso());
         return bcurso;
     }
     
-    /**
-     * Devuelve una lista de beanEstudiante que pertenecen al curso.
-     * @param idCurso
-     * @return
-     */
-    private List<beanEstudiante> getListaEstudiante(int idCurso){
-        List<beanEstudiante> lista = new ArrayList<>();
-        for (int i = 0; i < fEst.ListarEstudiantesCurso(idCurso).size(); i++) {
-            lista.add(new beanEstudiante(fEst.ListarEstudiantesCurso(idCurso).get(i).getIdUsuario(), fEst.ListarEstudiantesCurso(idCurso).get(i).getNombreCompleto()));
-        }
-        return lista;
-    }
     
     /**
      * Clase para mostrar la informacion de cada curso
      */
-    public static class beanCurso{
+    public static class InnerCurso{
         private int id;
         private String NombreAsignatura;
         private String NombreDocente;
         private int AnioCurso;
         private int SemestreCurso;
-        private List<beanEstudiante> Estudiantes;
         
         //Constructor
         
-        public beanCurso(int idCurso, String NombreAsignatura, String NombreDocente, int AnioCurso, int CreditosAsignatura, List<beanEstudiante> Estudiantes) {
+        public InnerCurso(int idCurso, String NombreAsignatura, String NombreDocente, int AnioCurso, int CreditosAsignatura) {
             this.id = idCurso;
             this.NombreAsignatura = NombreAsignatura;
             this.NombreDocente = NombreDocente;
             this.AnioCurso = AnioCurso;
             this.SemestreCurso = CreditosAsignatura;
-            this.Estudiantes = Estudiantes;
         }
         
-        public beanCurso() {}
+        public InnerCurso() {}
         
         // Setters & Getters
         
@@ -142,31 +127,8 @@ public class ListarCursosBean implements Serializable{
         public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
         public int getSemestreCurso() {return SemestreCurso;}
         public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
-        public List<beanEstudiante> getEstudiantes() {return Estudiantes;}
-        public void setEstudiantes(List<beanEstudiante> Estudiantes) {this.Estudiantes = Estudiantes;}
         
     }
     
-    public  static class beanEstudiante{
-        private int IdEstudiante;
-        private String NombreCompletoEstudiante;
-        
-        //  Constructores
-        
-        public beanEstudiante() {}
-        
-        public beanEstudiante(int IdEstudiante, String NombreCompletoEstudiante) {
-            this.IdEstudiante = IdEstudiante;
-            this.NombreCompletoEstudiante = NombreCompletoEstudiante;
-        }
-        
-        // Setters & Getters
-        
-        public int getIdEstudiante() {return IdEstudiante;}
-        public void setIdEstudiante(int IdEstudiante) {this.IdEstudiante = IdEstudiante;}
-        public String getNombreCompletoEstudiante() {return NombreCompletoEstudiante;}
-        public void setNombreCompletoEstudiante(String NombreCompletoEstudiante) {this.NombreCompletoEstudiante = NombreCompletoEstudiante;}
-        
-    }
-    
+
 }

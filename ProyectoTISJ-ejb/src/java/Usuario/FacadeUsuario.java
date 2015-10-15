@@ -192,18 +192,18 @@ public class FacadeUsuario implements Serializable {
      * @param LugarNacimientoUsuario
      * @param SexoUsuario
      * @param GeneracionAnioEstudiante
-     * @return 
+     * @return
      */
-    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
-            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+    public int RegistrarUsuario(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario,
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario,
             String LugarNacimientoUsuario, EnumSexo SexoUsuario, int GeneracionAnioEstudiante){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
             if(!FormInscripcion.isEmpty()) {
-                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
-                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
+                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                        CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                         FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);
             }
         }
@@ -257,10 +257,32 @@ public class FacadeUsuario implements Serializable {
     /**
      * retorna true si el usuario de cedula Cedula existe en la base de datos
      * @param Cedula
-     * @return 
+     * @return
      */
     public boolean ExisteUsuario(String Cedula){
         int CI = Integer.valueOf(Cedula);
         return cUsr.ExisteUsuario(CI);
+    }
+    
+    /**
+     * Lista los usuarios docentes que estan dictando curso en el año y el semestre especificado.
+     * @param SemestreCurso si = 0 se devuelven todos los semestres
+     * @param AnioCurso si = 0 se devuelven todos los años
+     * @param IdAsignatura si = 0 se devuelven todas las asignaturas
+     * @return
+     */
+    public List<Usuario> listarUsuariosDocente(int SemestreCurso, int AnioCurso, int IdAsignatura){
+        return (List<Usuario>) (ArrayList<?>) cDoc.ListarDocentesCurso(SemestreCurso, AnioCurso, IdAsignatura);
+    }
+    
+    /**
+     * Lista los usuarios estudiantes que estan dictando curso en el año y el semestre especificado.
+     * @param SemestreCurso si = 0 se devuelven todos los semestres
+     * @param AnioCurso si = 0 se devuelven todos los años
+     * @param IdAsignatura si = 0 se devuelven todas las asignaturas
+     * @return
+     */
+    public List<Usuario> listarUsuariosEstudiante(int SemestreCurso, int AnioCurso, int IdAsignatura){
+        return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesCurso(SemestreCurso, AnioCurso, IdAsignatura);
     }
 }

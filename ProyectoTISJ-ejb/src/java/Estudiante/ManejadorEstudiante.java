@@ -72,7 +72,7 @@ public class ManejadorEstudiante {
     public List<Estudiante> ListarEstudiantes(List<Integer> IdsEstudiantes){
         List<Estudiante> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.IdUsuario IN :(Ids)", Estudiante.class);
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e WHERE e.IdUsuario IN (:Ids)", Estudiante.class);
             query.setParameter("Ids", IdsEstudiantes);
             lista = query.getResultList();
         }catch(Exception ex){
@@ -93,6 +93,140 @@ public class ManejadorEstudiante {
         }
         return lista;
     }
+    
+    public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
+        List<Estudiante> estudiantes = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e,Curso c WHERE c.IdCurso= :idCurso" , Estudiante.class);
+            query.setParameter("idCurso", IdCurso);
+            estudiantes = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return estudiantes;
+    }
         
+     /**
+     * Todos los Estudiantes que cursan clases en anio y semestre especificados
+     * @param SemestreCurso
+     * @param AnioCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoSemestreAnio(int SemestreCurso, int AnioCurso){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AnioCurso= :anioCurso and c.SemestreCurso= :semestreCurso", Estudiante.class);
+            query.setParameter("anioCurso", AnioCurso);
+            query.setParameter("semestreCurso", SemestreCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los estudiantes que cursan clases en anio y asignatura especificados.
+     * @param AnioCurso
+     * @param IdAsignatura
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoAsignaturaAnio(int AnioCurso, int IdAsignatura){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AnioCurso= :anioCurso and c.AsignaturaCurso= :idAsignatura", Estudiante.class);
+            query.setParameter("anioCurso", AnioCurso);
+            query.setParameter("idAsignatura", IdAsignatura);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los estudiantes que cursan clases de asignatura y semestre especificados
+     * @param SemestreCurso
+     * @param IdAsignatura
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoAsignaturaSemestre(int SemestreCurso, int IdAsignatura){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso= :idAsignatura", Estudiante.class);
+            query.setParameter("semestreCurso", SemestreCurso);
+            query.setParameter("idAsignatura", IdAsignatura);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los estudiantes que cursan clases de la asignatura especificada
+     * @param IdAsignatura
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoAsignatura(int IdAsignatura){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AsignaturaCurso= :idAsignatura", Estudiante.class);
+            query.setParameter("idAsignatura", IdAsignatura);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los estudiantes que cursan clases en el año especificado
+     * @param AnioCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoAnio(int AnioCurso){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AnioCurso= :anioCurso", Estudiante.class);
+            query.setParameter("anioCurso", AnioCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los estudiantes que cursan clases en el semestre especificado
+     * @param SemestreCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoSemestre(int SemestreCurso){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso", Estudiante.class);
+            query.setParameter("semestreCurso", SemestreCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los estudiantes que cursan clases de asignatura y semestre especificados
+     * @param SemestreCurso
+     * @param IdAsignatura
+     * @param AnioCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesCursoAsignaturaSemestre(int SemestreCurso, int IdAsignatura, int AnioCurso){
+        List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso= :idAsignatura AND c.AnioCurso= :anioCurso", Estudiante.class);
+            query.setParameter("semestreCurso", SemestreCurso);
+            query.setParameter("idAsignatura", IdAsignatura);
+            query.setParameter("anioCurso", AnioCurso);            
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 }
     

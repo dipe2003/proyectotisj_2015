@@ -57,7 +57,7 @@ public class FacadeEstudiante implements Serializable {
      * @return 
      */
     public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
-        return cEst.ListarEstudiantes(cCurso.ListarEstudiantesCurso(IdCurso));
+        return cEst.ListarEstudiantesCurso(IdCurso);
     }
     
     /**

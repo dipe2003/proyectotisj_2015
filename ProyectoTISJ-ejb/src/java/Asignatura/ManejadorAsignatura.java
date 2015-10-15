@@ -76,5 +76,16 @@ public class ManejadorAsignatura {
             return null;
         }
     }
+    
+    public List<Asignatura> ListarAsignaturasCurso(){
+        List<Asignatura> asignaturas = new ArrayList<>();
+        try{
+            TypedQuery<Asignatura> query = em.createQuery("SELECT a FROM Asignatura a, Curso c WHERE c.AsignaturaCurso.IdAsignatura= a.IdAsignatura", Asignatura.class);
+            asignaturas = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return asignaturas;
+    }
 }
     

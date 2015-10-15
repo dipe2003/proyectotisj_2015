@@ -2,6 +2,7 @@ package Docente;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Estudiante.EnumSexo;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -13,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 public class ControladorDocente {
     
     @EJB
-    ManejadorDocente mDoc;
+            ManejadorDocente mDoc;
     
     /**
      * Crea un Docente y lo persiste.
@@ -35,13 +36,13 @@ public class ControladorDocente {
      * @param SexoUsuario
      * @return  Devuelve un Docente si fue creado, de lo contrario devuelve null.
      */
-    public Docente CrearDocente(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, 
-            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, 
+    public Docente CrearDocente(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario,
+            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario,
             EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, EnumSexo SexoUsuario){
-        Docente doc = new Docente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
-                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
-            EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
+        Docente doc = new Docente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
+                EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
         if (mDoc.CrearDocente(doc)!=-1){
             return doc;
         }
@@ -77,16 +78,66 @@ public class ControladorDocente {
     
     /**
      * Devuelve una lista de Docentes desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Docente> ListarDocentes(){
         return mDoc.ListarDocentes();
     }
     
     /**
+     * Lista los usuarios docentes que estan dictando curso de la asignatura indicada, en el año y el semestre especificado.
+     * @param SemestreCurso si = 0 se devuelven todos los semestres
+     * @param AnioCurso si = 0 se devuelven todos los años
+     * @param IdAsignatura si = 0 se devuelven todas las asignaturas
+     * @return
+     */
+    public List<Docente> ListarDocentesCurso(int SemestreCurso, int AnioCurso, int IdAsignatura){
+        //  semestre  = 0 | anio  = 0 | asignatura  = 0
+        if (SemestreCurso == 0 && AnioCurso == 0 && IdAsignatura == 0) {
+            return mDoc.ListarDocentes();
+        }
+        
+        //  semestre  = 0 | anio  = 0 | asingatura != 0
+        if (SemestreCurso == 0 && AnioCurso == 0 && IdAsignatura != 0) {
+            return mDoc.ListarDocentesCursoAsignatura(IdAsignatura);
+        }
+        
+        //  semestre  = 0 | anio != 0 | asignatura  = 0
+        if (SemestreCurso == 0 && AnioCurso != 0 && IdAsignatura == 0) {
+            return mDoc.ListarDocentesCursoAnio(AnioCurso);
+        }
+        
+        //  semestre  = 0 | anio != 0 | asignatura != 0
+        if (SemestreCurso == 0 && AnioCurso != 0 && IdAsignatura != 0) {
+            return mDoc.ListarDocentesCursoAsignaturaAnio(AnioCurso, IdAsignatura);
+        }
+        
+        //  semestre != 0 | anio  = 0 | asignatura  = 0
+        if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura == 0) {
+            return mDoc.ListarDocentesCursoAnio(AnioCurso);
+        }
+        
+        //  semestre != 0 | anio  = 0 | asingatura != 0
+        if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura != 0) {
+            return mDoc.ListarDocentesCursoAsignaturaAnio(AnioCurso, IdAsignatura);
+        }
+        
+        //  semestre != 0 | anio != 0 | asignatura  = 0
+        if (SemestreCurso != 0 && AnioCurso != 0 && IdAsignatura == 0) {
+            return mDoc.ListarDocentesCursoSemestreAnio(SemestreCurso, AnioCurso);
+        }
+        
+        //  semestre != 0 | anio != 0 | asignatura != 0
+        if (SemestreCurso != 0 && AnioCurso != 0 && IdAsignatura != 0) {
+            return mDoc.ListarDocentesCursoAsignaturaSemestre(SemestreCurso, IdAsignatura, AnioCurso);
+        }
+        return null;
+    }
+    
+    /**
      * Devuelve el nombre del docente especificado por su id.
      * @param IdDocente
-     * @return 
+     * @return
      */
     public String getNombreDocente(int IdDocente){
         return mDoc.getNombreDocente(IdDocente);

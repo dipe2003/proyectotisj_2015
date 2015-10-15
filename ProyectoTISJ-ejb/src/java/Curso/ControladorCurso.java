@@ -76,17 +76,11 @@ public class ControladorCurso {
     public List<Curso> ListarCursos(int IdUsuario, boolean docente){
         return mCurso.ListarCursos(IdUsuario, true);
     }
-    
     /**
-     * Lista los estudiantes de un curso especificado por su id.
-     * @param IdCurso
-     * @return 
-     */
-    public List<Integer> ListarEstudiantesCurso(int IdCurso){
-        return mCurso.ListarEstudiantesCurso(IdCurso);
-    }
-  
-    
+     * Agrega el estudiante al curso especificado.
+     * @param estudiante
+     * @param IdCurso 
+     */    
     public void AgregarEstudianteACurso(Estudiante estudiante, int IdCurso){
         Curso curso = mCurso.BuscarCurso(IdCurso);
         curso.addEstudianteCurso(estudiante);
