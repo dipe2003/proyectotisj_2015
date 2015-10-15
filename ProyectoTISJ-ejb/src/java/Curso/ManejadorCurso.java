@@ -99,5 +99,17 @@ public class ManejadorCurso {
         return lista;
     }
     
+    public List<Integer> getAniosCursos(){
+        List<Integer> lista = new ArrayList<>();
+        Query query = em.createQuery("SELECT DISTINCT c.AnioCurso FROM Curso c");
+        try{
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
+    
 }
 

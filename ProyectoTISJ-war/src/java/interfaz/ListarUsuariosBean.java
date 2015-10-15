@@ -46,8 +46,7 @@ public class ListarUsuariosBean implements Serializable{
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
     private String Opt;
-    private String nameFilter;
-    
+    List<String> AniosCursos;
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
@@ -55,8 +54,8 @@ public class ListarUsuariosBean implements Serializable{
     public String getRol() {return Rol;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public String getOpt(){return this.Opt;}
-    public String getNameFilter() {return nameFilter;}
     public List<Usuario> getUsuariosFiltrados() {return UsuariosFiltrados;}
+    public List<String> getAniosCursos() {return AniosCursos;}
     
     
     //  Setters
@@ -65,8 +64,9 @@ public class ListarUsuariosBean implements Serializable{
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setOpt(String Opt){this.Opt = Opt;}
-    public void setNameFilter(String nameFilter) {this.nameFilter = nameFilter;}
     public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
+    public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
+    
     
     /**
      * Se piden los usuario segun el rol indicado en el parametro.
@@ -85,7 +85,7 @@ public class ListarUsuariosBean implements Serializable{
         }catch(NullPointerException ex){}
         if (this.Opt==null) {
             this.Opt = "no";
-        }        
+        }
         
         //  Roles
         if (Rol==null || Rol.isEmpty()) {
@@ -99,15 +99,18 @@ public class ListarUsuariosBean implements Serializable{
             if (!this.Opt.equals("no") && !this.Opt.equals("nuevorol")) {
                 this.Usuarios = fUsr.listarUsuarios(Rol);
             }else{
-            this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
+                this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
             }
         }
         listChecked = new HashMap<>();
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
-        this.UsuariosFiltrados = this.Usuarios; 
-        this.nameFilter = "";
+        this.UsuariosFiltrados = this.Usuarios;
+        
+        this.AniosCursos = new ArrayList<>();
+        this.AniosCursos = fCurso.getAniosCursos();
+        this.AniosCursos.add("Todos");
     }
     
     /**
@@ -177,11 +180,11 @@ public class ListarUsuariosBean implements Serializable{
     }
     
     public void agregarEstudianteACurso() throws IOException{
-         List<Usuario> CheckedUsers = this.getCheckedUsers();
-          for (Usuario usr : CheckedUsers) {
+        List<Usuario> CheckedUsers = this.getCheckedUsers();
+        for (Usuario usr : CheckedUsers) {
             fCurso.AgregarEstudianteACurso(usr.getIdUsuario(), Integer.parseInt(this.Opt));
         }
-          FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");
     }
     
     /**
@@ -211,15 +214,21 @@ public class ListarUsuariosBean implements Serializable{
         return resultado;
     }
     
-    public void filtrarUsuarios(){
-        if ((this.nameFilter == null) || (this.nameFilter.isEmpty())){
+    public void filtrarPorNombreCedula(String nameFilter, String cedulaFilter ){
+        if (((nameFilter == null) || (nameFilter.isEmpty()))&&((cedulaFilter == null) || (cedulaFilter.isEmpty()))){
             UsuariosFiltrados = Usuarios;
         }else{
             UsuariosFiltrados = new ArrayList<>();
             for (int i = 0; i < Usuarios.size(); i++) {
-                if (Usuarios.get(i).getNombreUsuario().contains(this.nameFilter)) UsuariosFiltrados.add(Usuarios.get(i));
+                if (((Usuarios.get(i).getNombreUsuario().toLowerCase().contains(nameFilter.toLowerCase())))
+                && ((String.valueOf(Usuarios.get(i).getCedulaUsuario()).contains(cedulaFilter))))
+                    UsuariosFiltrados.add(Usuarios.get(i));
             }
         }
+    }
+    
+    public void filtrarPorAnioSemestreAssignatura(String anio, String semestre, String asignatura){
+
     }
     
 }

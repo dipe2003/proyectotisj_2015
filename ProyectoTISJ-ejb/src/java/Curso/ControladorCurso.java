@@ -3,6 +3,7 @@ package Curso;
 import Asignatura.Asignatura;
 import Docente.Docente;
 import Estudiante.Estudiante;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -90,5 +91,14 @@ public class ControladorCurso {
         Curso curso = mCurso.BuscarCurso(IdCurso);
         curso.addEstudianteCurso(estudiante);
         mCurso.ModificarCurso(curso);
+    }
+    
+    public List<String> getAniosCursos(){
+        List<Integer> anios = mCurso.getAniosCursos();
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < anios.size(); i++) {
+            result.add(String.valueOf(anios.get(i)));
+        }
+        return result;
     }
 }

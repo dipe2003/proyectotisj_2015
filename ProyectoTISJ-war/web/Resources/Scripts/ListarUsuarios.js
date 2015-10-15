@@ -24,4 +24,6 @@ $(document).ready(function(){
         tiempo += 200;
     });
     
+    $("#filtro\\:cedulaFilter").val("");
+    
 });
