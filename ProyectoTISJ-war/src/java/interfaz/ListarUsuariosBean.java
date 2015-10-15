@@ -39,11 +39,12 @@ public class ListarUsuariosBean implements Serializable{
     private RegistrarUsuarioBean UsrData;
     
     private List<Usuario> Usuarios;
+    private List<Usuario> UsuariosFiltrados;
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
     private String Opt;
-    private String NameFilter;
-    private List<Usuario> UsuariosFiltrados;
+    private String nameFilter;
+    
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
@@ -51,8 +52,9 @@ public class ListarUsuariosBean implements Serializable{
     public String getRol() {return Rol;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public String getOpt(){return this.Opt;}
-    public String getNameFilter() {return NameFilter;}
+    public String getNameFilter() {return nameFilter;}
     public List<Usuario> getUsuariosFiltrados() {return UsuariosFiltrados;}
+    
     
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
@@ -60,9 +62,7 @@ public class ListarUsuariosBean implements Serializable{
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setOpt(String Opt){this.Opt = Opt;}
-    public void setNameFilter(String NameFilter) {
-        this.NameFilter = NameFilter;
-    }
+    public void setNameFilter(String nameFilter) {this.nameFilter = nameFilter;}
     public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
     
     /**
@@ -75,16 +75,12 @@ public class ListarUsuariosBean implements Serializable{
     public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        
         try{
             this.Opt = request.getParameter("opt");
         }catch(NullPointerException ex){}
-        
         if (this.Opt==null) {
             this.Opt = "no";
         }
-        
-        
         //  Roles
         if (Rol==null || Rol.isEmpty()) {
             Rol = request.getParameter("rol");
@@ -100,9 +96,7 @@ public class ListarUsuariosBean implements Serializable{
         for (Usuario Usr : Usuarios) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
-        
-        this.UsuariosFiltrados = this.Usuarios;
-        
+        UsuariosFiltrados = Usuarios;
     }
     
     /**
@@ -198,10 +192,15 @@ public class ListarUsuariosBean implements Serializable{
         return resultado;
     }
     
-    public void filtrarUsrByName(){
-        UsuariosFiltrados = new ArrayList<>();
-        for (int i = 0; i < Usuarios.size(); i++) {
-            if (Usuarios.get(i).getNombreUsuario().contains(this.NameFilter)) UsuariosFiltrados.add(Usuarios.get(i));
+    public void filtrarUsuarios(){
+        if ((this.nameFilter == null) || (this.nameFilter.isEmpty())){
+            UsuariosFiltrados = Usuarios;
+        }else{
+            UsuariosFiltrados = new ArrayList<>();
+            for (int i = 0; i < Usuarios.size(); i++) {
+                if (Usuarios.get(i).getNombreUsuario().contains(this.nameFilter)) UsuariosFiltrados.add(Usuarios.get(i));
+            }
         }
     }
+    
 }
