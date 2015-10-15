@@ -72,7 +72,7 @@ public class ManejadorEstudio {
     public List<Estudio> ListarEstudios(List<Integer> IdsEstudios){
         List<Estudio> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudio> query = em.createQuery("SELECT e FROM Estudio e WHERE e.IdEstudio IN :(Ids)", Estudio.class);
+            TypedQuery<Estudio> query = em.createQuery("SELECT e FROM Estudio e WHERE e.IdEstudio IN (:Ids)", Estudio.class);
             query.setParameter("Ids", IdsEstudios);
             lista = query.getResultList();
         }catch(Exception ex){

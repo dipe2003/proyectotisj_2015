@@ -69,4 +69,8 @@ public class ControladorAsignatura {
     public String getNombreAsignatura(int IdAsignatura){
         return mAsig.getNombreAsignatura(IdAsignatura);
     }
+    
+    public List<Asignatura> ListarAsignaturasCurso(){
+        return mAsig.ListarAsignaturasCurso();
+    }
 }

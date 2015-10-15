@@ -88,4 +88,8 @@ public class FacadeAsignatura implements Serializable {
         return AsignaturasDocente;
     }
     
+    public List<Asignatura> ListarAsignaturasCurso(){
+        return cAsig.ListarAsignaturasCurso();
+    }
+
 }

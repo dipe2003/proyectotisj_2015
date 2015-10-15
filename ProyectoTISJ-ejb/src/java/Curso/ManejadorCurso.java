@@ -87,17 +87,5 @@ public class ManejadorCurso {
         return lista;
     }
     
-    public List<Integer> ListarEstudiantesCurso(int IdCurso){
-        List<Integer> lista = new ArrayList<>();
-        Query query = em.createQuery("SELECT e.IdUsuario FROM Estudiante e, Curso c WHERE c.IdCurso= :IdCurso");
-        query.setParameter("IdCurso", IdCurso);
-        try{
-            lista = query.getResultList();
-        }catch(Exception ex){
-            System.out.println("Error: " + ex.getMessage());
-        }
-        return lista;
-    }
-    
 }
 

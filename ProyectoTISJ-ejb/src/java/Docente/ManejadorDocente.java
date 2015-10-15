@@ -76,6 +76,128 @@ public class ManejadorDocente {
             return null;
         }
     }
+    /**
+     * Todos los docentes que dictan clases en anio y semestre especificados
+     * @param SemestreCurso
+     * @param AnioCurso
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoSemestreAnio(int SemestreCurso, int AnioCurso){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.AnioCurso= :anioCurso and c.SemestreCurso= :semestreCurso", Docente.class);
+            query.setParameter("anioCurso", AnioCurso);
+            query.setParameter("semestreCurso", SemestreCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los docentes que dictan clases en anio y asignatura especificados.
+     * @param AnioCurso
+     * @param IdAsignatura
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoAsignaturaAnio(int AnioCurso, int IdAsignatura){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.AnioCurso= :anioCurso and c.AsignaturaCurso= :idAsignatura", Docente.class);
+            query.setParameter("anioCurso", AnioCurso);
+            query.setParameter("idAsignatura", IdAsignatura);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los docentes que dictan clases de asignatura y semestre especificados
+     * @param SemestreCurso
+     * @param IdAsignatura
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoAsignaturaSemestre(int SemestreCurso, int IdAsignatura){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso= :idAsignatura", Docente.class);
+            query.setParameter("semestreCurso", SemestreCurso);
+            query.setParameter("idAsignatura", IdAsignatura);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los docentes que dictan clases de la asignatura especificada
+     * @param IdAsignatura
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoAsignatura(int IdAsignatura){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.AsignaturaCurso= :idAsignatura", Docente.class);
+            query.setParameter("idAsignatura", IdAsignatura);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los docentes que dictan clases en el año especificado
+     * @param AnioCurso
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoAnio(int AnioCurso){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.AnioCurso= :anioCurso", Docente.class);
+            query.setParameter("anioCurso", AnioCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los docentes que dictan clases en el semestre especificado
+     * @param SemestreCurso
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoSemestre(int SemestreCurso){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.SemestreCurso= :semestreCurso", Docente.class);
+            query.setParameter("semestreCurso", SemestreCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    /**
+     * Todos los docentes que dictan clases de asignatura y semestre especificados
+     * @param SemestreCurso
+     * @param IdAsignatura
+     * @param AnioCurso
+     * @return 
+     */
+    public List<Docente> ListarDocentesCursoAsignaturaSemestre(int SemestreCurso, int IdAsignatura, int AnioCurso){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso= :idAsignatura AND c.AnioCurso= :anioCurso", Docente.class);
+            query.setParameter("semestreCurso", SemestreCurso);
+            query.setParameter("idAsignatura", IdAsignatura);
+            query.setParameter("anioCurso", AnioCurso);            
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
         
 }
     

@@ -90,6 +90,11 @@ public class FacadeCurso implements Serializable {
         return cCurso.ListarCursos(idEstudiante, false);
     }
     
+    /**
+     * Agrega el estudiante al curso especificado por su id.
+     * @param IdEstudiante
+     * @param IdCurso 
+     */
     public void AgregarEstudianteACurso(int IdEstudiante, int IdCurso){
         cCurso.AgregarEstudianteACurso(cEst.BuscarEstudiante(IdEstudiante), IdCurso);
     }
