@@ -1,6 +1,7 @@
 
 package interfaz;
 
+import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
 import Curso.FacadeCurso;
 import Estudiante.FacadeEstudiante;
@@ -46,7 +47,8 @@ public class ListarUsuariosBean implements Serializable{
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
     private String Opt;
-    List<String> AniosCursos;
+    private List<String> AniosCursos;
+    private Map<String, Integer> AsignaturasCursos;
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
@@ -56,7 +58,7 @@ public class ListarUsuariosBean implements Serializable{
     public String getOpt(){return this.Opt;}
     public List<Usuario> getUsuariosFiltrados() {return UsuariosFiltrados;}
     public List<String> getAniosCursos() {return AniosCursos;}
-    
+    public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
     
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
@@ -66,6 +68,8 @@ public class ListarUsuariosBean implements Serializable{
     public void setOpt(String Opt){this.Opt = Opt;}
     public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
     public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
+    public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
+    
     
     
     /**
@@ -111,6 +115,13 @@ public class ListarUsuariosBean implements Serializable{
         this.AniosCursos = new ArrayList<>();
         this.AniosCursos = fCurso.getAniosCursos();
         this.AniosCursos.add("Todos");
+        
+        AsignaturasCursos = new HashMap<>();
+        List<Asignatura> ListAsignaturaCurso =  fAsig.ListarAsignaturasCurso();
+        for (int i = 0; i < ListAsignaturaCurso.size(); i++) {
+            AsignaturasCursos.put(ListAsignaturaCurso.get(i).getNombreAsignatura(),ListAsignaturaCurso.get(i).getIdAsignatura());
+        }
+        AsignaturasCursos.put("Todos",0);
     }
     
     /**
@@ -221,14 +232,26 @@ public class ListarUsuariosBean implements Serializable{
             UsuariosFiltrados = new ArrayList<>();
             for (int i = 0; i < Usuarios.size(); i++) {
                 if (((Usuarios.get(i).getNombreUsuario().toLowerCase().contains(nameFilter.toLowerCase())))
-                && ((String.valueOf(Usuarios.get(i).getCedulaUsuario()).contains(cedulaFilter))))
+                        && ((String.valueOf(Usuarios.get(i).getCedulaUsuario()).contains(cedulaFilter))))
                     UsuariosFiltrados.add(Usuarios.get(i));
             }
         }
     }
     
-    public void filtrarPorAnioSemestreAssignatura(String anio, String semestre, String asignatura){
-
+    public void filtrarPorAnioSemestreAssignatura(String anioFiltro, int semestre, int Idasignatura){
+        
+        int anio = 0;
+        
+        if (!anioFiltro.equals("Todos")){
+            anio = Integer.valueOf(anioFiltro);
+        }
+        
+        if(Rol.equals("Docente")){
+            Usuarios = fUsr.listarUsuariosDocente(semestre, anio, Idasignatura);
+        }else if (Rol.equals("Estudiantes")){
+            Usuarios = fUsr.listarUsuariosEstudiante(semestre, anio, Idasignatura);
+        }
+        UsuariosFiltrados = Usuarios;
     }
     
 }

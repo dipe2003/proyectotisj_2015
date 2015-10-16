@@ -45,10 +45,12 @@
                     
                     Asignatura
                     
-                    <h:inputText id="anioFilter" value="#{asignaturaFilter}"/> 
+                    <h:selectOneMenu value="#{asignaturaFilter}">
+                        <f:selectItems value="#{listarUsuariosBean.asignaturasCursos}" />
+                    </h:selectOneMenu>
                     
                     <h:commandButton value="Submit">
-                        <f:ajax listener="#{ejemplo.filtrarPorAnioSemestreAssignatura(anioFilter,semestreFilter,asignaturaFilter)}" event="click" execute="@form" render="coso"/>
+                        <f:ajax listener="#{listarUsuariosBean.filtrarPorAnioSemestreAssignatura(anioFilter,semestreFilter,asignaturaFilter)}" event="click" execute="@form" render="actualizarLista"/>
                     </h:commandButton>
                     
                 </h:form>

@@ -133,7 +133,7 @@ public class ManejadorEstudiante {
     public List<Estudiante> ListarEstudiantesCursoAsignaturaAnio(int AnioCurso, int IdAsignatura){
         List<Estudiante> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AnioCurso= :anioCurso and c.AsignaturaCurso= :idAsignatura", Estudiante.class);
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AnioCurso= :anioCurso and c.AsignaturaCurso.IdAsignatura= :idAsignatura", Estudiante.class);
             query.setParameter("anioCurso", AnioCurso);
             query.setParameter("idAsignatura", IdAsignatura);
             lista = query.getResultList();
@@ -151,7 +151,7 @@ public class ManejadorEstudiante {
     public List<Estudiante> ListarEstudiantesCursoAsignaturaSemestre(int SemestreCurso, int IdAsignatura){
         List<Estudiante> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso= :idAsignatura", Estudiante.class);
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso.IdAsignatura= :idAsignatura", Estudiante.class);
             query.setParameter("semestreCurso", SemestreCurso);
             query.setParameter("idAsignatura", IdAsignatura);
             lista = query.getResultList();
@@ -168,7 +168,7 @@ public class ManejadorEstudiante {
     public List<Estudiante> ListarEstudiantesCursoAsignatura(int IdAsignatura){
         List<Estudiante> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AsignaturaCurso= :idAsignatura", Estudiante.class);
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.AsignaturaCurso.IdAsignatura= :idAsignatura", Estudiante.class);
             query.setParameter("idAsignatura", IdAsignatura);
             lista = query.getResultList();
         }catch(Exception ex){
@@ -218,7 +218,7 @@ public class ManejadorEstudiante {
     public List<Estudiante> ListarEstudiantesCursoAsignaturaSemestre(int SemestreCurso, int IdAsignatura, int AnioCurso){
         List<Estudiante> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso= :idAsignatura AND c.AnioCurso= :anioCurso", Estudiante.class);
+            TypedQuery<Estudiante> query = em.createQuery("SELECT e FROM Estudiante e, Curso c WHERE c.SemestreCurso= :semestreCurso and c.AsignaturaCurso.IdAsignatura= :idAsignatura AND c.AnioCurso= :anioCurso", Estudiante.class);
             query.setParameter("semestreCurso", SemestreCurso);
             query.setParameter("idAsignatura", IdAsignatura);
             query.setParameter("anioCurso", AnioCurso);            
