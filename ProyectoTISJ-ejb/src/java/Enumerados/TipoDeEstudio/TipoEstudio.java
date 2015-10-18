@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class TipoEstudio implements Serializable {
     @Id
@@ -16,17 +15,16 @@ public class TipoEstudio implements Serializable {
     @Column(unique=true)
     private String TipoDeEstudio;
 
+    //  Constructores
     public TipoEstudio() {}
-
     public TipoEstudio(String TipoDePregunta) {this.TipoDeEstudio = TipoDePregunta;}
 
-    /*  Setters */
-    public void setIdTipoEstudio(int IdTipoEstudio) {this.IdTipoEstudio = IdTipoEstudio;}
-    public void setTipoDeEstudio(String TipoDeEstudio) {this.TipoDeEstudio = TipoDeEstudio;}
-    
-    /*  Getters */
-
+    //  Getters
     public int getIdTipoEstudio() {return IdTipoEstudio;}
-    public String getTipoDeEstudio() {return TipoDeEstudio;}    
+    public String getTipoDeEstudio() {return TipoDeEstudio;}
+    
+    //  Setters
+    public void setIdTipoEstudio(int IdTipoEstudio) {this.IdTipoEstudio = IdTipoEstudio;}
+    public void setTipoDeEstudio(String TipoDeEstudio) {this.TipoDeEstudio = TipoDeEstudio;}        
     
 }

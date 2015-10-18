@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class TipoPregunta implements Serializable {
     @Id
@@ -16,17 +15,16 @@ public class TipoPregunta implements Serializable {
     @Column(unique=true)
     private String TipoDePregunta;
 
+    //  Constructores
     public TipoPregunta() {}
-
     public TipoPregunta(String TipoDePregunta) {this.TipoDePregunta = TipoDePregunta;}
 
-    /*  Setters */
-    public void setIdTipoPregunta(int IdTipoPregunta) {this.IdTipoPregunta = IdTipoPregunta;}
-    public void setTipoDePregunta(String TipoDePregunta) {this.TipoDePregunta = TipoDePregunta;}
-    
-    /*  Getters */
-
+    //  Getters
     public int getIdTipoPregunta() {return IdTipoPregunta;}
     public String getTipoDePregunta() {return TipoDePregunta;}    
     
+    //  Setters
+    public void setIdTipoPregunta(int IdTipoPregunta) {this.IdTipoPregunta = IdTipoPregunta;}
+    public void setTipoDePregunta(String TipoDePregunta) {this.TipoDePregunta = TipoDePregunta;}
+        
 }

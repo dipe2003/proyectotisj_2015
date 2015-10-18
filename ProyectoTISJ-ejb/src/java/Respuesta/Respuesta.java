@@ -18,37 +18,21 @@ public class Respuesta implements Serializable {
     @OneToOne
     private Pregunta PreguntaRespuesta;
 
-    public Respuesta() {
-    }
-
+    //  Construtores
+    public Respuesta() {}
     public Respuesta(int IdRespuesta, int RespultadoRespuesta, Pregunta PreguntaRespuesta) {
         this.IdRespuesta = IdRespuesta;
         this.RespultadoRespuesta = RespultadoRespuesta;
         this.PreguntaRespuesta = PreguntaRespuesta;
     }
 
-    public int getIdRespuesta() {
-        return IdRespuesta;
-    }
-
-    public void setIdRespuesta(int IdRespuesta) {
-        this.IdRespuesta = IdRespuesta;
-    }
-
-    public int getRespultadoRespuesta() {
-        return RespultadoRespuesta;
-    }
-
-    public void setRespultadoRespuesta(int RespultadoRespuesta) {
-        this.RespultadoRespuesta = RespultadoRespuesta;
-    }
-
-    public Pregunta getPreguntaRespuesta() {
-        return PreguntaRespuesta;
-    }
-
-    public void setPreguntaRespuesta(Pregunta PreguntaRespuesta) {
-        this.PreguntaRespuesta = PreguntaRespuesta;
-    }
-
+    //  Getters
+    public int getIdRespuesta() {return IdRespuesta;}
+    public int getRespultadoRespuesta() {return RespultadoRespuesta;}
+    public Pregunta getPreguntaRespuesta() {return PreguntaRespuesta;}
+    
+    //  Setters
+    public void setIdRespuesta(int IdRespuesta) {this.IdRespuesta = IdRespuesta;}
+    public void setRespultadoRespuesta(int RespultadoRespuesta) {this.RespultadoRespuesta = RespultadoRespuesta;}
+    public void setPreguntaRespuesta(Pregunta PreguntaRespuesta) {this.PreguntaRespuesta = PreguntaRespuesta;}
 }

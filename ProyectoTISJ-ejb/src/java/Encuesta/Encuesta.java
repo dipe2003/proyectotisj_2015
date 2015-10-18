@@ -2,10 +2,8 @@
 package Encuesta;
 
 import Curso.Curso;
-import Pregunta.Pregunta;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,23 +22,20 @@ public class Encuesta implements Serializable{
     
     @OneToOne
     private Curso CursoEncuesta;
-
+    
+    //  Constructores
     public Encuesta() {}
-
-    public Encuesta(Date FechaEncuesta) {
-        this.FechaEncuesta = FechaEncuesta;
-    }
-
+    
+    public Encuesta(Date FechaEncuesta) {this.FechaEncuesta = FechaEncuesta;}
+    
+    //  Getters
     public int getIdEncuesta() {return IdEncuesta;}
-
-    public void setIdEncuesta(int IdEncuesta) {this.IdEncuesta = IdEncuesta;}
-
     public Date getFechaEncuesta() {return FechaEncuesta;}
-
-    public void setFechaEncuesta(Date FechaEncuesta) {this.FechaEncuesta = FechaEncuesta;}
-
     public Curso getCursoEncuesta() {return CursoEncuesta;}
-
+    
+    //  Setters
+    public void setIdEncuesta(int IdEncuesta) {this.IdEncuesta = IdEncuesta;}
+    public void setFechaEncuesta(Date FechaEncuesta) {this.FechaEncuesta = FechaEncuesta;}
     public void setCursoEncuesta(Curso CursoEncuesta) {this.CursoEncuesta = CursoEncuesta;}
     
 }

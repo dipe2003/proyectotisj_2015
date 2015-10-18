@@ -45,16 +45,6 @@ public class Curso implements Serializable{
     
     public Curso() {}
     
-    //  Setters
-    
-    public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
-    public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
-    public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
-    public void setDocenteCurso(Docente DocenteCurso) {this.DocenteCurso = DocenteCurso;}
-    public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
-    public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
-    public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
-    
     //  Getters
     
     public int getIdCurso() {return IdCurso;}    
@@ -64,6 +54,16 @@ public class Curso implements Serializable{
     public Asignatura getAsignaturaCurso() {return AsignaturaCurso;}    
     public String getContratoDocenteCurso() {return ContratoDocenteCurso;}   
     public List<Estudiante> getEstudiantesCurso(){return this.EstudiantesCurso;}
+    
+    //  Setters
+    
+    public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
+    public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
+    public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
+    public void setDocenteCurso(Docente DocenteCurso) {this.DocenteCurso = DocenteCurso;}
+    public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
+    public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
+    public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     
     //  Listas
     

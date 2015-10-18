@@ -21,18 +21,17 @@ public class RegistrarAsignaturaBean implements Serializable{
     
     public RegistrarAsignaturaBean() {}
     
-    //  Setters
-    public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
-    public void setCreditosAsignatura(int CreditosAsignatura) {this.CreditosAsignatura = CreditosAsignatura;}
-    
     //  Getters
     public int getCreditosAsignatura() {return CreditosAsignatura;}
     public String getNombreAsignatura() {return NombreAsignatura;}
     
+    //  Setters
+    public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
+    public void setCreditosAsignatura(int CreditosAsignatura) {this.CreditosAsignatura = CreditosAsignatura;}    
     
     /**
-     * Registra la asignatura con los datos ingresados.
-     * @return 
+     * Registra la asignatura con los datos ingresados. 
+     * @throws java.io.IOException
      */
     public void registrarAsignatura() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();

@@ -58,18 +58,14 @@ public class RegCursoWizard implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/RegistrarCurso.xhtml?cid="+this.conversation.getId());
     }
     
-    //  Setters
-    
-    
-    public void setIdAsignatura(int IdAsignatura) {this.idAsignatura = IdAsignatura;}
-    public void setIdDocente(int IdDocente) {this.idDocente = IdDocente;}
-    
-    //  Getters
-    
+    //  Getters    
     public int getIdAsignatura() {return idAsignatura;}
     public int getIdDocente() {return idDocente;}
     
-    
+    //  Setters    
+    public void setIdAsignatura(int IdAsignatura) {this.idAsignatura = IdAsignatura;}
+    public void setIdDocente(int IdDocente) {this.idDocente = IdDocente;}
+
     @PostConstruct
     public void init(){
         if (!FacesContext.getCurrentInstance().isPostback()

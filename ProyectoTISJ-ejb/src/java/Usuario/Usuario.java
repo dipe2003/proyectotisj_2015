@@ -39,8 +39,8 @@ public class Usuario implements Serializable{
     private String LugarNacimientoUsuario;
     private EnumSexo SexoUsuario;
     
+    //  Constructores
     public Usuario() { }
-
     public Usuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
             String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, 
             String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, 
@@ -64,30 +64,7 @@ public class Usuario implements Serializable{
         this.SexoUsuario = SexoUsuario;
     }
     
-    /*
-    * Setters
-    */
-    public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
-    public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
-    public void setApellidoUsuario(String ApellidoUsuario) {this.ApellidoUsuario = ApellidoUsuario;}
-    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
-    public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
-    public void setCedulaUsuario(int CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
-    public void setCredencialCivicaUsuario(String CredencialCivicaUsuario) {this.CredencialCivicaUsuario = CredencialCivicaUsuario;}
-    public void setDomicilioUsuario(String DomicilioUsuario) {this.DomicilioUsuario = DomicilioUsuario;}
-    public void setDepartamentoUsuario(String DepartamentoUsuario) {this.DepartamentoUsuario = DepartamentoUsuario;}
-    public void setLocalidadUsuario(String LocalidadUsuario) {this.LocalidadUsuario = LocalidadUsuario;}
-    public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
-    public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
-    public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}
-    public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
-    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
-    public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
-    public void setSexoUsuario(EnumSexo SexoUsuario) {this.SexoUsuario = SexoUsuario;}
-    
-    /*
-    * Getters
-    */
+        //  Getters
     public int getIdUsuario() {return IdUsuario;}
     public String getNombreUsuario() {return NombreUsuario;}
     public String getApellidoUsuario() {return ApellidoUsuario;}
@@ -106,6 +83,25 @@ public class Usuario implements Serializable{
     public EnumSexo getSexoUsuario() {return SexoUsuario;}
     public String getLugarNacimientoUsuario() {return LugarNacimientoUsuario;}
     
+    //  Setters
+    public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
+    public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
+    public void setApellidoUsuario(String ApellidoUsuario) {this.ApellidoUsuario = ApellidoUsuario;}
+    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
+    public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
+    public void setCedulaUsuario(int CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
+    public void setCredencialCivicaUsuario(String CredencialCivicaUsuario) {this.CredencialCivicaUsuario = CredencialCivicaUsuario;}
+    public void setDomicilioUsuario(String DomicilioUsuario) {this.DomicilioUsuario = DomicilioUsuario;}
+    public void setDepartamentoUsuario(String DepartamentoUsuario) {this.DepartamentoUsuario = DepartamentoUsuario;}
+    public void setLocalidadUsuario(String LocalidadUsuario) {this.LocalidadUsuario = LocalidadUsuario;}
+    public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
+    public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
+    public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}
+    public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
+    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
+    public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
+    public void setSexoUsuario(EnumSexo SexoUsuario) {this.SexoUsuario = SexoUsuario;}
+        
     /**
      * Compara si el password coincide con el de usuario.
      * @param Password

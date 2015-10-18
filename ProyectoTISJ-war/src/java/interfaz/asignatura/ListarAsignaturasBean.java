@@ -22,19 +22,18 @@ public class ListarAsignaturasBean implements Serializable{
     private Asignatura AsignaturaSeleccionada;
     private String Opt;
     
-    //  Constructores
-    
+    //  Constructores    
     public ListarAsignaturasBean(){}
     
-    //  Setters
-    public void setAsignaturas(List<Asignatura> Asignaturas) {this.Asignaturas = Asignaturas;}
-    public void setAsignaturaSeleccionada(Asignatura AsignaturaSeleccionada) {this.AsignaturaSeleccionada = AsignaturaSeleccionada;}
-    public void setOpt(String Opt){this.Opt = Opt;}
-//  Getters
+     //  Getters
     public List<Asignatura> getAsignaturas() {return Asignaturas;}
     public Asignatura getAsignaturaSeleccionada() {return AsignaturaSeleccionada;}
     public String getOpt(){return this.Opt;}
     
+    //  Setters
+    public void setAsignaturas(List<Asignatura> Asignaturas) {this.Asignaturas = Asignaturas;}
+    public void setAsignaturaSeleccionada(Asignatura AsignaturaSeleccionada) {this.AsignaturaSeleccionada = AsignaturaSeleccionada;}
+    public void setOpt(String Opt){this.Opt = Opt;}    
     
     @PostConstruct
     public void Init(){

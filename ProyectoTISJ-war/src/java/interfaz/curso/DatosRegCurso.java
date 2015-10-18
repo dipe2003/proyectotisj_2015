@@ -33,18 +33,7 @@ public class DatosRegCurso implements Serializable {
     @Inject 
     private RegCursoWizard reg;
       
-//  Setters
-
-    public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
-    public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
-    public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
-    public void setAsignaturaSeleccionada(String AsignaturaSeleccionada) {this.AsignaturaSeleccionada = AsignaturaSeleccionada;}    
-    public void setIdAsignatura(int IdAsignatura) {this.idAsignatura = IdAsignatura;}
-    public void setIdDocente(int IdDocente) {this.idDocente = IdDocente;}
-    public void setDocenteSeleccionado(String DocenteSeleccionado) {this.DocenteSeleccionado = DocenteSeleccionado;}
-    
     //  Getters
-
     public int getSemestreCurso() {return SemestreCurso;}
     public int getAnioCurso() {return AnioCurso;}
     public String getContratoDocenteCurso() {return ContratoDocenteCurso;}
@@ -65,6 +54,15 @@ public class DatosRegCurso implements Serializable {
         }
         return DocenteSeleccionado;
     }
+    
+    //  Setters
+    public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
+    public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
+    public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
+    public void setAsignaturaSeleccionada(String AsignaturaSeleccionada) {this.AsignaturaSeleccionada = AsignaturaSeleccionada;}    
+    public void setIdAsignatura(int IdAsignatura) {this.idAsignatura = IdAsignatura;}
+    public void setIdDocente(int IdDocente) {this.idDocente = IdDocente;}
+    public void setDocenteSeleccionado(String DocenteSeleccionado) {this.DocenteSeleccionado = DocenteSeleccionado;}
     
     /**
      * Se traen los valores de docente y asignatura desde el bean de conversacion

@@ -75,44 +75,7 @@ public class RegistrarUsuarioBean implements Serializable{
     @EJB
     private FacadeEnumerados fEnum;
     
-    
-    /*  Setters */
-    public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
-    public void setApellidoUsuario(String ApellidoUsuario) {this.ApellidoUsuario = ApellidoUsuario;}
-    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
-    public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
-    public void setImagenUsuario(String ImagenUsuario) {this.ImagenUsuario = ImagenUsuario;}
-    public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
-    public void setCredencialCivicaUsuario(String CredencialCivicaUsuario) {this.CredencialCivicaUsuario = CredencialCivicaUsuario;}
-    public void setDomicilioUsuario(String DomicilioUsuario) {this.DomicilioUsuario = DomicilioUsuario;}
-    public void setDepartamentoUsuario(String DepartamentoUsuario) {this.DepartamentoUsuario = DepartamentoUsuario;}
-    public void setLocalidadUsuario(String LocalidadUsuario) {this.LocalidadUsuario = LocalidadUsuario;}
-    public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
-    public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
-    public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
-    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
-    public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
-    public void setSexoSeleccionado(String SexoSeleccionado) {
-        this.SexoSeleccionado = SexoSeleccionado;
-        EnumSexoSeleccionado = EnumSexo.valueOf(SexoSeleccionado);
-    }
-    public void setListaSexo(List<String> ListaSexo){this.ListaSexo = ListaSexo;}
-    public void setRol(String Rol) {this.Rol = Rol;}
-    public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
-    public void setListEstadoCivil(List<String> ListEstadoCivil) {this.ListEstadoCivil = ListEstadoCivil;}
-    public void setEstadoCivilSeleccionado(String EstadoCivilSeleccionado) {
-        this.EstadoCivilSeleccionado = EstadoCivilSeleccionado;
-        this.EstadoCivilUsuario = getEstadoCivilPorNombre(EstadoCivilSeleccionado);
-    }
-    public void setPartImagenPerfil(Part PartImagenPerfil) {this.PartImagenPerfil = PartImagenPerfil;}
-    public void setStrFechaNacimiento(String strFechaNacimiento) {
-        Date fecha = new Date(strFechaNacimiento);
-        this.strFechaNacimiento = strFechaNacimiento;
-        this.FechaNacimientoUsuario = fecha;
-    }
-    public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
-    
-    /*  Getters */
+    //  Getters
     public String getNombreUsuario() {return NombreUsuario;}
     public String getApellidoUsuario() {return ApellidoUsuario;}
     public String getCorreoUsuario() {return CorreoUsuario;}
@@ -147,6 +110,43 @@ public class RegistrarUsuarioBean implements Serializable{
     /*  Solo Estudiante   */
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
     public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
+    
+    
+    //  Setters
+    public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
+    public void setApellidoUsuario(String ApellidoUsuario) {this.ApellidoUsuario = ApellidoUsuario;}
+    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
+    public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
+    public void setImagenUsuario(String ImagenUsuario) {this.ImagenUsuario = ImagenUsuario;}
+    public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
+    public void setCredencialCivicaUsuario(String CredencialCivicaUsuario) {this.CredencialCivicaUsuario = CredencialCivicaUsuario;}
+    public void setDomicilioUsuario(String DomicilioUsuario) {this.DomicilioUsuario = DomicilioUsuario;}
+    public void setDepartamentoUsuario(String DepartamentoUsuario) {this.DepartamentoUsuario = DepartamentoUsuario;}
+    public void setLocalidadUsuario(String LocalidadUsuario) {this.LocalidadUsuario = LocalidadUsuario;}
+    public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
+    public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
+    public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
+    public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
+    public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
+    public void setSexoSeleccionado(String SexoSeleccionado) {
+        this.SexoSeleccionado = SexoSeleccionado;
+        EnumSexoSeleccionado = EnumSexo.valueOf(SexoSeleccionado);
+    }
+    public void setListaSexo(List<String> ListaSexo){this.ListaSexo = ListaSexo;}
+    public void setRol(String Rol) {this.Rol = Rol;}
+    public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
+    public void setListEstadoCivil(List<String> ListEstadoCivil) {this.ListEstadoCivil = ListEstadoCivil;}
+    public void setEstadoCivilSeleccionado(String EstadoCivilSeleccionado) {
+        this.EstadoCivilSeleccionado = EstadoCivilSeleccionado;
+        this.EstadoCivilUsuario = getEstadoCivilPorNombre(EstadoCivilSeleccionado);
+    }
+    public void setPartImagenPerfil(Part PartImagenPerfil) {this.PartImagenPerfil = PartImagenPerfil;}
+    public void setStrFechaNacimiento(String strFechaNacimiento) {
+        Date fecha = new Date(strFechaNacimiento);
+        this.strFechaNacimiento = strFechaNacimiento;
+        this.FechaNacimientoUsuario = fecha;
+    }
+    public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     
     /**
      * Registra el usuario si este no esta ya registrado

@@ -38,6 +38,13 @@ public class Login implements Serializable {
     //  Constructor
     public Login() {}
     
+    //  Getters
+    public String getRolSeleccionado() {return RolSeleccionado;}
+    public String getCedulaUsuario() {return CedulaUsuario;}
+    public String getPassword() {return Password;}
+    public List<String> getRoles() {return Roles;}
+    public List<String> getRolesUsuario() {return rolesUsuario;}
+    
     //  Setters
     public void setRolSeleccionado(String RolSeleccionado) {this.RolSeleccionado = RolSeleccionado;}
     public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
@@ -45,13 +52,6 @@ public class Login implements Serializable {
     public void setRoles(List<String> Roles) {this.Roles = Roles;}
     public void setUsuarioLogueado(boolean UsuarioLogueado) {this.UsuarioLogueado = UsuarioLogueado;}
     public void setRolesUsuario(List<String> rolesUsuario) {this.rolesUsuario = rolesUsuario;}
-    
-    //  Getters
-    public String getRolSeleccionado() {return RolSeleccionado;}
-    public String getCedulaUsuario() {return CedulaUsuario;}
-    public String getPassword() {return Password;}
-    public List<String> getRoles() {return Roles;}
-    public List<String> getRolesUsuario() {return rolesUsuario;}
     
     //  Otras
     public boolean isUsuarioLogueado() {return UsuarioLogueado;}

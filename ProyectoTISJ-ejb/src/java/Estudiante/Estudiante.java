@@ -26,6 +26,7 @@ public class Estudiante extends Usuario {
     @OneToMany
     private List<Estudio> EstudiosCursadosEstudiante;
 
+    //  Constructores
     public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
             String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
             String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
@@ -41,14 +42,6 @@ public class Estudiante extends Usuario {
 
     public Estudiante() {}
     
-    
-    //  Setters
-    public void setFormInscripcion(String FormInscripcion) {this.FormInscripcion = FormInscripcion;}
-    public void setEvaluacionesEstudiante(List<Evaluacion> EvaluacionesEstudiante) {this.EvaluacionesEstudiante = EvaluacionesEstudiante;}
-    public void setRespuestasEstudiante(List<Respuesta> RespuestasEstudiante) {this.RespuestasEstudiante = RespuestasEstudiante;}
-    public void setEstudiosCursadosEstudiante(List<Estudio> EstudiosCursadosEstudiante) {this.EstudiosCursadosEstudiante = EstudiosCursadosEstudiante;}
-    public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
-
     //  Getters
     public String getFormInscripcion() {return FormInscripcion;}
     public List<Evaluacion> getEvaluacionesEstudiante() {return EvaluacionesEstudiante;}
@@ -56,13 +49,20 @@ public class Estudiante extends Usuario {
     public List<Estudio> getEstudiosCursadosEstudiante() {return EstudiosCursadosEstudiante;}    
     public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
     
-    /*  Respuestas  */
+    //  Setters
+    public void setFormInscripcion(String FormInscripcion) {this.FormInscripcion = FormInscripcion;}
+    public void setEvaluacionesEstudiante(List<Evaluacion> EvaluacionesEstudiante) {this.EvaluacionesEstudiante = EvaluacionesEstudiante;}
+    public void setRespuestasEstudiante(List<Respuesta> RespuestasEstudiante) {this.RespuestasEstudiante = RespuestasEstudiante;}
+    public void setEstudiosCursadosEstudiante(List<Estudio> EstudiosCursadosEstudiante) {this.EstudiosCursadosEstudiante = EstudiosCursadosEstudiante;}
+    public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
+    
+    //  Respuestas
     public void addRespuestaEvaluacion(Respuesta RespuestaEvaluacion){this.RespuestasEstudiante.add(RespuestaEvaluacion);}    
     public void removeRespuestaEvaluacion(Respuesta RespuestaEvaluacion){this.RespuestasEstudiante.remove(RespuestaEvaluacion);}
-    /*  Estudios Cursados   */
+    //  Estudios Cursados
     public void addEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.add(EstudioCursado);}    
     public void removeEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.remove(EstudioCursado);}
-    /*  Evaluacion Estudiante   */
+    //  Evaluacion Estudiante
     public void addEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){this.EvaluacionesEstudiante.add(EvaluacionEstudiante);}
     public void removeEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){this.EvaluacionesEstudiante.remove(EvaluacionEstudiante);}
 }

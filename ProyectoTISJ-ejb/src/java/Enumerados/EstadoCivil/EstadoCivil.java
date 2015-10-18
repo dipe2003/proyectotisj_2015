@@ -16,17 +16,17 @@ public class EstadoCivil implements Serializable {
     @Column(unique=true)
     private String EstadoCivil;
 
+    //  Constructores
     public EstadoCivil() {}
-
     public EstadoCivil(String TipoDePregunta) {this.EstadoCivil = TipoDePregunta;}
 
-    /*  Setters */
-    public void setIdEstadoCivil(int IdEstadoCivil) {this.IdEstadoCivil = IdEstadoCivil;}
-    public void setEstadoCivil(String EstadoCivil) {this.EstadoCivil = EstadoCivil;}
-    
-    /*  Getters */
+    // Getters
 
     public int getIdEstadoCivil() {return IdEstadoCivil;}
     public String getEstadoCivil() {return EstadoCivil;}    
+    
+    //  Setters
+    public void setIdEstadoCivil(int IdEstadoCivil) {this.IdEstadoCivil = IdEstadoCivil;}
+    public void setEstadoCivil(String EstadoCivil) {this.EstadoCivil = EstadoCivil;}
     
 }

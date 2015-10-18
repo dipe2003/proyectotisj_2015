@@ -39,37 +39,25 @@ public class UsuarioLogueadoBean implements Serializable{
     @EJB
     private FileUpload fUp;
     
+    //  Constructores
     public UsuarioLogueadoBean() {}
     
+    //  Getters    
     public String getNombreUsuario() {return NombreUsuario;}
-    
-    public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
-    
     public String getImagenUsuario() {return ImagenUsuario;}
-    
-    public void setImagenUsuario(String ImagenUsuario) {this.ImagenUsuario = ImagenUsuario;}
-    
     public String getCorreoUsuario() {return CorreoUsuario;}
-    
-    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
-    
     public String getCedulaUsuario() {return CedulaUsuario;}
-    
-    public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
-    
     public Part getPartImagenUsuario() {return PartImagenUsuario;}
-    
-    public void setPartImagenUsuario(Part PartImagenUsuario) {this.PartImagenUsuario = PartImagenUsuario;}
-    
-    /*
-    Solo Estudiante
-    */
-
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
-
+    
+    //  Setters    
+    public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}    
+    public void setImagenUsuario(String ImagenUsuario) {this.ImagenUsuario = ImagenUsuario;}    
+    public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}    
+    public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
+    public void setPartImagenUsuario(Part PartImagenUsuario) {this.PartImagenUsuario = PartImagenUsuario;}
     public void setPartImagenFormInscripcion(Part PartImagenFormInscripcion) {this.PartImagenFormInscripcion = PartImagenFormInscripcion;}
     
-
     @PostConstruct
     public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();

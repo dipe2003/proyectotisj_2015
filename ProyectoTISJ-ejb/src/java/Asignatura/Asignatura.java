@@ -15,6 +15,7 @@ public class Asignatura implements Serializable{
     private String NombreAsignatura;
     private int CreditosAsignatura;
     
+    //  Constructores
     public Asignatura() {}
 
     public Asignatura(String NombreAsignatura, int CreditosAsignatura) {
@@ -22,17 +23,14 @@ public class Asignatura implements Serializable{
         this.CreditosAsignatura = CreditosAsignatura;
     }
 
+    //  Getters
     public int getIdAsignatura() {return IdAsignatura;}
-
-    public void setIdAsignatura(int IdAsignatura) {this.IdAsignatura = IdAsignatura;}
-
     public String getNombreAsignatura() {return NombreAsignatura;}
-
-    public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
-
     public int getCreditosAsignatura() {return CreditosAsignatura;}
-
+    
+    //  Setters
+    public void setIdAsignatura(int IdAsignatura) {this.IdAsignatura = IdAsignatura;}
+    public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
     public void setCreditosAsignatura(int CreditosAsignatura) {this.CreditosAsignatura = CreditosAsignatura;}
-
     
 }
