@@ -98,6 +98,14 @@ public class ControladorEstudiante {
     public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
         return mEst.ListarEstudiantesCurso(IdCurso);
     }
+    /**
+     * Devuelve una lista de Estudiantes que no pertenezcan al curso indicado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public List<Estudiante> ListarEstudiantesSinCurso(int IdCurso){
+        return mEst.ListarEstudiantesSinCurso(IdCurso);
+    }
     
     /**
      * Devuelve una lista de ids de estudios cursados del estudiante.

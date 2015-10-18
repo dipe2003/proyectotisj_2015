@@ -47,6 +47,7 @@ public class ListarUsuariosBean implements Serializable{
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
     private String Opt;
+    private int IdOpt;
     private List<String> AniosCursos;
     private Map<String, Integer> AsignaturasCursos;
     
@@ -59,6 +60,7 @@ public class ListarUsuariosBean implements Serializable{
     public List<Usuario> getUsuariosFiltrados() {return UsuariosFiltrados;}
     public List<String> getAniosCursos() {return AniosCursos;}
     public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
+    public int getIdOpt() {return IdOpt;}
     
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
@@ -69,7 +71,7 @@ public class ListarUsuariosBean implements Serializable{
     public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
     public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
     public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
-    
+    public void setIdOpt(int IdOpt) {this.IdOpt = IdOpt;}    
     
     
     /**
@@ -86,9 +88,13 @@ public class ListarUsuariosBean implements Serializable{
         // parametros para listado.
         try{
             this.Opt = request.getParameter("opt");
-        }catch(NullPointerException ex){}
-        if (this.Opt==null) {
+            this.IdOpt = Integer.parseInt(request.getParameter("idopt"));
+        }catch(NullPointerException ex){
             this.Opt = "no";
+        }catch(NumberFormatException ex){
+            this.IdOpt = 0;
+        }finally{
+            if (this.Opt==null) this.Opt = "no";
         }
         
         //  Roles
@@ -98,12 +104,24 @@ public class ListarUsuariosBean implements Serializable{
         this.Usuarios = new ArrayList<>();
         String currentURL = context.getViewRoot().getViewId();
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){
-            this.Usuarios = fUsr.listarUsuarios(Rol);
-        }else if(currentURL.equals("/Usuario/SeleccionarUsuarios.xhtml")){
-            if (!this.Opt.equals("no") && !this.Opt.equals("nuevorol")) {
-                this.Usuarios = fUsr.listarUsuarios(Rol);
+            if(this.Opt.equals("estudianteCurso")){
+            this.Usuarios = fUsr.listarUsuarioEstudianteCurso(IdOpt);
             }else{
-                this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
+                this.Usuarios = fUsr.listarUsuarios(Rol);
+            }
+        }else if(currentURL.equals("/Usuario/SeleccionarUsuarios.xhtml")){
+            switch(Opt){
+                case "nuevorol":
+                    this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
+                    break;
+                    
+                case "addestcurso":
+                    this.Usuarios = fUsr.listarUsuarioEstudianteSinCurso(IdOpt);
+                    break;
+                    
+                default:
+                    this.Usuarios = fUsr.listarUsuarios(Rol);
+                    break;
             }
         }
         listChecked = new HashMap<>();
@@ -193,7 +211,7 @@ public class ListarUsuariosBean implements Serializable{
     public void agregarEstudianteACurso() throws IOException{
         List<Usuario> CheckedUsers = this.getCheckedUsers();
         for (Usuario usr : CheckedUsers) {
-            fCurso.AgregarEstudianteACurso(usr.getIdUsuario(), Integer.parseInt(this.Opt));
+            fCurso.AgregarEstudianteACurso(usr.getIdUsuario(), this.IdOpt);
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");
     }

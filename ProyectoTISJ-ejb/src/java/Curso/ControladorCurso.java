@@ -81,10 +81,11 @@ public class ControladorCurso {
      * @param estudiante
      * @param IdCurso 
      */    
-    public void AgregarEstudianteACurso(Estudiante estudiante, int IdCurso){
+    public Curso AgregarEstudianteACurso(Estudiante estudiante, int IdCurso){
         Curso curso = mCurso.BuscarCurso(IdCurso);
         curso.addEstudianteCurso(estudiante);
         mCurso.ModificarCurso(curso);
+        return curso;
     }
     
     public List<String> getAniosCursos(){

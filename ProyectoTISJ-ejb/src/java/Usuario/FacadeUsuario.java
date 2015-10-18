@@ -285,4 +285,21 @@ public class FacadeUsuario implements Serializable {
     public List<Usuario> listarUsuariosEstudiante(int SemestreCurso, int AnioCurso, int IdAsignatura){
         return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesCurso(SemestreCurso, AnioCurso, IdAsignatura);
     }
+    
+    /**
+     * Lista los usuarios estudiantes que pertenecen al curso especificado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public List<Usuario> listarUsuarioEstudianteCurso(int IdCurso){
+        return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesCurso(IdCurso);
+    }
+    /**
+     * Lista los usuarios estudiantes que no pertenecen al curso especificado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public List<Usuario> listarUsuarioEstudianteSinCurso(int IdCurso){
+        return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesSinCurso(IdCurso);
+    }
 }

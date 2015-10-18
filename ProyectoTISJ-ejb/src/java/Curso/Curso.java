@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -29,7 +30,7 @@ public class Curso implements Serializable{
     @OneToOne
     private Asignatura AsignaturaCurso;
     
-    @OneToMany
+    @ManyToMany(mappedBy="CursosEstudiante")
     private List<Estudiante> EstudiantesCurso;
     
     //  Constructores
@@ -46,7 +47,6 @@ public class Curso implements Serializable{
     public Curso() {}
     
     //  Getters
-    
     public int getIdCurso() {return IdCurso;}    
     public int getSemestreCurso() {return SemestreCurso;}    
     public int getAnioCurso() {return AnioCurso;}    
@@ -56,7 +56,6 @@ public class Curso implements Serializable{
     public List<Estudiante> getEstudiantesCurso(){return this.EstudiantesCurso;}
     
     //  Setters
-    
     public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
     public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
     public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
@@ -65,9 +64,13 @@ public class Curso implements Serializable{
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     
-    //  Listas
-    
-    public void addEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.add(EstudianteCurso);}
+    //  Listas    
+    public void addEstudianteCurso(Estudiante EstudianteCurso){
+        this.EstudiantesCurso.add(EstudianteCurso);
+        if (!EstudianteCurso.getCursosEstudiante().contains(this)) {
+            EstudianteCurso.getCursosEstudiante().add(this);
+        }
+    }
     public void removeEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.remove(EstudianteCurso);}
     
     
