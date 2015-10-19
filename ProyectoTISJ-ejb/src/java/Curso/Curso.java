@@ -2,6 +2,7 @@
 package Curso;
 
 import Asignatura.Asignatura;
+import Curso.Clase.Clase;
 import Docente.Docente;
 import Estudiante.Estudiante;
 import java.io.Serializable;
@@ -33,6 +34,9 @@ public class Curso implements Serializable{
     @ManyToMany(mappedBy="CursosEstudiante")
     private List<Estudiante> EstudiantesCurso;
     
+    @OneToMany
+    private List<Clase> AsistenciasCurso;
+    
     //  Constructores
     
     public Curso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso, String ContratoDocenteCurso) {
@@ -41,6 +45,7 @@ public class Curso implements Serializable{
         this.DocenteCurso = DocenteCurso;
         this.AsignaturaCurso = AsignaturaCurso;
         this.EstudiantesCurso = new ArrayList<>();
+        this.AsistenciasCurso = new ArrayList<>();
         this.ContratoDocenteCurso = ContratoDocenteCurso;
     }
     
@@ -54,6 +59,7 @@ public class Curso implements Serializable{
     public Asignatura getAsignaturaCurso() {return AsignaturaCurso;}    
     public String getContratoDocenteCurso() {return ContratoDocenteCurso;}   
     public List<Estudiante> getEstudiantesCurso(){return this.EstudiantesCurso;}
+    public List<Clase> getAsistenciasCurso() {return AsistenciasCurso;}
     
     //  Setters
     public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
@@ -63,8 +69,9 @@ public class Curso implements Serializable{
     public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
+    public void setAsistenciasCurso(List<Clase> AsistenciasCurso) {this.AsistenciasCurso = AsistenciasCurso;}
     
-    //  Listas    
+    //  Estudiantes    
     public void addEstudianteCurso(Estudiante EstudianteCurso){
         this.EstudiantesCurso.add(EstudianteCurso);
         if (!EstudianteCurso.getCursosEstudiante().contains(this)) {
@@ -72,6 +79,18 @@ public class Curso implements Serializable{
         }
     }
     public void removeEstudianteCurso(Estudiante EstudianteCurso){this.EstudiantesCurso.remove(EstudianteCurso);}
+    public void removeEstudianteCurso(int IdEstudianteCurso){
+        for (int i = 0; i < this.EstudiantesCurso.size(); i++) {
+            if(this.EstudiantesCurso.get(i).getIdUsuario()==IdEstudianteCurso) this.EstudiantesCurso.remove(i);
+        }
+    }
     
+    //  Asistencias
+    public void addAsistenciaCurso(Clase ClaseCurso){
+        this.AsistenciasCurso.add(ClaseCurso);
+        if (!ClaseCurso.getCursoClase().equals(this)) {
+            ClaseCurso.setCursoClase(this);
+        }
+    }    
     
 }
