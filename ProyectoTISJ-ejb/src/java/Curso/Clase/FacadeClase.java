@@ -3,10 +3,7 @@ package Curso.Clase;
 
 
 
-import Asignatura.ControladorAsignatura;
 import Curso.ControladorCurso;
-import Docente.ControladorDocente;
-import Estudiante.ControladorEstudiante;
 import Estudiante.Estudiante;
 import Usuario.Usuario;
 import java.io.Serializable;
@@ -98,5 +95,5 @@ public class FacadeClase implements Serializable {
         cClase.AgregarEstudiantesClase(EstudiantesCurso, IdClase);
     }
 
-    
+        
 }
