@@ -15,6 +15,12 @@
                     Listado de #{listarUsuariosBean.rol}s Registrados
                 </h:panelGroup>
                 
+                <div id="BotonFiltro">
+                    <img src="../Resources/Images/filtro.png" width="20" height="20"/> Filtro
+                </div>
+                
+            </div>
+            <div class="FormFiltro" >
                 <h:form id="filtro">
                     Nombre<h:inputText id="nameFilter" value="#{nameFilter}"> 
                         <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}"/>
@@ -54,7 +60,6 @@
                     </h:commandButton>
                     
                 </h:form>
-                
             </div>
         </div>
         <div id="contenedor">

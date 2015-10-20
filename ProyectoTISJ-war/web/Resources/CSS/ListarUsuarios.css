@@ -100,3 +100,12 @@
     display: flex;
     color: grey;
 }
+
+#BotonFiltro{
+    margin-left: 50px;
+}
+
+.FormFiltro{
+    text-align: left;
+    font-family: RobotoRegular;
+}

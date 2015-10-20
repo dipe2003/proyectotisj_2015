@@ -32,10 +32,15 @@
                             #{curso.nombreDocente}
                         </div>
                     </h:panelGroup>
+                    
+                    <a href="Clase.xhtml?rol=Estudiante&amp;idCurso=#{curso.id}" class="SubmenuLink">
                     <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
+                    </a>
+                    
                     <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=addestcurso&amp;idopt=#{curso.id}" class="SubmenuLink">
                     <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
                     </a>
+                    
                     <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
                 </div>
             </c:forEach>
