@@ -9,7 +9,7 @@
        
             <div class="cabecera" >
                 <div class="titulo" >
-                    Clase de #{usuariosClase.nombreCurso} #{usuariosClase.anioCurso} - Clases dictadas: 
+                    Clase de #{usuariosClase.nombreCurso} #{usuariosClase.anioCurso} - Clases dictadas: #{usuariosClase.clasesDictadas}
                 </div>
             </div>
          <h:form>
@@ -26,7 +26,7 @@
                             #{usuario.nombreCompleto}
                         </div>
                         <div class="item">
-                            
+                            Inasistencias: #{usuariosClase.inasistenciaEstudiante(usuario.idUsuario)}
                         </div>     
                     </div>
                 </c:forEach>

@@ -65,6 +65,9 @@ public class UsuariosClase implements Serializable{
     public String getNombreCurso(){
         return fCurso.BuscarCurso(idCurso).getAsignaturaCurso().getNombreAsignatura();
     }
+    public int getClasesDictadas(){
+        return fCurso.GetCantidadClasesCurso(idCurso);
+    }
     
     //  Setters
     public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
@@ -92,7 +95,10 @@ public class UsuariosClase implements Serializable{
         
     }
     
-   
+    public int inasistenciaEstudiante(int idEstudiante){
+        return fCurso.GetInanistenciasEstudianteCurso(idEstudiante, idCurso);
+    }
+    
     public void registrarClase(){
         List<Usuario> CheckedUsers = this.getCheckedUsers();
         fClase.RegistarClase(FechaClase, TemaClase, idCurso , CheckedUsers);
