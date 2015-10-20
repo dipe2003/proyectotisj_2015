@@ -20,14 +20,7 @@ import javax.inject.Named;
 @Stateless
 @RequestScoped
 public class FacadeClase implements Serializable {
-    @EJB
-    private ControladorCurso cCurso;
-    @EJB
-    private ControladorDocente cDoc;
-    @EJB
-    private ControladorAsignatura cAsig;
-    @EJB
-    private ControladorEstudiante cEst;
+
     @EJB
     private ControladorClase cClase;
     

@@ -10,7 +10,9 @@ import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,16 +35,33 @@ public class UsuariosClase implements Serializable{
     
     private List<Usuario> Usuarios;
     private Map<Integer, Boolean> listChecked;
+    private Date FechaClase;
+    private String strFechaClase;
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public String getTemaClase() {return TemaClase;}
+    public Date getFechaClase() {return FechaClase;}
+    public String getStrFechaClase() {
+        SimpleDateFormat fDate = new SimpleDateFormat("dd/MM/yyyy");
+        if (FechaClase == null) {
+            return this.strFechaClase;
+        }else{
+            return fDate.format(FechaClase);
+        }
+    }
     
     //  Setters
     public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setTemaClase(String TemaClase) {this.TemaClase = TemaClase;}
+    public void setFechaClase(Date FechaClase) {this.FechaClase = FechaClase;}
+    public void setStrFechaClase(String strFechaClase) {
+        Date fecha = new Date(strFechaClase);
+        this.strFechaClase = strFechaClase;
+        this.FechaClase = fecha;
+    }
     
     @PostConstruct
     public void Init() {
