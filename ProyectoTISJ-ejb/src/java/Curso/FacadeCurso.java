@@ -99,8 +99,14 @@ public class FacadeCurso implements Serializable {
         cCurso.AgregarEstudianteACurso(cEst.BuscarEstudiante(IdEstudiante), IdCurso);
     }
     
+    /**
+     * Devuelve todos los anios que tengan cursos regitrados
+     * @return 
+     */
     public List<String> getAniosCursos(){
         return cCurso.getAniosCursos();
     }
+    
+
     
 }
