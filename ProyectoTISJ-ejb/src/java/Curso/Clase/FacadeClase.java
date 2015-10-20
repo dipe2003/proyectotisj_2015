@@ -8,7 +8,9 @@ import Curso.ControladorCurso;
 import Docente.ControladorDocente;
 import Estudiante.ControladorEstudiante;
 import Estudiante.Estudiante;
+import Usuario.Usuario;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -20,7 +22,8 @@ import javax.inject.Named;
 @Stateless
 @RequestScoped
 public class FacadeClase implements Serializable {
-
+    @EJB
+    private ControladorCurso cCurso;
     @EJB
     private ControladorClase cClase;
     
@@ -35,6 +38,25 @@ public class FacadeClase implements Serializable {
     public int RegistarClase(Date FechaClase, String TemaClase){
         Clase clase = cClase.CrearClase(FechaClase, TemaClase);
         if (clase!=null) {
+            return clase.getIdClase();
+        }
+        return -1;
+    }
+   /**
+    * Registra una nueva clase con todos sus datos.
+    * @param FechaClase
+    * @param TemaClase
+     * @param IdCurso
+     * @param EstudiantesCurso
+    * @return el id de la clase registrada. Retorne -1 si no se registro.
+    */
+    public int RegistarClase(Date FechaClase, String TemaClase, int IdCurso, List<Usuario> EstudiantesCurso){
+        List<Estudiante> estudiantesCurso = (List<Estudiante>) (ArrayList<?>) EstudiantesCurso;
+        Clase clase = cClase.CrearClase(FechaClase, TemaClase);
+        if (clase!=null) {
+            clase.setCursoClase(cCurso.BuscarCurso(IdCurso));
+            clase.setAsistenciasClase(estudiantesCurso);
+            cClase.ModificarClase(clase);
             return clase.getIdClase();
         }
         return -1;
