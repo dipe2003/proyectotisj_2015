@@ -3,6 +3,7 @@ package Curso;
 
 
 import Asignatura.ControladorAsignatura;
+import Curso.Clase.ControladorClase;
 import Docente.ControladorDocente;
 import Estudiante.ControladorEstudiante;
 import java.io.Serializable;
@@ -24,6 +25,8 @@ public class FacadeCurso implements Serializable {
     private ControladorAsignatura cAsig;
     @EJB
     private ControladorEstudiante cEst;
+    @EJB
+    private ControladorClase cClase;
     
     public FacadeCurso() {}
        
@@ -108,5 +111,22 @@ public class FacadeCurso implements Serializable {
     }
     
 
+    /**
+     * Devuelve la catidad de clases dictadas del curso especificado por su id.
+     * @param IdCurso
+     * @return 
+     */
+    public int GetCantidadClasesCurso(int IdCurso){
+        return cClase.ListarClases(IdCurso).size();
+    }
     
+    /**
+     * Devuelve el total de inasistencias de un estudiante para el curso especificado.
+     * @param IdEstudiante
+     * @param IdCurso
+     * @return 
+     */
+   public int GetInanistenciasEstudianteCurso(int IdEstudiante, int IdCurso)    {
+       return cClase.GetInasistenciasEstudianteCurso(IdCurso, IdEstudiante);
+   }
 }

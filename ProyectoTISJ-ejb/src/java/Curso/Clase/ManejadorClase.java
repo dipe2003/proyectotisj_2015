@@ -1,6 +1,8 @@
 
 package Curso.Clase;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -9,6 +11,7 @@ import javax.ejb.TransactionManagementType;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 @ManagedBean
@@ -77,6 +80,15 @@ public class ManejadorClase {
             System.out.println("Error: " + ex.getMessage());
         }
         return lista;
-    }   
+    }
+    
+    public int GetAsistenciasEstudianteCurso(int IdCurso, int IdEstudiante){
+        Query query = em.createQuery("SELECT COUNT(c.FechaClase) FROM Clase c, Estudiante e WHERE e MEMBER OF c.AsistenciasClase AND c.CursoClase= :idCurso");
+        try{
+            return (int) query.getSingleResult();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());}
+        return -1;
+    }
 }
 

@@ -107,4 +107,14 @@ public class ControladorClase {
         mClase.ModificarClase(clase);
         return clase;
     }
+    
+    /**
+     * Devuelve la cantidad de asisencias de un estudiante a un curso
+     * @param IdCurso
+     * @param IdEstudiante
+     * @return 
+     */
+    public int GetInasistenciasEstudianteCurso(int IdCurso, int IdEstudiante){
+        return mClase.ListarClases(IdCurso).size() - mClase.GetAsistenciasEstudianteCurso(IdCurso, IdEstudiante);
+    }
 }
