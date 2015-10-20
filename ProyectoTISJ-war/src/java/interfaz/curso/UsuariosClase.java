@@ -20,7 +20,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,7 +29,10 @@ public class UsuariosClase implements Serializable{
     
     @EJB
     private FacadeUsuario fUsr;
-
+    
+    @EJB
+    private FacadeCurso fCurso;
+    
     private String TemaClase;
     
     private List<Usuario> Usuarios;
@@ -50,6 +52,16 @@ public class UsuariosClase implements Serializable{
         }else{
             return fDate.format(FechaClase);
         }
+    }
+    public int getAnioCurso(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        return fCurso.BuscarCurso(Integer.valueOf(request.getParameter("idCurso"))).getAnioCurso();
+    }
+    public String getNombreCurso(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        return fCurso.BuscarCurso(Integer.valueOf(request.getParameter("idCurso"))).getAsignaturaCurso().getNombreAsignatura();
     }
     
     //  Setters
@@ -79,8 +91,9 @@ public class UsuariosClase implements Serializable{
     }
     
    
-    public void registrarInasistencia(){
+    public void registrarClase(){
         List<Usuario> CheckedUsers = this.getCheckedUsers();
+        
         
     }
     
