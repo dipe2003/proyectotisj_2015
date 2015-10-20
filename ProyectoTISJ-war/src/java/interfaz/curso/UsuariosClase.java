@@ -4,6 +4,7 @@ package interfaz.curso;
 import interfaz.*;
 import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
+import Curso.Clase.FacadeClase;
 import Curso.FacadeCurso;
 import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
@@ -27,11 +28,16 @@ import javax.servlet.http.HttpServletRequest;
 @ViewScoped
 public class UsuariosClase implements Serializable{
     
+    private int idCurso;
+    
     @EJB
     private FacadeUsuario fUsr;
     
     @EJB
     private FacadeCurso fCurso;
+    
+    @EJB
+    private FacadeClase fClase;
     
     private String TemaClase;
     
@@ -54,14 +60,10 @@ public class UsuariosClase implements Serializable{
         }
     }
     public int getAnioCurso(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        return fCurso.BuscarCurso(Integer.valueOf(request.getParameter("idCurso"))).getAnioCurso();
+        return fCurso.BuscarCurso(idCurso).getAnioCurso();
     }
     public String getNombreCurso(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        return fCurso.BuscarCurso(Integer.valueOf(request.getParameter("idCurso"))).getAsignaturaCurso().getNombreAsignatura();
+        return fCurso.BuscarCurso(idCurso).getAsignaturaCurso().getNombreAsignatura();
     }
     
     //  Setters
@@ -79,9 +81,9 @@ public class UsuariosClase implements Serializable{
     public void Init() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-
+        idCurso = Integer.valueOf(request.getParameter("idCurso"));
         this.Usuarios = new ArrayList<>();
-        this.Usuarios = fUsr.listarUsuarioEstudianteCurso(Integer.valueOf(request.getParameter("idCurso")));
+        this.Usuarios = fUsr.listarUsuarioEstudianteCurso(idCurso);
         
         listChecked = new HashMap<>();
         for (Usuario Usr : Usuarios) {
@@ -93,8 +95,7 @@ public class UsuariosClase implements Serializable{
    
     public void registrarClase(){
         List<Usuario> CheckedUsers = this.getCheckedUsers();
-        
-        
+        fClase.RegistarClase(FechaClase, TemaClase, idCurso , CheckedUsers);
     }
     
     
