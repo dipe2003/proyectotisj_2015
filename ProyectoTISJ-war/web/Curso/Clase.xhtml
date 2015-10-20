@@ -1,0 +1,47 @@
+<ui:composition template="../Views/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        
+        <div class="cabecera" >
+            <div class="titulo" >
+                Clase de Arquitectura 2015
+            </div>
+        </div>
+        <div id="contenedor">
+            <c:forEach var="usuario" items="#{usuariosClase.usuarios}">
+                <div class="ListItemContainer" >
+                    <div class="item" >
+                        <h:selectBooleanCheckbox class="BotonCheck" value="#{usuariosClase.listChecked[usuario.idUsuario]}" />
+                    </div>
+                    <div class="item">
+                        #{usuario.cedulaUsuario}
+                    </div>
+                    <div class="item">
+                        #{usuario.nombreCompleto}
+                    </div>
+                    <div class="item">
+                        #{usuario.correoUsuario}
+                    </div>     
+                </div>
+            </c:forEach>
+            
+            <div class="inputContainer">
+                <img class="imagenMenuOpcion" src="../Resources/Images/calendario.png"/>
+                <h:inputText id="inputCelular" value="#{usuariosClase.celularUsuario}" required="true" class="Texto" p:placeholder="Fecha"/>         
+            </div>
+            
+            <div class="inputContainer">
+                <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
+                <h:inputText id="inputCelular" value="#{usuariosClase.celularUsuario}" required="true" class="Texto" p:placeholder="Tema"/>         
+            </div>
+            
+            <div class="menuOpcion" >
+                <h:commandButton class="boton" value="Registrar Inasistencias" action="#{usuariosClase.registrarInasistencia()}"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
