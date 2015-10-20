@@ -67,6 +67,16 @@ public class ManejadorClase {
         }
         return lista;
     }    
-    
+    public List<Clase> ListarClases(int IdCurso){
+        List<Clase> lista = new ArrayList<>();
+        try{
+            TypedQuery<Clase> query = em.createQuery("SELECT c FROM Clase c WHERE c.CursoClase.IdCurso= :idCurso", Clase.class);
+            query.setParameter("idCurso", IdCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }   
 }
 

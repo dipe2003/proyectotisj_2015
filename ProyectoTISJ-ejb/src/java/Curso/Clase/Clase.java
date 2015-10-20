@@ -27,18 +27,19 @@ public class Clase implements Serializable{
     private List<Estudiante> AsistenciasClase;
     @ManyToOne
     private Curso CursoClase;
+    private String TemaClase;
     
     //  Constructores
     public Clase() {}    
-    public Clase(Date FechaClase, List<Estudiante> AsistenciasClase, Curso CursoClase) {
+    public Clase(Date FechaClase, List<Estudiante> AsistenciasClase, String TemaClase) {
         this.FechaClase = FechaClase;
         this.AsistenciasClase = AsistenciasClase;
-        this.CursoClase = CursoClase;
+        this.TemaClase = TemaClase;
     }
-    public Clase(Date FechaClase, Curso CursoClase) {
+    public Clase(Date FechaClase, String TemaClase) {
         this.FechaClase = FechaClase;
         this.AsistenciasClase = new ArrayList<>();
-        this.CursoClase = CursoClase;
+        this.TemaClase = TemaClase;
     }
     
     //  Getters
@@ -46,6 +47,7 @@ public class Clase implements Serializable{
     public Date getFechaClase() {return FechaClase;}
     public List<Estudiante> getAsistenciasClase() {return AsistenciasClase;}
     public Curso getCursoClase() {return CursoClase;}
+    public String getTemaClase() {return TemaClase;}
     
     //  Setters
     public void setIdClase(int IdClase) {this.IdClase = IdClase;}
@@ -57,6 +59,7 @@ public class Clase implements Serializable{
             CursoClase.getAsistenciasCurso().add(this);
         }
     }
+    public void setTemaClase(String TemaClase) {this.TemaClase = TemaClase;}
     
     //  Asistencias
     public void addEstudianteClase(Estudiante EstudianteClase){
