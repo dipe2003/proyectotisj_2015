@@ -105,7 +105,7 @@ public class UsuariosClase implements Serializable{
         int idClase = fClase.RegistarClase(FechaClase, TemaClase, idCurso );
         if (idClase!=-1) {
             for (int i = 0; i < CheckedUsers.size(); i++) {
-                fClase.RegistrarAsistenciaEstudiante((Estudiante)CheckedUsers.get(i), idClase);
+                fClase.RegistrarAsistenciaEstudiante(((Estudiante)CheckedUsers.get(i)).getIdUsuario(), idClase);
             }
         }
         

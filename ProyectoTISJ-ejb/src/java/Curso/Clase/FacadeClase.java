@@ -65,12 +65,12 @@ public class FacadeClase implements Serializable {
     
     /**
      * Agrega un estudiante a la lista de estudiantes que asistieron a la clase especificada por su id.
-     * @param EstudianteCurso
+     * @param IdEstudianteClase
      * @param IdClase 
      */
-    public void RegistrarAsistenciaEstudiante(Estudiante EstudianteCurso, int IdClase){
-        cClase.AgregarEstudianteAClase(EstudianteCurso, IdClase);
-        cEst.ModificarEstudiante(EstudianteCurso);
+    public void RegistrarAsistenciaEstudiante(int IdEstudianteClase, int IdClase){
+        cClase.AgregarEstudianteAClase(cEst.BuscarEstudiante(IdEstudianteClase), IdClase);
+        //cEst.ModificarEstudiante(EstudianteCurso);
     }
     
     /**

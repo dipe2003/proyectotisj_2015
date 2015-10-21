@@ -91,7 +91,7 @@ public class ControladorClase {
      */
     public Clase AgregarEstudiantesClase(List<Estudiante> EstudiantesClase, int IdClase){
         Clase clase = mClase.BuscarClase(IdClase);
-        clase.setAsistenciasClase(EstudiantesClase);
+        clase.setEstudiantesClase(EstudiantesClase);
         mClase.ModificarClase(clase);
         return clase;
     }

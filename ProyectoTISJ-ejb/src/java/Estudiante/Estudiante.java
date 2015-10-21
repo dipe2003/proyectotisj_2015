@@ -39,8 +39,13 @@ public class Estudiante extends Usuario {
       inverseJoinColumns={@JoinColumn(name="curso_id", referencedColumnName="IdCurso")})
     private List<Curso> CursosEstudiante;
     
-    @ManyToMany(mappedBy = "AsistenciasClase", fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(
+      name="estudiante_clase",
+      joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
+      inverseJoinColumns={@JoinColumn(name="clase_id", referencedColumnName="IdClase")})
     private List<Clase> ClasesEstudiante;
+    
 
     //  Constructores
     public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
@@ -69,6 +74,7 @@ public class Estudiante extends Usuario {
     public List<Curso> getCursosEstudiante() {return CursosEstudiante;}
     public List<Clase> getClasesEstudiante() {return ClasesEstudiante;}
     
+    
     //  Setters
     public void setFormInscripcion(String FormInscripcion) {this.FormInscripcion = FormInscripcion;}
     public void setEvaluacionesEstudiante(List<Evaluacion> EvaluacionesEstudiante) {this.EvaluacionesEstudiante = EvaluacionesEstudiante;}
@@ -96,12 +102,12 @@ public class Estudiante extends Usuario {
         }
     }
     public void removeCursoEstudiante(Curso CursoEstudiante){this.CursosEstudiante.remove(CursoEstudiante);}
-    
-    // Clases
+
+    //  Clases
     public void addClaseEstudiante(Clase ClaseEstudiante){
         this.ClasesEstudiante.add(ClaseEstudiante);
-        if (!ClaseEstudiante.getAsistenciasClase().contains(this)) {
-            ClaseEstudiante.addEstudianteClase(this);
+        if (!ClaseEstudiante.getEstudiantesClase().contains(this)) {
+            ClaseEstudiante.getEstudiantesClase().add(this);
         }
     }
 }

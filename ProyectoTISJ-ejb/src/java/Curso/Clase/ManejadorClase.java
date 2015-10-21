@@ -83,7 +83,7 @@ public class ManejadorClase {
     }
     
     public int GetAsistenciasEstudianteCurso(int IdCurso, int IdEstudiante){
-        Query query = em.createQuery("SELECT COUNT(c.IdClase) FROM Clase c, Estudiante e WHERE e MEMBER OF c.AsistenciasClase AND c.CursoClase.IdCurso= :idCurso AND e.IdUsuario= :idEstudiante");
+        Query query = em.createQuery("SELECT COUNT(c.IdClase) FROM Clase c, Estudiante e WHERE e MEMBER OF c.EstudiantesClase AND c.CursoClase.IdCurso= :idCurso AND e.IdUsuario= :idEstudiante");
         query.setParameter("idCurso", IdCurso);
         query.setParameter("idEstudiante", IdEstudiante);
         try{
