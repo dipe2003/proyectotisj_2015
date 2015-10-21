@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -23,23 +26,29 @@ public class Clase implements Serializable{
     private int IdClase;
     @Column(unique = true)@Temporal(TemporalType.DATE)
     private Date FechaClase;
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name="clase_usuario",
+            joinColumns={@JoinColumn(name="clase_id", referencedColumnName="IdClase")},
+            inverseJoinColumns={@JoinColumn(name="usuario_id", referencedColumnName="IdUsuario")})
     private List<Estudiante> AsistenciasClase;
     @ManyToOne
     private Curso CursoClase;
     private String TemaClase;
     
     //  Constructores
-    public Clase() {}    
-    public Clase(Date FechaClase, List<Estudiante> AsistenciasClase, String TemaClase) {
+    public Clase() {}
+    public Clase(Date FechaClase, List<Estudiante> AsistenciasClase, String TemaClase, Curso CursoClase) {
         this.FechaClase = FechaClase;
         this.AsistenciasClase = AsistenciasClase;
         this.TemaClase = TemaClase;
+        this.CursoClase = CursoClase;
     }
-    public Clase(Date FechaClase, String TemaClase) {
+    public Clase(Date FechaClase, String TemaClase, Curso CursoClase) {
         this.FechaClase = FechaClase;
         this.AsistenciasClase = new ArrayList<>();
         this.TemaClase = TemaClase;
+        this.CursoClase = CursoClase;
     }
     
     //  Getters
@@ -64,6 +73,9 @@ public class Clase implements Serializable{
     //  Asistencias
     public void addEstudianteClase(Estudiante EstudianteClase){
         this.AsistenciasClase.add(EstudianteClase);
+        if (!EstudianteClase.getClasesEstudiante().contains(this)) {
+            EstudianteClase.addClaseEstudiante(this);
+        }
     }
     public void removeEstudianteClase(Estudiante EstudianteClase){
         this.AsistenciasClase.remove(EstudianteClase);

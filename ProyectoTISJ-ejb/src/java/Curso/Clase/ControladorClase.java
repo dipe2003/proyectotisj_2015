@@ -19,10 +19,11 @@ public class ControladorClase {
      * Crea una clase en la base de datos.
      * @param FechaClase
      * @param TemaClase
+     * @param CursoClase
      * @return 
      */
-    public Clase CrearClase(Date FechaClase, String TemaClase){
-        Clase clase = new Clase(FechaClase, TemaClase);
+    public Clase CrearClase(Date FechaClase, String TemaClase, Curso CursoClase){
+        Clase clase = new Clase(FechaClase, TemaClase, CursoClase);
         if (mClase.CrearClase(clase)!=-1) {
             return clase;
         }else{

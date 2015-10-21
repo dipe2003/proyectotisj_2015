@@ -6,6 +6,7 @@ import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
 import Curso.Clase.FacadeClase;
 import Curso.FacadeCurso;
+import Estudiante.Estudiante;
 import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
@@ -101,7 +102,13 @@ public class UsuariosClase implements Serializable{
     
     public void registrarClase(){
         List<Usuario> CheckedUsers = this.getCheckedUsers();
-        fClase.RegistarClase(FechaClase, TemaClase, idCurso , CheckedUsers);
+        int idClase = fClase.RegistarClase(FechaClase, TemaClase, idCurso );
+        if (idClase!=-1) {
+            for (int i = 0; i < CheckedUsers.size(); i++) {
+                fClase.RegistrarAsistenciaEstudiante((Estudiante)CheckedUsers.get(i), idClase);
+            }
+        }
+        
     }
     
     
