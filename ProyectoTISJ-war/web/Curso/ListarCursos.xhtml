@@ -17,6 +17,7 @@
                 </div>
             </h:panelGroup>
             <c:forEach var="curso" items="#{listarCursosBean.cursos}">
+                <a href="ListarClases.xhtml?opt=#{curso.id}" >
                 <div class="ListItemContainer" >
                     <div class="item">
                         #{curso.anioCurso}
@@ -43,6 +44,7 @@
                     
                     <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
                 </div>
+                </a>
             </c:forEach>
         </div>
     </ui:define>

@@ -91,6 +91,35 @@ public class Curso implements Serializable{
         if (!ClaseCurso.getCursoClase().equals(this)) {
             ClaseCurso.setCursoClase(this);
         }
-    }    
+    }
     
+    /**
+     * Devuelve el total de clases dictadas de este curso.
+     * @return 
+     */
+    public int getTotalClases(){
+        return this.ClasesCurso.size();
+    }
+    
+    /**
+     * Devuelve el total de asistencias del estudiante especificado por su id.
+     * @param IdEstudiante
+     * @return 
+     */
+    public int getAsistenciasEstudiante(int IdEstudiante){
+        int asistencia = 0;
+        for (int i = 0; i < this.ClasesCurso.size(); i++) {
+            asistencia += this.ClasesCurso.get(i).getAsistenciaEstudiante(IdEstudiante);
+        }
+        return asistencia;
+    }
+    
+    /**
+     * Devuelve el total de inasistencias del estudiante especificado por su id.
+     * @param IdEstudiante
+     * @return 
+     */
+    public int getInasistenciasEstudiante(int IdEstudiante){
+        return this.ClasesCurso.size() - getAsistenciasEstudiante(IdEstudiante);
+    }
 }

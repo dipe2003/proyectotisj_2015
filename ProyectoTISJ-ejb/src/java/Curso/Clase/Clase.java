@@ -9,14 +9,12 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,7 +24,7 @@ public class Clase implements Serializable{
     private int IdClase;
     @Column(unique = true)@Temporal(TemporalType.DATE)
     private Date FechaClase;
-   @ManyToMany(mappedBy="ClasesEstudiante")
+   @ManyToMany(mappedBy="ClasesEstudiante", fetch = FetchType.EAGER)
     private List<Estudiante> EstudiantesClase;
     @ManyToOne
     private Curso CursoClase;
@@ -34,17 +32,15 @@ public class Clase implements Serializable{
     
     //  Constructores
     public Clase() {}
-    public Clase(Date FechaClase, List<Estudiante> AsistenciasClase, String TemaClase, Curso CursoClase) {
+    public Clase(Date FechaClase, List<Estudiante> AsistenciasClase, String TemaClase) {
         this.FechaClase = FechaClase;
         this.EstudiantesClase = AsistenciasClase;
         this.TemaClase = TemaClase;
-        this.CursoClase = CursoClase;
     }
-    public Clase(Date FechaClase, String TemaClase, Curso CursoClase) {
+    public Clase(Date FechaClase, String TemaClase) {
         this.FechaClase = FechaClase;
         this.EstudiantesClase = new ArrayList<>();
         this.TemaClase = TemaClase;
-        this.CursoClase = CursoClase;
         this.EstudiantesClase = new ArrayList<>();
     }
     
@@ -81,6 +77,26 @@ public class Clase implements Serializable{
         for (int i = 0; i < this.EstudiantesClase.size(); i++) {
             if (this.EstudiantesClase.get(i).getIdUsuario()==IdEstudianteClase) this.EstudiantesClase.remove(i);
         }
+    }
+    
+    /**
+     * Devuelve 1 si el estudiante asistio a la clase.
+     * @param IdEstudiante
+     * @return 
+     */
+    public int getAsistenciaEstudiante(int IdEstudiante){
+        for (int i = 0; i < this.EstudiantesClase.size(); i++) {
+            if(this.EstudiantesClase.get(i).getIdUsuario()==IdEstudiante) return 1;
+        }
+        return 0;
+    }
+    
+    /**
+     * Devuelve el total de estudiantes que asistieron a la clase.
+     * @return 
+     */
+    public int getTotalAsistencias(){
+        return this.EstudiantesClase.size();
     }
     
 }

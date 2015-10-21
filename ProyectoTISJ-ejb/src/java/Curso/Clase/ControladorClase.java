@@ -23,7 +23,8 @@ public class ControladorClase {
      * @return 
      */
     public Clase CrearClase(Date FechaClase, String TemaClase, Curso CursoClase){
-        Clase clase = new Clase(FechaClase, TemaClase, CursoClase);
+        Clase clase = new Clase(FechaClase, TemaClase);
+        clase.setCursoClase(CursoClase);
         if (mClase.CrearClase(clase)!=-1) {
             return clase;
         }else{
