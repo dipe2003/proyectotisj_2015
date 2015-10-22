@@ -2,7 +2,7 @@
     width: 90%;
     height: 50px;
     margin: 0 auto;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     line-height: 50px;
     font-family: RobotoRegular;
     font-size: 20px;
@@ -33,6 +33,7 @@
     float: left;
     overflow: hidden;
     margin-left: 15px;
+    display: flex;
 }
 
 .ImagenItem{
@@ -108,4 +109,14 @@
 .FormFiltro{
     text-align: left;
     font-family: RobotoRegular;
+}
+
+.semiItem{
+    width: 50%;
+}
+
+.inputCuadrado{
+    border: black solid 3px !important;
+    width: 30px !important;
+    text-align: center;
 }
