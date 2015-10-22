@@ -34,7 +34,7 @@ public class Curso implements Serializable{
     @ManyToMany(mappedBy="CursosEstudiante")
     private List<Estudiante> EstudiantesCurso;
     
-    @OneToMany
+    @OneToMany(mappedBy = "CursoClase")
     private List<Clase> ClasesCurso;
     
     //  Constructores

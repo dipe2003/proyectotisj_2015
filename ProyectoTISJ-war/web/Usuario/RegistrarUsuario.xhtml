@@ -129,10 +129,9 @@
                             <div class="nombreDocente">Formulario de Inscripcion</div>
                             <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="formulario"/>                           
                             <div class="botonImagen">
-                                <h:inputFile id="inputFormIngreso" class="boton subirImagen formulario" value="#{registrarUsuarioBean.partImagenFormInscripcion}" p:accept="image/*"/>
-                                    <h:commandButton value="cargar">
-                                        <f:ajax event="click" execute="inputFormIngreso" />
-                                    </h:commandButton>
+                                <h:inputFile id="inputFormIngreso" class="boton subirImagen formulario" value="#{registrarUsuarioBean.partImagenFormInscripcion}" p:accept="image/*">
+                                    <f:ajax event="change" listener="#{registrarUsuarioBean.setPartImagenFormInscripcion(registrarUsuarioBean.partImagenFormInscripcion)}"/>
+                                </h:inputFile>
                             <h:message class="error" for="inputFormIngreso"/>
                             </div>
                             
