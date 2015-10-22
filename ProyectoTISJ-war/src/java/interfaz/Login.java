@@ -4,6 +4,7 @@ import Enumerados.FacadeEnumerados;
 import Estudiante.EnumSexo;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,21 +87,19 @@ public class Login implements Serializable {
     /**
      * Completa el login con un rol seleccionado.
      * @param RolSeleccionado
-     * @return
+     * @throws java.io.IOException
      */
-    public String loginRol(String RolSeleccionado){
+    public void loginRol(String RolSeleccionado) throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         this.RolSeleccionado = RolSeleccionado;
         Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, RolSeleccionado));
         if (Usr!=null) {
             request.getSession().setAttribute("Usuario", Usr);
-            this.UsuarioLogueado = true;
-            return "logueado";
+            context.getExternalContext().redirect("Views/index.xhtml");
         }
         FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Datos incorrectos");
         context.addMessage("login:msj", fm);
-        return "";
     }
     
     /**

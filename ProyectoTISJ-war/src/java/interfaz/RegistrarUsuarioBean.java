@@ -77,6 +77,8 @@ public class RegistrarUsuarioBean implements Serializable{
     @EJB
     private FacadeEnumerados fEnum;
     
+    private FacesContext context;
+    
     //  Getters
     public String getNombreUsuario() {return NombreUsuario;}
     public String getApellidoUsuario() {return ApellidoUsuario;}
@@ -163,6 +165,11 @@ public class RegistrarUsuarioBean implements Serializable{
         if (!verifCedula.EsCedulaValida(Cedula)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             context.addMessage("frmIngresoDatos:inputCedula", fm);
+        }else{
+            if (fUsr.ExisteUsuario(Cedula)) {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
+                context.addMessage("frmIngresoDatos:inputCedula", fm);
+            }
         }
     }
     
@@ -183,15 +190,16 @@ public class RegistrarUsuarioBean implements Serializable{
      * Registra el usuario si este no esta ya registrado
      * @throws IOException
      */
-    public void registrarUsuarioInterfaz() throws IOException{
-        FacesContext context = FacesContext.getCurrentInstance();
+    public void registrarUsuarioInterfaz() throws IOException {
+        String url = "";
         if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
-            context.addMessage("frmIngresoDatos:inputCedula", fm);
+            this.context.addMessage("frmIngresoDatos:inputCedula", fm);
         }else{
-            int idUsr= registrarUsuario();
-        }
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?rol="+this.Rol);
+            if(registrarUsuario()!=-1) {
+                this.context.getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml");
+            }
+        }               
     }
     
     /**
@@ -209,7 +217,7 @@ public class RegistrarUsuarioBean implements Serializable{
             if (Rol.equals("Estudiante")) {
                 String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));
                 if (ubicacionFrmInscripcion!=null) {
-                    if (ubicacionPerfil!=null) {
+                    if (!ubicacionPerfil.equals("no")) {
                         if ((idUsr =fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                                 FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
@@ -238,16 +246,16 @@ public class RegistrarUsuarioBean implements Serializable{
                     return -1;
                 }
             }else{
-                if (ubicacionPerfil!=null) {
-                    if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
+                if (!ubicacionPerfil.equals("no")) {
+                    if((idUsr=fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
-                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol))!=-1){
                         return idUsr;
                     }
                 }else{
-                    if(fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
+                    if((idUsr =fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
-                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol)!=-1){
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol))!=-1){
                         return idUsr;
                     }
                 }
@@ -282,7 +290,7 @@ public class RegistrarUsuarioBean implements Serializable{
      */
     @PostConstruct
     public void init(){
-        FacesContext context = FacesContext.getCurrentInstance();
+        context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Rol = request.getParameter("rol");
         
