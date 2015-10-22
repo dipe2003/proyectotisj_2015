@@ -84,9 +84,6 @@ public class RegistrarEvaluacion implements Serializable{
     
     public void nuevaEvaluacion(String tipoEvaluacion){
         //fEvaluacion.registrarEvaluacion(idCurso, FechaEvaluacion, tipoEvaluacion); //para hacer
-        for ( = 0; i < 10; i++) {
-            
-        }
     }
 }
 
