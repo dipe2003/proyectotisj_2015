@@ -42,20 +42,23 @@ public class FileUpload implements Serializable{
      * @return Devuelve la ubicacion del archivo guardado. Null si no se pudo guardar.
      */
     public String guardarArchivo(String DirectorioArchivo, Part Archivo, String NombreArchivo){
-        try{
-            ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-            String resPath = "Tecnoinf"+separator+"Resources"+separator+"Images"+separator+DirectorioArchivo+separator;
-            String extensionArchivo = FilenameUtils.getExtension(Archivo.getSubmittedFileName());
-            NombreArchivo += "."+extensionArchivo;
-            String realPath = homeDir+separator+resPath+NombreArchivo;
-            Archivo.write(realPath);
-            return realPath;
-        }catch(FileNotFoundException ex){
-            System.out.println("Archivo no econtrado: " + ex.getMessage());
-        }catch(IOException ex){
-            System.out.println("Error IO: " + ex.getMessage());
+        String realPath = "no";
+        if (Archivo != null) {
+            try{
+                ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+                String resPath = "Tecnoinf"+separator+"Resources"+separator+"Images"+separator+DirectorioArchivo+separator;
+                String extensionArchivo = FilenameUtils.getExtension(Archivo.getSubmittedFileName());
+                NombreArchivo += "."+extensionArchivo;
+                realPath = homeDir+separator+resPath+NombreArchivo;
+                Archivo.write(realPath);
+                return realPath;
+            }catch(FileNotFoundException ex){
+                System.out.println("Archivo no econtrado: " + ex.getMessage());
+            }catch(IOException ex){
+                System.out.println("Error IO: " + ex.getMessage());
+            }
         }
-        return null;
+        return realPath;
     }
     
 }
