@@ -96,6 +96,8 @@ public class Login implements Serializable {
         Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, RolSeleccionado));
         if (Usr!=null) {
             request.getSession().setAttribute("Usuario", Usr);
+            this.UsuarioLogueado = true;
+            request.getSession().setAttribute("Usuario", Usr);
             context.getExternalContext().redirect("Views/index.xhtml");
         }
         FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Datos incorrectos");

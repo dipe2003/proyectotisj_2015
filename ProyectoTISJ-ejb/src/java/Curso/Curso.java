@@ -5,6 +5,7 @@ import Asignatura.Asignatura;
 import Curso.Clase.Clase;
 import Docente.Docente;
 import Estudiante.Estudiante;
+import Evaluacion.Evaluacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,9 @@ public class Curso implements Serializable{
     @OneToMany(mappedBy = "CursoClase")
     private List<Clase> ClasesCurso;
     
+    @OneToMany(mappedBy = "CursoEvaluacion")
+    private List<Evaluacion> EvaluacionesCurso;
+    
     //  Constructores
     
     public Curso(int SemestreCurso, int AnioCurso, Docente DocenteCurso, Asignatura AsignaturaCurso, String ContratoDocenteCurso) {
@@ -46,6 +50,7 @@ public class Curso implements Serializable{
         this.AsignaturaCurso = AsignaturaCurso;
         this.EstudiantesCurso = new ArrayList<>();
         this.ClasesCurso = new ArrayList<>();
+        this.EvaluacionesCurso = new ArrayList<>();
         this.ContratoDocenteCurso = ContratoDocenteCurso;
     }
     
@@ -60,6 +65,7 @@ public class Curso implements Serializable{
     public String getContratoDocenteCurso() {return ContratoDocenteCurso;}   
     public List<Estudiante> getEstudiantesCurso(){return this.EstudiantesCurso;}
     public List<Clase> getClasesCurso() {return ClasesCurso;}
+    public List<Evaluacion> getEvaluacionesCurso() {return EvaluacionesCurso;}
     
     //  Setters
     public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
@@ -70,6 +76,7 @@ public class Curso implements Serializable{
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     public void setClasesCurso(List<Clase> ClasesCurso) {this.ClasesCurso = ClasesCurso;}
+    public void setEvaluacionesCurso(List<Evaluacion> EvaluacionesCurso) {this.EvaluacionesCurso = EvaluacionesCurso;}
     
     //  Estudiantes    
     public void addEstudianteCurso(Estudiante EstudianteCurso){
@@ -121,5 +128,13 @@ public class Curso implements Serializable{
      */
     public int getInasistenciasEstudiante(int IdEstudiante){
         return this.ClasesCurso.size() - getAsistenciasEstudiante(IdEstudiante);
+    }
+    
+    //  Evaluaciones
+    public void addEvaluacionCurso(Evaluacion EvaluacionCurso){
+        this.EvaluacionesCurso.add(EvaluacionCurso);
+        if (!EvaluacionCurso.getCursoEvaluacion().equals(this)) {
+            EvaluacionCurso.setCursoEvaluacion(this);
+        }
     }
 }

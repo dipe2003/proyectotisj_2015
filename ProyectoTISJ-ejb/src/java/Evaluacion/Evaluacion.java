@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,7 +20,7 @@ public class Evaluacion implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date FechaEvaluacion;
     
-    @OneToOne
+    @ManyToOne
     private Curso CursoEvaluacion;
     
     //  Constructores
@@ -38,6 +38,12 @@ public class Evaluacion implements Serializable{
     //  Setters
     public void setIdEvaluacion(int IdEvaluacion) {this.IdEvaluacion = IdEvaluacion;}
     public void setFechaEvaluacion(Date FechaEvaluacion) {this.FechaEvaluacion = FechaEvaluacion;}
-    public void setCursoEvaluacion(Curso CursoEvaluacion) {this.CursoEvaluacion = CursoEvaluacion;}
+    public void setCursoEvaluacion(Curso CursoEvaluacion) {
+        this.CursoEvaluacion = CursoEvaluacion;
+        if (!CursoEvaluacion.getEvaluacionesCurso().contains(this)) {
+            CursoEvaluacion.getEvaluacionesCurso().add(this);
+        }
+    }
     
+
 }
