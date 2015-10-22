@@ -19,10 +19,12 @@ public class ControladorClase {
      * Crea una clase en la base de datos.
      * @param FechaClase
      * @param TemaClase
+     * @param CursoClase
      * @return 
      */
-    public Clase CrearClase(Date FechaClase, String TemaClase){
+    public Clase CrearClase(Date FechaClase, String TemaClase, Curso CursoClase){
         Clase clase = new Clase(FechaClase, TemaClase);
+        clase.setCursoClase(CursoClase);
         if (mClase.CrearClase(clase)!=-1) {
             return clase;
         }else{
@@ -90,7 +92,7 @@ public class ControladorClase {
      */
     public Clase AgregarEstudiantesClase(List<Estudiante> EstudiantesClase, int IdClase){
         Clase clase = mClase.BuscarClase(IdClase);
-        clase.setAsistenciasClase(EstudiantesClase);
+        clase.setEstudiantesClase(EstudiantesClase);
         mClase.ModificarClase(clase);
         return clase;
     }

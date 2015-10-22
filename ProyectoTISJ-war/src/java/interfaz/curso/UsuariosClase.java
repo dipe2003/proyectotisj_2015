@@ -6,13 +6,16 @@ import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
 import Curso.Clase.FacadeClase;
 import Curso.FacadeCurso;
+import Estudiante.Estudiante;
 import Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -75,9 +78,13 @@ public class UsuariosClase implements Serializable{
     public void setTemaClase(String TemaClase) {this.TemaClase = TemaClase;}
     public void setFechaClase(Date FechaClase) {this.FechaClase = FechaClase;}
     public void setStrFechaClase(String strFechaClase) {
-        Date fecha = new Date(strFechaClase);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            cal.setTime(sdf.parse(strFechaClase));
+        }catch(ParseException ex){}        
         this.strFechaClase = strFechaClase;
-        this.FechaClase = fecha;
+        this.FechaClase = cal.getTime();
     }
     
     @PostConstruct
@@ -99,9 +106,16 @@ public class UsuariosClase implements Serializable{
         return fCurso.GetInanistenciasEstudianteCurso(idEstudiante, idCurso);
     }
     
-    public void registrarClase(){
+    public void registrarClase() throws IOException{
         List<Usuario> CheckedUsers = this.getCheckedUsers();
-        fClase.RegistarClase(FechaClase, TemaClase, idCurso , CheckedUsers);
+        int idClase = fClase.RegistarClase(FechaClase, TemaClase, idCurso );
+        if (idClase!=-1) {
+            for (int i = 0; i < CheckedUsers.size(); i++) {
+                fClase.RegistrarAsistenciaEstudiante(((Estudiante)CheckedUsers.get(i)).getIdUsuario(), idClase);
+            }
+        }
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");        
     }
     
     

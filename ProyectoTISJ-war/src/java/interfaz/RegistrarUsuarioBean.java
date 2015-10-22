@@ -10,8 +10,10 @@ import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -142,9 +144,13 @@ public class RegistrarUsuarioBean implements Serializable{
     }
     public void setPartImagenPerfil(Part PartImagenPerfil) {this.PartImagenPerfil = PartImagenPerfil;}
     public void setStrFechaNacimiento(String strFechaNacimiento) {
-        Date fecha = new Date(strFechaNacimiento);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            cal.setTime(sdf.parse(strFechaNacimiento));
+        }catch(ParseException ex){}
         this.strFechaNacimiento = strFechaNacimiento;
-        this.FechaNacimientoUsuario = fecha;
+        this.FechaNacimientoUsuario = cal.getTime();
     }
     public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     
@@ -204,7 +210,7 @@ public class RegistrarUsuarioBean implements Serializable{
                 String ubicacionFrmInscripcion = fUp.guardarArchivo("frmInscripcion", PartImagenFormInscripcion, String.valueOf(CedulaUsuario));
                 if (ubicacionFrmInscripcion!=null) {
                     if (ubicacionPerfil!=null) {
-                        if ((idUsr =fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionFrmInscripcion, Integer.valueOf(CedulaUsuario),
+                        if ((idUsr =fUsr.RegistrarUsuario(ubicacionFrmInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
                                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                                 FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, GeneracionAnioEstudiante))!=-1) {
                             for (int i = 0; i < ListaEstudiosCursados.size(); i++) {

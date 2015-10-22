@@ -1,6 +1,7 @@
 
 package Estudiante;
 
+import Curso.Clase.Clase;
 import Curso.Curso;
 import Enumerados.EstadoCivil.EstadoCivil;
 import Estudiante.estudios.Estudio;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -36,6 +38,14 @@ public class Estudiante extends Usuario {
       joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
       inverseJoinColumns={@JoinColumn(name="curso_id", referencedColumnName="IdCurso")})
     private List<Curso> CursosEstudiante;
+    
+    @ManyToMany
+    @JoinTable(
+      name="estudiante_clase",
+      joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
+      inverseJoinColumns={@JoinColumn(name="clase_id", referencedColumnName="IdClase")})
+    private List<Clase> ClasesEstudiante;
+    
 
     //  Constructores
     public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
@@ -50,6 +60,7 @@ public class Estudiante extends Usuario {
         this.EvaluacionesEstudiante = new ArrayList<>();
         this.EstudiosCursadosEstudiante = new ArrayList<>();    
         this.CursosEstudiante = new ArrayList<>();
+        this.ClasesEstudiante = new ArrayList<>();
     }
 
     public Estudiante() {}
@@ -61,6 +72,8 @@ public class Estudiante extends Usuario {
     public List<Estudio> getEstudiosCursadosEstudiante() {return EstudiosCursadosEstudiante;}    
     public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
     public List<Curso> getCursosEstudiante() {return CursosEstudiante;}
+    public List<Clase> getClasesEstudiante() {return ClasesEstudiante;}
+    
     
     //  Setters
     public void setFormInscripcion(String FormInscripcion) {this.FormInscripcion = FormInscripcion;}
@@ -69,6 +82,7 @@ public class Estudiante extends Usuario {
     public void setEstudiosCursadosEstudiante(List<Estudio> EstudiosCursadosEstudiante) {this.EstudiosCursadosEstudiante = EstudiosCursadosEstudiante;}
     public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     public void setCursosEstudiante(List<Curso> CursosEstudiante) {this.CursosEstudiante = CursosEstudiante;}
+    public void setClasesEstudiante(List<Clase> ClasesEstudiante) {this.ClasesEstudiante = ClasesEstudiante;}
     
     //  Respuestas
     public void addRespuestaEvaluacion(Respuesta RespuestaEvaluacion){this.RespuestasEstudiante.add(RespuestaEvaluacion);}    
@@ -88,4 +102,12 @@ public class Estudiante extends Usuario {
         }
     }
     public void removeCursoEstudiante(Curso CursoEstudiante){this.CursosEstudiante.remove(CursoEstudiante);}
+
+    //  Clases
+    public void addClaseEstudiante(Clase ClaseEstudiante){
+        this.ClasesEstudiante.add(ClaseEstudiante);
+        if (!ClaseEstudiante.getEstudiantesClase().contains(this)) {
+            ClaseEstudiante.getEstudiantesClase().add(this);
+        }
+    }
 }

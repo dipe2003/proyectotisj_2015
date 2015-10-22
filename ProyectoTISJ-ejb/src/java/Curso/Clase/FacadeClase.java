@@ -4,6 +4,7 @@ package Curso.Clase;
 
 
 import Curso.ControladorCurso;
+import Estudiante.ControladorEstudiante;
 import Estudiante.Estudiante;
 import Usuario.Usuario;
 import java.io.Serializable;
@@ -23,6 +24,8 @@ public class FacadeClase implements Serializable {
     private ControladorCurso cCurso;
     @EJB
     private ControladorClase cClase;
+    @EJB
+    private ControladorEstudiante cEst;
     
     public FacadeClase() {}
        
@@ -30,34 +33,17 @@ public class FacadeClase implements Serializable {
     * Registra una nueva clase.
     * @param FechaClase
     * @param TemaClase
-    * @return el id de la clase registrada. Retorne -1 si no se registro.
-    */
-    public int RegistarClase(Date FechaClase, String TemaClase){
-        Clase clase = cClase.CrearClase(FechaClase, TemaClase);
-        if (clase!=null) {
-            return clase.getIdClase();
-        }
-        return -1;
-    }
-   /**
-    * Registra una nueva clase con todos sus datos.
-    * @param FechaClase
-    * @param TemaClase
      * @param IdCurso
-     * @param EstudiantesCurso
     * @return el id de la clase registrada. Retorne -1 si no se registro.
     */
-    public int RegistarClase(Date FechaClase, String TemaClase, int IdCurso, List<Usuario> EstudiantesCurso){
-        List<Estudiante> estudiantesCurso = (List<Estudiante>) (ArrayList<?>) EstudiantesCurso;
-        Clase clase = cClase.CrearClase(FechaClase, TemaClase);
+    public int RegistarClase(Date FechaClase, String TemaClase, int IdCurso){
+        Clase clase = cClase.CrearClase(FechaClase, TemaClase, cCurso.BuscarCurso(IdCurso));
         if (clase!=null) {
-            clase.setCursoClase(cCurso.BuscarCurso(IdCurso));
-            clase.setAsistenciasClase(estudiantesCurso);
-            cClase.ModificarClase(clase);
             return clase.getIdClase();
         }
         return -1;
     }
+
     
     /**
      * Devuelve la clase especificada por su id.
@@ -79,11 +65,12 @@ public class FacadeClase implements Serializable {
     
     /**
      * Agrega un estudiante a la lista de estudiantes que asistieron a la clase especificada por su id.
-     * @param EstudianteCurso
+     * @param IdEstudianteClase
      * @param IdClase 
      */
-    public void RegistrarAsistenciaEstudiante(Estudiante EstudianteCurso, int IdClase){
-        cClase.AgregarEstudianteAClase(EstudianteCurso, IdClase);
+    public void RegistrarAsistenciaEstudiante(int IdEstudianteClase, int IdClase){
+        cClase.AgregarEstudianteAClase(cEst.BuscarEstudiante(IdEstudianteClase), IdClase);
+        //cEst.ModificarEstudiante(EstudianteCurso);
     }
     
     /**

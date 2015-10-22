@@ -1,0 +1,31 @@
+<ui:composition template="../Views/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        <div class="cabecera" >
+            <div class="titulo" >
+                Listado de Clases del Curso de #{listarClasesBean.nombreCurso}
+            </div>
+        </div>
+        <div id="contenedor">
+            <h:panelGroup rendered="#{empty listarClasesBean.clases}">
+                <div class="ListItemContainer">
+                    No hay Clases Registradas
+                </div>
+            </h:panelGroup>
+            <c:forEach var="clase" items="#{listarClasesBean.clases}">
+                <div class="ListItemContainer" >
+                    <div class="item">
+                        #{clase.fechaClase}
+                    </div>
+                    <div class="item">
+                        #{clase.temaClase}
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </ui:define>
+</ui:composition>

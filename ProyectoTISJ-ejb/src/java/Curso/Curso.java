@@ -34,8 +34,8 @@ public class Curso implements Serializable{
     @ManyToMany(mappedBy="CursosEstudiante")
     private List<Estudiante> EstudiantesCurso;
     
-    @OneToMany
-    private List<Clase> AsistenciasCurso;
+    @OneToMany(mappedBy = "CursoClase")
+    private List<Clase> ClasesCurso;
     
     //  Constructores
     
@@ -45,7 +45,7 @@ public class Curso implements Serializable{
         this.DocenteCurso = DocenteCurso;
         this.AsignaturaCurso = AsignaturaCurso;
         this.EstudiantesCurso = new ArrayList<>();
-        this.AsistenciasCurso = new ArrayList<>();
+        this.ClasesCurso = new ArrayList<>();
         this.ContratoDocenteCurso = ContratoDocenteCurso;
     }
     
@@ -59,7 +59,7 @@ public class Curso implements Serializable{
     public Asignatura getAsignaturaCurso() {return AsignaturaCurso;}    
     public String getContratoDocenteCurso() {return ContratoDocenteCurso;}   
     public List<Estudiante> getEstudiantesCurso(){return this.EstudiantesCurso;}
-    public List<Clase> getAsistenciasCurso() {return AsistenciasCurso;}
+    public List<Clase> getClasesCurso() {return ClasesCurso;}
     
     //  Setters
     public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
@@ -69,7 +69,7 @@ public class Curso implements Serializable{
     public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
-    public void setAsistenciasCurso(List<Clase> AsistenciasCurso) {this.AsistenciasCurso = AsistenciasCurso;}
+    public void setClasesCurso(List<Clase> ClasesCurso) {this.ClasesCurso = ClasesCurso;}
     
     //  Estudiantes    
     public void addEstudianteCurso(Estudiante EstudianteCurso){
@@ -86,11 +86,40 @@ public class Curso implements Serializable{
     }
     
     //  Asistencias
-    public void addAsistenciaCurso(Clase ClaseCurso){
-        this.AsistenciasCurso.add(ClaseCurso);
+    public void addClaseCurso(Clase ClaseCurso){
+        this.ClasesCurso.add(ClaseCurso);
         if (!ClaseCurso.getCursoClase().equals(this)) {
             ClaseCurso.setCursoClase(this);
         }
-    }    
+    }
     
+    /**
+     * Devuelve el total de clases dictadas de este curso.
+     * @return 
+     */
+    public int getTotalClases(){
+        return this.ClasesCurso.size();
+    }
+    
+    /**
+     * Devuelve el total de asistencias del estudiante especificado por su id.
+     * @param IdEstudiante
+     * @return 
+     */
+    public int getAsistenciasEstudiante(int IdEstudiante){
+        int asistencia = 0;
+        for (int i = 0; i < this.ClasesCurso.size(); i++) {
+            asistencia += this.ClasesCurso.get(i).getAsistenciaEstudiante(IdEstudiante);
+        }
+        return asistencia;
+    }
+    
+    /**
+     * Devuelve el total de inasistencias del estudiante especificado por su id.
+     * @param IdEstudiante
+     * @return 
+     */
+    public int getInasistenciasEstudiante(int IdEstudiante){
+        return this.ClasesCurso.size() - getAsistenciasEstudiante(IdEstudiante);
+    }
 }
