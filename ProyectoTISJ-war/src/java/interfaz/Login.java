@@ -60,15 +60,14 @@ public class Login implements Serializable {
     
     /**
      * Realiza el login del usuario. Si tiene un solo rol se loguea automaticamente, sino redirige a otra pagina para seleccionar el rol.
-     * @return
+     * @throws java.io.IOException
      */
-    public String login(){
+    public void login() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         rolesUsuario = fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password);
         if (rolesUsuario.isEmpty()) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Los datos ingresados no son correctos");
             context.addMessage("login:msj", fm);
-            return null;
         }else{
             if (rolesUsuario.size()==1) {
                 HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -76,10 +75,10 @@ public class Login implements Serializable {
                 request.getSession().setAttribute("Usuario", Usr);
                 this.UsuarioLogueado = true;
                 this.RolSeleccionado = rolesUsuario.get(0);
-                return "logueado";
+                context.getExternalContext().redirect("Views/index.xhtml");
             }else{
                 LlenarRoles(this.rolesUsuario);
-                return "seleccionarRol";
+                context.getExternalContext().redirect("loginRol.xhtml");
             }
         }
     }
@@ -106,32 +105,32 @@ public class Login implements Serializable {
     
     /**
      * Cambia el rol del usuario ya logueado.
-     * @param RolSeleccionado
-     * @return 
+     * @param RolSeleccionado 
+     * @throws java.io.IOException 
      */
-    public String cambiarRol(String RolSeleccionado){
+    public void cambiarRol(String RolSeleccionado) throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         if(request.getSession().getAttribute("Usuario")!= null){
             this.RolSeleccionado = RolSeleccionado;
-            return "logueado";
+            context.getExternalContext().redirect("Views/index.xhtml");
         }
         FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Datos incorrectos");
         context.addMessage("login:msj", fm);
-        return "";
+        context.getExternalContext().redirect("Views/index.xhtml");
     }
     
     /**
      *
-     * @return
+     * @throws java.io.IOException
      */
-    public String logout(){
+    public void logout() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         request.getSession().invalidate();
         this.UsuarioLogueado = false;
-        return "nologueado";
+        context.getExternalContext().redirect("../login.xhtml");
     }
     
     /**

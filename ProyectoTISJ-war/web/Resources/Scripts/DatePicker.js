@@ -1,7 +1,7 @@
 $(document).ready(function() {
  $(".datepicker").datepicker({
 //showOn:"button",
-dateFormat:'dd-mm-yy',
+dateFormat:'dd/mm/yy',
 //buttonImage:'<%= renderResponse.encodeURL( renderRequest.getContextPath() )%>../Resources/Images/calendario.png',
 showOtherMonths: true,
 selectOtherMonths: true,

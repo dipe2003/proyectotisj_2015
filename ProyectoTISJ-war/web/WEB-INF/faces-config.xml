@@ -3,37 +3,5 @@
               xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-
-    <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>logueado</from-outcome>
-            <to-view-id>/Views/index.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>        
-    </navigation-rule>  
-    
-    <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>logueado</from-outcome>
-            <to-view-id>/Views/index.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>  
-        <navigation-case>
-            <from-outcome>registrado</from-outcome>
-            <to-view-id>/Views/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>nologueado</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>seleccionarRol</from-outcome>
-            <to-view-id>/loginRol.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
     
 </faces-config>
