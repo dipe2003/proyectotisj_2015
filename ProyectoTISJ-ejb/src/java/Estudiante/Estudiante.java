@@ -6,13 +6,13 @@ import Curso.Curso;
 import Enumerados.EstadoCivil.EstadoCivil;
 import Estudiante.estudios.Estudio;
 import Evaluacion.Evaluacion;
+import Evaluacion.Resultado.Resultado;
 import Respuesta.Respuesta;
 import Usuario.Usuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -34,46 +34,49 @@ public class Estudiante extends Usuario {
     
     @ManyToMany
     @JoinTable(
-      name="estudiante_curso",
-      joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
-      inverseJoinColumns={@JoinColumn(name="curso_id", referencedColumnName="IdCurso")})
+            name="estudiante_curso",
+            joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
+            inverseJoinColumns={@JoinColumn(name="curso_id", referencedColumnName="IdCurso")})
     private List<Curso> CursosEstudiante;
     
     @ManyToMany
     @JoinTable(
-      name="estudiante_clase",
-      joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
-      inverseJoinColumns={@JoinColumn(name="clase_id", referencedColumnName="IdClase")})
+            name="estudiante_clase",
+            joinColumns={@JoinColumn(name="estudiante_id", referencedColumnName="IdUsuario")},
+            inverseJoinColumns={@JoinColumn(name="clase_id", referencedColumnName="IdClase")})
     private List<Clase> ClasesEstudiante;
     
-
+    @OneToMany(mappedBy = "EstudianteResultado")
+    private List<Resultado> ResultadosEstudiante;
+    
     //  Constructores
-    public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
-            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+    public Estudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario,
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario,
             String LugarNacimientoUsuario, EnumSexo SexoUsuario, int GeneracionAnioEstudiante) {
-        super(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, CredencialCivicaUsuario, DomicilioUsuario, 
-                DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, 
+        super(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, CredencialCivicaUsuario, DomicilioUsuario,
+                DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario,
                 SexoUsuario);
         this.FormInscripcion = FormInscripcion;
         this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;
         this.EvaluacionesEstudiante = new ArrayList<>();
-        this.EstudiosCursadosEstudiante = new ArrayList<>();    
+        this.EstudiosCursadosEstudiante = new ArrayList<>();
         this.CursosEstudiante = new ArrayList<>();
         this.ClasesEstudiante = new ArrayList<>();
+        this.ResultadosEstudiante = new ArrayList<>();
     }
-
+    
     public Estudiante() {}
     
     //  Getters
     public String getFormInscripcion() {return FormInscripcion;}
     public List<Evaluacion> getEvaluacionesEstudiante() {return EvaluacionesEstudiante;}
     public List<Respuesta> getRespuestasEstudiante() {return RespuestasEstudiante;}
-    public List<Estudio> getEstudiosCursadosEstudiante() {return EstudiosCursadosEstudiante;}    
+    public List<Estudio> getEstudiosCursadosEstudiante() {return EstudiosCursadosEstudiante;}
     public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
     public List<Curso> getCursosEstudiante() {return CursosEstudiante;}
     public List<Clase> getClasesEstudiante() {return ClasesEstudiante;}
-    
+    public List<Resultado> getResultadosEstudiante() {return ResultadosEstudiante;}
     
     //  Setters
     public void setFormInscripcion(String FormInscripcion) {this.FormInscripcion = FormInscripcion;}
@@ -83,12 +86,13 @@ public class Estudiante extends Usuario {
     public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     public void setCursosEstudiante(List<Curso> CursosEstudiante) {this.CursosEstudiante = CursosEstudiante;}
     public void setClasesEstudiante(List<Clase> ClasesEstudiante) {this.ClasesEstudiante = ClasesEstudiante;}
+    public void setResultadosEstudiante(List<Resultado> ResultadosEstudiante) {this.ResultadosEstudiante = ResultadosEstudiante;}
     
     //  Respuestas
-    public void addRespuestaEvaluacion(Respuesta RespuestaEvaluacion){this.RespuestasEstudiante.add(RespuestaEvaluacion);}    
+    public void addRespuestaEvaluacion(Respuesta RespuestaEvaluacion){this.RespuestasEstudiante.add(RespuestaEvaluacion);}
     public void removeRespuestaEvaluacion(Respuesta RespuestaEvaluacion){this.RespuestasEstudiante.remove(RespuestaEvaluacion);}
     //  Estudios Cursados
-    public void addEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.add(EstudioCursado);}    
+    public void addEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.add(EstudioCursado);}
     public void removeEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.remove(EstudioCursado);}
     //  Evaluacion Estudiante
     public void addEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){this.EvaluacionesEstudiante.add(EvaluacionEstudiante);}
@@ -102,7 +106,7 @@ public class Estudiante extends Usuario {
         }
     }
     public void removeCursoEstudiante(Curso CursoEstudiante){this.CursosEstudiante.remove(CursoEstudiante);}
-
+    
     //  Clases
     public void addClaseEstudiante(Clase ClaseEstudiante){
         this.ClasesEstudiante.add(ClaseEstudiante);
@@ -110,4 +114,13 @@ public class Estudiante extends Usuario {
             ClaseEstudiante.getEstudiantesClase().add(this);
         }
     }
+    
+    //  Resultados
+    public void addResultadoEstudiante(Resultado ResultadoEstudiante){
+        this.ResultadosEstudiante.add(ResultadoEstudiante);
+        if (!ResultadoEstudiante.getEstudianteResultado().equals(this)) {
+            ResultadoEstudiante.setEstudianteResultado(this);
+        }
+    }
+    
 }
