@@ -3,11 +3,9 @@ package Usuario;
 import Administrador.Administrador;
 import Administrativo.Administrativo;
 import Docente.Docente;
-import Enumerados.EstadoCivil.EstadoCivil;
-import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
+import Utilidades.Seguridad;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -18,7 +16,9 @@ import javax.faces.bean.ManagedBean;
 public class ControladorUsuario {
     
     @EJB
-            ManejadorUsuario mUsr;
+    private ManejadorUsuario mUsr;
+    @EJB
+    private Seguridad cSeg;
         
     /**
      * Modifica los datos de un Usuario en la base de datos.
@@ -55,11 +55,12 @@ public class ControladorUsuario {
      * @return Devuelve null si no existe.
      */
     public Usuario ValidarUsuario(int Cedula, String Password, String Rol){
-        List<Usuario> Usuarios = mUsr.BuscarUsuarioLogin(Cedula, Password);
+        List<Usuario> Usuarios = mUsr.BuscarUsuarioPorCedula(Cedula);
         if (!Usuarios.isEmpty()) {
             for (int i = 0; i < Usuarios.size(); i++) {
-                if (EsRol(Usuarios.get(i), Rol)) {
-                    return Usuarios.get(i);
+                Usuario user = Usuarios.get(i);
+                if (EsRol(user, Rol) && cSeg.getPasswordSeguro(Password, user.getSaltPasswordUsuario()).equals(user.getPasswordUsuario())) {
+                    return user;
                 }
             }
         }
@@ -72,11 +73,14 @@ public class ControladorUsuario {
      * @return Devuelve al menos un rol si el usuario existe.
      */
     public List<String> ValidarUsuario(int Cedula, String Password){
-        List<Usuario> Usuarios = mUsr.BuscarUsuarioLogin(Cedula, Password);
+        List<Usuario> Usuarios = mUsr.BuscarUsuarioPorCedula(Cedula);
         List<String> Roles = new ArrayList<>();
         if (!Usuarios.isEmpty()) {
             for (int i = 0; i < Usuarios.size(); i++) {
-                Roles.add(getRol(Usuarios.get(i)));
+                Usuario user = Usuarios.get(i);
+                if (cSeg.getPasswordSeguro(Password, user.getSaltPasswordUsuario()).equals(user.getPasswordUsuario())) {
+                    Roles.add(getRol(Usuarios.get(i)));
+                }                
             }
         }
         return Roles;
@@ -171,7 +175,7 @@ public class ControladorUsuario {
     
     /**
      * Quita todos los usuarios de cedula CI de la lista de usuarios
-     * @param cedula
+     * @param CI
      * @param usuarios
      */
     public void removeUsrByCI(int CI, List<Usuario> usuarios){

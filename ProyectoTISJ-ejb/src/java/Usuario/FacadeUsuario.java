@@ -12,6 +12,7 @@ import Estudiante.ControladorEstudiante;
 import Estudiante.EnumSexo;
 import Estudiante.Estudiante;
 import Estudiante.estudios.ControladorEstudio;
+import Utilidades.Seguridad;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class FacadeUsuario implements Serializable {
     @EJB
     private ControladorEstudiante cEst;
     @EJB
-    private ControladorEstudio cEstudio;
+    private Seguridad cSeguridad;
     
     public FacadeUsuario() {}
     
@@ -95,21 +96,22 @@ public class FacadeUsuario implements Serializable {
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, Rol)== -1) {
+            String[] pass = cSeguridad.getPasswordSeguro(PasswordUsuario);            
             switch(Rol){
                 case "Administrador":
-                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario,
+                    Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, pass[1], pass[0], ImagenUsuario,
                             CedulaUsuario, CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
                             EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
                     
                 case "Administrativo":
-                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                    Usr = cAdministrativo.CrearAdministrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, pass[1], pass[0], ImagenUsuario, CedulaUsuario,
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                             FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
                     
                 case "Docente":
-                    Usr = cDoc.CrearDocente(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                    Usr = cDoc.CrearDocente(NombreUsuario, ApellidoUsuario, CorreoUsuario, pass[1], pass[0], ImagenUsuario, CedulaUsuario,
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
                             EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
                     break;
@@ -202,7 +204,8 @@ public class FacadeUsuario implements Serializable {
         Usuario Usr = null;
         if (ExisteUsuario(CedulaUsuario, "Estudiante")== -1) {
             if(!FormInscripcion.isEmpty()) {
-                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario,
+                String[] pass = cSeguridad.getPasswordSeguro(PasswordUsuario);
+                Usr = cEst.CrearEstudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, pass[1], pass[0], ImagenUsuario, CedulaUsuario,
                         CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
                         FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);
             }

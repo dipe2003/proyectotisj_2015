@@ -21,6 +21,7 @@ public class ControladorEstudiante {
      * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
+     * @param SaltPassword
      * @param ImagenUsuario
      * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
      * @param CredencialCivicaUsuario
@@ -33,13 +34,14 @@ public class ControladorEstudiante {
      * @param FechaNacimientoUsuario
      * @param LugarNacimientoUsuario
      * @param SexoUsuario
+     * @param GeneracionAnioEstudiante
      * @return null si no se creo el estudiante
      */
-    public Estudiante CrearEstudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
+    public Estudiante CrearEstudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword,
             String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
             String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
             String LugarNacimientoUsuario, EnumSexo SexoUsuario, int GeneracionAnioEstudiante) {
-        Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+        Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario, 
                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
                 FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);        
         if (mEst.CrearEstudiante(est)!=-1) {

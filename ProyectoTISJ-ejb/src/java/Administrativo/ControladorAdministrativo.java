@@ -21,22 +21,7 @@ public class ControladorAdministrativo {
      * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
-     * @param ImagenUsuario
-     * @param CedulaUsuario
-     * @param CredencialCivicaUsuario
-     * @param DomicilioUsuario
-     * @param DepartamentoUsuario
-     * @param LocalidadUsuario
-     * @param TelefonoUsuario
-     * @param CelularUsuario
-     * @return Devuelve un Administrativo si fue creado, de lo contrario devuelve null.
-     */
-    /**
-     * Crea un Administrativo y lo persiste.
-     * @param NombreUsuario
-     * @param ApellidoUsuario
-     * @param CorreoUsuario
-     * @param PasswordUsuario
+     * @param SaltPassword
      * @param ImagenUsuario
      * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
      * @param CredencialCivicaUsuario
@@ -51,10 +36,10 @@ public class ControladorAdministrativo {
      * @param SexoUsuario
      * @return Devuelve un Administrativo si fue creado, de lo contrario devuelve null.
      */
-    public Administrativo CrearAdministrativo(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario, 
+    public Administrativo CrearAdministrativo(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword, String ImagenUsuario, 
             int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, 
             String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, EnumSexo SexoUsuario){
-        Administrativo admin = new Administrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+        Administrativo admin = new Administrativo(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario, 
                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
                 FechaNacimientoUsuario, LugarNacimientoUsuario, 
             SexoUsuario);

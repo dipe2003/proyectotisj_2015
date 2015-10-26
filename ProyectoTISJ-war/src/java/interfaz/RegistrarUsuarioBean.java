@@ -21,7 +21,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -182,6 +181,7 @@ public class RegistrarUsuarioBean implements Serializable{
             if (this.PartImagenFormInscripcion == null) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono formulario de inscripcion.");
                 context.addMessage("frmIngresoDatos:inputFormIngreso", fm);
+                FacesContext.getCurrentInstance().responseComplete();
             }
         }
     }
@@ -195,13 +195,14 @@ public class RegistrarUsuarioBean implements Serializable{
         if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
+            FacesContext.getCurrentInstance().responseComplete();
         }else{
             if(registrarUsuario()!=-1) {
                 url= "../Usuario/ListarUsuarios.xhtml?rol=" + URLEncoder.encode(Rol, "UTF-8");
             }
         }
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(false);
         FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        FacesContext.getCurrentInstance().responseComplete();
     }
     
     /**
