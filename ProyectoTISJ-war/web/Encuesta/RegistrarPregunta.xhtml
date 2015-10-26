@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="../Views/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="page_content">
+        <div class="cabecera" >
+            <div class="titulo" >
+                Registro de nueva Asignatura
+            </div>
+        </div>
+        <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+            <div id="contenedor">
+                <div class="menuOpcion">
+                    
+                    <div class="nombreDocente">Pregunta</div>
+                        
+                    <div class="inputContainer">
+                        <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
+                        <h:selectOneMenu id="tipoEvaluacion" style="margin-top: 3px" class="Texto" value="#{tipoPregunta}">
+                            <f:selectItem itemValue="Curso" itemLabel="Curso" />
+                            <f:selectItem itemValue="Curso" itemLabel="Docente" />
+                        </h:selectOneMenu>	  
+                    </div>
+                        
+                    <div class="inputContainer">
+                        <img class="imagenMenuOpcion" src="../Resources/Images/creditos.png"/>
+                        <h:inputText id="inputCredito" value="#{contenidoPregunta}" required="true" class="Texto" p:placeholder="Ingrese Pregunta"/>                                 
+                    </div>
+                        
+                </div> 
+            </div>
+            <div class="menuOpcion">
+                <h:commandButton class="boton siguiente" value="Registrar" action="#{registrarEncuesta.registrarPregunta(tipoPregunta, contenidoPregunta)}"/>
+                <h:commandButton class="boton" value="Reset" type="reset"/> 
+            </div>    
+        </h:form>
+    </ui:define>
+</ui:composition>
