@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class RegistrarEvaluacion implements Serializable{
     
     @EJB
@@ -95,9 +95,14 @@ public class RegistrarEvaluacion implements Serializable{
     public void nuevaEvaluacion(String tipoEvaluacion){
         int IdEva = fEva.RegistrarEvaluacion(idCurso, FechaEvaluacion, tipoEvaluacion);
         if (IdEva != -1) {
-            /*  Usar IdEva anterior para registrar los resultados
-            fRes.RegistrarResultadoEvaluacion(IdEva, IdEstudiante, intResultado)
-            */
+            for (Usuario item: Alumnos) {
+                if (Asistencia.get(item.getIdUsuario())){
+                    
+                    String result = String.valueOf(Resultado.get(item.getIdUsuario()));
+                    int resultado = Integer.valueOf(result);
+                    fRes.RegistrarResultadoEvaluacion(IdEva, item.getIdUsuario(), resultado);
+                }
+            }
         }
         
     }
