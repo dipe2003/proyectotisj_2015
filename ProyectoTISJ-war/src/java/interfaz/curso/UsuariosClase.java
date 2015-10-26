@@ -115,7 +115,7 @@ public class UsuariosClase implements Serializable{
             }
         }
         FacesContext context = FacesContext.getCurrentInstance();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarCursos.xhtml");        
+        FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);        
     }
     
     

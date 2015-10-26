@@ -25,14 +25,12 @@
                 <div class="menuOpcion SinEstilo">   
                     <div class="menuOpcion Mitad" >
                         <div class="nombreDocente">Cuenta</div>
-                        <h:panelGroup id="pInputCedula">
                         <div class="inputContainer">
                             <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                            <h:inputText id="inputCedula" value="#{registrarUsuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula">
-                                <f:ajax render="pInputCedula" event="change" execute="pInputCedula" listener="#{registrarUsuarioBean.comprobarCedula(registrarUsuarioBean.cedulaUsuario)}" />
+                            <h:inputText id="inputCedula" value="#{var}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula">
+                                <f:ajax render="msjCedula" event="valueChange" listener="#{registrarUsuarioBean.comprobarCedula(var)}" />
                             </h:inputText>
-                        </div><h:message class="error" for="inputCedula"/>
-                        </h:panelGroup>
+                        </div><h:message id="msjCedula" class="error" for="inputCedula"/>
                         <div class="inputContainer">
                             <img class="imagenMenuOpcion" src="../Resources/Images/nombre.png"/>
                             <h:inputText id="inputNombre" value="#{registrarUsuarioBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar nombre." class="Texto" p:placeholder="Nombre"/>             
@@ -48,8 +46,11 @@
                     </div>
                     <div class="menuOpcion Mitad" style="float: right" >
                         <div class="nombreDocente">Imagen</div>
-                        <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
-                        <div class="botonImagen"><h:inputFile  value="#{registrarUsuarioBean.partImagenPerfil}" class="boton subirImagen perfil" p:accept="image/*"/></div>
+                        <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
+                        <div class="botonImagen"><h:inputFile  value="#{registrarUsuarioBean.partImagenPerfil}" class="boton subirImagen perfil" p:accept="image/*">
+                                <f:ajax event="change" listener="#{registrarUsuarioBean.setPartImagenPerfil(registrarUsuarioBean.partImagenPerfil)}"/>
+                            </h:inputFile>
+                        </div>
                     </div>
                 </div>
                 <div class="menuOpcion" >
@@ -101,8 +102,8 @@
                     </div><h:message class="error" for="inputEstadoCivil"/>
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
-                        <h:inputText id="inputFechaNacimiento" value="#{registrarUsuarioBean.strFechaNacimiento}" required="true" requiredMessage="Debes ingresar una fecha de nacimiento." class="Texto" p:placeholder="Fecha de Nacimiento (dd/mm/aaaa)"/>              
-                    </div><h:message class="error" for="inputFechaNacimiento"/>
+                        <h:inputText id="inputFechaNacimiento" value="#{registrarUsuarioBean.strFechaNacimiento}" class="Texto" styleClass="datepicker" required="true" requiredMessage="Debes ingresar una fecha de nacimiento." p:placeholder="Fecha de Nacimiento"/>              
+                    </div><h:message class="error" for="inputFechaNacimiento"/>                    
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/LugarNacimiento.png"/>
                         <h:inputText id="inputLugarNacimiento" value="#{registrarUsuarioBean.lugarNacimientoUsuario}" required="true" requiredMessage="Debes ingresar un lugar de nacimiento." class="Texto" p:placeholder="Lugar de Nacimiento"/>             
@@ -127,7 +128,7 @@
                         </div>
                         <div class="menuOpcion Mitad" style="float: right" >
                             <div class="nombreDocente">Formulario de Inscripcion</div>
-                            <img src="./RegistrarUsuario_files/imagen.png" width="100" height="100" style="margin-top: 50px;" id="formulario"/>                           
+                            <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="formulario"/>                           
                             <div class="botonImagen">
                                 <h:inputFile id="inputFormIngreso" class="boton subirImagen formulario" value="#{registrarUsuarioBean.partImagenFormInscripcion}" p:accept="image/*">
                                     <f:ajax event="change" listener="#{registrarUsuarioBean.setPartImagenFormInscripcion(registrarUsuarioBean.partImagenFormInscripcion)}"/>

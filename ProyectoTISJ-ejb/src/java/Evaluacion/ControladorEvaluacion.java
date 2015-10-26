@@ -2,6 +2,9 @@
 package Evaluacion;
 
 import Curso.Curso;
+import Examen.Examen;
+import Laboratorio.Laboratorio;
+import Parcial.Parcial;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -12,21 +15,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class ControladorEvaluacion {
     @EJB
-    ManejadorEvaluacion mEva;
-    
-    /**
-     * Crea un Evaluacion y lo persiste.
-     * @param FechaEvaluacion  
-     * @param CursoEvaluacion
-     * @return Devuelve una Evaluacion si fue creada, de lo contrario devuelve null.
-     */
-    public Evaluacion CrearEvaluacion(Date FechaEvaluacion, Curso CursoEvaluacion){
-        Evaluacion asig = new Evaluacion(FechaEvaluacion, CursoEvaluacion);
-        if (mEva.CrearEvaluacion(asig)!=-1) {
-            return asig;
-        }
-        return null;
-    }
+    ManejadorEvaluacion mEva;  
     
     /**
      * Modifica los datos de un Evaluacion en la base de datos.
@@ -59,7 +48,7 @@ public class ControladorEvaluacion {
      * Devuelve una lista de Evaluacions desde la base de datos.
      * @return 
      */
-    public List<Evaluacion> ListarEvaluacions(){
+    public List<Evaluacion> ListarEvaluaciones(){
         return mEva.ListarEvaluaciones();
     }
 }

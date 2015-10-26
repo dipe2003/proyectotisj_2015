@@ -7,7 +7,6 @@ import Curso.Clase.FacadeClase;
 import Curso.Curso;
 import Curso.FacadeCurso;
 import Estudiante.FacadeEstudiante;
-import Usuario.Usuario;
 import interfaz.Login;
 import java.io.Serializable;
 import java.util.ArrayList;
