@@ -10,6 +10,7 @@ import Usuario.FacadeUsuario;
 import Utilidades.Cedula;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -76,8 +78,6 @@ public class RegistrarUsuarioBean implements Serializable{
     
     @EJB
     private FacadeEnumerados fEnum;
-    
-    private FacesContext context;
     
     //  Getters
     public String getNombreUsuario() {return NombreUsuario;}
@@ -161,16 +161,16 @@ public class RegistrarUsuarioBean implements Serializable{
      * @param Cedula
      */
     public void comprobarCedula(String Cedula){
-        FacesContext context = FacesContext.getCurrentInstance();
         if (!verifCedula.EsCedulaValida(Cedula)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
-            context.addMessage("frmIngresoDatos:inputCedula", fm);
+           FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
         }else{
             if (fUsr.ExisteUsuario(Cedula)) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
-                context.addMessage("frmIngresoDatos:inputCedula", fm);
+                FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
             }
         }
+        this.CedulaUsuario = Cedula;
     }
     
     /**
@@ -194,12 +194,14 @@ public class RegistrarUsuarioBean implements Serializable{
         String url = "";
         if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
-            this.context.addMessage("frmIngresoDatos:inputCedula", fm);
+            FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
         }else{
             if(registrarUsuario()!=-1) {
-                this.context.getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml");
+                url= "../Usuario/ListarUsuarios.xhtml?rol=" + URLEncoder.encode(Rol, "UTF-8");
             }
-        }               
+        }
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(false);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
     }
     
     /**
@@ -290,7 +292,7 @@ public class RegistrarUsuarioBean implements Serializable{
      */
     @PostConstruct
     public void init(){
-        context = FacesContext.getCurrentInstance();
+        FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Rol = request.getParameter("rol");
         

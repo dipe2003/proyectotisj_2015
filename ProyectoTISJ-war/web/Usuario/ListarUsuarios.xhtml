@@ -5,7 +5,6 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
-        
         <div class="cabecera" >
             <div class="titulo" >
                 <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Administrador'}">
@@ -114,7 +113,7 @@
                             <div class="negrita">Celular: </div> #{usuario.celularUsuario} <br/>
                             <div class="negrita">Fecha de Nacimiento: </div> #{usuario.fechaNacimientoUsuario} <br/>
                             <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
-                            <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario} <br/>
+                            <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario.estadoCivil} <br/>
                             <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
                             <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
                                 <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>

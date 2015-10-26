@@ -12,6 +12,7 @@ changeYear: true,
 buttonImageOnly: true
 });
     $.datepicker.regional['es'] = {
+        yearRange: 'c-100:c+100',
         closeText: 'Cerrar',
         prevText: '<Ant',
         nextText: 'Sig>',

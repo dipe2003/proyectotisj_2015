@@ -19,41 +19,7 @@ public class ControladorUsuario {
     
     @EJB
             ManejadorUsuario mUsr;
-    
-    /**
-     * Crea un Usuario y lo persiste.
-     * @param NombreUsuario
-     * @param ApellidoUsuario
-     * @param CorreoUsuario
-     * @param PasswordUsuario
-     * @param ImagenUsuario
-     * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
-     * @param CredencialCivicaUsuario
-     * @param DomicilioUsuario
-     * @param DepartamentoUsuario
-     * @param LocalidadUsuario
-     * @param TelefonoUsuario
-     * @param CelularUsuario
-     * @param EstadoCivilUsuario
-     * @param FechaNacimientoUsuario
-     * @param LugarNacimientoUsuario
-     * @param SexoUsuario
-     * @return Devuelve un Usuario si fue creado, de lo contrario devuelve null.
-     */
-    public Usuario CrearUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario,
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario,
-            String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario,
-            EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario,
-            EnumSexo SexoUsuario){
-        Usuario usr = new Usuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario,ImagenUsuario, CedulaUsuario,
-                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
-                EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario);
-        if (mUsr.CrearUsuario(usr)!=-1){
-            return usr;
-        }
-        return null;
-    }
-    
+        
     /**
      * Modifica los datos de un Usuario en la base de datos.
      * @param usuario

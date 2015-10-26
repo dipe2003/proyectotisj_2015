@@ -1,12 +1,14 @@
 
 package interfaz.curso;
 
-import Asignatura.FacadeAsignatura;
+import Evaluacion.FacadeEvaluacion;
+import Evaluacion.Resultado.FacadeResultado;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
-import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +26,10 @@ public class RegistrarEvaluacion implements Serializable{
     
     @EJB
     private FacadeUsuario fUsr;
+    @EJB
+    private FacadeEvaluacion fEva;
+    @EJB
+    private FacadeResultado fRes;
     
     private int idCurso;
     
@@ -57,9 +63,13 @@ public class RegistrarEvaluacion implements Serializable{
     //  Setters
     public void setFechaEvaluacion(Date FechaClase) {this.FechaEvaluacion = FechaClase;}
     public void setStrFechaEvaluacion(String strFechaClase) {
-        Date fecha = new Date(strFechaClase);
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            cal.setTime(sdf.parse(strFechaClase));
+        }catch(ParseException ex){}
         this.strFechaEvaluacion = strFechaClase;
-        this.FechaEvaluacion = fecha;
+        this.FechaEvaluacion = cal.getTime();
     }
     public void setResultado(Map<Integer, Integer> Resultado) {this.Resultado = Resultado;}
     public void setAlumnos(List<Usuario> Alumnos) {this.Alumnos = Alumnos;}
@@ -83,7 +93,15 @@ public class RegistrarEvaluacion implements Serializable{
     }
     
     public void nuevaEvaluacion(String tipoEvaluacion){
-        //fEvaluacion.registrarEvaluacion(idCurso, FechaEvaluacion, tipoEvaluacion); //para hacer
+        int IdEva = fEva.RegistrarEvaluacion(idCurso, FechaEvaluacion, tipoEvaluacion);
+        if (IdEva != -1) {
+            /*  Usar IdEva anterior para registrar los resultados
+            fRes.RegistrarResultadoEvaluacion(IdEva, IdEstudiante, intResultado)
+            */
+        }
+        
     }
+    
+    
 }
 
