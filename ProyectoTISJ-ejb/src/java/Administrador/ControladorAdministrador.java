@@ -21,6 +21,7 @@ public class ControladorAdministrador {
      * @param ApellidoUsuario
      * @param CorreoUsuario
      * @param PasswordUsuario
+     * @param SaltPassword
      * @param ImagenUsuario
      * @param CedulaUsuario del tipo 12345672 (sin puntos ni guiones)
      * @param CredencialCivicaUsuario
@@ -35,11 +36,11 @@ public class ControladorAdministrador {
      * @param SexoUsuario
      * @return Devulve un Admininstrador si fue creado, de lo contrario devuelve null.
      */
-    public Administrador CrearAdministrador(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario, 
+    public Administrador CrearAdministrador(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword, String ImagenUsuario, 
             int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, 
             String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
             EnumSexo SexoUsuario){
-        Administrador admin = new Administrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ImagenUsuario, CedulaUsuario, 
+        Administrador admin = new Administrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario, 
                 CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
                 EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario,SexoUsuario);
         if (mAdmin.CrearAdministrador(admin)!=-1) {

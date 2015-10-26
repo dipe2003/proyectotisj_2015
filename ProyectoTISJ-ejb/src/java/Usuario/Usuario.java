@@ -23,6 +23,7 @@ abstract public class Usuario implements Serializable{
     private String ApellidoUsuario;
     private String CorreoUsuario;
     private String PasswordUsuario;
+    private String SaltPasswordUsuario;
     private String ImagenUsuario;
     private int CedulaUsuario;
     private String CredencialCivicaUsuario;
@@ -41,7 +42,7 @@ abstract public class Usuario implements Serializable{
     
     //  Constructores
     public Usuario() { }
-    public Usuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, 
+    public Usuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword,
             String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, 
             String DepartamentoUsuario, String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, 
             EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
@@ -50,6 +51,7 @@ abstract public class Usuario implements Serializable{
         this.ApellidoUsuario = ApellidoUsuario;
         this.CorreoUsuario = CorreoUsuario;
         this.PasswordUsuario = PasswordUsuario;
+        this.SaltPasswordUsuario = SaltPassword;
         this.ImagenUsuario = ImagenUsuario;
         this.CedulaUsuario = CedulaUsuario;
         this.CredencialCivicaUsuario = CredencialCivicaUsuario;
@@ -82,6 +84,8 @@ abstract public class Usuario implements Serializable{
     public Date getFechaNacimientoUsuario() {return FechaNacimientoUsuario;}
     public EnumSexo getSexoUsuario() {return SexoUsuario;}
     public String getLugarNacimientoUsuario() {return LugarNacimientoUsuario;}
+    public String getSaltPasswordUsuario() {return SaltPasswordUsuario;}
+    public String getImagenUsuario() {return ImagenUsuario;}
     
     //  Setters
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
@@ -101,6 +105,8 @@ abstract public class Usuario implements Serializable{
     public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
     public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
     public void setSexoUsuario(EnumSexo SexoUsuario) {this.SexoUsuario = SexoUsuario;}
+    public void setSaltPasswordUsuario(String SaltPasswordUsuario) {this.SaltPasswordUsuario = SaltPasswordUsuario;}
+    public void setImagenUsuario(String ImagenUsuario) {this.ImagenUsuario = ImagenUsuario;}
         
     /**
      * Compara si el password coincide con el de usuario.

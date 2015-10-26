@@ -27,8 +27,8 @@
                         <div class="nombreDocente">Cuenta</div>
                         <div class="inputContainer">
                             <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
-                            <h:inputText id="inputCedula" value="#{var}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula">
-                                <f:ajax render="msjCedula" event="valueChange" listener="#{registrarUsuarioBean.comprobarCedula(var)}" />
+                            <h:inputText id="inputCedula" value="#{registrarUsuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula">
+                                <f:ajax listener="#{registrarUsuarioBean.comprobarCedula(registrarUsuarioBean.cedulaUsuario)}"  render="msjCedula"/>
                             </h:inputText>
                         </div><h:message id="msjCedula" class="error" for="inputCedula"/>
                         <div class="inputContainer">

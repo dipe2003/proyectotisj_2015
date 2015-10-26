@@ -25,7 +25,7 @@ abstract public class Evaluacion implements Serializable{
     private Date FechaEvaluacion;
     @ManyToOne
     private Curso CursoEvaluacion;
-    @OneToMany(mappedBy = "ResultadoEvaluacion")
+    @OneToMany(mappedBy = "EvaluacionResultado")
     private List<Resultado> ResultadosEvaluacion;
     
     //  Constructores
