@@ -1,8 +1,8 @@
 
 package Asignatura;
 
-import Curso.ControladorCurso;
-import Curso.Curso;
+import Asignatura.Curso.ControladorCurso;
+import Asignatura.Curso.Curso;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@
 package Usuario;
 
 import Enumerados.EstadoCivil.EstadoCivil;
-import Estudiante.EnumSexo;
+import Usuario.Estudiante.EnumSexo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;

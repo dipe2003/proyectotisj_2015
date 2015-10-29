@@ -1,7 +1,7 @@
 
 package interfaz.Encuesta;
 
-import Pregunta.Pregunta;
+import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
