@@ -17,7 +17,6 @@
                 </div>
             </h:panelGroup>
             <c:forEach var="curso" items="#{listarCursosBean.cursos}">
-                <a href="ListarClases.xhtml?opt=#{curso.id}" >
                 <div class="ListItemContainer" >
                     <div class="item">
                         #{curso.anioCurso}
@@ -34,19 +33,22 @@
                         </div>
                     </h:panelGroup>
                     
+                    <a href="ListarClases.xhtml?opt=#{curso.id}" class="SubmenuLink">
+                        <div title="Listar Clases" class="optionItem" style="background-image: url(../Resources/Images/listaClases.png)"></div>
+                    </a>
+                    
                     <a href="Clase.xhtml?rol=Estudiante&amp;idCurso=#{curso.id}" class="SubmenuLink">
-                    <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
+                        <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
                     </a>
                     
                     <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=addestcurso&amp;idopt=#{curso.id}" class="SubmenuLink">
-                    <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
+                        <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
                     </a>
                     
                     <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.id}" class="SubmenuLink">
-                    <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+                        <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
                     </a>
                 </div>
-                </a>
             </c:forEach>
         </div>
     </ui:define>
