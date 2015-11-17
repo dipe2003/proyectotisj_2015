@@ -3,8 +3,8 @@ package interfaz;
 
 import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
-import Curso.FacadeCurso;
-import Estudiante.FacadeEstudiante;
+import Asignatura.Curso.FacadeCurso;
+import Usuario.Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;

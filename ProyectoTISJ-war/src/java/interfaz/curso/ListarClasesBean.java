@@ -2,11 +2,11 @@
 package interfaz.curso;
 
 
-import Curso.Clase.Clase;
-import Curso.Clase.FacadeClase;
-import Curso.Curso;
-import Curso.FacadeCurso;
-import Estudiante.FacadeEstudiante;
+import Asignatura.Curso.Clase.Clase;
+import Asignatura.Curso.Clase.FacadeClase;
+import Asignatura.Curso.Curso;
+import Asignatura.Curso.FacadeCurso;
+import Usuario.Estudiante.FacadeEstudiante;
 import interfaz.Login;
 import java.io.Serializable;
 import java.util.ArrayList;

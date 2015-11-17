@@ -1,13 +1,9 @@
 
 package interfaz.curso;
 
-import interfaz.*;
-import Asignatura.Asignatura;
-import Asignatura.FacadeAsignatura;
-import Curso.Clase.FacadeClase;
-import Curso.FacadeCurso;
-import Estudiante.Estudiante;
-import Estudiante.FacadeEstudiante;
+import Asignatura.Curso.Clase.FacadeClase;
+import Asignatura.Curso.FacadeCurso;
+import Usuario.Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;
@@ -22,13 +18,17 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 @Named
 @ViewScoped
+@ManagedBean
 public class UsuariosClase implements Serializable{
     
     private int idCurso;
@@ -82,7 +82,7 @@ public class UsuariosClase implements Serializable{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try{
             cal.setTime(sdf.parse(strFechaClase));
-        }catch(ParseException ex){}        
+        }catch(ParseException ex){}
         this.strFechaClase = strFechaClase;
         this.FechaClase = cal.getTime();
     }
@@ -107,15 +107,15 @@ public class UsuariosClase implements Serializable{
     }
     
     public void registrarClase() throws IOException{
-        List<Usuario> CheckedUsers = this.getCheckedUsers();
-        int idClase = fClase.RegistarClase(FechaClase, TemaClase, idCurso );
-        if (idClase!=-1) {
-            for (int i = 0; i < CheckedUsers.size(); i++) {
-                fClase.RegistrarAsistenciaEstudiante(((Estudiante)CheckedUsers.get(i)).getIdUsuario(), idClase);
+            List<Usuario> CheckedUsers = this.getCheckedUsers();
+            int idClase = fClase.RegistarClase(FechaClase, TemaClase, idCurso );
+            if (idClase!=-1) {
+                for (int i = 0; i < CheckedUsers.size(); i++) {
+                    fClase.RegistrarAsistenciaEstudiante(((Estudiante)CheckedUsers.get(i)).getIdUsuario(), idClase);
+                }
             }
-        }
-        FacesContext context = FacesContext.getCurrentInstance();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);        
+            FacesContext context = FacesContext.getCurrentInstance();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);
     }
     
     
@@ -135,5 +135,16 @@ public class UsuariosClase implements Serializable{
             if (Usr.getIdUsuario()==id) return Usr;
         }
         return null;
+    }
+    
+    public void comprobarFecha(AjaxBehaviorEvent event){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            Date fecha = sdf.parse(this.strFechaClase);
+            if (fClase.ExisteFechaClase(idCurso,fecha)) {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Ya existe clase en esta fecha");
+                FacesContext.getCurrentInstance().addMessage("frmIngresoDatosClase:msjFechaClase", fm);
+            }
+        }catch(ParseException ex){}
     }
 }

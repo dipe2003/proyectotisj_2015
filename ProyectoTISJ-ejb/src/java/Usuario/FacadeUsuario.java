@@ -1,17 +1,17 @@
 
 package Usuario;
 
-import Administrador.Administrador;
-import Administrador.ControladorAdministrador;
-import Administrativo.Administrativo;
-import Administrativo.ControladorAdministrativo;
-import Docente.ControladorDocente;
-import Docente.Docente;
+import Usuario.Administrador.Administrador;
+import Usuario.Administrador.ControladorAdministrador;
+import Usuario.Administrativo.Administrativo;
+import Usuario.Administrativo.ControladorAdministrativo;
+import Usuario.Docente.ControladorDocente;
+import Usuario.Docente.Docente;
 import Enumerados.EstadoCivil.EstadoCivil;
-import Estudiante.ControladorEstudiante;
-import Estudiante.EnumSexo;
-import Estudiante.Estudiante;
-import Estudiante.estudios.ControladorEstudio;
+import Usuario.Estudiante.ControladorEstudiante;
+import Usuario.Estudiante.EnumSexo;
+import Usuario.Estudiante.Estudiante;
+import Usuario.Estudiante.Estudios.ControladorEstudio;
 import Utilidades.Seguridad;
 import java.io.Serializable;
 import java.util.ArrayList;

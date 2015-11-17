@@ -2,8 +2,8 @@
 package interfaz.curso;
 
 import Asignatura.FacadeAsignatura;
-import Curso.FacadeCurso;
-import Docente.FacadeDocente;
+import Asignatura.Curso.FacadeCurso;
+import Usuario.Docente.FacadeDocente;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;

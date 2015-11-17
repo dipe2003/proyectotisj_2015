@@ -1,7 +1,7 @@
 package interfaz;
 
 import Enumerados.FacadeEnumerados;
-import Estudiante.EnumSexo;
+import Usuario.Estudiante.EnumSexo;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.IOException;

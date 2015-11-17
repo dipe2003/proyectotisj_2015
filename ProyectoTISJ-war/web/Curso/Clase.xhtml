@@ -12,7 +12,7 @@
                     Clase de #{usuariosClase.nombreCurso} #{usuariosClase.anioCurso} - Clases dictadas: #{usuariosClase.clasesDictadas}
                 </div>
             </div>
-         <h:form>
+         <h:form id="frmIngresoDatosClase">
             <div id="contenedor">
                 <c:forEach var="usuario" items="#{usuariosClase.usuarios}">
                     <div class="ListItemContainer" >
@@ -34,12 +34,14 @@
                 <div class="menuOpcion" >
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/calendario.png"/>
-                        <h:inputText id="inputFecha" value="#{usuariosClase.strFechaClase}" required="true" styleClass="datepicker" p:placeholder="Fecha"/>         
-                    </div>
+                        <h:inputText id="inputFechaClase" value="#{usuariosClase.strFechaClase}" required="true" requiredMessage="Debes ingresar una fecha." class="datepicker Texto" p:placeholder="Fecha">
+                            <f:ajax listener="#{usuariosClase.comprobarFecha}" event="change" render="msjFechaClase"/>
+                        </h:inputText>
+                    </div><h:message class="error" for="inputFechaClase" id="msjFechaClase"/>
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
-                        <h:inputText id="inputTema" value="#{usuariosClase.temaClase}" required="true" class="Texto" p:placeholder="Tema"/>         
-                    </div>
+                        <h:inputText id="inputTema" value="#{usuariosClase.temaClase}" class="Texto" required="true" requiredMessage="Debes ingresar un tema." p:placeholder="Tema"/>         
+                    </div><h:message class="error" for="inputTema" id="msjTemaClase"/>
                 </div>
                 
                 <div class="menuOpcion" >

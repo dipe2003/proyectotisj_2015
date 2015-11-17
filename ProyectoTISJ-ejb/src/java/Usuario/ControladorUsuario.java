@@ -1,9 +1,9 @@
 package Usuario;
 
-import Administrador.Administrador;
-import Administrativo.Administrativo;
-import Docente.Docente;
-import Estudiante.Estudiante;
+import Usuario.Administrador.Administrador;
+import Usuario.Administrativo.Administrativo;
+import Usuario.Docente.Docente;
+import Usuario.Estudiante.Estudiante;
 import Utilidades.Seguridad;
 import java.util.ArrayList;
 import java.util.List;

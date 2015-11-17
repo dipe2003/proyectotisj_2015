@@ -1,8 +1,8 @@
 
 package interfaz.curso;
 
-import Evaluacion.FacadeEvaluacion;
-import Evaluacion.Resultado.FacadeResultado;
+import Asignatura.Curso.Evaluacion.FacadeEvaluacion;
+import Asignatura.Curso.Evaluacion.Resultado.FacadeResultado;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import java.io.Serializable;
