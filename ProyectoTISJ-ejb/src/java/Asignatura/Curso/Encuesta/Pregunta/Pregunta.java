@@ -1,7 +1,6 @@
 
 package Asignatura.Curso.Encuesta.Pregunta;
 
-import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -23,13 +19,6 @@ public class Pregunta implements Serializable{
     private String TextoPregunta;
     private EnumTipoPregunta TipoPregunta;
     
-    @ManyToMany
-    @JoinTable(
-            name="pregunta_encuesta",
-            joinColumns={@JoinColumn(name="pregunta_id", referencedColumnName="IdPregunta")},
-            inverseJoinColumns={@JoinColumn(name="encuesta_id", referencedColumnName="IdEncuesta")})
-    private List<Encuesta> EncuestasPregunta;
-    
     @OneToMany(mappedBy = "PreguntaRespuesta")
     private List<Respuesta> RespuestasPregunta;
     
@@ -38,7 +27,6 @@ public class Pregunta implements Serializable{
     public Pregunta(String TextoPregunta,  EnumTipoPregunta TipoPregunta) {
         this.TextoPregunta = TextoPregunta;
         this.TipoPregunta = TipoPregunta;
-        this.EncuestasPregunta = new ArrayList<>();
         this.RespuestasPregunta = new ArrayList<>();
     }
     
@@ -46,24 +34,13 @@ public class Pregunta implements Serializable{
     public int getIdPregunta() {return IdPregunta;}
     public String getTextoPregunta() {return TextoPregunta;}
     public EnumTipoPregunta getTipoPregunta() {return TipoPregunta;}
-    public List<Encuesta> getEncuestasPregunta() {return EncuestasPregunta;}
     public List<Respuesta> getRespuestasPregunta() {return RespuestasPregunta;}
     
     //  Setters
     public void setIdPregunta(int IdPregunta) {this.IdPregunta = IdPregunta;}
     public void setTextoPregunta(String TextoPregunta) {this.TextoPregunta = TextoPregunta;}
     public void setTipoPregunta(EnumTipoPregunta TipoPregunta) {this.TipoPregunta = TipoPregunta;}
-    public void setEncuestasPregunta(List<Encuesta> EncuestasPregunta) {this.EncuestasPregunta = EncuestasPregunta;}
     public void setRespuestasPregunta(List<Respuesta> RespuestasPregunta) {this.RespuestasPregunta = RespuestasPregunta;}
-    
-    //   Encuestas
-    public void addEncuestaPregunta(Encuesta EncuestaPregunta){
-        this.EncuestasPregunta.add(EncuestaPregunta);
-        if (!EncuestaPregunta.getPreguntasEncuesta().contains(this)) {
-            EncuestaPregunta.getPreguntasEncuesta().add(this);
-        }
-    }
-    public void removeEncuestaPregunta(Encuesta EncuestaPregunta){this.EncuestasPregunta.remove(EncuestaPregunta);}
     
     //  Respuestas
     public void addRespuestaPregunta(Respuesta RespuestaPregunta){

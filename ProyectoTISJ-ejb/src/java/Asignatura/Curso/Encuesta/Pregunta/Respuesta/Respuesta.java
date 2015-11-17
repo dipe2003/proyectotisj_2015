@@ -1,5 +1,6 @@
 package Asignatura.Curso.Encuesta.Pregunta.Respuesta;
 
+import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -17,19 +18,24 @@ public class Respuesta implements Serializable {
     
     @ManyToOne
     private Pregunta PreguntaRespuesta;
+    
+    @ManyToOne
+    private Encuesta EncuestaRespuesta;
 
     //  Construtores
     public Respuesta() {}
-    public Respuesta(int IdRespuesta, int RespultadoRespuesta, Pregunta PreguntaRespuesta) {
-        this.IdRespuesta = IdRespuesta;
-        this.ResultadoRespuesta = RespultadoRespuesta;
+
+    public Respuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta, Encuesta EncuestaRespuesta) {
+        this.ResultadoRespuesta = ResultadoRespuesta;
         this.PreguntaRespuesta = PreguntaRespuesta;
-    }
+        this.EncuestaRespuesta = EncuestaRespuesta;
+    }    
 
     //  Getters
     public int getIdRespuesta() {return IdRespuesta;}
     public int getResultadoRespuesta() {return ResultadoRespuesta;}
     public Pregunta getPreguntaRespuesta() {return PreguntaRespuesta;}
+    public Encuesta getEncuestaRespuesta() {return EncuestaRespuesta;}
     
     //  Setters
     public void setIdRespuesta(int IdRespuesta) {this.IdRespuesta = IdRespuesta;}
@@ -40,4 +46,11 @@ public class Respuesta implements Serializable {
             PreguntaRespuesta.getRespuestasPregunta().add(this);
         }
     }
+    public void setEncuestaRespuesta(Encuesta EncuestaRespuesta) {
+        if(!EncuestaRespuesta.getRespuestasEncuesta().contains(this)){
+            EncuestaRespuesta.getRespuestasEncuesta().add(this);
+        }
+        this.EncuestaRespuesta = EncuestaRespuesta;
+    }
+    
 }

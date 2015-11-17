@@ -3,7 +3,7 @@ package Asignatura.Curso.Encuesta;
 
 import Asignatura.Curso.Curso;
 import Usuario.Estudiante.Estudiante;
-import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
+import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,11 +26,11 @@ public class Encuesta implements Serializable{
     @Temporal(TemporalType.DATE)
     private Date FechaEncuesta;
     
-    @OneToMany(mappedBy = "EncuestaCurso")
-    private List<Curso> CursosEncuesta;
+    @OneToOne(mappedBy = "EncuestaCurso")
+    private Curso CursoEncuesta;
     
-    @ManyToMany
-    private List<Pregunta> PreguntasEncuesta;
+    @OneToMany
+    private List<Respuesta> RespuestasEncuesta;
     
     @ManyToMany
     private List<Estudiante> EstudiantesEncuesta;
@@ -39,38 +40,36 @@ public class Encuesta implements Serializable{
     
     public Encuesta(Date FechaEncuesta) {
         this.FechaEncuesta = FechaEncuesta;
-        this.CursosEncuesta = new ArrayList<>();
-        this.PreguntasEncuesta = new ArrayList<>();
+        this.RespuestasEncuesta = new ArrayList<>();
         this.EstudiantesEncuesta = new ArrayList<>();
     }
     
     //  Getters
     public int getIdEncuesta() {return IdEncuesta;}
     public Date getFechaEncuesta() {return FechaEncuesta;}
-    public List<Curso> getCursosEncuesta() {return CursosEncuesta;}
-    public List<Pregunta> getPreguntasEncuesta() {return PreguntasEncuesta;}
+    public Curso getCursosEncuesta() {return CursoEncuesta;}
+    public List<Respuesta> getRespuestasEncuesta() {return RespuestasEncuesta;}
     public List<Estudiante> getEstudiantesEncuesta() {return EstudiantesEncuesta;}
     
     //  Setters
     public void setIdEncuesta(int IdEncuesta) {this.IdEncuesta = IdEncuesta;}
     public void setFechaEncuesta(Date FechaEncuesta) {this.FechaEncuesta = FechaEncuesta;}
-    public void setCursosEncuesta(List<Curso> CursoEncuesta) {this.CursosEncuesta = CursoEncuesta;}
-    public void setPreguntasEncuesta(List<Pregunta> PreguntasEncuesta) {this.PreguntasEncuesta = PreguntasEncuesta;}
-    public void setEstudiantesEncuesta(List<Estudiante> EstudiantesEncuesta) {this.EstudiantesEncuesta = EstudiantesEncuesta;}
-    
-    // Cursos
-    public void addCursoEncuesta(Curso CursoEncuesta){
-        this.CursosEncuesta.add(CursoEncuesta);
+    public void setCursosEncuesta(Curso CursoEncuesta) {
+        this.CursoEncuesta = CursoEncuesta;
         if (!CursoEncuesta.getEncuestaCurso().equals(this)) {
             CursoEncuesta.setEncuestaCurso(this);
         }
     }
+    public void setRespuestasEncuesta(List<Respuesta> RespuestasEncuesta) {this.RespuestasEncuesta = RespuestasEncuesta;}
+    public void setEstudiantesEncuesta(List<Estudiante> EstudiantesEncuesta) {this.EstudiantesEncuesta = EstudiantesEncuesta;}
     
-    //  Preguntas
-    public void addPreguntaEncuesta(Pregunta PreguntaEncuesta){
-        this.PreguntasEncuesta.add(PreguntaEncuesta);
-        if (!PreguntaEncuesta.getEncuestasPregunta().contains(this)) {
-            PreguntaEncuesta.getEncuestasPregunta().add(this);
+    // Cursos
+
+    //  Respuesta
+    public void addRespuestaEncuesta(Respuesta RespuestaEncuesta){
+        this.RespuestasEncuesta.add(RespuestaEncuesta);
+        if (!RespuestaEncuesta.getEncuestaRespuesta().equals(this)) {
+            RespuestaEncuesta.setEncuestaRespuesta(this);
         }
     }
     

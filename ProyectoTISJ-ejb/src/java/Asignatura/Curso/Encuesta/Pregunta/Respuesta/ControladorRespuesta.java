@@ -1,5 +1,6 @@
 package Asignatura.Curso.Encuesta.Pregunta.Respuesta;
 
+import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import java.util.List;
 import javax.ejb.EJB;
@@ -14,14 +15,14 @@ public class ControladorRespuesta {
     ManejadorRespuesta mResp;
     
     /**
-     * Crea una Respuesta y la persiste.
-     * @param IdRespuesta  
+     * Crea una Respuesta y la persiste.  
+     * @param ResultadoRespuesta
      * @param PreguntaRespuesta  
-     * @param RespultadoRespuesta  
+     * @param EncuestaRespuesta  
      * @return Devuelve una Respuesta si fue creada, de lo contrario devuelve null.
      */
-    public Respuesta CrearRespuesta(int IdRespuesta, int RespultadoRespuesta, Pregunta PreguntaRespuesta){
-        Respuesta resp = new Respuesta(IdRespuesta, RespultadoRespuesta, PreguntaRespuesta);
+    public Respuesta CrearRespuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta, Encuesta EncuestaRespuesta){
+        Respuesta resp = new Respuesta(ResultadoRespuesta, PreguntaRespuesta, EncuestaRespuesta);
         if (mResp.CrearRespuesta(resp)!=-1){
             return resp;
         }

@@ -1,5 +1,7 @@
 package Asignatura.Curso.Encuesta;
 
+import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
+import Usuario.Estudiante.Estudiante;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -61,4 +63,25 @@ public class ControladorEncuesta {
         return mEnc.ListarEncuestas();
     }
     
+    /**
+     * Agrega una respuesta a la encuesta especificada.
+     * @param RespuestaEncuesta
+     * @param EncuestaRespuesta
+     * @return Retorna el id de la encuesta. Retorna -1 si no se agrego.
+     */
+    public int AgregarRespuestaEncuesta(Respuesta RespuestaEncuesta, Encuesta EncuestaRespuesta){
+        EncuestaRespuesta.addRespuestaEncuesta(RespuestaEncuesta);
+        return mEnc.ModificarEncuesta(EncuestaRespuesta);
+    }
+    
+    /**
+     * Agrega un estudiante a la encuesta
+     * @param EstudianteEncuesta
+     * @param EncuestaEstudiante
+     * @return Retorna el id de la encuesta. Retorna -1 si no se agrego.
+     */
+    public int AgregarEstudianteEncuesta(Estudiante EstudianteEncuesta, Encuesta EncuestaEstudiante){
+        EncuestaEstudiante.addEstudianteEncuesta(EstudianteEncuesta);
+        return mEnc.ModificarEncuesta(EncuestaEstudiante);
+    }
 }

@@ -191,17 +191,17 @@ public class RegistrarUsuarioBean implements Serializable{
      * @throws IOException
      */
     public void registrarUsuarioInterfaz() throws IOException {
-        String url = "";
+        String url = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
         if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
             FacesContext.getCurrentInstance().responseComplete();
         }else{
             if(registrarUsuario()!=-1) {
-                url= "../Usuario/ListarUsuarios.xhtml?rol=" + URLEncoder.encode(Rol, "UTF-8");
+                //url= "../Usuario/ListarUsuarios.xhtml?rol=" + URLEncoder.encode(Rol, "UTF-8");
             }
         }
-        FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(url+"/Usuario/ListarUsuarios.xhtml?rol="+Rol);
         FacesContext.getCurrentInstance().responseComplete();
     }
     

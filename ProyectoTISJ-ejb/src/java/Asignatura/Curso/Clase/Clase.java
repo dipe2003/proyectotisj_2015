@@ -22,9 +22,9 @@ import javax.persistence.TemporalType;
 public class Clase implements Serializable{
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
     private int IdClase;
-    @Column(unique = true)@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date FechaClase;
-   @ManyToMany(mappedBy="ClasesEstudiante", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy="ClasesEstudiante", fetch = FetchType.EAGER)
     private List<Estudiante> EstudiantesClase;
     @ManyToOne
     private Curso CursoClase;
@@ -82,7 +82,7 @@ public class Clase implements Serializable{
     /**
      * Devuelve 1 si el estudiante asistio a la clase.
      * @param IdEstudiante
-     * @return 
+     * @return
      */
     public int getAsistenciaEstudiante(int IdEstudiante){
         for (int i = 0; i < this.EstudiantesClase.size(); i++) {
@@ -93,7 +93,7 @@ public class Clase implements Serializable{
     
     /**
      * Devuelve el total de estudiantes que asistieron a la clase.
-     * @return 
+     * @return
      */
     public int getTotalAsistencias(){
         return this.EstudiantesClase.size();
