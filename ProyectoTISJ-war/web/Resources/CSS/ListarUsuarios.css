@@ -19,7 +19,6 @@
 
 .ListItem{
     height: 50px;
-    cursor: pointer;
 }
 
 .ListItemClick{
@@ -56,6 +55,7 @@
     height: 30px;
     margin: 10px;
     background-size: cover;
+    cursor: pointer;
 }
 
 .columna{

@@ -17,9 +17,9 @@
                         <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
                     </div>
                     <a href="../loginRol.xhtml">
-                    <div class="navLabel">
-                        (Administrador)
-                    </div>
+                        <div class="navLabel">
+                            (Administrador)
+                        </div>
                     </a>
                 </div>
                 
@@ -124,12 +124,12 @@
                         </a>
                     </div>
                     
-<!--                     <div class="submenuOpcion">
-                        <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante" class="SubmenuLink">
-                            <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
-                            Importar
-                        </a>
-                    </div>-->
+                    <!--                     <div class="submenuOpcion">
+                                            <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante" class="SubmenuLink">
+                                                <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
+                                                Importar
+                                            </a>
+                                        </div>-->
                     
                     <div class="submenuOpcion">
                         <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante" class="SubmenuLink">
@@ -141,7 +141,7 @@
                 </div> 
                 
                 <div class="navDivider"></div>
-
+                
                 <div class="navOptMenu" id="asignatura">
                     <div class="submenuTitulo">
                         Asignaturas          
@@ -161,7 +161,7 @@
                 </div> 
                 
                 <div class="navDivider"></div>
-
+                
                 <div class="navOptMenu" id="cursos">
                     <div class="submenuTitulo">
                         Cursos          
@@ -182,14 +182,20 @@
                 
                 <div class="navDivider"></div>
                 
-                 <div class="navOptMenu" id="encuestas">
+                <div class="navOptMenu" id="encuestas">
                     <div class="submenuTitulo">
                         Encuestas          
                     </div>
                     <div class="submenuOpcion">
-                        <a href="../Asignatura/RegistrarAsignatura.xhtml" class="SubmenuLink">
+                        <a href="../Encuesta/RegistrarEncuesta.xhtml" class="SubmenuLink">
                             <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
                             Nuevo
+                        </a>
+                    </div>
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Docente&amp;opt=nuevorol" class="SubmenuLink">
+                            <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
+                            Importar
                         </a>
                     </div>
                     <div class="submenuOpcion">

@@ -60,8 +60,8 @@
                             <f:ajax listener="#{listarUsuariosBean.filtrarPorAnioSemestreAssignatura(anioFilter,semestreFilter,asignaturaFilter)}" event="click" execute="@form" render="actualizarLista"/>
                         </h:commandButton>
                         
-                </h:panelGroup>
-                
+                    </h:panelGroup>
+                    
                 </h:form>
             </div>
         </div>
@@ -103,6 +103,7 @@
                                     <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
                                 </h:form>
                             </h:panelGroup>
+                            <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
                         </div>
                         <div class="columna">
                             <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>

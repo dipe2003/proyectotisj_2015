@@ -1,16 +1,17 @@
 $(document).ready(function(){    
     
-    $( ".ListItem" ).click(function() {
-        if ($(this).hasClass("ListItemClick")){
-            $(this).removeClass("ListItemClick");
-            $( this ).parent().animate({
+    $( ".masInformacion" ).click(function() {
+        var ListItem = $( this ).parent();
+        if (ListItem.hasClass("ListItemClick")){
+            ListItem.removeClass("ListItemClick");
+            ListItem.parent().animate({
                 height: 50
             }, 200, function() {
                 //fin de la animacion
             }); 
         }else{
-            $( this ).addClass("ListItemClick");
-            $( this ).parent().animate({
+            ListItem.addClass("ListItemClick");
+            ListItem.parent().animate({
                 height: 300
             }, 200, function() {
                 //fin de la animacion

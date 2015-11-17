@@ -1,5 +1,7 @@
 $(document).ready(function(){
     
+    $(".laboratorio").hide();
+    
     $("#frmIngresoDatos\\:tipoEvaluacion").change(function() {
         var tipoEvaluacion = $(this).val();
         if (tipoEvaluacion === 'Laboratorio') {
