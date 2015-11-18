@@ -12,21 +12,17 @@ import javax.faces.bean.ManagedBean;
 public class ControladorRespuesta {
     
     @EJB
-    ManejadorRespuesta mResp;
+    private ManejadorRespuesta mResp;
     
     /**
-     * Crea una Respuesta y la persiste.  
+     * Crea una Respuesta y la persiste.
      * @param ResultadoRespuesta
-     * @param PreguntaRespuesta  
-     * @param EncuestaRespuesta  
+     * @param PreguntaRespuesta
      * @return Devuelve una Respuesta si fue creada, de lo contrario devuelve null.
      */
-    public Respuesta CrearRespuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta){
+    public int CrearRespuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta){
         Respuesta resp = new Respuesta(ResultadoRespuesta, PreguntaRespuesta);
-        if (mResp.CrearRespuesta(resp)!=-1){
-            return resp;
-        }
-        return null;
+        return mResp.CrearRespuesta(resp);
     }
     
     /**
@@ -58,7 +54,7 @@ public class ControladorRespuesta {
     
     /**
      * Devuelve una lista de Respuestas desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Respuesta> ListarRespuestas(){
         return mResp.ListarRespuestas();
