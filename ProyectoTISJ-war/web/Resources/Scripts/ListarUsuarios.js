@@ -10,9 +10,10 @@ $(document).ready(function(){
                 //fin de la animacion
             }); 
         }else{
+            var alturaconColumna = ListItem.parent().children('.columna').height() + 50;
             ListItem.addClass("ListItemClick");
             ListItem.parent().animate({
-                height: 300
+                height: alturaconColumna
             }, 200, function() {
                 //fin de la animacion
             }); 

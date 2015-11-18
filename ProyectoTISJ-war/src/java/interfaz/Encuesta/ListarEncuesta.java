@@ -16,7 +16,7 @@ import javax.inject.Named;
 
 @Named
 @RequestScoped
-public class RegistrarEncuesta implements Serializable{
+public class ListarEncuesta implements Serializable{
     
     @EJB
     private FacadeEncuesta fEnc;
