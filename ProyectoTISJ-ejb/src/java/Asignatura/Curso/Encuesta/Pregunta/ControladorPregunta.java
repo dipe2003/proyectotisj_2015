@@ -10,20 +10,17 @@ import javax.faces.bean.ManagedBean;
 public class ControladorPregunta {
     
     @EJB
-    ManejadorPregunta mPreg;
+    private ManejadorPregunta mPreg;
     
     /**
      * Crea una Pregunta y la persiste.
-     * @param TextoPregunta 
-     * @param TipoPregunta 
-     * @return Devuelve una Pregunta si fue creada, de lo contrario devuelve null.
+     * @param TextoPregunta
+     * @param TipoPregunta
+     * @return el id de la pregunta si fue creada, de lo contrario devuelve -1.
      */
-    public Pregunta CrearPregunta(String TextoPregunta, EnumTipoPregunta TipoPregunta){
+    public int CrearPregunta(String TextoPregunta, EnumTipoPregunta TipoPregunta){
         Pregunta preg = new Pregunta(TextoPregunta, TipoPregunta);
-        if (mPreg.CrearPregunta(preg)!=-1){
-            return preg;
-        }
-        return null;
+        return mPreg.CrearPregunta(preg);
     }
     
     /**
@@ -55,7 +52,7 @@ public class ControladorPregunta {
     
     /**
      * Devuelve una lista de Preguntas desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Pregunta> ListarPreguntas(){
         return mPreg.ListarPreguntas();

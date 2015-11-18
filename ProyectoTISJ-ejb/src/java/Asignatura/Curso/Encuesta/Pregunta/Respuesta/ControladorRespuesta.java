@@ -21,8 +21,8 @@ public class ControladorRespuesta {
      * @param EncuestaRespuesta  
      * @return Devuelve una Respuesta si fue creada, de lo contrario devuelve null.
      */
-    public Respuesta CrearRespuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta, Encuesta EncuestaRespuesta){
-        Respuesta resp = new Respuesta(ResultadoRespuesta, PreguntaRespuesta, EncuestaRespuesta);
+    public Respuesta CrearRespuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta){
+        Respuesta resp = new Respuesta(ResultadoRespuesta, PreguntaRespuesta);
         if (mResp.CrearRespuesta(resp)!=-1){
             return resp;
         }

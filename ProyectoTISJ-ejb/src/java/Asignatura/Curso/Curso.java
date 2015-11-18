@@ -83,8 +83,8 @@ public class Curso implements Serializable{
     public void setEvaluacionesCurso(List<Evaluacion> EvaluacionesCurso) {this.EvaluacionesCurso = EvaluacionesCurso;}
     public void setEncuestaCurso(Encuesta EncuestaCurso) {
         this.EncuestaCurso = EncuestaCurso;
-        if (!EncuestaCurso.getCursosEncuesta().equals(this)) {
-            EncuestaCurso.setCursosEncuesta(this);
+        if (!EncuestaCurso.getCursoEncuesta().equals(this)) {
+            EncuestaCurso.setCursoEncuesta(this);
         }
     }
     

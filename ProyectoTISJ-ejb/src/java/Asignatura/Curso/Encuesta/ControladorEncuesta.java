@@ -1,8 +1,9 @@
 package Asignatura.Curso.Encuesta;
 
+import Asignatura.Curso.Curso;
+import Asignatura.Curso.Encuesta.Pregunta.ControladorPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
 import Usuario.Estudiante.Estudiante;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,15 +14,19 @@ import javax.faces.bean.ManagedBean;
 public class ControladorEncuesta {
     
     @EJB
-    ManejadorEncuesta mEnc;
+    private ManejadorEncuesta mEnc;
+    @EJB
+    private ControladorRespuestaEncuesta cRespEnc;
+    @EJB
+    private ControladorPregunta cPreg;
     
     /**
      * Crea una Encuesta y la persiste.
-     * @param FechaEncuesta 
+     * @param CursoEncuesta
      * @return Devuelve una Encuesta si fue creada, de lo contrario devuelve null.
      */
-    public Encuesta CrearEncuesta(Date FechaEncuesta){
-        Encuesta enc = new Encuesta(FechaEncuesta);
+    public Encuesta CrearEncuesta(Curso CursoEncuesta){
+        Encuesta enc = new Encuesta(CursoEncuesta);
         if (mEnc.CrearEncuesta(enc)!=-1){
             return enc;
         }
@@ -57,21 +62,10 @@ public class ControladorEncuesta {
     
     /**
      * Devuelve una lista de Encuestas desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Encuesta> ListarEncuestas(){
         return mEnc.ListarEncuestas();
-    }
-    
-    /**
-     * Agrega una respuesta a la encuesta especificada.
-     * @param RespuestaEncuesta
-     * @param EncuestaRespuesta
-     * @return Retorna el id de la encuesta. Retorna -1 si no se agrego.
-     */
-    public int AgregarRespuestaEncuesta(Respuesta RespuestaEncuesta, Encuesta EncuestaRespuesta){
-        EncuestaRespuesta.addRespuestaEncuesta(RespuestaEncuesta);
-        return mEnc.ModificarEncuesta(EncuestaRespuesta);
     }
     
     /**
@@ -83,5 +77,22 @@ public class ControladorEncuesta {
     public int AgregarEstudianteEncuesta(Estudiante EstudianteEncuesta, Encuesta EncuestaEstudiante){
         EncuestaEstudiante.addEstudianteEncuesta(EstudianteEncuesta);
         return mEnc.ModificarEncuesta(EncuestaEstudiante);
+    }
+    
+    /**
+     * Agrega preguntas a la encuesta.
+     * @param IdEncuesta
+     * @param IdPreguntas
+     * @return Retorna true si se pudo agregar.
+     */
+    public boolean AgregarPreguntasEncuesta(int IdEncuesta, List<Integer> IdPreguntas){
+        Encuesta encuesta = mEnc.BuscarEncuesta(IdEncuesta);
+        try{
+            for (int i = 0; i < IdPreguntas.size(); i++) {
+                cRespEnc.CrearRespuestaEncuesta(cPreg.BuscarPregunta(IdPreguntas.get(i)), encuesta);
+            }
+            return true;
+        }catch(Exception ex){}
+        return false;
     }
 }

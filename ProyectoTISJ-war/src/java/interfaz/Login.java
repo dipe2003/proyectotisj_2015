@@ -60,26 +60,30 @@ public class Login implements Serializable {
     
     /**
      * Realiza el login del usuario. Si tiene un solo rol se loguea automaticamente, sino redirige a otra pagina para seleccionar el rol.
-     * @throws java.io.IOException
      */
-    public void login() throws IOException{
+    public void login() {
         FacesContext context = FacesContext.getCurrentInstance();
-        rolesUsuario = fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password);
-        if (rolesUsuario.isEmpty()) {
+        try{
+            rolesUsuario = fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password);
+            if (rolesUsuario.isEmpty()) {
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Los datos ingresados no son correctos");
+                context.addMessage("login:msj", fm);
+            }else{
+                if (rolesUsuario.size()==1) {
+                    HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+                    Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, rolesUsuario.get(0)));
+                    request.getSession().setAttribute("Usuario", Usr);
+                    this.UsuarioLogueado = true;
+                    this.RolSeleccionado = rolesUsuario.get(0);
+                    context.getExternalContext().redirect("Views/index.xhtml");
+                }else{
+                    LlenarRoles(this.rolesUsuario);
+                    context.getExternalContext().redirect("loginRol.xhtml");
+                }
+            }
+        }catch(NumberFormatException | IOException | NullPointerException ex){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Los datos ingresados no son correctos");
             context.addMessage("login:msj", fm);
-        }else{
-            if (rolesUsuario.size()==1) {
-                HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-                Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, rolesUsuario.get(0)));
-                request.getSession().setAttribute("Usuario", Usr);
-                this.UsuarioLogueado = true;
-                this.RolSeleccionado = rolesUsuario.get(0);
-                context.getExternalContext().redirect("Views/index.xhtml");
-            }else{
-                LlenarRoles(this.rolesUsuario);
-                context.getExternalContext().redirect("loginRol.xhtml");
-            }
         }
     }
     
@@ -105,8 +109,8 @@ public class Login implements Serializable {
     
     /**
      * Cambia el rol del usuario ya logueado.
-     * @param RolSeleccionado 
-     * @throws java.io.IOException 
+     * @param RolSeleccionado
+     * @throws java.io.IOException
      */
     public void cambiarRol(String RolSeleccionado) throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();

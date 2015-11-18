@@ -1,7 +1,7 @@
 package Asignatura.Curso.Encuesta.Pregunta.Respuesta;
 
-import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
+import Asignatura.Curso.Encuesta.RespuestaEncuesta;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,22 +20,21 @@ public class Respuesta implements Serializable {
     private Pregunta PreguntaRespuesta;
     
     @ManyToOne
-    private Encuesta EncuestaRespuesta;
+    private RespuestaEncuesta respuestaEncuesta;
 
-    //  Construtores
+    //  Constructores
     public Respuesta() {}
 
-    public Respuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta, Encuesta EncuestaRespuesta) {
+    public Respuesta(int ResultadoRespuesta, Pregunta PreguntaRespuesta) {
         this.ResultadoRespuesta = ResultadoRespuesta;
         this.PreguntaRespuesta = PreguntaRespuesta;
-        this.EncuestaRespuesta = EncuestaRespuesta;
     }    
 
     //  Getters
     public int getIdRespuesta() {return IdRespuesta;}
     public int getResultadoRespuesta() {return ResultadoRespuesta;}
     public Pregunta getPreguntaRespuesta() {return PreguntaRespuesta;}
-    public Encuesta getEncuestaRespuesta() {return EncuestaRespuesta;}
+    public RespuestaEncuesta getRespuestaEncuesta() {return respuestaEncuesta;}
     
     //  Setters
     public void setIdRespuesta(int IdRespuesta) {this.IdRespuesta = IdRespuesta;}
@@ -46,11 +45,11 @@ public class Respuesta implements Serializable {
             PreguntaRespuesta.getRespuestasPregunta().add(this);
         }
     }
-    public void setEncuestaRespuesta(Encuesta EncuestaRespuesta) {
-        if(!EncuestaRespuesta.getRespuestasEncuesta().contains(this)){
-            EncuestaRespuesta.getRespuestasEncuesta().add(this);
+    public void setRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta) {
+        if (!respuestaEncuesta.getRespuestasEncuesta().contains(this)) {
+            respuestaEncuesta.getRespuestasEncuesta().add(this);
         }
-        this.EncuestaRespuesta = EncuestaRespuesta;
-    }
+        this.respuestaEncuesta = respuestaEncuesta;}
+    
     
 }
