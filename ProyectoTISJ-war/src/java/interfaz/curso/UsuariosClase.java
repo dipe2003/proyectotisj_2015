@@ -97,7 +97,7 @@ public class UsuariosClase implements Serializable{
         
         listChecked = new HashMap<>();
         for (Usuario Usr : Usuarios) {
-            listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
+            listChecked.put(Usr.getIdUsuario(), Boolean.TRUE);
         }
         
     }

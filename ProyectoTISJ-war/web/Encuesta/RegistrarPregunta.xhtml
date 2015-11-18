@@ -9,10 +9,10 @@
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
-                Registro de nueva Asignatura
+                Registro de nueva Pregunta
             </div>
         </div>
-        <h:form id="frmIngresoDatos" enctype="multipart/form-data">
+        <h:form id="frmIngresoDatos">
             <div id="contenedor">
                 <div class="menuOpcion">
                     
@@ -21,13 +21,13 @@
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
                         <h:selectOneMenu id="tipoEvaluacion" style="margin-top: 3px" class="Texto" value="#{tipoPregunta}">
-                            <f:selectItem itemValue="Curso" itemLabel="Curso" />
-                            <f:selectItem itemValue="Curso" itemLabel="Docente" />
+                            <f:selectItem itemValue="Asignatura" itemLabel="Asignatura" />
+                            <f:selectItem itemValue="Docente" itemLabel="Docente" />
                         </h:selectOneMenu>	  
                     </div>
                         
                     <div class="inputContainer">
-                        <img class="imagenMenuOpcion" src="../Resources/Images/creditos.png"/>
+                        <img class="imagenMenuOpcion" src="../Resources/Images/pregunta.png"/>
                         <h:inputText id="inputCredito" value="#{contenidoPregunta}" required="true" class="Texto" p:placeholder="Ingrese Pregunta"/>                                 
                     </div>
                         

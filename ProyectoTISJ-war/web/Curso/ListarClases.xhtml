@@ -18,11 +18,17 @@
             </h:panelGroup>
             <c:forEach var="clase" items="#{listarClasesBean.clases}">
                 <div class="ListItemContainer" >
-                    <div class="item">
-                        #{clase.fechaClase}
+                    <div class="ListItem" >
+                        <div class="item">
+                            #{clase.fechaClase}
+                        </div>
+                        <div class="item">
+                            #{clase.temaClase}
+                        </div>
+                        <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
                     </div>
-                    <div class="item">
-                        #{clase.temaClase}
+                    <div class="columna">
+                        <div class="negrita">Inasistencias: </div> #{clase.cursoClase.docenteCurso.nombreCompleto}<br/>
                     </div>
                 </div>
             </c:forEach>
