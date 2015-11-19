@@ -61,6 +61,14 @@ public class FacadeEncuesta {
         return cEnc.AgregarPreguntasEncuesta(IdEncuesta, IdPreguntas);
     }
     
+    /**
+     * Dvuelve todas las encuestas registradas.
+     * @return 
+     */
+    public List<Encuesta> ListarEncuestas(){
+        return cEnc.ListarEncuestas();
+    }
+    
     /*
     Preguntas
     */
@@ -115,6 +123,8 @@ public class FacadeEncuesta {
     public int AgregarRespuesta(int IdRespuesta, int IdRespuestaEncuesta){
         return cRespEnc.AgregarRespuestaEncuesta(cResp.BuscarRespuesta(IdRespuesta), cRespEnc.ObtenerRespuestaEncuesta(IdRespuestaEncuesta));
     }
+    
+    
     
     
 }

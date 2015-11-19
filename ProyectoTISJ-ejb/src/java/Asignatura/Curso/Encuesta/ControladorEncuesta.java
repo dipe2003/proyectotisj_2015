@@ -2,7 +2,6 @@ package Asignatura.Curso.Encuesta;
 
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.Encuesta.Pregunta.ControladorPregunta;
-import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
 import Usuario.Estudiante.Estudiante;
 import java.util.List;
 import javax.ejb.EJB;
@@ -95,4 +94,5 @@ public class ControladorEncuesta {
         }catch(Exception ex){}
         return false;
     }
+    
 }
