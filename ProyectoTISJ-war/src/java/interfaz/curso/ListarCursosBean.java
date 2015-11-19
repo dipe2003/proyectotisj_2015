@@ -28,18 +28,18 @@ public class ListarCursosBean implements Serializable{
     @Inject
     private Login login;
     
-    private List<InnerCurso> Cursos;
+    private List<Curso> Cursos;
     private String Parametro;
     
     //  Constructores
     public ListarCursosBean(){}
     
     //  Getters
-    public List<InnerCurso> getCursos() {return Cursos;}
+    public List<Curso> getCursos() {return Cursos;}
     public String getParametro(){return this.Parametro;}
     
     //  Setters
-    public void setCursos(List<InnerCurso> Cursos) {this.Cursos = Cursos;}
+    public void setCursos(List<Curso> Cursos) {this.Cursos = Cursos;}
     public void setParametro(String Parametro){this.Parametro = Parametro;}
     
     /**
@@ -54,7 +54,6 @@ public class ListarCursosBean implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Usuario usr = (Usuario) request.getSession().getAttribute("Usuario");
-        List<Curso> cursos = new ArrayList<>();
         
         try{
             this.Parametro = request.getParameter("parametro");
@@ -66,72 +65,17 @@ public class ListarCursosBean implements Serializable{
         }else{
             switch(login.getRolSeleccionado()){
                 case "Docente":
-                    cursos = fCurso.ListarCursosDocente(usr.getIdUsuario());
+                    Cursos = fCurso.ListarCursosDocente(usr.getIdUsuario());
                     break;
                     
                 case "Estudiante":
-                    cursos = fCurso.ListarCursosEstudiante(usr.getIdUsuario());
+                    Cursos = fCurso.ListarCursosEstudiante(usr.getIdUsuario());
                     break;
                     
                 default:
-                    cursos = fCurso.ListarCurso();
+                    Cursos = fCurso.ListarCurso();
                     break;
             }
         }
-        for (int i = 0; i < cursos.size(); i++) {
-            this.Cursos.add(getInnerCurso(cursos.get(i)));
-        }
     }
-    
-    /**
-     * Devuelve un beanCurso con los datos del curso especificado.
-     */
-    private InnerCurso getInnerCurso(Curso curso){
-        InnerCurso bcurso = new InnerCurso(curso.getIdCurso(), curso.getAsignaturaCurso().getNombreAsignatura(),
-                curso.getDocenteCurso().getNombreCompleto(),curso.getAnioCurso(), curso.getSemestreCurso());
-        return bcurso;
-    }
-    
-    public void filtro(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter){
-        
-    }
-    
-    
-    /**
-     * Clase para mostrar la informacion de cada curso
-     */
-    public static class InnerCurso{
-        private int id;
-        private String NombreAsignatura;
-        private String NombreDocente;
-        private int AnioCurso;
-        private int SemestreCurso;
-        
-        //Constructor
-        
-        public InnerCurso(int idCurso, String NombreAsignatura, String NombreDocente, int AnioCurso, int CreditosAsignatura) {
-            this.id = idCurso;
-            this.NombreAsignatura = NombreAsignatura;
-            this.NombreDocente = NombreDocente;
-            this.AnioCurso = AnioCurso;
-            this.SemestreCurso = CreditosAsignatura;
-        }
-        
-        public InnerCurso() {}
-        
-        // Setters & Getters
-        
-        public int getId() {return id;}
-        public void setId(int id) {this.id = id;}
-        public String getNombreAsignatura() {return NombreAsignatura;}
-        public void setNombreAsignatura(String NombreAsignatura) {this.NombreAsignatura = NombreAsignatura;}
-        public String getNombreDocente() {return NombreDocente;}
-        public void setNombreDocente(String NombreDocente) {this.NombreDocente = NombreDocente;}
-        public int getAnioCurso() {return AnioCurso;}
-        public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
-        public int getSemestreCurso() {return SemestreCurso;}
-        public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
-        
-    }
-    
 }
