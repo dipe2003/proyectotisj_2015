@@ -92,6 +92,10 @@ public class ListarCursosBean implements Serializable{
         return bcurso;
     }
     
+    public void filtro(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter){
+        
+    }
+    
     
     /**
      * Clase para mostrar la informacion de cada curso
@@ -130,5 +134,4 @@ public class ListarCursosBean implements Serializable{
         
     }
     
-
 }

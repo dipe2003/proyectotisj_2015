@@ -8,8 +8,47 @@
         <div class="cabecera" >
             <div class="titulo" >
                 Listado de Cursos
+                
+                <div id="BotonFiltro">
+                    <img src="../Resources/Images/filtro.png" width="20" height="20"/> Filtro
+                </div>
+                
             </div>
+            
+            <div class="FormFiltro" >
+                <h:form id="filtro">
+                    
+                    Docente
+                    <h:inputText id="nameDocente" value="#{nameDocente}"></h:inputText>
+                    
+                    Cedula
+                    <h:inputText id="nameAsignatura" value="#{nameAsignatura}"></h:inputText>
+                    
+                    Anio
+                    <h:selectOneMenu value="#{anioFilter}">
+                        <f:selectItems value="#{listarUsuariosBean.aniosCursos}" />
+                    </h:selectOneMenu>
+                    
+                    Semestre 
+                    <h:selectOneMenu value="#{semestreFilter}">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                        <f:selectItem itemValue="4" itemLabel="4" />
+                        <f:selectItem itemValue="5" itemLabel="5" />	
+                        <f:selectItem itemValue="6" itemLabel="6" />
+                        <f:selectItem itemValue="0" itemLabel="Todos" />
+                    </h:selectOneMenu>	
+                    
+                    <h:commandButton value="Submit">
+                        <f:ajax listener="#{listarCursosBean.filtro(nameDocente,nameAsignatura,anioFilter,semestreFilter)}" event="click" execute="@form" render="actualizarLista"/>
+                    </h:commandButton>
+                    
+                </h:form>
+            </div>
+            
         </div>
+        
         <div id="contenedor">
             <h:panelGroup rendered="#{empty listarCursosBean.cursos}">
                 <div class="ListItemContainer">
