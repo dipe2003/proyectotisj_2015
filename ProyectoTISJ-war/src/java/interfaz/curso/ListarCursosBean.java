@@ -78,4 +78,8 @@ public class ListarCursosBean implements Serializable{
             }
         }
     }
+     
+    public void filtro(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter){
+        
+    }
 }
