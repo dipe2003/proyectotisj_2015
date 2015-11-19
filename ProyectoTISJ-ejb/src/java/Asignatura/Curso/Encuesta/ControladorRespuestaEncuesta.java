@@ -1,6 +1,7 @@
 package Asignatura.Curso.Encuesta;
 
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
+import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.ManagedBean;
@@ -22,5 +23,24 @@ public class ControladorRespuestaEncuesta {
         return mRespEnc.CrearRespuestaEncuesta(respEncuesta);
     }
     
+    /**
+     * Agrega la respuesta a la encuesta especificada.
+     * @param RespuestaEncuesta
+     * @param respuestaEncuesta
+     * @return Retorn el id de la RespuestaEncuesta. Retorna -1 si no se agrego.
+     */
+    public int AgregarRespuestaEncuesta(Respuesta RespuestaEncuesta, RespuestaEncuesta respuestaEncuesta){
+        respuestaEncuesta.addRespuestaEncuesta(RespuestaEncuesta);
+        return mRespEnc.ModificarRespuestaEncuesta(respuestaEncuesta);
+    }
+    
+    /**
+     * Busca la RespuestaEncuesta de la base de datos.
+     * @param IdRespuestaEncuesta
+     * @return 
+     */
+    public RespuestaEncuesta ObtenerRespuestaEncuesta(int IdRespuestaEncuesta){
+        return mRespEnc.BuscarRespuestaEncuesta(IdRespuestaEncuesta);
+    }
    
 }

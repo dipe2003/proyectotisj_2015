@@ -92,6 +92,29 @@ public class FacadeEncuesta {
         return cPreg.ListarPreguntas();
     }
     
+    /*
+    Respuestas
+    */
+    
+    /**
+     * Crea una respuesta para la pregunta especificada.
+     * @param ResultadoRespuesta
+     * @param IdPregunta
+     * @return Retorna el id de la respuesta. Retorna -1 si no se creo.
+     */
+    public int CrearRespuesta(int ResultadoRespuesta, int IdPregunta){
+        return cResp.CrearRespuesta(ResultadoRespuesta, cPreg.BuscarPregunta(IdPregunta));
+    }
+    
+    /**
+     * Agrega la respuesta a la encuesta especificada.
+     * @param IdRespuesta
+     * @param IdRespuestaEncuesta
+     * @return Retorn el id de la RespuestaEncuesta. Retorna -1 si no se agrego.
+     */
+    public int AgregarRespuesta(int IdRespuesta, int IdRespuestaEncuesta){
+        return cRespEnc.AgregarRespuestaEncuesta(cResp.BuscarRespuesta(IdRespuesta), cRespEnc.ObtenerRespuestaEncuesta(IdRespuestaEncuesta));
+    }
     
     
 }
