@@ -4,6 +4,7 @@ import Asignatura.Asignatura;
 import Usuario.Docente.Docente;
 import Usuario.Estudiante.Estudiante;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -80,6 +81,7 @@ public class ControladorCurso {
      * Agrega el estudiante al curso especificado.
      * @param estudiante
      * @param IdCurso 
+     * @return  
      */    
     public Curso AgregarEstudianteACurso(Estudiante estudiante, int IdCurso){
         Curso curso = mCurso.BuscarCurso(IdCurso);
@@ -96,4 +98,19 @@ public class ControladorCurso {
         }
         return result;
     }
+    
+    /**
+     * Calcula la fecha actual y devuelve los cursos que se estan dictando.
+     * @return 
+     */
+    public List<Curso> GetCursosActuales(){
+        int Anio = Calendar.getInstance().get(Calendar.YEAR);
+        int mes = Calendar.getInstance().get(Calendar.MONTH)+1;
+        int Semestre = 1;
+        if (mes>7) {
+            Semestre = 2;
+        }
+        return mCurso.FiltrarCursos(Anio, Semestre);
+    }
+
 }

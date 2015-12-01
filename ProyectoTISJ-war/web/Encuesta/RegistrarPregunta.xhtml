@@ -21,8 +21,7 @@
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
                         <h:selectOneMenu id="tipoEvaluacion" style="margin-top: 3px" class="Texto" value="#{tipoPregunta}">
-                            <f:selectItem itemValue="Asignatura" itemLabel="Asignatura" />
-                            <f:selectItem itemValue="Docente" itemLabel="Docente" />
+                            <f:selectItems value="#{registrarEncuesta.tiposPregunta}" />
                         </h:selectOneMenu>	  
                     </div>
                         

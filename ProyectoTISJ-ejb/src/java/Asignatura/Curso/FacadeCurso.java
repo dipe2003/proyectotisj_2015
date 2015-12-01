@@ -129,4 +129,12 @@ public class FacadeCurso implements Serializable {
    public int GetInanistenciasEstudianteCurso(int IdEstudiante, int IdCurso)    {
        return cClase.GetInasistenciasEstudianteCurso(IdCurso, IdEstudiante);
    }
+   
+   /**
+    * Devuelve los cursos que se estan dictando actualmente (en el año y semestre actual).
+    * @return 
+    */
+   public List<Curso> GetCursosActuales(){
+       return cCurso.GetCursosActuales();
+   }
 }

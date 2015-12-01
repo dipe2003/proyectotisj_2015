@@ -22,14 +22,15 @@ public class ControladorEncuesta {
     /**
      * Crea una Encuesta y la persiste.
      * @param CursoEncuesta
-     * @return Devuelve una Encuesta si fue creada, de lo contrario devuelve null.
+     * @return Devuelve el id de la Encuesta si fue creada, de lo contrario devuelve -1.
      */
-    public Encuesta CrearEncuesta(Curso CursoEncuesta){
-        Encuesta enc = new Encuesta(CursoEncuesta);
-        if (mEnc.CrearEncuesta(enc)!=-1){
-            return enc;
+    public int CrearEncuesta(Curso CursoEncuesta){
+        Encuesta enc = new Encuesta();
+        if(mEnc.CrearEncuesta(enc)!=-1){
+            enc.setCursoEncuesta(CursoEncuesta);
+            return mEnc.ModificarEncuesta(enc);
         }
-        return null;
+        return -1;
     }
     
     /**

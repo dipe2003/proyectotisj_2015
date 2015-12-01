@@ -35,9 +35,9 @@ public class FacadeEncuesta {
     /**
      * Crea una Encuesta y la persiste.
      * @param IdCurso
-     * @return Devuelve una Encuesta si fue creada, de lo contrario devuelve null.
+     * @return Devuelve la id de la Encuesta si fue creada, de lo contrario devuelve -1.
      */
-    public Encuesta CrearEncuesta(int IdCurso){
+    public int CrearEncuesta(int IdCurso){
         return cEnc.CrearEncuesta(cCurso.BuscarCurso(IdCurso));
     }
     

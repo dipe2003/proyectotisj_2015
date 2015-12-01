@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -43,6 +44,7 @@ public class Curso implements Serializable{
     private List<Evaluacion> EvaluacionesCurso;
     
     @OneToOne
+    @JoinColumn(name="IdEncuesta")
     private Encuesta EncuestaCurso;
     
     //  Constructores    
@@ -81,12 +83,7 @@ public class Curso implements Serializable{
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     public void setClasesCurso(List<Clase> ClasesCurso) {this.ClasesCurso = ClasesCurso;}
     public void setEvaluacionesCurso(List<Evaluacion> EvaluacionesCurso) {this.EvaluacionesCurso = EvaluacionesCurso;}
-    public void setEncuestaCurso(Encuesta EncuestaCurso) {
-        this.EncuestaCurso = EncuestaCurso;
-        if (!EncuestaCurso.getCursoEncuesta().equals(this)) {
-            EncuestaCurso.setCursoEncuesta(this);
-        }
-    }
+    public void setEncuestaCurso(Encuesta EncuestaCurso) {this.EncuestaCurso = EncuestaCurso;}
     
     //  Estudiantes    
     public void addEstudianteCurso(Estudiante EstudianteCurso){

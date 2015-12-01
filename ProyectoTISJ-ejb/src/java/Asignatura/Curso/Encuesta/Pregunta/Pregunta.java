@@ -17,6 +17,7 @@ public class Pregunta implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int IdPregunta;
+    @javax.persistence.Column(unique = true)
     private String TextoPregunta;
     private EnumTipoPregunta TipoPregunta;
     

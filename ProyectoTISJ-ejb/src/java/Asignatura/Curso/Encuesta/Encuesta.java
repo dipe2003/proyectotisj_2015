@@ -30,11 +30,9 @@ public class Encuesta implements Serializable{
     private List<RespuestaEncuesta> RespuestasEncuesta;
     
     //  Constructores
-    public Encuesta() {}
-    
-    public Encuesta(Curso curso) {
+     
+    public Encuesta() {
         this.EstudiantesEncuesta = new ArrayList<>();
-        this.CursoEncuesta = curso;
         this.RespuestasEncuesta = new ArrayList<>();
     }
     
@@ -54,11 +52,7 @@ public class Encuesta implements Serializable{
     //  Setters
     public void setIdEncuesta(int IdEncuesta) {this.IdEncuesta = IdEncuesta;}
     public void setEstudiantesEncuesta(List<Estudiante> EstudiantesEncuesta) {this.EstudiantesEncuesta = EstudiantesEncuesta;}
-    public void setCursoEncuesta(Curso CursoEncuesta) {
-        if (!CursoEncuesta.getEncuestaCurso().equals(this)) {
-            CursoEncuesta.setEncuestaCurso(this);
-        }
-        this.CursoEncuesta = CursoEncuesta;}
+    public void setCursoEncuesta(Curso CursoEncuesta) {this.CursoEncuesta = CursoEncuesta;}
     public void setRespuestasEncuesta(List<RespuestaEncuesta> RespuestasEncuesta) {this.RespuestasEncuesta = RespuestasEncuesta;}
     
     //  Estudiante
