@@ -113,11 +113,11 @@ public class ControladorCurso {
             int semestre = curso.getSemestreCurso();
             if(mes > 7){
                 if(semestre%2==0){
-                    if(curso.getEncuestaCurso()!=null)lista.add(curso);
+                    if(curso.getEncuestaCurso()==null)lista.add(curso);
                 }
             }else{
                 if(semestre%3==0){
-                    if(curso.getEncuestaCurso()!=null)lista.add(curso);
+                    if(curso.getEncuestaCurso()==null)lista.add(curso);
                 }
             }
         }        
