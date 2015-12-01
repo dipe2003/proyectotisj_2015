@@ -1,9 +1,9 @@
 
 package interfaz.Encuesta;
 
+import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.FacadeEncuesta;
 import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
-import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,36 +21,30 @@ public class ListarEncuesta implements Serializable{
     @EJB
     private FacadeEncuesta fEnc;
     
-    List<Pregunta> preguntas;
+    List<Encuesta> encuestas;
     
     private Map<Integer, Boolean> listChecked;
-    
-    public List<Pregunta> getPreguntas() {return preguntas;}
+
+    public List<Encuesta> getEncuestas() {return encuestas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
-    
-    public void setPreguntas(List<Pregunta> preguntas) {this.preguntas = preguntas;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
+    public void setEncuestas(List<Encuesta> encuestas) {this.encuestas = encuestas;}
     
     @PostConstruct
     public void Init(){
         
-        preguntas = new ArrayList<>();
-        preguntas = fEnc.ListarPreguntas();
+        encuestas = new ArrayList<>();
+        encuestas = fEnc.ListarEncuestas();
         
         listChecked = new HashMap<>();
-        for (Pregunta item : preguntas) {
-            listChecked.put(item.getIdPregunta(), Boolean.FALSE);
+        for (Encuesta item : encuestas) {
+            listChecked.put(item.getIdEncuesta(), Boolean.FALSE);
         }
         
     }
     
-    public void crearEncuesta(){
+    public void importarEncuesta(){
         
     }
     
-    public void registrarPregunta(String tipoPregunta, String contenidoPregunta){
-        fEnc.CrearPregunta(contenidoPregunta, EnumTipoPregunta.valueOf(tipoPregunta));
-    }
-    
 }
-

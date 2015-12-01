@@ -11,7 +11,7 @@
             </div>
         </div>
         <div id="contenedor">            
-            <h:panelGroup rendered="#{empty registrarEncuesta.preguntas}">
+            <h:panelGroup rendered="#{empty listarEncuesta.encuestas}">
                 <div class="ListItemContainer" >
                     No hay Preguntas registrados.
                 </div>            
@@ -19,32 +19,16 @@
             
             <h:form>
                 
-                <c:forEach var="pregunta" items="#{registrarEncuesta.preguntas}">
+                <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
                     <div class="ListItemContainer" >
-                        <div class="item" >
-                            <h:selectBooleanCheckbox class="BotonCheck" value="#{registrarEncuesta.listChecked[pregunta.idPregunta]}" />
-                        </div>
                         <div class="item">
-                            #{pregunta.textoPregunta}
+                            #{encuesta.cursoEncuesta.anioCurso}
                         </div>
-                        <div class="item">
-                            #{pregunta.tipoPregunta}
+                         <div class="item">
+                            #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                         </div>
                     </div>            
                 </c:forEach>
-                
-                
-                <div class="ListItemContainer BotonAdd">
-                    <a href="../Encuesta/RegistrarPregunta.xhtml">
-                        <div class="ImagenItem ImagenAdd" >
-                            <img src="../Resources/Images/addOtros.png" height="100%" width="100%"/>
-                        </div>
-                    </a>
-                </div>
-                
-                <div class="menuOpcion" >
-                    <h:commandButton class="boton" value="Seleccionar" action="#{registrarEncuesta.crearEncuesta()}"/>
-                </div>
                 
             </h:form>
             
