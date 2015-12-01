@@ -63,6 +63,6 @@ $(document).ready(function(){
                 alert("No se pudo registrar el usuario.");
             }
         }
-    }
+    };
     
 });
