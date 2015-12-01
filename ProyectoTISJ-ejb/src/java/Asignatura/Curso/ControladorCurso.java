@@ -19,9 +19,9 @@ public class ControladorCurso {
     
     /**
      * Crea un Curso y lo persiste.
-     * @param SemestreCurso  
-     * @param AnioCurso 
-     * @param DocenteCurso 
+     * @param SemestreCurso
+     * @param AnioCurso
+     * @param DocenteCurso
      * @param AsignaturaCurso
      * @param ContratoDocenteCurso
      * @return Devuelve un Curso si fue creado, de lo contrario devuelve null.
@@ -63,7 +63,7 @@ public class ControladorCurso {
     
     /**
      * Devuelve una lista de Cursos desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Curso> ListarCursos(){
         return mCurso.ListarCursos();
@@ -72,7 +72,7 @@ public class ControladorCurso {
      * Devuelve una lista de Cursos del usuario (docente o estudiante) especificado por su id desde la base de datos.
      * @param IdUsuario
      * @param docente true si es docente
-     * @return 
+     * @return
      */
     public List<Curso> ListarCursos(int IdUsuario, boolean docente){
         return mCurso.ListarCursos(IdUsuario, true);
@@ -80,9 +80,9 @@ public class ControladorCurso {
     /**
      * Agrega el estudiante al curso especificado.
      * @param estudiante
-     * @param IdCurso 
-     * @return  
-     */    
+     * @param IdCurso
+     * @return
+     */
     public Curso AgregarEstudianteACurso(Estudiante estudiante, int IdCurso){
         Curso curso = mCurso.BuscarCurso(IdCurso);
         curso.addEstudianteCurso(estudiante);
@@ -101,16 +101,27 @@ public class ControladorCurso {
     
     /**
      * Calcula la fecha actual y devuelve los cursos que se estan dictando.
-     * @return 
+     * @return
      */
     public List<Curso> GetCursosActuales(){
         int Anio = Calendar.getInstance().get(Calendar.YEAR);
         int mes = Calendar.getInstance().get(Calendar.MONTH)+1;
-        int Semestre = 1;
-        if (mes>7) {
-            Semestre = 2;
-        }
-        return mCurso.FiltrarCursos(Anio, Semestre);
+        List<Curso> cursos = mCurso.FiltrarCursos(Anio);
+        List<Curso> lista = new ArrayList<>();
+        
+        for(Curso curso: cursos){
+            int semestre = curso.getSemestreCurso();
+            if(mes > 7){
+                if(semestre%2==0){
+                    lista.add(curso);
+                }
+            }else{
+                if(semestre%3==0){
+                    lista.add(curso);
+                }
+            }
+        }        
+        return lista;
     }
-
+    
 }

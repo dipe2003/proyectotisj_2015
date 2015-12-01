@@ -83,7 +83,12 @@ public class Curso implements Serializable{
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     public void setClasesCurso(List<Clase> ClasesCurso) {this.ClasesCurso = ClasesCurso;}
     public void setEvaluacionesCurso(List<Evaluacion> EvaluacionesCurso) {this.EvaluacionesCurso = EvaluacionesCurso;}
-    public void setEncuestaCurso(Encuesta EncuestaCurso) {this.EncuestaCurso = EncuestaCurso;}
+    public void setEncuestaCurso(Encuesta EncuestaCurso) {
+        this.EncuestaCurso = EncuestaCurso;
+        if(EncuestaCurso.getCursoEncuesta() == null || !EncuestaCurso.getCursoEncuesta().equals(this)){
+            EncuestaCurso.setCursoEncuesta(this);
+        }
+    }
     
     //  Estudiantes    
     public void addEstudianteCurso(Estudiante EstudianteCurso){

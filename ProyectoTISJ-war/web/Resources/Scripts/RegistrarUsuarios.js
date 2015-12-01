@@ -54,4 +54,15 @@ $(document).ready(function(){
         }
     });
     
+    function Redirigir(data){
+        if(data.status === 'success'){
+            var exito = $('#frmIngresoDatos\\:regExito').val();
+            if(exito === 'true'){
+                window.location.href="ListarUsuario.xhtml";
+            }else{
+                alert("No se pudo registrar el usuario.");
+            }
+        }
+    }
+    
 });

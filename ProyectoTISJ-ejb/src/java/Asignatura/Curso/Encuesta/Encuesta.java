@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +53,12 @@ public class Encuesta implements Serializable{
     //  Setters
     public void setIdEncuesta(int IdEncuesta) {this.IdEncuesta = IdEncuesta;}
     public void setEstudiantesEncuesta(List<Estudiante> EstudiantesEncuesta) {this.EstudiantesEncuesta = EstudiantesEncuesta;}
-    public void setCursoEncuesta(Curso CursoEncuesta) {this.CursoEncuesta = CursoEncuesta;}
+    public void setCursoEncuesta(Curso CursoEncuesta) {
+        this.CursoEncuesta = CursoEncuesta;
+        if(CursoEncuesta.getEncuestaCurso()==null || !CursoEncuesta.getEncuestaCurso().equals(this)){
+            CursoEncuesta.setEncuestaCurso(this);
+        }
+    }
     public void setRespuestasEncuesta(List<RespuestaEncuesta> RespuestasEncuesta) {this.RespuestasEncuesta = RespuestasEncuesta;}
     
     //  Estudiante

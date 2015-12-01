@@ -123,6 +123,19 @@ public class ManejadorCurso {
         }
         return lista;
     }
+    
+    public List<Curso> FiltrarCursos(int anioFilter){
+        List<Curso> lista = new ArrayList<>();
+        TypedQuery<Curso> query;
+            query = em.createQuery("SELECT c FROM Curso c WHERE c.AnioCurso= :Anio", Curso.class);
+            query.setParameter("Anio", anioFilter);;
+        try{
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 
     
 }
