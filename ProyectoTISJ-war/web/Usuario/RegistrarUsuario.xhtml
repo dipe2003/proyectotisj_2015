@@ -143,10 +143,11 @@
                         </div>
                     </div>
                 </h:panelGroup>
-                <h:outputText id="regExito" value="#{registrarUsuarioBean.correcto}" />
+                <h:inputText id="regExito" value="#{registrarUsuarioBean.correcto}" style="display:none;" />
+                <h:inputText id="regRol" value="#{registrarUsuarioBean.rol}" style="display:none;"/>
                 <div class="menuOpcion" >
                     <h:commandButton class="boton siguiente" value="Registrar" disabled="false">
-                        <f:ajax execute="@all" event="click" listener="#{registrarUsuarioBean.registrarUsuarioInterfaz()}" render="regExito" onevent="Redirigir" />
+                        <f:ajax execute="@form" event="click" listener="#{registrarUsuarioBean.registrarUsuarioInterfaz()}" render="regExito" onevent="Redirigir"/>
                     </h:commandButton>
                     <h:commandButton class="boton" value="Reset" type="reset"/>
                 </div>                    

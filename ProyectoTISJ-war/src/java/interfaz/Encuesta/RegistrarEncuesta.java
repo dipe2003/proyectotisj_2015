@@ -30,19 +30,23 @@ public class RegistrarEncuesta implements Serializable{
     private Map<Integer, Boolean> listChecked;
     private List<String> TiposPregunta;
     
+    private boolean Correcto;
+    
     //  Getters
     public List<Pregunta> getPreguntas() {return preguntas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public List<String> getTiposPregunta() {return TiposPregunta;}
+    public boolean isCorrecto() {return Correcto;}
     
     //  Setters
     public void setPreguntas(List<Pregunta> preguntas) {this.preguntas = preguntas;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setTiposPregunta(List<String> TiposPregunta) {this.TiposPregunta = TiposPregunta;}
+    public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
     
     @PostConstruct
     public void Init(){
-        
+        Correcto = false;
         preguntas = new ArrayList<>();
         preguntas = fEnc.ListarPreguntas();
         
@@ -63,6 +67,7 @@ public class RegistrarEncuesta implements Serializable{
         for(Curso curso: CursosActuales){
             if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
                 fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+                Correcto = true;
             }
         }        
     }

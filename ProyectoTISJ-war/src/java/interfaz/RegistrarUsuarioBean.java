@@ -198,7 +198,6 @@ public class RegistrarUsuarioBean implements Serializable{
         if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
-            FacesContext.getCurrentInstance().responseComplete();
         }else{
             if(registrarUsuario()!=-1) {
                 this.Correcto = true;
@@ -210,6 +209,7 @@ public class RegistrarUsuarioBean implements Serializable{
      * Registra un usuario segun el rol seleccionado.
      * Sino se selecciono imagen de perfil se registra con imagen por defecto.
      * [ESTUDIANTE] Sino se selecciono formulario de inscripcion no se registra.
+     * @return 
      * @throws IOException
      *
      */

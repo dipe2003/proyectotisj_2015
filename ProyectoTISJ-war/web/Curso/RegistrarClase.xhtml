@@ -43,9 +43,12 @@
                         <h:inputText id="inputTema" value="#{usuariosClase.temaClase}" class="Texto" required="true" requiredMessage="Debes ingresar un tema." p:placeholder="Tema"/>         
                     </div><h:message class="error" for="inputTema" id="msjTemaClase"/>
                 </div>
-                
+                <h:inputText id="claseExito" value="#{usuariosClase.correcto}" style="display: none;" />
+                <h:inputText id="clasecursoid" value="#{usuariosClase.idCurso}" style="display: none;" />
                 <div class="menuOpcion" >
-                    <h:commandButton class="boton" value="Registrar Clase" action="#{usuariosClase.registrarClase()}"/>
+                    <h:commandButton class="boton" value="Registrar Clase" >
+                        <f:ajax execute="@form" event="click" listener="#{usuariosClase.registrarClase()}" render="claseExito" onevent="RedirigirClases" />
+                    </h:commandButton>
                 </div>
             </div>
         </h:form>
