@@ -72,6 +72,14 @@
     column-gap: 40px;
 }
 
+.sinColumna{
+    width: 100%;
+    float: left;
+    font-family: RobotoLight;
+    text-shadow: none;
+    padding-left: 20px;
+}
+
 .negrita{
     font-family: RobotoRegular;
     display: inline;    

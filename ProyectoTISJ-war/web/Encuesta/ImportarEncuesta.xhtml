@@ -22,7 +22,7 @@
                 <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
                     <div class="ListItemContainer" >
                         <div class="item" >
-                            <h:selectBooleanCheckbox id="botonRadioSimil" class="BotonCheck" value="#{listarEncuesta.listChecked[encuesta.idEncuesta]}" />
+                            <h:selectBooleanCheckbox class="botonRadioSimil BotonCheck" value="#{listarEncuesta.listChecked[encuesta.idEncuesta]}" />
                         </div>
                         <div class="item">
                             #{encuesta.cursoEncuesta.anioCurso}

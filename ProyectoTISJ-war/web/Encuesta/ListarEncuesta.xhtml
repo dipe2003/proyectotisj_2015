@@ -21,11 +21,17 @@
                 
                 <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
                     <div class="ListItemContainer" >
-                        <div class="item">
-                            #{encuesta.cursoEncuesta.anioCurso}
+                        <div class="ListItem" >
+                            <div class="item">
+                                #{encuesta.cursoEncuesta.anioCurso}
+                            </div>
+                            <div class="item">
+                                #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
+                            </div>
+                            <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
                         </div>
-                         <div class="item">
-                            #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
+                        <div class="sinColumna">
+                             #{listarEncuesta.getEstudiantesSinRespuesta(encuesta)}
                         </div>
                     </div>            
                 </c:forEach>

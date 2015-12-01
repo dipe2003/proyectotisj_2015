@@ -1,9 +1,13 @@
 
 package interfaz.Encuesta;
 
+import Asignatura.Curso.Curso;
 import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.FacadeEncuesta;
 import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
+import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
+import Asignatura.Curso.FacadeCurso;
+import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +24,9 @@ public class ListarEncuesta implements Serializable{
     
     @EJB
     private FacadeEncuesta fEnc;
+    
+    @EJB
+    private FacadeCurso fCurso;
     
     List<Encuesta> encuestas;
     
@@ -44,7 +51,48 @@ public class ListarEncuesta implements Serializable{
     }
     
     public void importarEncuesta(){
-        
+        List<Curso> CursosActuales = fCurso.GetCursosActuales();
+        List<Integer> preguntasSeleccionadas = getIdPreguntasEncuesta();
+        for(Curso curso: CursosActuales){
+            int idEncuesta;
+            if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
+                fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+            }
+        }
     }
     
+    private Encuesta getEncuestaSeleccionada(){
+        int idEncuesta = 0;
+        for(Map.Entry item: listChecked.entrySet()){
+            if((Boolean)item.getValue()== true){
+                idEncuesta = (int)item.getKey();
+            }
+        }
+        for(Encuesta item : encuestas){
+            if (item.getIdEncuesta()==idEncuesta) return item;
+        }
+        return null;
+    }
+    
+    private List<Integer> getIdPreguntasEncuesta(){
+        List<Integer> idPreguntas = new ArrayList<>();
+        Encuesta encuestaSeleccionada = getEncuestaSeleccionada();
+        List <Pregunta> preguntas = encuestaSeleccionada.getPreguntasEncuesta();
+        for (Pregunta item : preguntas){
+            idPreguntas.add(item.getIdPregunta());
+        }
+        return idPreguntas;
+    }
+    
+    public String getEstudiantesSinRespuesta(Encuesta encuesta){
+        List<Estudiante> estudiantesSinRespuesta = fEnc.getEstudianteSinRespuesta(encuesta.getIdEncuesta());
+        String nombreEstudiantes = "";
+        if (estudiantesSinRespuesta.size()>0){
+            for (Estudiante item : estudiantesSinRespuesta){
+                nombreEstudiantes += item.getNombreCompleto() + " - ";
+            }
+            return nombreEstudiantes;
+        }
+        return "todos los estudiantes han respondido la encuesta";
+    }
 }
