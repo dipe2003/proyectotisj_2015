@@ -49,6 +49,8 @@ public class UsuariosClase implements Serializable{
     private Date FechaClase;
     private String strFechaClase;
     
+    private boolean Correcto;
+    
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
@@ -62,15 +64,11 @@ public class UsuariosClase implements Serializable{
             return fDate.format(FechaClase);
         }
     }
-    public int getAnioCurso(){
-        return fCurso.BuscarCurso(idCurso).getAnioCurso();
-    }
-    public String getNombreCurso(){
-        return fCurso.BuscarCurso(idCurso).getAsignaturaCurso().getNombreAsignatura();
-    }
-    public int getClasesDictadas(){
-        return fCurso.GetCantidadClasesCurso(idCurso);
-    }
+    public int getAnioCurso(){return fCurso.BuscarCurso(idCurso).getAnioCurso();}
+    public String getNombreCurso(){return fCurso.BuscarCurso(idCurso).getAsignaturaCurso().getNombreAsignatura();}
+    public int getClasesDictadas(){return fCurso.GetCantidadClasesCurso(idCurso);}
+    public boolean isCorrecto() {return Correcto;}
+    public int getIdCurso() {return idCurso;}
     
     //  Setters
     public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
@@ -86,9 +84,12 @@ public class UsuariosClase implements Serializable{
         this.strFechaClase = strFechaClase;
         this.FechaClase = cal.getTime();
     }
+    public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
+    public void setIdCurso(int idCurso) {this.idCurso = idCurso;}
     
     @PostConstruct
     public void Init() {
+        Correcto = false;
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         idCurso = Integer.valueOf(request.getParameter("idCurso"));
@@ -113,6 +114,7 @@ public class UsuariosClase implements Serializable{
                 for (int i = 0; i < CheckedUsers.size(); i++) {
                     fClase.RegistrarAsistenciaEstudiante(((Estudiante)CheckedUsers.get(i)).getIdUsuario(), idClase);
                 }
+                Correcto = true;
             }
             FacesContext context = FacesContext.getCurrentInstance();
             FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);

@@ -167,4 +167,22 @@ public class ControladorEstudiante {
         }
         return null;
     }
+    
+    /**
+     * Devuelve los estudiantes que contestaron la encuesta.
+     * @param IdEncuesta
+     * @return 
+     */
+    public List<Estudiante> getEstudiantesEncuesta(int IdEncuesta){
+        return mEst.ListarEstudiantesEncuesta(IdEncuesta);
+    }
+    
+    /**
+     * Devuelve los estudiantes que deben contestar la encuesta
+     * @param IdEncuesta
+     * @return 
+     */
+    public List<Estudiante> getEstudiantesCursoEncuesta(int IdEncuesta){
+        return mEst.ListarEstudiantesEncuestaCurso(IdEncuesta);
+    }
 }

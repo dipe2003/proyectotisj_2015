@@ -240,5 +240,28 @@ public class ManejadorEstudiante {
         }
         return lista;
     }
+    
+    public List<Estudiante> ListarEstudiantesEncuesta(int IdEncuesta){
+         List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("select e from Estudiante e, Encuesta enc WHERE e MEMBER OF enc.EstudiantesEncuesta and enc.IdEncuesta= :idencuesta", Estudiante.class);
+            query.setParameter("idencuesta", IdEncuesta);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    public List<Estudiante> ListarEstudiantesEncuestaCurso(int IdEncuesta){
+         List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("select e from Estudiante e, Curso c, Encuesta enc WHERE e MEMBER OF c.EstudiantesCurso and enc.CursoEncuesta = c and enc.IdEncuesta= :idencuesta", Estudiante.class);
+            query.setParameter("idencuesta", IdEncuesta);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 }
     

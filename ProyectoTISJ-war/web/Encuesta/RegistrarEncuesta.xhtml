@@ -17,7 +17,7 @@
                 </div>            
             </h:panelGroup>
             
-            <h:form>
+            <h:form id="frmRegEncuesta">
                 
                 <c:forEach var="pregunta" items="#{registrarEncuesta.preguntas}">
                     <div class="ListItemContainer" >
@@ -41,9 +41,11 @@
                         </div>
                     </a>
                 </div>
-                
+                <h:inputText id="encExito" value="#{registrarEncuesta.correcto}" style="display: none;"/>
                 <div class="menuOpcion" >
-                    <h:commandButton class="boton" value="Seleccionar" action="#{registrarEncuesta.crearEncuesta()}"/>
+                    <h:commandButton class="boton" value="Seleccionar">
+                        <f:ajax execute="@form" event="click" listener="#{registrarEncuesta.crearEncuesta()}" render="encExito" onevent="RedirigirEncuestas" />
+                    </h:commandButton>
                 </div>
                 
             </h:form>

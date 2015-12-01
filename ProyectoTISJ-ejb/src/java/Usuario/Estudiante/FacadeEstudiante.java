@@ -68,4 +68,22 @@ public class FacadeEstudiante implements Serializable {
     public List<String> ListarEstudiosOrientacionCursados(int IdEstudiante){
         return cEstudio.ListarEstudiosOrientacion(cEst.ListarEstudiosOrientacionCursados(IdEstudiante));        
     }
+    
+        /**
+     * Devuelve los estudiantes que contestaron la encuesta.
+     * @param IdEncuesta
+     * @return 
+     */
+    public List<Estudiante> getEstudiantesEncuesta(int IdEncuesta){
+        return cEst.getEstudiantesEncuesta(IdEncuesta);
+    }
+    
+    /**
+     * Devuelve los estudiantes que deben contestar la encuesta
+     * @param IdEncuesta
+     * @return 
+     */
+    public List<Estudiante> getEstudiantesCursoEncuesta(int IdEncuesta){
+        return cEst.getEstudiantesCursoEncuesta(IdEncuesta);
+    }
  }
