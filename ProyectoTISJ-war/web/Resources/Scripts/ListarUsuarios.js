@@ -1,6 +1,19 @@
 $(document).ready(function(){    
     
-    $( ".masInformacion" ).click(function() {
+    eventoClick();
+    
+    var tiempo=0;
+    $('.ListItemContainer').hide().each(function() {
+        $(this).delay(tiempo).fadeIn('slow');
+        tiempo += 200;
+    });
+    
+    $("#filtro\\:cedulaFilter").val("");
+    
+});
+
+function eventoClick(){
+     $( ".masInformacion" ).click(function() {
         var ListItem = $( this ).parent();
         if (ListItem.hasClass("ListItemClick")){
             ListItem.removeClass("ListItemClick");
@@ -19,13 +32,4 @@ $(document).ready(function(){
             }); 
         }
     });
-    
-    var tiempo=0;
-    $('.ListItemContainer').hide().each(function() {
-        $(this).delay(tiempo).fadeIn('slow');
-        tiempo += 200;
-    });
-    
-    $("#filtro\\:cedulaFilter").val("");
-    
-});
+}
