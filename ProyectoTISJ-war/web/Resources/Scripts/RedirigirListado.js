@@ -15,7 +15,7 @@ function RedirigirUsuarios(data){
 function RedirigirEncuestas(data){
     if(data.status === 'success'){
         var exito = $('#frmRegEncuesta\\:encExito').val();
-        var destino = "ListarEncuesta.xhtml";
+        var destino = "ListarEncuesta.xhtml?rol=Administrador";
         if(exito === 'true'){
             window.location.href=destino;
         }else{

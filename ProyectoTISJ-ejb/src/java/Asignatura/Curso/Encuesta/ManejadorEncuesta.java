@@ -73,6 +73,7 @@ public class ManejadorEncuesta {
         try{
             TypedQuery<Encuesta> query = em.createQuery("SELECT e FROM Encuesta e, Estudiante es WHERE es.IdUsuario= :idestudiante and es MEMBER OF e.EstudiantesEncuesta", Encuesta.class);
             query.setParameter("idestudiante", IdEstudiante);
+            lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
         }
@@ -82,8 +83,9 @@ public class ManejadorEncuesta {
     public List<Encuesta> ListarEncuestasCursosEstudiante(int IdEstudiante){
         List<Encuesta> lista = new ArrayList<>();
         try{
-            TypedQuery<Encuesta> query = em.createQuery("SELECT e FROM Encuesta e, Curso c, Estudiante es WHERE es.IdUsuario= :idestudiante and es MEMBER OF c.EstudiantesCurso and e.IdEncuesta = c.EncuestaCurso.IdEncuesta", Encuesta.class);
+            TypedQuery<Encuesta> query = em.createQuery("SELECT e FROM Encuesta e, Curso c, Estudiante es WHERE es.IdUsuario= :idestudiante and c MEMBER OF es.CursosEstudiante and e.IdEncuesta = c.EncuestaCurso.IdEncuesta", Encuesta.class);
             query.setParameter("idestudiante", IdEstudiante);
+            lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
         }

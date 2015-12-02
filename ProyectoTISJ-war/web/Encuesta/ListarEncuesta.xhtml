@@ -29,13 +29,43 @@
                                 #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                             </div>
                             <h:panelGroup rendered="#{listarEncuesta.rol == 'Administrador'}">
-                            <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{listarEncuesta.rol == 'Estudiante'}">
+                                <a href="ListarEncuesta.xhtml?rol=Estudiante#openModal_#{encuesta.idEncuesta}" class="SubmenuLink">
+                                    <div title="Responder Encuesta" class="optionItem" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                </a>
                             </h:panelGroup>
                         </div>
                         <div class="sinColumna">
-                             #{listarEncuesta.getEstudiantesSinRespuesta(encuesta)}
+                            #{listarEncuesta.getEstudiantesSinRespuesta(encuesta)}
                         </div>
-                    </div>            
+                    </div>   
+                    
+                    <div id="openModal_#{encuesta.idEncuesta}" class="modalDialog">
+                        <div style="width: inherit !important;display: inline-block; text-align: left; ">
+                            <a href="#close" title="Close" class="close">X</a>
+                            <div style="text-align: center !important;"><h2>titulo</h2></div>
+                            <h:form id="Respuesta">
+                                <c:forEach var="pregunta" items="#{encuesta.preguntasEncuesta}">
+                                    <div style="margin-bottom: 10px;"> 
+                                        <h:selectOneMenu value="#{semestreFilter=3}">
+                                            <f:selectItem itemValue="1" itemLabel="Malo" />
+                                            <f:selectItem itemValue="2" itemLabel="Regular" />
+                                            <f:selectItem itemValue="3" itemLabel="Aceptable" />
+                                            <f:selectItem itemValue="4" itemLabel="Bueno" />
+                                            <f:selectItem itemValue="5" itemLabel="Muy Bueno" />	
+                                        </h:selectOneMenu>	
+                                        #{pregunta.textoPregunta}
+                                    </div>
+                                </c:forEach>
+                                <div style="text-align: center !important;">
+                                <h:commandButton class="boton" value="Enviar"></h:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                    
                 </c:forEach>
                 
             </h:form>
