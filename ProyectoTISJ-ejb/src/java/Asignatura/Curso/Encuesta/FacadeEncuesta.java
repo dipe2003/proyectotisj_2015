@@ -127,6 +127,25 @@ public class FacadeEncuesta {
     }
     
     /**
+     * Crea una respuesta para la encuesta y la agrega a la misma.
+     * @param ResultadoRespuesta
+     * @param IdPregunta
+     * @param IdEncuesta
+     * @return Retorna el id de la respuesta creada. Retorna -1 si no se pudo agregar.
+     */
+    public int ResponderPreguntaEncuesta(int ResultadoRespuesta, int IdPregunta, int IdEncuesta){
+        int IdRespuesta = cResp.CrearRespuesta(ResultadoRespuesta, cPreg.BuscarPregunta(IdPregunta));
+        int IdRespuestaEncuesta = cRespEnc.ObtenerRespuestaEncuestaPorPregunta(IdEncuesta, IdPregunta);
+        if(IdRespuesta != -1 && IdRespuestaEncuesta != -1) return cRespEnc.AgregarRespuestaEncuesta(cResp.BuscarRespuesta(IdRespuesta), cRespEnc.ObtenerRespuestaEncuesta(IdRespuestaEncuesta));
+        return -1;
+    }
+    
+    /**
+     * Estudiantes encuestas
+     */
+    
+    
+    /**
      * Obtiene los estudiantes que tienen encuestas pendientes para responder.
      * @param idEncuesta
      * @return Retorna una lista de estudiantes. Retorna una lista vacia si no hay encuestas pendientes.

@@ -67,6 +67,24 @@ public class ManejadorRespuestaEncuesta {
         }
         return lista;
     }
+    
+    public int ObtenerRespuestaEncuestaPorPregunta(int IdEncuesta, int IdPregunta){
+        try{
+            TypedQuery<RespuestaEncuesta> query = em.createQuery(
+                    "SELECT respec "
+                            + "FROM RespuestaEncuesta respec, Encuesta enc "
+                            + "WHERE enc.IdEncuesta = :idencuesta and "
+                            + "respec MEMBER OF enc and "
+                            + "respec.PreguntaRespuestasEncuesta.IdPregunta = :idpregunta", RespuestaEncuesta.class);
+            query.setParameter("idencuesta", IdEncuesta);
+            query.setParameter("idpregunta", IdPregunta);
+            RespuestaEncuesta resp = query.getSingleResult();
+            return resp.getIdRespuestaEncuesta();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return -1;
+    }
         
 }
     
