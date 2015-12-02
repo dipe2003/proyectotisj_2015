@@ -42,5 +42,15 @@ public class ControladorRespuestaEncuesta {
     public RespuestaEncuesta ObtenerRespuestaEncuesta(int IdRespuestaEncuesta){
         return mRespEnc.BuscarRespuestaEncuesta(IdRespuestaEncuesta);
     }
+    
+    /**
+     * Devuelve una RespuestaEncuesta
+     * @param IdEncuesta
+     * @param IdPregunta
+     * @return 
+     */
+    public int ObtenerRespuestaEncuestaPorPregunta(int IdEncuesta, int IdPregunta){
+        return mRespEnc.ObtenerRespuestaEncuestaPorPregunta(IdEncuesta, IdPregunta);
+    }
    
 }
