@@ -2,6 +2,7 @@
 package Asignatura.Curso.Encuesta;
 
 import Asignatura.Curso.Curso;
+import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Encuesta implements Serializable{
     @ManyToMany
     private List<Estudiante> EstudiantesEncuesta;
     
-    @OneToMany(mappedBy = "EncuestaRespuestas")
+    @OneToMany(mappedBy = "EncuestaRespuestas", fetch = FetchType.EAGER)
     private List<RespuestaEncuesta> RespuestasEncuesta;
     
     //  Constructores
@@ -75,5 +76,13 @@ public class Encuesta implements Serializable{
         if (!respuestaEncuesta.getEncuestaRespuestas().equals(this)) {
             respuestaEncuesta.setEncuestaRespuestas(this);
         }
+    }
+    
+    public List<Pregunta> getPreguntasEncuesta(){
+        List<Pregunta> preguntas = new ArrayList<>();
+        for (RespuestaEncuesta item : RespuestasEncuesta){
+            preguntas.add(item.getPreguntaRespuestasEncuesta());
+        }
+        return preguntas;
     }
 }

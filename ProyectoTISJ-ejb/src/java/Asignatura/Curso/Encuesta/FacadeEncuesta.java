@@ -6,6 +6,8 @@ import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Respuesta.ControladorRespuesta;
 import Usuario.Estudiante.ControladorEstudiante;
+import Usuario.Estudiante.Estudiante;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -124,7 +126,21 @@ public class FacadeEncuesta {
         return cRespEnc.AgregarRespuestaEncuesta(cResp.BuscarRespuesta(IdRespuesta), cRespEnc.ObtenerRespuestaEncuesta(IdRespuestaEncuesta));
     }
     
+    public List<Estudiante> getEstudianteSinRespuesta(int idEncuesta){
+        List<Estudiante> estudiantes= new ArrayList<>();
+        List<Estudiante> estudiantesEncuesta = cEst.getEstudiantesEncuesta(idEncuesta);
+        List<Estudiante> estudiantesCursoEncuesta = cEst.getEstudiantesCursoEncuesta(idEncuesta);
+        for (Estudiante item : estudiantesCursoEncuesta){
+            if (!perteneceEstudiante(estudiantesEncuesta, item.getIdUsuario())) estudiantes.add(item);
+        }
+        return estudiantes;
+    }
     
-    
+    private boolean perteneceEstudiante(List<Estudiante> estudiantes, int idEstudiante){
+        for (Estudiante item : estudiantes){
+            if (item.getIdUsuario() == idEstudiante) return true;
+        }
+        return false;
+    }
     
 }

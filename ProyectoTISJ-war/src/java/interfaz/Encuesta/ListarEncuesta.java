@@ -1,9 +1,13 @@
 
 package interfaz.Encuesta;
 
+import Asignatura.Curso.Curso;
+import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.FacadeEncuesta;
 import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
+import Asignatura.Curso.FacadeCurso;
+import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,36 +25,74 @@ public class ListarEncuesta implements Serializable{
     @EJB
     private FacadeEncuesta fEnc;
     
-    List<Pregunta> preguntas;
+    @EJB
+    private FacadeCurso fCurso;
+    
+    List<Encuesta> encuestas;
     
     private Map<Integer, Boolean> listChecked;
-    
-    public List<Pregunta> getPreguntas() {return preguntas;}
+
+    public List<Encuesta> getEncuestas() {return encuestas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
-    
-    public void setPreguntas(List<Pregunta> preguntas) {this.preguntas = preguntas;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
+    public void setEncuestas(List<Encuesta> encuestas) {this.encuestas = encuestas;}
     
     @PostConstruct
     public void Init(){
         
-        preguntas = new ArrayList<>();
-        preguntas = fEnc.ListarPreguntas();
+        encuestas = new ArrayList<>();
+        encuestas = fEnc.ListarEncuestas();
         
         listChecked = new HashMap<>();
-        for (Pregunta item : preguntas) {
-            listChecked.put(item.getIdPregunta(), Boolean.FALSE);
+        for (Encuesta item : encuestas) {
+            listChecked.put(item.getIdEncuesta(), Boolean.FALSE);
         }
         
     }
     
-    public void crearEncuesta(){
-        
+    public void importarEncuesta(){
+        List<Curso> CursosActuales = fCurso.GetCursosActuales();
+        List<Integer> preguntasSeleccionadas = getIdPreguntasEncuesta();
+        for(Curso curso: CursosActuales){
+            int idEncuesta;
+            if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
+                fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+            }
+        }
     }
     
-    public void registrarPregunta(String tipoPregunta, String contenidoPregunta){
-        fEnc.CrearPregunta(contenidoPregunta, EnumTipoPregunta.valueOf(tipoPregunta));
+    private Encuesta getEncuestaSeleccionada(){
+        int idEncuesta = 0;
+        for(Map.Entry item: listChecked.entrySet()){
+            if((Boolean)item.getValue()== true){
+                idEncuesta = (int)item.getKey();
+            }
+        }
+        for(Encuesta item : encuestas){
+            if (item.getIdEncuesta()==idEncuesta) return item;
+        }
+        return null;
     }
     
+    private List<Integer> getIdPreguntasEncuesta(){
+        List<Integer> idPreguntas = new ArrayList<>();
+        Encuesta encuestaSeleccionada = getEncuestaSeleccionada();
+        List <Pregunta> preguntas = encuestaSeleccionada.getPreguntasEncuesta();
+        for (Pregunta item : preguntas){
+            idPreguntas.add(item.getIdPregunta());
+        }
+        return idPreguntas;
+    }
+    
+    public String getEstudiantesSinRespuesta(Encuesta encuesta){
+        List<Estudiante> estudiantesSinRespuesta = fEnc.getEstudianteSinRespuesta(encuesta.getIdEncuesta());
+        String nombreEstudiantes = "";
+        if (estudiantesSinRespuesta.size()>0){
+            for (Estudiante item : estudiantesSinRespuesta){
+                nombreEstudiantes += item.getNombreCompleto() + " - ";
+            }
+            return nombreEstudiantes;
+        }
+        return "todos los estudiantes han respondido la encuesta";
+    }
 }
-
