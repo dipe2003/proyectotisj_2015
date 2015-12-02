@@ -148,4 +148,21 @@ public class FacadeEncuesta {
         return false;
     }
     
+    public List<Encuesta> getEncuestasEstudianteSinResponder(int idEstudiante){
+        List<Encuesta> encuestasSinResponder = new ArrayList<>();
+        List<Encuesta> escuestasRespondidas = cEnc.ListarEncuestasRespondidas(idEstudiante);
+        List<Encuesta> escuestasEstudiante = cEnc.ListarEncuestasCursosEstudiante(idEstudiante);
+        for (Encuesta item : escuestasEstudiante){
+            if (!PerteneceEcuesta(escuestasRespondidas, item)) encuestasSinResponder.add(item);
+        }
+        return encuestasSinResponder;
+    }
+    
+    private boolean PerteneceEcuesta(List<Encuesta> lista, Encuesta item){
+        for (Encuesta i : lista){
+            if (i.getIdEncuesta() == item.getIdEncuesta()) return true;
+        }
+        return false;
+    }
+    
 }
