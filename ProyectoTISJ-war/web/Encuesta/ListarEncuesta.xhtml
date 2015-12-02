@@ -45,9 +45,25 @@
                     <div id="openModal_#{encuesta.idEncuesta}" class="modalDialog">
                         <div style="width: inherit !important;display: inline-block; text-align: left; ">
                             <a href="#close" title="Close" class="close">X</a>
-                            <div style="text-align: center !important;"><h2>titulo</h2></div>
+                            <div style="text-align: center !important;"><h2> Encuesta de #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura} </h2></div>
                             <h:form id="Respuesta">
-                                <c:forEach var="pregunta" items="#{encuesta.preguntasEncuesta}">
+                                <div style="text-align: center !important; font-size: 15px !important;"><h2>Docente</h2></div>
+                                <c:forEach var="pregunta" items="#{encuesta.preguntasEncuestaDocente}">
+
+                                    <div style="margin-bottom: 10px;"> 
+                                        <h:selectOneMenu value="#{semestreFilter=3}">
+                                            <f:selectItem itemValue="1" itemLabel="Malo" />
+                                            <f:selectItem itemValue="2" itemLabel="Regular" />
+                                            <f:selectItem itemValue="3" itemLabel="Aceptable" />
+                                            <f:selectItem itemValue="4" itemLabel="Bueno" />
+                                            <f:selectItem itemValue="5" itemLabel="Muy Bueno" />	
+                                        </h:selectOneMenu>	
+                                        #{pregunta.textoPregunta}
+                               
+                                    </div>
+                                </c:forEach>
+                                <div style="text-align: center !important; font-size: 15px !important;"><h2>Curso</h2></div>
+                                <c:forEach var="pregunta" items="#{encuesta.preguntasEncuestaCurso}">
                                     <div style="margin-bottom: 10px;"> 
                                         <h:selectOneMenu value="#{semestreFilter=3}">
                                             <f:selectItem itemValue="1" itemLabel="Malo" />
@@ -59,6 +75,7 @@
                                         #{pregunta.textoPregunta}
                                     </div>
                                 </c:forEach>
+                                
                                 <div style="text-align: center !important;">
                                 <h:commandButton class="boton" value="Enviar"></h:commandButton>
                                 </div>
