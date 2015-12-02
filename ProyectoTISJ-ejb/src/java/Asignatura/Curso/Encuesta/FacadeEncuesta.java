@@ -126,6 +126,11 @@ public class FacadeEncuesta {
         return cRespEnc.AgregarRespuestaEncuesta(cResp.BuscarRespuesta(IdRespuesta), cRespEnc.ObtenerRespuestaEncuesta(IdRespuestaEncuesta));
     }
     
+    /**
+     * Obtiene los estudiantes que tienen encuestas pendientes para responder.
+     * @param idEncuesta
+     * @return Retorna una lista de estudiantes. Retorna una lista vacia si no hay encuestas pendientes.
+     */
     public List<Estudiante> getEstudianteSinRespuesta(int idEncuesta){
         List<Estudiante> estudiantes= new ArrayList<>();
         List<Estudiante> estudiantesEncuesta = cEst.getEstudiantesEncuesta(idEncuesta);

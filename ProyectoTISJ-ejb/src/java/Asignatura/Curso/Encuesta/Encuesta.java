@@ -2,6 +2,7 @@
 package Asignatura.Curso.Encuesta;
 
 import Asignatura.Curso.Curso;
+import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
@@ -78,9 +79,37 @@ public class Encuesta implements Serializable{
         }
     }
     
+    /**
+     * Recorre la lista de respuestas-encuestas y devuelve cada pregunta.
+     * @return 
+     */
     public List<Pregunta> getPreguntasEncuesta(){
         List<Pregunta> preguntas = new ArrayList<>();
         for (RespuestaEncuesta item : RespuestasEncuesta){
+            preguntas.add(item.getPreguntaRespuestasEncuesta());
+        }
+        return preguntas;
+    }
+    /**
+     * Recorre la lista de respuestas-encuestas y devuelve cada pregunta sobre el docente.
+     * @return 
+     */
+    public List<Pregunta> getPreguntasEncuestaDocente(){
+        List<Pregunta> preguntas = new ArrayList<>();
+        for (RespuestaEncuesta item : RespuestasEncuesta){
+            if(item.getPreguntaRespuestasEncuesta().getTipoPregunta().equals(EnumTipoPregunta.Docente))
+            preguntas.add(item.getPreguntaRespuestasEncuesta());
+        }
+        return preguntas;
+    }
+    /**
+     * Recorre la lista de respuestas-encuestas y devuelve cada pregunta sobre el curso.
+     * @return 
+     */
+    public List<Pregunta> getPreguntasEncuestaCurso(){
+        List<Pregunta> preguntas = new ArrayList<>();
+        for (RespuestaEncuesta item : RespuestasEncuesta){
+            if(item.getPreguntaRespuestasEncuesta().getTipoPregunta().equals(EnumTipoPregunta.Curso))
             preguntas.add(item.getPreguntaRespuestasEncuesta());
         }
         return preguntas;

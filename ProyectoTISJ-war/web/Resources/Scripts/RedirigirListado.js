@@ -38,3 +38,6 @@ function RedirigirClases(data){
     }
 };
 
+function RedirigirRespuestaEncuesta(data){
+    window.location.href="ListarEncuesta.xhtml?rol=Estudiante";
+};
