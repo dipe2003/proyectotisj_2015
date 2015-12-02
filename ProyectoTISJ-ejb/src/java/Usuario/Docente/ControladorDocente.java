@@ -115,7 +115,7 @@ public class ControladorDocente {
         
         //  semestre != 0 | anio  = 0 | asignatura  = 0
         if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura == 0) {
-            return mDoc.ListarDocentesCursoAnio(AnioCurso);
+            return mDoc.ListarDocentesCursoSemestre(SemestreCurso);
         }
         
         //  semestre != 0 | anio  = 0 | asingatura != 0

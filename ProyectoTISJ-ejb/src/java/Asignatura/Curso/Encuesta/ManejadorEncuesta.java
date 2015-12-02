@@ -25,7 +25,7 @@ public class ManejadorEncuesta {
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
             return -1;
-        }        
+        }
     }
     
     public int ModificarEncuesta(Encuesta encuesta){
@@ -67,6 +67,28 @@ public class ManejadorEncuesta {
         }
         return lista;
     }
-        
-}
     
+    public List<Encuesta> ListarEncuestasRespondidas(int IdEstudiante){
+        List<Encuesta> lista = new ArrayList<>();
+        try{
+            TypedQuery<Encuesta> query = em.createQuery("SELECT e FROM Encuesta e, Estudiante es WHERE es.IdUsuario= :idestudiante and es MEMBER OF e.EstudiantesEncuesta", Encuesta.class);
+            query.setParameter("idestudiante", IdEstudiante);
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
+    public List<Encuesta> ListarEncuestasCursosEstudiante(int IdEstudiante){
+        List<Encuesta> lista = new ArrayList<>();
+        try{
+            TypedQuery<Encuesta> query = em.createQuery("SELECT e FROM Encuesta e, Curso c, Estudiante es WHERE es.IdUsuario= :idestudiante and es MEMBER OF c.EstudiantesCurso and e.IdEncuesta = c.EncuestaCurso.IdEncuesta", Encuesta.class);
+            query.setParameter("idestudiante", IdEstudiante);
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
+}
+

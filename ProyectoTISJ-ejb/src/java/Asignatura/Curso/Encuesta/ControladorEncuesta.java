@@ -96,4 +96,24 @@ public class ControladorEncuesta {
         return false;
     }
     
+    /**
+     * Devuelve una lista de encuestas que hayan sido respondidas por el estudiante 
+     * @param IdEstudiante Id del estudiante
+     * @return Retorna una lista con Encuestas. Retorna una lista vacia si no hay encuestas respondidas por el estudiante o
+     * si los cursos a los que pertenece el estudiante no tienen encuestas se obtienen una lista vacia.
+     */
+    public List<Encuesta> ListarEncuestasRespondidas(int IdEstudiante){
+        return mEnc.ListarEncuestasRespondidas(IdEstudiante);
+    }
+    
+    /**
+     * Devuelve una lista de encuestas que se hayan emitido para los cualquier curso del estudiante.
+     * @param IdEstudiante Id del estudiante
+     * @return Retorna una lista con encuestas. Retorna una lista vacia si no hay encuestas en los cursos del estudiante o si el
+     * estudiante no tiene cursos asignados.
+     */
+    public List<Encuesta> ListarEncuestasCursosEstudiante(int IdEstudiante){
+        return mEnc.ListarEncuestasCursosEstudiante(IdEstudiante);
+    }
+    
 }
