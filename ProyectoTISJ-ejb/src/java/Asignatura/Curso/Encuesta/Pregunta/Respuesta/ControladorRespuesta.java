@@ -1,6 +1,5 @@
 package Asignatura.Curso.Encuesta.Pregunta.Respuesta;
 
-import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import java.util.List;
 import javax.ejb.EJB;

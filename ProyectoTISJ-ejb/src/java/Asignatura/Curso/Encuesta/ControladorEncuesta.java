@@ -80,7 +80,8 @@ public class ControladorEncuesta {
     }
     
     /**
-     * Agrega preguntas a la encuesta.
+     * Agrega preguntas a la encuesta. 
+     * Crea una RespuestaEncuesta para cada pregunta que agrega y la agrega a la lista en encuesta.
      * @param IdEncuesta
      * @param IdPreguntas
      * @return Retorna true si se pudo agregar.
