@@ -28,7 +28,9 @@
                             <div class="item">
                                 #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                             </div>
+                            <h:panelGroup rendered="#{listarEncuesta.rol == 'Administrador'}">
                             <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
+                            </h:panelGroup>
                         </div>
                         <div class="sinColumna">
                              #{listarEncuesta.getEstudiantesSinRespuesta(encuesta)}
