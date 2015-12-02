@@ -255,7 +255,7 @@ public class ManejadorEstudiante {
     public List<Estudiante> ListarEstudiantesEncuestaCurso(int IdEncuesta){
          List<Estudiante> lista = new ArrayList<>();
         try{
-            TypedQuery<Estudiante> query = em.createQuery("select e from Estudiante e, Curso c, Encuesta enc WHERE e MEMBER OF c.EstudiantesCurso and enc.CursoEncuesta = c and enc.IdEncuesta= :idencuesta", Estudiante.class);
+            TypedQuery<Estudiante> query = em.createQuery("select e from Estudiante e, Curso c WHERE e MEMBER OF c.EstudiantesCurso and c.EncuestaCurso.IdEncuesta= :idencuesta", Estudiante.class);
             query.setParameter("idencuesta", IdEncuesta);
             lista = query.getResultList();
         }catch(Exception ex){
