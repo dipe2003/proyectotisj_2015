@@ -36,28 +36,35 @@
                             #{curso.docenteCurso.nombreCompleto}
                         </div>
                     </h:panelGroup>
-                    
-                    <a href="ListarClases.xhtml?opt=#{curso.idCurso}" class="SubmenuLink">
-                        <div title="Listar Clases" class="optionItem" style="background-image: url(../Resources/Images/listaClases.png)"></div>
-                    </a>
-                    
-                    <a href="RegistrarClase.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
-                        <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
-                    </a>
-                    
-                    <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=addestcurso&amp;idopt=#{curso.idCurso}" class="SubmenuLink">
-                        <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
-                    </a>
-                    
-                    <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
-                        <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
-                    </a>
+                    <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
+                        
+                        <a href="ListarClases.xhtml?opt=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Listar Clases" class="optionItem" style="background-image: url(../Resources/Images/listaClases.png)"></div>
+                        </a>
+                        
+                        <a href="RegistrarClase.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
+                        </a>
+                        
+                        <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=addestcurso&amp;idopt=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
+                        </a>
+                        
+                        <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+                        </a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{(login.rolSeleccionado == 'Estudiante')}">
+                        <a href="InformacionEstudianteCurso.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+                        </a>
+                    </h:panelGroup>
                 </div>
             </c:forEach>
         </div>
         
         <!-- PopUp para filtro -->
-
+        
         <div id="openModal" class="modalDialog">
             <div>
                 <a href="#close" title="Close" class="close">X</a>

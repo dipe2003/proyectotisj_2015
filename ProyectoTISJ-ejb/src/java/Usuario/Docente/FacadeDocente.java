@@ -36,5 +36,8 @@ public class FacadeDocente implements Serializable {
         return cDoc.getNombreDocente(IdDocente);
     }
     
+    public List<Docente> ListarProfesoresDeEstudiante(int idEstudiante){
+        return cDoc.ListarProfesoresDeEstudiante(idEstudiante);
+    }
     
 }

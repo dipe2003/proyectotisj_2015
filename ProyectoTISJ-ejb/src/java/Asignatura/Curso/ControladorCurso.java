@@ -75,7 +75,7 @@ public class ControladorCurso {
      * @return
      */
     public List<Curso> ListarCursos(int IdUsuario, boolean docente){
-        return mCurso.ListarCursos(IdUsuario, true);
+        return mCurso.ListarCursos(IdUsuario, docente);
     }
     /**
      * Agrega el estudiante al curso especificado.
