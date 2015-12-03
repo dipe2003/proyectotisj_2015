@@ -20,3 +20,17 @@ $(document).ready(function(){
         }
     });
 });
+
+function ObtenerDatos(idEncuesta){
+    var resultados = "";
+    var len = $('.datos_'+idEncuesta).length;
+    $('.datos_'+idEncuesta).each(function(index, element) {
+        resultados += $(this).children( ".respuesta" ).val() + "-";
+        resultados += $(this).children( ".idPregunta" ).val();
+        if (index < len - 1) {
+            resultados +=  ",";
+        }
+    });
+    alert(resultados);
+    $("#Formulario\\:hiddenRespuesta").val(resultados);
+}

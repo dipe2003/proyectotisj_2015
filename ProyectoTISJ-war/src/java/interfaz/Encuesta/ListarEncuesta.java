@@ -112,4 +112,14 @@ public class ListarEncuesta implements Serializable{
         }
         return "todos los estudiantes han respondido la encuesta";
     }
+    
+    public void registrarResultadoEncuesta(String test, String idEncuesta){
+        String[] RespuestaPregunta = test.split(",");
+        for (int i = 0; i < RespuestaPregunta.length; i++) {
+            int Respuesta = Integer.valueOf(RespuestaPregunta[i].split("-")[0]);
+            int Pregunta = Integer.valueOf(RespuestaPregunta[i].split("-")[1]);
+            int Encuesta = Integer.valueOf(idEncuesta);
+            fEnc.ResponderPreguntaEncuesta(Respuesta, Pregunta, Encuesta);
+        }
+    }
 }
