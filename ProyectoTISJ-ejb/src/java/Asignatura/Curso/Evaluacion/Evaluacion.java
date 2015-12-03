@@ -56,7 +56,7 @@ abstract public class Evaluacion implements Serializable{
     //  Resultados
     private void addResultadoEvaluacion(Resultado ResultadoEvaluacion){
         this.ResultadosEvaluacion.add(ResultadoEvaluacion);
-        if(!ResultadoEvaluacion.getEvaluacionResultado().equals(this)){
+        if(ResultadoEvaluacion.getEvaluacionResultado()==null || !ResultadoEvaluacion.getEvaluacionResultado().equals(this)){
             ResultadoEvaluacion.setEvaluacionResultado(this);
         }
     }

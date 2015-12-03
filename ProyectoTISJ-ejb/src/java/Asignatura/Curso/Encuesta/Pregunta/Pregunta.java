@@ -53,7 +53,7 @@ public class Pregunta implements Serializable{
     //  Respuestas
     public void addRespuestaPregunta(Respuesta RespuestaPregunta){
         this.RespuestasPregunta.add(RespuestaPregunta);
-        if (!RespuestaPregunta.getPreguntaRespuesta().equals(this)) {
+        if (RespuestaPregunta.getPreguntaRespuesta()==null || !RespuestaPregunta.getPreguntaRespuesta().equals(this)) {
             RespuestaPregunta.setPreguntaRespuesta(this);
         }
     }
@@ -61,7 +61,7 @@ public class Pregunta implements Serializable{
     //  RespuestasEncuestas
     public void addRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta){
         this.RespuestasEncuesta.add(respuestaEncuesta);
-        if (!respuestaEncuesta.getPreguntaRespuestasEncuesta().equals(this)) {
+        if (respuestaEncuesta.getPreguntaRespuestasEncuesta()==null || !respuestaEncuesta.getPreguntaRespuestasEncuesta().equals(this)) {
             respuestaEncuesta.setPreguntaRespuestasEncuesta(this);
         }
     }

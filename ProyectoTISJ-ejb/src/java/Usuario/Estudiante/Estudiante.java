@@ -120,7 +120,7 @@ public class Estudiante extends Usuario {
     //  Resultados
     public void addResultadoEstudiante(Resultado ResultadoEstudiante){
         this.ResultadosEstudiante.add(ResultadoEstudiante);
-        if (!ResultadoEstudiante.getEstudianteResultado().equals(this)) {
+        if (ResultadoEstudiante.getEstudianteResultado()==null || !ResultadoEstudiante.getEstudianteResultado().equals(this)) {
             ResultadoEstudiante.setEstudianteResultado(this);
         }
     }

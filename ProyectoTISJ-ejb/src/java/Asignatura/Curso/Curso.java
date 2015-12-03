@@ -107,7 +107,7 @@ public class Curso implements Serializable{
     //  Asistencias
     public void addClaseCurso(Clase ClaseCurso){
         this.ClasesCurso.add(ClaseCurso);
-        if (!ClaseCurso.getCursoClase().equals(this)) {
+        if (ClaseCurso.getCursoClase()==null || !ClaseCurso.getCursoClase().equals(this)) {
             ClaseCurso.setCursoClase(this);
         }
     }
@@ -145,7 +145,7 @@ public class Curso implements Serializable{
     //  Evaluaciones
     public void addEvaluacionCurso(Evaluacion EvaluacionCurso){
         this.EvaluacionesCurso.add(EvaluacionCurso);
-        if (!EvaluacionCurso.getCursoEvaluacion().equals(this)) {
+        if (EvaluacionCurso.getCursoEvaluacion()==null || !EvaluacionCurso.getCursoEvaluacion().equals(this)) {
             EvaluacionCurso.setCursoEvaluacion(this);
         }
     }

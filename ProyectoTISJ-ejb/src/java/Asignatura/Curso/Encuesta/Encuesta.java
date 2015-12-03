@@ -76,7 +76,7 @@ public class Encuesta implements Serializable{
     //  Preguntas / Respuestas
     public void addRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta){
         this.RespuestasEncuesta.add(respuestaEncuesta);
-        if (!respuestaEncuesta.getEncuestaRespuestas().equals(this)) {
+        if (respuestaEncuesta.getEncuestaRespuestas()==null || !respuestaEncuesta.getEncuestaRespuestas().equals(this)) {
             respuestaEncuesta.setEncuestaRespuestas(this);
         }
     }
