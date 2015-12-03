@@ -31,6 +31,5 @@ function ObtenerDatos(idEncuesta){
             resultados +=  ",";
         }
     });
-    alert(resultados);
     $("#Formulario\\:hiddenRespuesta").val(resultados);
 }
