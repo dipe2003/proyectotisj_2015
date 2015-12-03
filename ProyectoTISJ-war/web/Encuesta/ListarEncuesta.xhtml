@@ -13,7 +13,7 @@
         <div id="contenedor">            
             <h:panelGroup rendered="#{empty listarEncuesta.encuestas}">
                 <div class="ListItemContainer" >
-                    No hay Preguntas registrados.
+                    No hay Encuestas.
                 </div>            
             </h:panelGroup>
             
@@ -81,7 +81,7 @@
                     </div>
 
                 </c:forEach>
-                <h:inputText id="hiddenRespuesta" value="#{respuestas}"></h:inputText>
+                <h:inputText id="hiddenRespuesta" value="#{respuestas}" style="visibility: hidden"></h:inputText>
                 
             </h:form>
             

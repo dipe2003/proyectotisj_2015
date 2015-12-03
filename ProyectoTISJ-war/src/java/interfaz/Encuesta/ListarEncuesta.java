@@ -9,6 +9,7 @@ import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.FacadeCurso;
 import Usuario.Estudiante.Estudiante;
 import Usuario.Usuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,11 +46,14 @@ public class ListarEncuesta implements Serializable{
     public void setEncuestas(List<Encuesta> encuestas) {this.encuestas = encuestas;}
     public void setRol(String Rol) {this.Rol = Rol;}
     
+    private int idEstudiante;
+    
     @PostConstruct
     public void Init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Usuario usr = (Usuario) request.getSession().getAttribute("Usuario");
+        idEstudiante = usr.getIdUsuario();
         Rol = request.getParameter("rol");
         encuestas = new ArrayList<>();
         if ((Rol.equalsIgnoreCase("Administrador"))||(Rol.equalsIgnoreCase("Administrativo"))){
@@ -113,13 +117,16 @@ public class ListarEncuesta implements Serializable{
         return "todos los estudiantes han respondido la encuesta";
     }
     
-    public void registrarResultadoEncuesta(String test, String idEncuesta){
+    public void registrarResultadoEncuesta(String test, String idEncuesta) throws IOException{
         String[] RespuestaPregunta = test.split(",");
+        int Encuesta = Integer.valueOf(idEncuesta);
         for (int i = 0; i < RespuestaPregunta.length; i++) {
             int Respuesta = Integer.valueOf(RespuestaPregunta[i].split("-")[0]);
             int Pregunta = Integer.valueOf(RespuestaPregunta[i].split("-")[1]);
-            int Encuesta = Integer.valueOf(idEncuesta);
             fEnc.ResponderPreguntaEncuesta(Respuesta, Pregunta, Encuesta);
         }
+        fEnc.AregarEstudianteEncuesta(idEstudiante, Encuesta);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().redirect("ListarEncuesta.xhtml?rol=Estudiante");
     }
 }
