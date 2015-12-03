@@ -7,7 +7,9 @@ import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,7 +35,7 @@ public class Encuesta implements Serializable{
     private List<RespuestaEncuesta> RespuestasEncuesta;
     
     //  Constructores
-     
+    
     public Encuesta() {
         this.EstudiantesEncuesta = new ArrayList<>();
         this.RespuestasEncuesta = new ArrayList<>();
@@ -81,7 +83,7 @@ public class Encuesta implements Serializable{
     
     /**
      * Recorre la lista de respuestas-encuestas y devuelve cada pregunta.
-     * @return 
+     * @return
      */
     public List<Pregunta> getPreguntasEncuesta(){
         List<Pregunta> preguntas = new ArrayList<>();
@@ -92,26 +94,64 @@ public class Encuesta implements Serializable{
     }
     /**
      * Recorre la lista de respuestas-encuestas y devuelve cada pregunta sobre el docente.
-     * @return 
+     * @return
      */
     public List<Pregunta> getPreguntasEncuestaDocente(){
         List<Pregunta> preguntas = new ArrayList<>();
         for (RespuestaEncuesta item : RespuestasEncuesta){
             if(item.getPreguntaRespuestasEncuesta().getTipoPregunta().equals(EnumTipoPregunta.Docente))
-            preguntas.add(item.getPreguntaRespuestasEncuesta());
+                preguntas.add(item.getPreguntaRespuestasEncuesta());
         }
         return preguntas;
     }
     /**
      * Recorre la lista de respuestas-encuestas y devuelve cada pregunta sobre el curso.
-     * @return 
+     * @return
      */
     public List<Pregunta> getPreguntasEncuestaCurso(){
         List<Pregunta> preguntas = new ArrayList<>();
         for (RespuestaEncuesta item : RespuestasEncuesta){
             if(item.getPreguntaRespuestasEncuesta().getTipoPregunta().equals(EnumTipoPregunta.Curso))
-            preguntas.add(item.getPreguntaRespuestasEncuesta());
+                preguntas.add(item.getPreguntaRespuestasEncuesta());
         }
         return preguntas;
+    }
+    
+    /**
+     * Devuele los resultados de las preguntas sobre el docente que pertenecen a la encuesta.
+     * @return Retorna un Map con Texto de la Pregunta (key) y el resultado promedio (value).
+     */
+    public Map<String, Float> getResultadosPreguntasDocente(){
+        Map<String, Float> resultados = new HashMap<>();
+        for(RespuestaEncuesta item: RespuestasEncuesta){
+            if(item.getPreguntaRespuestasEncuesta().getTipoPregunta().equals(EnumTipoPregunta.Docente)){
+                resultados.put(item.getPreguntaRespuestasEncuesta().getTextoPregunta(), item.getPromedioResultado());
+            }
+        }
+        return resultados;
+    }
+    /**
+     * Devuele los resultados de las preguntas sobre el curso que pertenecen a la encuesta.
+     * @return Retorna un Map con Texto de la Pregunta (key) y el resultado promedio (value).
+     */
+    public Map<String, Float> getResultadosPreguntasCurso(){
+        Map<String, Float> resultados = new HashMap<>();
+        for(RespuestaEncuesta item: RespuestasEncuesta){
+            if(item.getPreguntaRespuestasEncuesta().getTipoPregunta().equals(EnumTipoPregunta.Curso)){
+                resultados.put(item.getPreguntaRespuestasEncuesta().getTextoPregunta(), item.getPromedioResultado());
+            }
+        }
+        return resultados;
+    }
+    /**
+     * Devuele los resultados de las preguntas que pertenecen a la encuesta.
+     * @return Retorna un Map con Texto de la Pregunta (key) y el resultado promedio (value).
+     */
+    public Map<String, Float> getResultadosPreguntas(){
+        Map<String, Float> resultados = new HashMap<>();
+        for(RespuestaEncuesta item: RespuestasEncuesta){
+            resultados.put(item.getPreguntaRespuestasEncuesta().getTextoPregunta(), item.getPromedioResultado());
+        }
+        return resultados;
     }
 }

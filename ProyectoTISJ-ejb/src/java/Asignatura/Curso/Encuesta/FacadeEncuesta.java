@@ -65,7 +65,7 @@ public class FacadeEncuesta {
     
     /**
      * Dvuelve todas las encuestas registradas.
-     * @return 
+     * @return
      */
     public List<Encuesta> ListarEncuestas(){
         return cEnc.ListarEncuestas();
@@ -167,21 +167,22 @@ public class FacadeEncuesta {
         return false;
     }
     
+    /**
+     * Devuelve las encuestas que el estudiante tiene sin responder.
+     * @param idEstudiante
+     * @return Retorna una lista de encuesta. Retorna una lista vacía si no hay encuestas.
+     */
     public List<Encuesta> getEncuestasEstudianteSinResponder(int idEstudiante){
-        List<Encuesta> encuestasSinResponder = new ArrayList<>();
-        List<Encuesta> escuestasRespondidas = cEnc.ListarEncuestasRespondidas(idEstudiante);
-        List<Encuesta> escuestasEstudiante = cEnc.ListarEncuestasCursosEstudiante(idEstudiante);
-        for (Encuesta item : escuestasEstudiante){
-            if (!PerteneceEcuesta(escuestasRespondidas, item)) encuestasSinResponder.add(item);
-        }
-        return encuestasSinResponder;
+        return cEnc.ListarEncuestasEstudianteSinResponder(idEstudiante);
     }
     
-    private boolean PerteneceEcuesta(List<Encuesta> lista, Encuesta item){
-        for (Encuesta i : lista){
-            if (i.getIdEncuesta() == item.getIdEncuesta()) return true;
-        }
-        return false;
+    /**
+     * Devuelve la encuesta indicada por su id.
+     * @param IdEncuesta
+     * @return
+     */
+    public Encuesta GetEncuestaPorId(int IdEncuesta){
+        return cEnc.BuscarEncuesta(IdEncuesta);
     }
     
 }

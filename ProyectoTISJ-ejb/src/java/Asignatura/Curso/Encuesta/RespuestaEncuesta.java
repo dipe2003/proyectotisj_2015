@@ -54,9 +54,19 @@ public class RespuestaEncuesta implements Serializable {
     // Respuestas
     public void addRespuestaEncuesta(Respuesta RespuestaEncuesta){
         this.RespuestasEncuesta.add(RespuestaEncuesta);
-        if (!RespuestaEncuesta.getRespuestaEncuesta().equals(this)) {
+        if (RespuestaEncuesta.getRespuestaEncuesta()==null || !RespuestaEncuesta.getRespuestaEncuesta().equals(this)) {
             RespuestaEncuesta.setRespuestaEncuesta(this);
         }
+    }
+    
+    //  Resultados
+    public float getPromedioResultado(){
+        float promedio = 0f;
+        for(Respuesta res: this.RespuestasEncuesta){
+            promedio += res.getResultadoRespuesta();
+        }
+        promedio = promedio/(this.RespuestasEncuesta.size());
+        return promedio;
     }
     
 }

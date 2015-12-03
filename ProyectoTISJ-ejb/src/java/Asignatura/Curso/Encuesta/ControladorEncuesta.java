@@ -3,6 +3,7 @@ package Asignatura.Curso.Encuesta;
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.Encuesta.Pregunta.ControladorPregunta;
 import Usuario.Estudiante.Estudiante;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -115,6 +116,37 @@ public class ControladorEncuesta {
      */
     public List<Encuesta> ListarEncuestasCursosEstudiante(int IdEstudiante){
         return mEnc.ListarEncuestasCursosEstudiante(IdEstudiante);
+    }
+    
+    /**
+     * Devuelve la encuesta indicada por su id.
+     * @param IdEncuesta
+     * @return 
+     */
+    public Encuesta GetEncuesta(int IdEncuesta){
+        return mEnc.BuscarEncuesta(IdEncuesta);
+    }
+    
+    /**
+     * Devuelve las encuestas que el estudiante tiene sin responder.
+     * @param idEstudiante
+     * @return Retorna una lista de encuesta. Retorna una lista vacía si no hay encuestas.
+     */
+    public List<Encuesta> ListarEncuestasEstudianteSinResponder(int idEstudiante){
+        List<Encuesta> encuestasSinResponder = new ArrayList<>();
+        List<Encuesta> escuestasRespondidas = ListarEncuestasRespondidas(idEstudiante);
+        List<Encuesta> escuestasEstudiante = ListarEncuestasCursosEstudiante(idEstudiante);
+        for (Encuesta item : escuestasEstudiante){
+            if (!PerteneceEcuesta(escuestasRespondidas, item)) encuestasSinResponder.add(item);
+        }
+        return encuestasSinResponder;
+    }
+    
+    private boolean PerteneceEcuesta(List<Encuesta> lista, Encuesta item){
+        for (Encuesta i : lista){
+            if (i.getIdEncuesta() == item.getIdEncuesta()) return true;
+        }
+        return false;
     }
     
 }

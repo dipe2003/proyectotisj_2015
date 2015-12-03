@@ -1,0 +1,35 @@
+<ui:composition template="../Views/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        <Script>
+            $(document).ready(function() {
+                var datosDocente = labels: #{resultadoEncuesta.textoPreguntasDocente},
+                datasets: [{
+                        label: #{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura},
+                        fillColor: "rgba(220,220,220,0.2)",
+                        strokeColor: "rgba(220,220,220,1)",
+                        pointColor: "rgba(220,220,220,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: #{resultadoEncuesta.promediosPreguntasDocente}
+                    }];
+
+                var opciones = {
+                    animationSteps : 200,
+                    bezierCurve: false
+                };                                
+                    
+                var ctx = $("#resDoocente").get(0).getContext("2d");
+                var docenteChart = new Chart(ctx).Line(datosDocente, opciones);
+
+            });
+        </Script>
+        
+        <canvas id="resDoocente" width="300" height="200"></canvas>
+    </ui:define>
+</ui:composition>
