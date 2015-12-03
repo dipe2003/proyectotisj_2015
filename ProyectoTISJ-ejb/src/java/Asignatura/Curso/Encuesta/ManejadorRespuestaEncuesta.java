@@ -74,7 +74,7 @@ public class ManejadorRespuestaEncuesta {
                     "SELECT respec "
                             + "FROM RespuestaEncuesta respec, Encuesta enc "
                             + "WHERE enc.IdEncuesta = :idencuesta and "
-                            + "respec MEMBER OF enc and "
+                            + "respec.EncuestaRespuestas = enc and "
                             + "respec.PreguntaRespuestasEncuesta.IdPregunta = :idpregunta", RespuestaEncuesta.class);
             query.setParameter("idencuesta", IdEncuesta);
             query.setParameter("idpregunta", IdPregunta);
