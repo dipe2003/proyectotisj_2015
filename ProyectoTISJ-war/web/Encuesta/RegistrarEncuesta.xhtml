@@ -21,13 +21,13 @@
                 
                 <c:forEach var="pregunta" items="#{registrarEncuesta.preguntas}">
                     <div class="ListItemContainer" >
-                        <div class="item" >
+                        <div class="item" style=" width: 10%">
                             <h:selectBooleanCheckbox class="BotonCheck" value="#{registrarEncuesta.listChecked[pregunta.idPregunta]}" />
                         </div>
-                        <div class="item">
+                        <div class="item" style=" width: 70%">
                             #{pregunta.textoPregunta}
                         </div>
-                        <div class="item">
+                        <div class="item" style="float: right; width: 10%">
                             #{pregunta.tipoPregunta}
                         </div>
                     </div>            

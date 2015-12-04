@@ -10,22 +10,100 @@
                 Informacion del Curso #{informacionCurso.curso.asignaturaCurso.nombreAsignatura} del semestre #{informacionCurso.curso.semestreCurso} dicatado en el año #{informacionCurso.curso.anioCurso}
             </div>
         </div>
+        <Script>
+            $(document).ready(function() {
+                var datosDocente ={
+                    labels: #{resultadoEncuesta.tituloPreguntasDocente},
+                    datasets: [{
+                            label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
+                            fillColor: "rgba(183, 28, 28, 0.5)",
+                            strokeColor: "rgba(183, 28, 28, 1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: #{resultadoEncuesta.promediosPreguntasDocente}
+                        }]
+                };
+                var datosCurso ={
+                    labels: #{resultadoEncuesta.tituloPreguntasCurso},
+                    datasets: [{
+                            label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
+                            fillColor: "rgba(93, 64, 55, 0.5)",
+                            strokeColor: "rgba(93, 64, 55, 1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: #{resultadoEncuesta.promediosPreguntasCurso}
+                        }]
+                };
+
+                var opciones = {
+                    animationSteps : 200,
+                    bezierCurve: false,
+                    datasetFill : true // colorea la serie de la grafica
+                };                                
+                    
+                var ctxDoc = $("#resDoocente").get(0).getContext("2d");
+                var ctxCurso = $("#resCurso").get(0).getContext("2d");
+                var docenteChart = new Chart(ctxDoc).Line(datosDocente, opciones);
+                var cursoChart = new Chart(ctxCurso).Line(datosCurso, opciones);
+
+            });
+        </Script>
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Informacion Basica del Curso
+            </div>
+            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
+                <div class="GraficaContainer" style="height: 200px" >
+                    <canvas id="resCurso" style="width: 100%; height: 200px"></canvas>
+                </div>
+                <div class="GraficaContainer" style="font-size: 18px; text-shadow: none;" >
+                    <table style="border: 1px silver;">
+                        <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasCurso.entrySet()}" var="label">                        
+                            <tr>
+                                <td>Pregunta #{label.key}</td>
+                                <td>#{label.value}</td>
+                            </tr>                        
+                        </c:forEach>
+                    </table>
+                </div>
+            </h:panelGroup>
+        </div>
         
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Docente del Curso 
             </div>
-                <div class="ListItemContainer" >
-                    <div class="item">
-                        #{informacionCurso.docente.cedulaUsuario}
-                    </div>
-                    <div class="item">
-                        #{informacionCurso.docente.nombreCompleto}
-                    </div>
-                    <div class="item">
-                        #{informacionCurso.docente.correoUsuario}
-                    </div>
-                </div>            
+            <div class="ListItemContainer" >
+                <div class="item">
+                    #{informacionCurso.docente.cedulaUsuario}
+                </div>
+                <div class="item">
+                    #{informacionCurso.docente.nombreCompleto}
+                </div>
+                <div class="item">
+                    #{informacionCurso.docente.correoUsuario}
+                </div>
+            </div>
+            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoDocente}">
+                <div class="GraficaContainer" style="height: 200px" >
+                    <canvas id="resDoocente" style="width: 100%; height: 200px"></canvas>
+                </div>
+                <div class="GraficaContainer" style="font-size: 18px; text-shadow: none;" >
+                    <table style="border: 1px silver;">
+                        <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasDocente.entrySet()}" var="titulo">                        
+                            <tr>
+                                <td>Pregunta #{titulo.key}</td>
+                                <td>#{titulo.value}</td>
+                            </tr>                        
+                        </c:forEach>
+                    </table>
+                </div>
+            </h:panelGroup>
         </div>
         
         <div id="contenedor">
