@@ -101,48 +101,89 @@
             </div>
         </div>
         
-        <Script>
-            $(document).ready(function() {
-                var data = {
-                    labels: ["January", "February", "March", "April", "May", "June", "July"],
-                    datasets: [
-                        {
-                            label: "My First dataset",
-                            fillColor: "rgba(220,220,220,0.5)",
-                            strokeColor: "rgba(220,220,220,0.8)",
-                            highlightFill: "rgba(220,220,220,0.75)",
-                            highlightStroke: "rgba(220,220,220,1)",
-                            data: [65, 59, 80, 81, 56, 55, 40]
-                        },
-                        {
-                            label: "My Second dataset",
-                            fillColor: "rgba(151,187,205,0.5)",
-                            strokeColor: "rgba(151,187,205,0.8)",
-                            highlightFill: "rgba(151,187,205,0.75)",
-                            highlightStroke: "rgba(151,187,205,1)",
-                            data: [28, 48, 40, 19, 86, 27, 90]
-                        }
-                    ]
-                };   
-                    
-                var ctxSuno = $("#semestreuno").get(0).getContext("2d");
-                var PrimerSemestreChart = new Chart(ctxSuno).Bar(data);
-
-            });
-        </Script>
         
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Historial de Calificaciones
             </div>
-            <div class="ListItemContainer" >
-                <div class="negrita" style="margin-left: 20px">Primer Semestre</div>
-            </div> 
-            <div class="GraficaContainer" style="height: 500px">
-                <canvas id="semestreuno" style="width: 100%; height: 500px"></canvas> 
-            </div>            
-            
+            <c:forEach begin="1" end="6" var="status">
+                <Script> var titulos#{status} = new Array(); var datos#{status} = new Array(); </Script>
+                <c:forEach var="resultadoCurso" items="#{informacionEstudiante.resultadosCursos}">
+                    <c:if test="#{resultadoCurso.semestre==status}">
+                        <Script>  titulos#{status}.push("#{resultadoCurso.curso}"); datos#{status}.push("#{resultadoCurso.resultado}") </Script>
+                    </c:if>
+                </c:forEach>
+                <Script>
+                    $(document).ready(function() {
+                        var data#{status} = {
+                            labels: titulos#{status},
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    fillColor: "rgba(220,220,220,0.5)",
+                                    strokeColor: "rgba(220,220,220,0.8)",
+                                    highlightFill: "rgba(220,220,220,0.75)",
+                                    highlightStroke: "rgba(220,220,220,1)",
+                                    data: datos#{status}
+                                }
+                            ]
+                        };  
+                        var ctx#{status} = $("#semestre_#{status}").get(0).getContext("2d");
+                        var SemestreChart#{status} = new Chart(ctx#{status}).Bar(data#{status});
+                        if (titulos#{status}.length === 0){$("#Grafica_#{status}").hide();}
+                    });
+                </Script>
+                
+                <div class="ListItemContainer" >
+                    <div class="negrita" style="margin-left: 20px">#{status}° Semestre</div>
+                </div> 
+                <div id="Grafica_#{status}" class="GraficaContainer" style="height: 200px">
+                    <canvas id="semestre_#{status}" style="width: 100%; height: 200px"></canvas> 
+                </div>
+            </c:forEach>
         </div>
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Historial de Inasistencias
+            </div>
+            <c:forEach begin="1" end="6" var="statusI">
+                <Script> var titulosI#{statusI} = new Array(); var inasistencias#{statusI} = new Array(); </Script>
+                <c:forEach var="resultadoCursoI" items="#{informacionEstudiante.resultadosCursos}">
+                    <c:if test="#{resultadoCursoI.semestre==statusI}">
+                        <Script> titulosI#{statusI}.push("#{resultadoCursoI.curso}"); inasistencias#{statusI}.push("#{resultadoCursoI.inasistencias}"); </Script>
+                    </c:if>
+                </c:forEach>
+                <Script>
+                    $(document).ready(function() {
+                        var dataI#{statusI} = {
+                            labels: titulos#{statusI},
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    fillColor: "rgba(220,220,220,0.5)",
+                                    strokeColor: "rgba(220,220,220,0.8)",
+                                    highlightFill: "rgba(220,220,220,0.75)",
+                                    highlightStroke: "rgba(220,220,220,1)",
+                                    data: inasistencias#{statusI}
+                                }
+                            ]
+                        };  
+                        var ctxI#{statusI} = $("#semestreI_#{statusI}").get(0).getContext("2d");
+                        var SemestreChartI#{statusI} = new Chart(ctxI#{statusI}).Bar(dataI#{statusI});
+                        if (titulos#{statusI}.length === 0){$("#GraficaI_#{statusI}").hide();}
+                    });
+                </Script>
+                
+                <div class="ListItemContainer" >
+                    <div class="negrita" style="margin-left: 20px">#{statusI}° Semestre</div>
+                </div> 
+                <div id="GraficaI_#{statusI}" class="GraficaContainer" style="height: 200px">
+                    <canvas id="semestreI_#{statusI}" style="width: 100%; height: 200px"></canvas> 
+                </div>
+            </c:forEach>
+        </div>
+        
         
     </ui:define>
 </ui:composition>

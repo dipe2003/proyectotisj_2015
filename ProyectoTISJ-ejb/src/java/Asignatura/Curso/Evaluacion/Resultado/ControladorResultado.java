@@ -63,4 +63,8 @@ public class ControladorResultado {
     public List<Resultado> ListarResultados(){
         return mRes.ListarResultados();
     }    
+    
+    public List<Resultado> ListarResultadosEstudiante(int idEstudiante){
+        return mRes.ListarResultadosEstudiante(idEstudiante);
+    }
 }

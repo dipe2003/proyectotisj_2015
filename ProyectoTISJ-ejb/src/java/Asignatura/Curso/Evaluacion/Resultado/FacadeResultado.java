@@ -3,6 +3,7 @@ package Asignatura.Curso.Evaluacion.Resultado;
 import Usuario.Estudiante.ControladorEstudiante;
 import Asignatura.Curso.Evaluacion.ControladorEvaluacion;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.RequestScoped;
@@ -34,5 +35,9 @@ public class FacadeResultado implements Serializable {
             return resultado.getIdResultado();
         }
         return -1;
+    }
+    
+    public List<Resultado> ListarResultadosEstudiante(int idEstudiante){
+        return cRes.ListarResultadosEstudiante(idEstudiante);
     }
 }
