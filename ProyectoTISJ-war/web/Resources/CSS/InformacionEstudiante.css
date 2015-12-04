@@ -24,3 +24,15 @@
     box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;
     background-color: #FFFFFF;
 }
+
+.cuadrado{
+width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    box-shadow: gray 2px 2px 4px;
+    background-color: #00529B;
+    float: right;
+    line-height: 50px;
+    margin-top: 15px;
+    margin-right: 20px;
+}
