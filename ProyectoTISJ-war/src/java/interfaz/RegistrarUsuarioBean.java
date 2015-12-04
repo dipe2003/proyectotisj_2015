@@ -57,6 +57,9 @@ public class RegistrarUsuarioBean implements Serializable{
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
     
+    // id solo con valor distinto de 0 cuando se esta registrando un nuevo rol
+    private int IdUsuario;
+    
     private boolean Correcto;
     /**
      * Lista de EstudiosCursados para utilizarse desde la pagina para registrar los estudios del estudiante.
@@ -108,6 +111,8 @@ public class RegistrarUsuarioBean implements Serializable{
             return fDate.format(FechaNacimientoUsuario);
         }
     }
+    public int getIdUsuario() {return IdUsuario;}
+    
     public List<EstudioCursado> getListaEstudiosCursados() {return ListaEstudiosCursados;}
     
     /*  Solo Estudiante   */
@@ -157,6 +162,7 @@ public class RegistrarUsuarioBean implements Serializable{
     }
     public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
     public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
+    public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
     
     /**
      * Comprueba que la cedula sea valida.
@@ -253,13 +259,13 @@ public class RegistrarUsuarioBean implements Serializable{
                 if (!ubicacionPerfil.equals("no")) {
                     if((idUsr=fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, ubicacionPerfil, Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
-                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol))!=-1){
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol, IdUsuario))!=-1){
                         return idUsr;
                     }
                 }else{
                     if((idUsr =fUsr.RegistrarUsuario(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, "", Integer.valueOf(CedulaUsuario),
                             CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CedulaUsuario, EstadoCivilUsuario,
-                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol))!=-1){
+                            FechaNacimientoUsuario, LugarNacimientoUsuario, EnumSexoSeleccionado, Rol, IdUsuario))!=-1){
                         return idUsr;
                     }
                 }

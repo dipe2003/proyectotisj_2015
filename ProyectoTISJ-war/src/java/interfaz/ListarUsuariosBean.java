@@ -190,6 +190,7 @@ public class ListarUsuariosBean implements Serializable{
         UsrData.setLugarNacimientoUsuario(usr.getLugarNacimientoUsuario());
         UsrData.setSexoSeleccionado(usr.getSexoUsuario().name());
         UsrData.setRol(Rol);
+        UsrData.setIdUsuario(usr.getIdUsuario());
         try{
             UsrData.registrarUsuario();
         }catch(IOException ex){}
