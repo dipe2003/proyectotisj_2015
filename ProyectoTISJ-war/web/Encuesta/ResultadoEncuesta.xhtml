@@ -7,29 +7,56 @@
     <ui:define name="page_content">
         <Script>
             $(document).ready(function() {
-                var datosDocente = labels: #{resultadoEncuesta.textoPreguntasDocente},
-                datasets: [{
-                        label: #{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura},
-                        fillColor: "rgba(220,220,220,0.2)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(220,220,220,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: #{resultadoEncuesta.promediosPreguntasDocente}
-                    }];
+                var datosDocente ={
+                    labels: #{resultadoEncuesta.tituloPreguntasDocente},
+                    datasets: [{
+                            label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: #{resultadoEncuesta.promediosPreguntasDocente}
+                        }]
+                };
+                var datosCurso ={
+                    labels: #{resultadoEncuesta.tituloPreguntasCurso},
+                    datasets: [{
+                            label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: #{resultadoEncuesta.promediosPreguntasCurso}
+                        }]
+                };
 
                 var opciones = {
-                    animationSteps : 200,
-                    bezierCurve: false
+                    animationSteps : 200
                 };                                
                     
-                var ctx = $("#resDoocente").get(0).getContext("2d");
-                var docenteChart = new Chart(ctx).Line(datosDocente, opciones);
+                var ctxDoc = $("#resDoocente").get(0).getContext("2d");
+                var ctxCurso = $("#resCurso").get(0).getContext("2d");
+                var docenteChart = new Chart(ctxDoc).Line(datosDocente, opciones);
+                var cursoChart = new Chart(ctxCurso).Line(datosCurso, opciones);
 
             });
         </Script>
+        <h:form>
+            <canvas id="resDoocente" width="500" height="500"></canvas>
+            <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasDocente.entrySet()}" var="titulo">
+                <table style="border: 1px silver;">
+                    <tr>
+                        <td>Pregunta #{titulo.key}</td>
+                        <td>#{titulo.value}</td>
+                    </tr>
+                </table>
+            </c:forEach>
+            <canvas id="resCurso" width="500" height="500"></canvas>
+        </h:form>
         
-        <canvas id="resDoocente" width="300" height="200"></canvas>
     </ui:define>
 </ui:composition>

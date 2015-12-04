@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -128,7 +129,7 @@ public class Encuesta implements Serializable{
                 resultados.put(item.getPreguntaRespuestasEncuesta().getTextoPregunta(), item.getPromedioResultado());
             }
         }
-        return resultados;
+        return new TreeMap<> (resultados);
     }
     /**
      * Devuele los resultados de las preguntas sobre el curso que pertenecen a la encuesta.
@@ -141,7 +142,7 @@ public class Encuesta implements Serializable{
                 resultados.put(item.getPreguntaRespuestasEncuesta().getTextoPregunta(), item.getPromedioResultado());
             }
         }
-        return resultados;
+        return new TreeMap<> (resultados);
     }
     /**
      * Devuele los resultados de las preguntas que pertenecen a la encuesta.
@@ -152,6 +153,6 @@ public class Encuesta implements Serializable{
         for(RespuestaEncuesta item: RespuestasEncuesta){
             resultados.put(item.getPreguntaRespuestasEncuesta().getTextoPregunta(), item.getPromedioResultado());
         }
-        return resultados;
+        return new TreeMap<> (resultados);
     }
 }
