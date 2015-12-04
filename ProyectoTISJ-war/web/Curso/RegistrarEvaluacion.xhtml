@@ -58,7 +58,6 @@
                     <div class="ListItemContainer" >
                         <div class="item" style="width: 30%" >
                             <div class="semiItem" >
-                                <div class="examenParcial" > <h:inputText class="Texto inputCuadrado" value="#{registrarEvaluacion.resultado[usuario.idUsuario]}" /> </div>
                                 <div class="laboratorio" >
                                     <h:selectOneMenu id="resultadoEntrega" style="margin-top: 3px" class="Texto" value="#{registrarEvaluacion.resultado[usuario.idUsuario]}">
                                         <f:selectItem itemValue="101" itemLabel="Aprobado" />
@@ -66,6 +65,7 @@
                                         <f:selectItem itemValue="103" itemLabel="No Entrega" />
                                     </h:selectOneMenu>
                                 </div>
+                                <div class="examenParcial" > <h:inputText class="Texto inputCuadrado" value="#{registrarEvaluacion.resultado[usuario.idUsuario]}" /> </div>
                             </div>
                             <div class="semiItem" >
                                 <h:selectBooleanCheckbox class="BotonCheck" value="#{registrarEvaluacion.asistencia[usuario.idUsuario]}" /> 

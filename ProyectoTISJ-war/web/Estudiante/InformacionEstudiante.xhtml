@@ -107,10 +107,20 @@
                 Historial de Calificaciones
             </div>
             <c:forEach begin="1" end="6" var="status">
-                <Script> var titulos#{status} = new Array(); var datos#{status} = new Array(); </Script>
+                <Script>
+                    var titulos#{status} = new Array(); 
+                    var Parciales#{status} = new Array(); 
+                    var Examenes#{status} = new Array(); 
+                    var Laboratorios#{status} = new Array(); 
+                </Script>
                 <c:forEach var="resultadoCurso" items="#{informacionEstudiante.resultadosCursos}">
                     <c:if test="#{resultadoCurso.semestre==status}">
-                        <Script>  titulos#{status}.push("#{resultadoCurso.curso}"); datos#{status}.push("#{resultadoCurso.resultado}") </Script>
+                        <Script>  
+                            titulos#{status}.push("#{resultadoCurso.curso}"); 
+                            Parciales#{status}.push("#{resultadoCurso.resultadoParcial}");
+                            Examenes#{status}.push("#{resultadoCurso.resultadoExamen}");
+                            Laboratorios#{status}.push("#{resultadoCurso.resultadoLaboratorio}");
+                        </Script>
                     </c:if>
                 </c:forEach>
                 <Script>
@@ -124,7 +134,23 @@
                                     strokeColor: "rgba(220,220,220,0.8)",
                                     highlightFill: "rgba(220,220,220,0.75)",
                                     highlightStroke: "rgba(220,220,220,1)",
-                                    data: datos#{status}
+                                    data: Parciales#{status}
+                                },
+                                {
+                                    label: "My Second dataset",
+                                    fillColor: "rgba(151,187,205,0.5)",
+                                    strokeColor: "rgba(151,187,205,0.8)",
+                                    highlightFill: "rgba(151,187,205,0.75)",
+                                    highlightStroke: "rgba(151,187,205,1)",
+                                    data: Examenes#{status}
+                                },
+                                {
+                                    label: "My Second dataset",
+                                    fillColor: "rgba(151,187,205,0.5)",
+                                    strokeColor: "rgba(151,187,205,0.8)",
+                                    highlightFill: "rgba(151,187,205,0.75)",
+                                    highlightStroke: "rgba(151,187,205,1)",
+                                    data: Laboratorios#{status}
                                 }
                             ]
                         };  

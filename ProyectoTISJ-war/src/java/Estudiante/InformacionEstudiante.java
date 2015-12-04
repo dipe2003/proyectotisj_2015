@@ -4,6 +4,10 @@ package Estudiante;
 import interfaz.asignatura.*;
 import Asignatura.Asignatura;
 import Asignatura.Curso.Curso;
+import Asignatura.Curso.Evaluacion.Evaluacion;
+import Asignatura.Curso.Evaluacion.Examen.Examen;
+import Asignatura.Curso.Evaluacion.Laboratorio.Laboratorio;
+import Asignatura.Curso.Evaluacion.Parcial.Parcial;
 import Asignatura.Curso.Evaluacion.Resultado.FacadeResultado;
 import Asignatura.Curso.Evaluacion.Resultado.Resultado;
 import Asignatura.Curso.FacadeCurso;
@@ -73,9 +77,25 @@ public class InformacionEstudiante implements Serializable{
             ResultadoCursos RCRegistrado = getResultadoCursosByCurso(idCurso,ResultadosCursos);
             int inasistencias = fCur.GetInanistenciasEstudianteCurso(idEstudiante, idCurso);
             if (RCRegistrado == null){
-                ResultadosCursos.add(new ResultadoCursos(idCurso,evaluacion ,NombreAsignatura,SemestreCurso, AnioCurso, inasistencias));
+                ResultadosCursos.add(new ResultadoCursos(idCurso,NombreAsignatura,SemestreCurso, AnioCurso, inasistencias));
+                AssignarResultado(ResultadosCursos, idCurso, item);
             }else{
-                RCRegistrado.resultado += evaluacion;
+                AssignarResultado(ResultadosCursos, idCurso, item);
+            }
+        }
+    }
+    
+    private void AssignarResultado(List<ResultadoCursos> lista, int idCurso, Resultado result){
+        Evaluacion eval = result.getEvaluacionResultado();
+        for(ResultadoCursos item : lista){
+            if (item.getIdCurso() == idCurso){
+                if (eval instanceof Parcial) {
+                    item.resultadoParcial += result.getResultadoEvaluacion();
+                }else if (eval instanceof Examen) {
+                    item.resultadoExamen += result.getResultadoEvaluacion();
+                }else if (eval instanceof Laboratorio) {
+                    item.resultadoLaboratorio += (result.getResultadoEvaluacion()*50);
+                }
             }
         }
     }
@@ -97,15 +117,23 @@ public class InformacionEstudiante implements Serializable{
     
     public class ResultadoCursos{
         int idCurso;
-        int resultado;
+        int resultadoParcial;
+        int resultadoExamen;
+        int resultadoLaboratorio;
         String Curso;
         int Semestre;
         int Anio;
         int Inasistencias;
 
+        public int getResultadoParcial() {return resultadoParcial;}
+        public void setResultadoParcial(int resultadoParcial) {this.resultadoParcial = resultadoParcial;}
+        public int getResultadoExamen() {return resultadoExamen;}
+        public void setResultadoExamen(int resultadoExamen) {this.resultadoExamen = resultadoExamen;}
+        public int getResultadoLaboratorio() {return resultadoLaboratorio;}
+        public void setResultadoLaboratorio(int resultadoLaboratorio) {this.resultadoLaboratorio = resultadoLaboratorio;}
+        
         public int getInasistencias() {return Inasistencias;}
         public int getIdCurso() {return idCurso;}
-        public int getResultado() {return resultado;}
         public String getCurso() {return Curso;}
         public int getSemestre() {return Semestre;}
         public int getAnio() {return Anio;}
@@ -114,17 +142,20 @@ public class InformacionEstudiante implements Serializable{
         public void setIdCurso(int idCurso) {this.idCurso = idCurso;}
         public void setSemestre(int Semestre) {this.Semestre = Semestre;}
         public void setCurso(String Curso) {this.Curso = Curso;}
-        public void setResultado(int resultado) {this.resultado = resultado;}
         public void setInasistencias(int Inasistencias) {this.Inasistencias = Inasistencias;}
 
-        public ResultadoCursos(int idCurso, int resultado, String Curso, int Semestre, int Anio, int Inasistencias) {
+        public ResultadoCursos(int idCurso, String Curso, int Semestre, int Anio, int Inasistencias) {
             this.idCurso = idCurso;
-            this.resultado = resultado;
             this.Curso = Curso;
             this.Semestre = Semestre;
             this.Anio = Anio;
             this.Inasistencias = Inasistencias;
+            this.resultadoExamen = 0;
+            this.resultadoParcial = 0;
+            this.resultadoLaboratorio = 0;
         }
+
+     
         
     }
     
