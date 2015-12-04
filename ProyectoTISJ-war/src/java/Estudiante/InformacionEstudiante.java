@@ -1,8 +1,6 @@
 
 package Estudiante;
 
-import interfaz.asignatura.*;
-import Asignatura.Asignatura;
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.Evaluacion.Evaluacion;
 import Asignatura.Curso.Evaluacion.Examen.Examen;
@@ -11,16 +9,12 @@ import Asignatura.Curso.Evaluacion.Parcial.Parcial;
 import Asignatura.Curso.Evaluacion.Resultado.FacadeResultado;
 import Asignatura.Curso.Evaluacion.Resultado.Resultado;
 import Asignatura.Curso.FacadeCurso;
-import Asignatura.FacadeAsignatura;
-import Usuario.Docente.Docente;
-import Usuario.Docente.FacadeDocente;
 import Usuario.Estudiante.Estudiante;
+import Usuario.Estudiante.Estudios.Estudio;
 import Usuario.Estudiante.FacadeEstudiante;
-import Usuario.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -50,6 +44,19 @@ public class InformacionEstudiante implements Serializable{
     public List<ResultadoCursos> getResultadosCursos() {return ResultadosCursos;}
     public List<Curso> getCursos() {return cursos;}
     public Estudiante getEstudiante() {return estudiante;}
+    public String getEstudiosCursados(){
+        String EstudiosCursados = "";
+        List<Estudio> estudios = estudiante.getEstudiosCursadosEstudiante();
+        for(int i = 0; i < estudios.size(); i++){
+            EstudiosCursados += estudios.get(i).getTipoEstudio().getTipoDeEstudio() + ": " + estudios.get(i).getOrientacionEstudio();
+            if(i+1<estudios.size()) {
+                EstudiosCursados += ", ";
+            }else{
+                EstudiosCursados += ".";
+            }
+        }
+        return EstudiosCursados;
+    }
     
     public void setEstudiante(Estudiante estudiante) {this.estudiante = estudiante;}
     public void setCursos(List<Curso> cursos) {this.cursos = cursos;}

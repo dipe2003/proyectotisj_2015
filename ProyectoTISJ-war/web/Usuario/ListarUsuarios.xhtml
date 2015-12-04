@@ -79,7 +79,7 @@
                             <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario.estadoCivil} <br/>
                             <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
                             <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
-                                <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>
+                                <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.estudiosCursadosEstudiante.get(usuario.idUsuario)}" /><br/>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
                                 <div class="negrita">Cursos Dictados: </div> <h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>

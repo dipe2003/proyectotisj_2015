@@ -87,16 +87,26 @@ public class FacadeUsuario implements Serializable {
      * @param LugarNacimientoUsuario
      * @param SexoUsuario
      * @param Rol
+     * @param IdUsuario
      * @return -1 si no se pudo registrar.
      */
     public int RegistrarUsuario(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String ImagenUsuario,
             int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario,
             String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario,
-            EnumSexo SexoUsuario, String Rol){
+            EnumSexo SexoUsuario, String Rol, int IdUsuario){
         if (ImagenUsuario.isEmpty()) ImagenUsuario = "../Resources/Images/userProfile.jpg";
         Usuario Usr = null;
-        if (ExisteUsuario(CedulaUsuario, Rol)== -1) {
-            String[] pass = cSeguridad.getPasswordSeguro(PasswordUsuario);            
+        // array para guardar password mas la palabra clave
+        String[] pass = new String[2];
+        //  si se recibe un idusuario se esta registrando un nuevo rol, por lo que se debe traer password y palabra del ya registrado.
+        if(IdUsuario != 0 && IdUsuario != -1) {
+            Usr = BuscarUsuario(IdUsuario);          
+            pass[0] = Usr.getSaltPasswordUsuario();
+            pass[1] = Usr.getPasswordUsuario();
+        }else{
+            pass = cSeguridad.getPasswordSeguro(PasswordUsuario);  
+        }
+        if (ExisteUsuario(CedulaUsuario, Rol)== -1) {          
             switch(Rol){
                 case "Administrador":
                     Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, pass[1], pass[0], ImagenUsuario,

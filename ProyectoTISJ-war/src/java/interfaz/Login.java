@@ -185,12 +185,12 @@ public class Login implements Serializable {
         // mes de 0 a 11
         cal.set(1990, 1-1, 1);
         fNac = cal.getTime();
+        int id = fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
+                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
+                EnumSexo.Masculino, "Administrador", 0);
         fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
                 "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
-                EnumSexo.Masculino, "Administrador");
-        fUsr.RegistrarUsuario("Docente", "ApellidoDocente", "Docente@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
-                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
-                EnumSexo.Masculino, "Docente");
+                EnumSexo.Masculino, "Docente", id);
         
         /*
         Preguntas Docente

@@ -79,7 +79,7 @@ public class ControladorUsuario {
             for (int i = 0; i < Usuarios.size(); i++) {
                 Usuario user = Usuarios.get(i);
                 if (cSeg.getPasswordSeguro(Password, user.getSaltPasswordUsuario()).equals(user.getPasswordUsuario())) {
-                    Roles.add(getRol(Usuarios.get(i)));
+                    Roles.add(getRol(user));
                 }                
             }
         }

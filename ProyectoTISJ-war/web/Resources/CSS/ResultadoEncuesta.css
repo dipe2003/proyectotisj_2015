@@ -1,0 +1,26 @@
+.contenedor-resultado{
+    padding-top: 1%;
+    font-family: RobotoRegular;
+}
+.contenedor-5050{
+    width:98%;
+    display: inline-flex;
+}
+
+.contenedor-40{
+    width:40%; 
+    height:30%;
+    padding: .5% .5% .5% .5%;
+}
+.contenedor-50{
+    width:50%; 
+    height:30%;
+    padding: .5% .5% .5% .5%;
+}
+.contenedor-60{
+    width:60%; 
+    height:30%;
+    padding: .5% .5% .5% .5%;
+}
+
+
