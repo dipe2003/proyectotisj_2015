@@ -1,0 +1,26 @@
+.InfoImagen{
+    display: block;
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    right: 10%;
+    margin-top: 10px;
+    border-radius: 5%;
+}
+
+.GraficaContainer{
+    width: 90%;
+    height: 500px;
+    margin: 0 auto;
+    font-family: RobotoRegular;
+    font-size: 20px;
+    text-align: left;
+    color: #000000;
+    text-shadow: rgba(0, 0, 0, 0.3) 2px 2px 2px;
+    border: #AAAAAA solid 1px;
+    overflow: hidden;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px;
+    background-color: #FFFFFF;
+}

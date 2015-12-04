@@ -57,6 +57,11 @@
                                 </h:form>
                             </h:panelGroup>
                             <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
+                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
+                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                    <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                </a>
+                            </h:panelGroup>
                         </div>
                         <div class="columna">
                             <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>

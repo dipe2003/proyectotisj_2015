@@ -53,15 +53,11 @@
                         <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
                             <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
                         </a>
-                        <a href="InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
-                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                        </a>
+                        
                     </h:panelGroup>
-                    <h:panelGroup rendered="#{(login.rolSeleccionado == 'Estudiante')}">
-                        <a href="InformacionEstudianteCurso.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
-                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
-                        </a>
-                    </h:panelGroup>
+                    <a href="InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
+                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                    </a>
                 </div>
             </c:forEach>
         </div>
