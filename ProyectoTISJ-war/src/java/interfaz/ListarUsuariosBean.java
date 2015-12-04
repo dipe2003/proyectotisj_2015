@@ -4,6 +4,8 @@ package interfaz;
 import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
 import Asignatura.Curso.FacadeCurso;
+import Usuario.Estudiante.Estudiante;
+import Usuario.Estudiante.Estudios.Estudio;
 import Usuario.Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
@@ -50,6 +52,7 @@ public class ListarUsuariosBean implements Serializable{
     private int IdOpt;
     private List<String> AniosCursos;
     private Map<String, Integer> AsignaturasCursos;
+    private Map<Integer, String> EstudiosCursadosEstudiante;
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
@@ -61,6 +64,7 @@ public class ListarUsuariosBean implements Serializable{
     public List<String> getAniosCursos() {return AniosCursos;}
     public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
     public int getIdOpt() {return IdOpt;}
+    public Map<Integer, String> getEstudiosCursadosEstudiante() {return EstudiosCursadosEstudiante;}
     
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
@@ -71,7 +75,8 @@ public class ListarUsuariosBean implements Serializable{
     public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
     public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
     public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
-    public void setIdOpt(int IdOpt) {this.IdOpt = IdOpt;}    
+    public void setIdOpt(int IdOpt) {this.IdOpt = IdOpt;}
+    public void setEstudiosCursadosEstudiante(Map<Integer, String> EstudiosCursadosEstudiante) {this.EstudiosCursadosEstudiante = EstudiosCursadosEstudiante;}
     
     
     /**
@@ -105,7 +110,7 @@ public class ListarUsuariosBean implements Serializable{
         String currentURL = context.getViewRoot().getViewId();
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){
             if(this.Opt.equals("estudianteCurso")){
-            this.Usuarios = fUsr.listarUsuarioEstudianteCurso(IdOpt);
+                this.Usuarios = fUsr.listarUsuarioEstudianteCurso(IdOpt);
             }else{
                 this.Usuarios = fUsr.listarUsuarios(Rol);
             }
@@ -140,6 +145,24 @@ public class ListarUsuariosBean implements Serializable{
             AsignaturasCursos.put(ListAsignaturaCurso.get(i).getNombreAsignatura(),ListAsignaturaCurso.get(i).getIdAsignatura());
         }
         AsignaturasCursos.put("Todos",0);
+        EstudiosCursadosEstudiante = new HashMap<>();
+        if(Rol.equals("Estudiante")){
+            for(Usuario user: Usuarios){
+                if(user instanceof Estudiante){
+                    String EstudiosCursados = "";
+                    List<Estudio> estudios = ((Estudiante) user).getEstudiosCursadosEstudiante();
+                    for(int i = 0; i < estudios.size(); i++){
+                        EstudiosCursados += estudios.get(i).getTipoEstudio().getTipoDeEstudio() + ": " + estudios.get(i).getOrientacionEstudio();
+                        if(i+1<estudios.size()) {
+                            EstudiosCursados += ", ";
+                        }else{
+                            EstudiosCursados += ".";
+                        }
+                    }
+                    EstudiosCursadosEstudiante.put(user.getIdUsuario(), EstudiosCursados);
+                }
+            }
+        }        
     }
     
     /**
@@ -225,8 +248,13 @@ public class ListarUsuariosBean implements Serializable{
     public String listarAsignaturasDocente(int idDocente){
         String result = "";
         List <String> AsignaturasDocente = fAsig.AsignaturasDocente(idDocente);
-        for (String asignatura : AsignaturasDocente){
-            result = result + " " + asignatura;
+        for (int i = 0; i < AsignaturasDocente.size(); i++) {
+            result += AsignaturasDocente.get(i);
+            if(i+1<AsignaturasDocente.size()){
+                result += ", ";
+            }else{
+                result += ".";
+            }
         }
         return result;
     }

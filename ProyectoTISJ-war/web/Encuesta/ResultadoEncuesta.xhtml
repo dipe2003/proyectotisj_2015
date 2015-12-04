@@ -47,12 +47,15 @@
 
             });
         </Script>
-        <h:form>
-            <div style="width: 100%;">
-                <div style="width: 48%">
-                <canvas id="resDoocente" width="500" height="500"></canvas>
+        <div class="inputContainer">
+            Resultado de Encuesta sobre #{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}
+        </div>
+        <div class="contenedor-resultado">            
+            <div class="contenedor-5050">
+                <div class="contenedor-50">
+                    <canvas id="resDoocente" width="400" height="400"></canvas>
                 </div>
-                <div style="width: 48%">
+                <div class="contenedor-50">
                     <table style="border: 1px silver;">
                         <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasDocente.entrySet()}" var="titulo">                        
                             <tr>
@@ -62,24 +65,24 @@
                         </c:forEach>
                     </table>
                 </div>
-                <div style="width: 100%">
-                    <div style="width: 48%">
+                <div class="contenedor-5050">
+                    <div class="contenedor-50">
                         <canvas id="resCurso" width="500" height="500"></canvas>
                     </div>
-                    <div style="width: 48%">
+                    <div class="contenedor-50">
                         <table style="border: 1px silver;">
                             <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasCurso.entrySet()}" var="label">                        
-                            <tr>
-                                <td>Pregunta #{label.key}</td>
-                                <td>#{label.value}</td>
-                            </tr>                        
-                        </c:forEach>
-                    </table>
+                                <tr>
+                                    <td>Pregunta #{label.key}</td>
+                                    <td>#{label.value}</td>
+                                </tr>                        
+                            </c:forEach>
+                        </table>
                     </div>
                 </div>
-            
+                
             </div>
-        </h:form>
+        </div>
         
     </ui:define>
 </ui:composition>
