@@ -122,7 +122,8 @@ public class ResultadoEncuesta implements Serializable{
             EncuestaSeleccionada = fEnc.GetEncuestaPorId(IdEncuesta);
             MapResultadoCurso = EncuestaSeleccionada.getResultadosPreguntasCurso();
             MapResultadoDocente = EncuestaSeleccionada.getResultadosPreguntasDocente();
-            
+            MapTextoPreguntasCurso = new HashMap<>();
+            MapTextoPreguntasDocente = new HashMap<>();
             for(int i=0; i < MapResultadoDocente.size(); i++){
                 MapTextoPreguntasDocente.put((i+1), (String)MapResultadoDocente.keySet().toArray()[i]);
             }
