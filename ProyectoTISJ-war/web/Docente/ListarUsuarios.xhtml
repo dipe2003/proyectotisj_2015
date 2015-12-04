@@ -8,32 +8,27 @@
         <div class="cabecera" >
             
                 <div class="titulo" >
-                    <h:panelGroup rendered="#{listarUsuariosEstudiante.tipo == 'Estudiante'}">
-                        Compañeros de Clases 
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{listarUsuariosEstudiante.tipo == 'Docente'}">
-                        Lista de Profesores 
-                    </h:panelGroup>
+                        Lista de Alumnos
                 </div>
            
         </div>
         <div id="contenedor">
-            <h:panelGroup rendered="#{empty listarUsuariosEstudiante.usuarios}">
+            <h:panelGroup rendered="#{empty listarUsuariosDocente.estudiantes}">
                 <div class="ListItemContainer" >
-                    Lista de #{listarUsuariosEstudiante.tipo}s Vacia
+                    Lista de #{listarUsuariosDocente.tipo}s Vacia
                 </div>            
             </h:panelGroup>
             
-            <c:forEach var="usuario" items="#{listarUsuariosEstudiante.usuarios}">
+            <c:forEach var="estudiante" items="#{listarUsuariosDocente.estudiantes}">
                 <div class="ListItemContainer" >
                     <div class="item">
-                        #{usuario.cedulaUsuario}
+                        #{estudiante.cedulaUsuario}
                     </div>
                     <div class="item">
-                        #{usuario.nombreCompleto}
+                        #{estudiante.nombreCompleto}
                     </div>
                     <div class="item">
-                        #{usuario.correoUsuario}
+                        #{estudiante.correoUsuario}
                     </div>
                 </div>            
             </c:forEach>

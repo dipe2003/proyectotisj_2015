@@ -189,4 +189,8 @@ public class ControladorEstudiante {
     public List<Estudiante> ListarCompanierosDeClases(int idEstudiante){
         return mEst.ListarCompanierosDeClases(idEstudiante);
     }
+    
+    public List<Estudiante> ListarAlumnosDocente(int idDocente){
+        return mEst.ListarAlumnosDocente(idDocente);
+    }
 }
