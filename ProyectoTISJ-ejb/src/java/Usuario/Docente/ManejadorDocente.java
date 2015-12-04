@@ -210,5 +210,17 @@ public class ManejadorDocente {
         }
         return lista;
     }
+    
+    public Docente getDocenteCurso(int idCurso){
+        Docente doc = null;
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT d FROM Docente d, Curso c WHERE c.IdCurso= :idCurso AND c.DocenteCurso.IdUsuario = d.IdUsuario", Docente.class);
+            query.setParameter("idCurso", idCurso);     
+            doc = query.getSingleResult();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return doc;
+    }
 }
     

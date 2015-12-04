@@ -40,4 +40,8 @@ public class FacadeDocente implements Serializable {
         return cDoc.ListarProfesoresDeEstudiante(idEstudiante);
     }
     
+    public Docente getDocenteCurso(int idCurso){
+        return cDoc.getDocenteCurso(idCurso);
+    }
+    
 }

@@ -6,20 +6,38 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
         <div class="cabecera" >
-            
-                <div class="titulo" >
-                        Lista de Alumnos
-                </div>
-           
+            <div class="titulo" >
+                Informacion del Curso #{informacionCurso.curso.asignaturaCurso.nombreAsignatura} del semestre #{informacionCurso.curso.semestreCurso} dicatado en el año #{informacionCurso.curso.anioCurso}
+            </div>
         </div>
+        
         <div id="contenedor">
-            <h:panelGroup rendered="#{empty listarUsuariosDocente.estudiantes}">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Docente del Curso 
+            </div>
                 <div class="ListItemContainer" >
-                    Lista de #{listarUsuariosDocente.tipo}s Vacia
+                    <div class="item">
+                        #{informacionCurso.docente.cedulaUsuario}
+                    </div>
+                    <div class="item">
+                        #{informacionCurso.docente.nombreCompleto}
+                    </div>
+                    <div class="item">
+                        #{informacionCurso.docente.correoUsuario}
+                    </div>
+                </div>            
+        </div>
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Alumnos del Curso
+            </div>
+            <h:panelGroup rendered="#{empty informacionCurso.estudiantes}">
+                <div class="ListItemContainer" >
+                    Lista de Estudiantes Vacia
                 </div>            
             </h:panelGroup>
-            
-            <c:forEach var="estudiante" items="#{listarUsuariosDocente.estudiantes}">
+            <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
                 <div class="ListItemContainer" >
                     <div class="item">
                         #{estudiante.cedulaUsuario}
@@ -32,7 +50,7 @@
                     </div>
                 </div>            
             </c:forEach>
-            
         </div>
+        
     </ui:define>
 </ui:composition>

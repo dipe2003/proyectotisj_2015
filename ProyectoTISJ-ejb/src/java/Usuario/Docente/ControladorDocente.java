@@ -148,4 +148,8 @@ public class ControladorDocente {
         return mDoc.ListarProfesoresDeEstudiante(idEstudiante);
     }
     
+    public Docente getDocenteCurso(int idCurso){
+        return mDoc.getDocenteCurso(idCurso);
+    }
+    
 }

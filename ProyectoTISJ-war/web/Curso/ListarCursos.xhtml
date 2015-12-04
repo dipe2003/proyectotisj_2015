@@ -22,7 +22,7 @@
             </h:panelGroup>
             <c:forEach var="curso" items="#{listarCursosBean.cursos}">
                 <div class="ListItemContainer" >
-                    <div class="item">
+                    <div class="item" style="width: 10%">
                         #{curso.anioCurso}
                     </div>
                     <div class="item">
@@ -52,6 +52,9 @@
                         
                         <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
                             <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+                        </a>
+                        <a href="InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                         </a>
                     </h:panelGroup>
                     <h:panelGroup rendered="#{(login.rolSeleccionado == 'Estudiante')}">
