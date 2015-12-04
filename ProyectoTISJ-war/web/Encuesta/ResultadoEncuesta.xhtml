@@ -24,8 +24,8 @@
                     labels: #{resultadoEncuesta.tituloPreguntasCurso},
                     datasets: [{
                             label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
-                            fillColor: "rgba(220,220,220,0.2)",
-                            strokeColor: "rgba(220,220,220,1)",
+                            fillColor: "#EF3E44",
+                            strokeColor: "#A84047",
                             pointColor: "rgba(220,220,220,1)",
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
@@ -35,7 +35,9 @@
                 };
 
                 var opciones = {
-                    animationSteps : 200
+                    animationSteps : 200,
+                    bezierCurve: false,
+                    datasetFill : true // colorea la serie de la grafica
                 };                                
                     
                 var ctxDoc = $("#resDoocente").get(0).getContext("2d");
@@ -46,16 +48,37 @@
             });
         </Script>
         <h:form>
-            <canvas id="resDoocente" width="500" height="500"></canvas>
-            <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasDocente.entrySet()}" var="titulo">
-                <table style="border: 1px silver;">
-                    <tr>
-                        <td>Pregunta #{titulo.key}</td>
-                        <td>#{titulo.value}</td>
-                    </tr>
-                </table>
-            </c:forEach>
-            <canvas id="resCurso" width="500" height="500"></canvas>
+            <div style="width: 100%;">
+                <div style="width: 48%">
+                <canvas id="resDoocente" width="500" height="500"></canvas>
+                </div>
+                <div style="width: 48%">
+                    <table style="border: 1px silver;">
+                        <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasDocente.entrySet()}" var="titulo">                        
+                            <tr>
+                                <td>Pregunta #{titulo.key}</td>
+                                <td>#{titulo.value}</td>
+                            </tr>                        
+                        </c:forEach>
+                    </table>
+                </div>
+                <div style="width: 100%">
+                    <div style="width: 48%">
+                        <canvas id="resCurso" width="500" height="500"></canvas>
+                    </div>
+                    <div style="width: 48%">
+                        <table style="border: 1px silver;">
+                            <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasCurso.entrySet()}" var="label">                        
+                            <tr>
+                                <td>Pregunta #{label.key}</td>
+                                <td>#{label.value}</td>
+                            </tr>                        
+                        </c:forEach>
+                    </table>
+                    </div>
+                </div>
+            
+            </div>
         </h:form>
         
     </ui:define>
