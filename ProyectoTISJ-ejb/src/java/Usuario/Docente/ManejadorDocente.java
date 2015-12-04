@@ -199,5 +199,16 @@ public class ManejadorDocente {
         return lista;
     }
         
+    public List<Docente> ListarProfesoresDeEstudiante(int IdEstudiante){
+        List<Docente> lista = new ArrayList<>();
+        try{
+            TypedQuery<Docente> query = em.createQuery("SELECT DISTINCT d FROM Curso c, Docente d, Estudiante e WHERE e.IdUsuario= :idEstudiante AND c MEMBER OF e.CursosEstudiante AND d.IdUsuario = c.DocenteCurso.IdUsuario", Docente.class);
+            query.setParameter("idEstudiante", IdEstudiante);            
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 }
     

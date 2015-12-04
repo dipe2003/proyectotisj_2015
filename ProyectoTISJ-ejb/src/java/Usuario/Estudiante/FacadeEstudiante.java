@@ -86,4 +86,9 @@ public class FacadeEstudiante implements Serializable {
     public List<Estudiante> getEstudiantesCursoEncuesta(int IdEncuesta){
         return cEst.getEstudiantesCursoEncuesta(IdEncuesta);
     }
+    
+    public List<Estudiante> ListarCompanierosDeClases(int idEstudiante){
+        return cEst.ListarCompanierosDeClases(idEstudiante);
+    }
+    
  }

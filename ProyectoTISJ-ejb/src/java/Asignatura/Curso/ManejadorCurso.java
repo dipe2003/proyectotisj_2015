@@ -76,7 +76,7 @@ public class ManejadorCurso {
             query = em.createQuery("SELECT c FROM Curso c WHERE c.DocenteCurso.IdUsuario= :IdDocente", Curso.class);
             query.setParameter("IdDocente", IdUsuario);
         }else{
-            query = em.createQuery("SELECT c FROM Curso c WHERE c.EstudiantesCurso.IdUsuario= :idEstudiante", Curso.class);
+            query = em.createQuery("SELECT c FROM Curso c, Estudiante es WHERE es.IdUsuario= :idEstudiante and c MEMBER OF es.CursosEstudiante ", Curso.class);
             query.setParameter("idEstudiante", IdUsuario);
         }
         try{

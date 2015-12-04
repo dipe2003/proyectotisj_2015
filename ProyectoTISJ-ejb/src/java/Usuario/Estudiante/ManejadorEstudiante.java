@@ -263,5 +263,16 @@ public class ManejadorEstudiante {
         }
         return lista;
     }
+    public List<Estudiante> ListarCompanierosDeClases(int IdEstudiante){
+         List<Estudiante> lista = new ArrayList<>();
+        try{
+            TypedQuery<Estudiante> query = em.createQuery("SELECT DISTINCT es FROM Curso c, Estudiante es, Estudiante e WHERE e.IdUsuario= :idEstudiante AND c MEMBER OF e.CursosEstudiante AND es MEMBER OF c.EstudiantesCurso AND es.IdUsuario != e.IdUsuario", Estudiante.class);
+            query.setParameter("idEstudiante", IdEstudiante);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 }
     

@@ -144,4 +144,8 @@ public class ControladorDocente {
         return mDoc.getNombreDocente(IdDocente);
     }
     
+    public List<Docente> ListarProfesoresDeEstudiante(int idEstudiante){
+        return mDoc.ListarProfesoresDeEstudiante(idEstudiante);
+    }
+    
 }
