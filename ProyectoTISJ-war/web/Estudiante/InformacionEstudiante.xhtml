@@ -58,11 +58,13 @@
             <div class="ListItemContainer" >
                 <div class="negrita" style="margin-left: 20px">Estudios Cursados: </div><h:outputText value="para hacer" />
             </div> 
-            <a href="#openModal">
-                <div class="ListItemContainer" style="width: 300px; margin-top: -10px" >
+            
+            <div class="ListItemContainer" style="width: 300px; margin-top: -10px" >
+                <a href="#openModal">
                     <div class="negrita" style="margin-left: 20px">Ver Formulario de Inscripcion</div>
-                </div>
-            </a>
+                </a>
+            </div>
+            
             
         </div>
         
@@ -86,6 +88,9 @@
                     <div class="item">
                         #{curso.asignaturaCurso.nombreAsignatura}
                     </div>
+                    <a href="../Curso/InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
+                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                    </a>
                 </div>            
             </c:forEach>
         </div>
@@ -116,7 +121,7 @@
                 <c:forEach var="resultadoCurso" items="#{informacionEstudiante.resultadosCursos}">
                     <c:if test="#{resultadoCurso.semestre==status}">
                         <Script>  
-                            titulos#{status}.push("#{resultadoCurso.curso}"); 
+                            titulos#{status}.push("#{resultadoCurso.curso}(#{resultadoCurso.anio})"); 
                             Parciales#{status}.push("#{resultadoCurso.resultadoParcial}");
                             Examenes#{status}.push("#{resultadoCurso.resultadoExamen}");
                             Laboratorios#{status}.push("#{resultadoCurso.resultadoLaboratorio}");

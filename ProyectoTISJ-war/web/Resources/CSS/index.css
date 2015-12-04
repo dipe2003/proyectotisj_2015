@@ -165,3 +165,19 @@
     color: #222933 !important;
     font-size: 13px;
 }
+
+a:link {
+   text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+} 
