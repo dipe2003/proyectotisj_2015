@@ -4,8 +4,8 @@ $(document).ready(function(){
     
     var tiempo=0;
     $('.ListItemContainer').hide().each(function() {
-        $(this).delay(tiempo).fadeIn('slow');
-        tiempo += 200;
+        $(this).delay(tiempo).fadeIn('fast');
+        tiempo += 10;
     });
     
     $("#filtro\\:cedulaFilter").val("");
