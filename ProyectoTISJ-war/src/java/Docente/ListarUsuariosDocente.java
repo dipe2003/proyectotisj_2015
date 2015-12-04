@@ -1,6 +1,7 @@
 
-package Estudiante;
+package Docente;
 
+import Estudiante.*;
 import interfaz.asignatura.*;
 import Asignatura.Asignatura;
 import Asignatura.FacadeAsignatura;
@@ -21,40 +22,27 @@ import javax.servlet.http.HttpServletRequest;
 
 @Named
 @ViewScoped
-public class ListarUsuarios implements Serializable{
+public class ListarUsuariosDocente implements Serializable{
     
     @EJB
     private FacadeEstudiante fEst;
     
-    @EJB
-    private FacadeDocente fDoc;
-    
-    private List<Usuario> Usuarios;
-    
-    private String Tipo;
+    private List<Estudiante> Estudiantes;
 
-    public String getTipo() {return Tipo;}
-    public List<Usuario> getUsuarios() {return Usuarios;}
+    public List<Estudiante> getEstudiantes() {return Estudiantes;}
 
-    public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
-    public void setTipo(String Tipo) {this.Tipo = Tipo;}
+    public void setEstudiantes(List<Estudiante> Estudiantes) {this.Estudiantes = Estudiantes;}
     
     //  Constructores
-    public ListarUsuarios(){}
+    public ListarUsuariosDocente(){}
     
     
     @PostConstruct
     public void Init(){
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-            Tipo = request.getParameter("tipo");
             Usuario usr = (Usuario) request.getSession().getAttribute("Usuario");
-            if (Tipo.equalsIgnoreCase("Estudiante")){
-                Usuarios = (List<Usuario>) (ArrayList<?>) fEst.ListarCompanierosDeClases(usr.getIdUsuario());
-            }else if (Tipo.equalsIgnoreCase("Docente")){
-              Usuarios = (List<Usuario>) (ArrayList<?>) fDoc.ListarProfesoresDeEstudiante(usr.getIdUsuario());
-            }
-            
+            Estudiantes = fEst.ListarAlumnosDocente(usr.getIdUsuario());
     }
     
     

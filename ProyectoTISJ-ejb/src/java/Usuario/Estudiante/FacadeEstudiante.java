@@ -91,4 +91,8 @@ public class FacadeEstudiante implements Serializable {
         return cEst.ListarCompanierosDeClases(idEstudiante);
     }
     
+    public List<Estudiante> ListarAlumnosDocente(int idDocente){
+        return cEst.ListarAlumnosDocente(idDocente);
+    }
+    
  }
