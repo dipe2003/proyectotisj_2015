@@ -97,8 +97,7 @@ public class DatosRegCurso implements Serializable {
         if(comprobarFormularioInscripcion()){
             if ((fCurso.RegistrarCurso(SemestreCurso, AnioCurso, idDocente, idAsignatura, ContratoDocenteCurso))!=-1) {
                 Correcto=true;
-                reg.endConversation();
-                
+                reg.endConversation();                
             }
         }
     }

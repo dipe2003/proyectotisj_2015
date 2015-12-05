@@ -28,7 +28,7 @@
                         <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
                     </div>
                     <div class="columna">
-                        <div class="negrita">Inasistencias: </div> #{clase.cursoClase.docenteCurso.nombreCompleto}<br/>
+                        <div class="negrita">Inasistencias: </div> #{listarClasesBean.inasistenciasClases.get(clase.idClase)}<br/>
                     </div>
                 </div>
             </c:forEach>
