@@ -41,3 +41,15 @@ function RedirigirClases(data){
 function RedirigirRespuestaEncuesta(data){
     window.location.href="ListarEncuesta.xhtml?rol=Estudiante";
 };
+
+function RedirigirCurso(data){
+    if(data.status === 'success'){
+        var exito = $('#frmIngresoDatos\\:exitoRegCurso').val();
+        var destino = "ListarCursos.xhtml";
+        if(exito === 'true'){
+            window.location.href=destino;
+        }else{
+            alert("No se pudo registrar el curso. Todos los campos son obligatorios.");
+        }
+    }
+};
