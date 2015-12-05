@@ -77,11 +77,11 @@
                     <div class="filtroLabel">Cedula </div>
                     <h:inputText class="Texto" id="nameAsignatura" value="#{nameAsignatura}"></h:inputText>
                     
-                    <h:panelGroup rendered="#{!(listarUsuariosBean.rol == 'Administrador' or listarUsuariosBean.rol == 'Administrativo')}"><!--hacer rendered en el caso de que sea docente o estudiante-->
+                    <h:panelGroup rendered="#{!(login.rolSeleccionado== 'Administrador' or login.rolSeleccionado == 'Administrativo')}"><!--hacer rendered en el caso de que sea docente o estudiante-->
                         
                         <div class="filtroLabel">Anio </div>
                         <h:selectOneMenu class="Texto" value="#{anioFilter}">
-                            <f:selectItems value="#{listarUsuariosBean.aniosCursos}" />
+                            <f:selectItems value="#{listarCursosBean.aniosCursos}" />
                         </h:selectOneMenu>
                         
                         

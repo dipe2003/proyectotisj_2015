@@ -101,7 +101,14 @@ public class InformacionEstudiante implements Serializable{
                 }else if (eval instanceof Examen) {
                     item.resultadoExamen += result.getResultadoEvaluacion();
                 }else if (eval instanceof Laboratorio) {
-                    item.resultadoLaboratorio += result.getResultadoEvaluacion();
+                    if (result.getResultadoEvaluacion() == 101){
+                        item.resultadoLaboratorio += 50;
+                    }else if(result.getResultadoEvaluacion() == 102){
+                        item.resultadoLaboratorio += 10;
+                    }else if(result.getResultadoEvaluacion() == 103){
+                        item.resultadoLaboratorio += 5;
+                    }
+                    
                 }
             }
         }

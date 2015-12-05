@@ -3,6 +3,7 @@ package interfaz.Encuesta;
 
 import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.FacadeEncuesta;
+import Asignatura.Curso.FacadeCurso;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,9 @@ public class ResultadoEncuesta implements Serializable{
     @EJB
     private FacadeEncuesta fEnc;
     
+    @EJB
+    private FacadeCurso fCur;
+    
     private int IdEncuesta;
     
     private Encuesta EncuestaSeleccionada;
@@ -33,16 +37,19 @@ public class ResultadoEncuesta implements Serializable{
     public int getIdEncuesta() {return IdEncuesta;}
     public Map<Integer, String> getMapTextoPreguntasDocente(){return this.MapTextoPreguntasDocente;}
     public Map<Integer, String> getMapTextoPreguntasCurso(){return this.MapTextoPreguntasCurso;}
-    
+    public Map<String, Float> getMapResultadoDocente() {return MapResultadoDocente;}
+    public Map<String, Float> getMapResultadoCurso() {return MapResultadoCurso;}
     
     //  Setters
     public void setEncuestaSeleccionada(Encuesta EncuestaSeleccionada) {this.EncuestaSeleccionada = EncuestaSeleccionada;}
     public void setIdEncuesta(int IdEncuesta) {this.IdEncuesta = IdEncuesta;}
     public void setMapTextoPreguntasDocente(Map<Integer, String> TextoPreguntasDocente) {this.MapTextoPreguntasDocente = TextoPreguntasDocente;}
     public void setMapTextoPreguntasCurso(Map<Integer, String> TextoPreguntasCurso) {this.MapTextoPreguntasCurso = TextoPreguntasCurso;}
+    public void setMapResultadoDocente(Map<String, Float> MapResultadoDocente) {this.MapResultadoDocente = MapResultadoDocente;}
+    public void setMapResultadoCurso(Map<String, Float> MapResultadoCurso) {this.MapResultadoCurso = MapResultadoCurso;}
     
     /*
-        *   PREGUNTAS SOBRE DOCENTE *
+    *   PREGUNTAS SOBRE DOCENTE *
     */
     
     public String getTextoPreguntasDocente(){
@@ -79,7 +86,7 @@ public class ResultadoEncuesta implements Serializable{
     }
     
     /*
-        *   PREGUNTAS SOBRE CURSO   *
+    *   PREGUNTAS SOBRE CURSO   *
     */
     public String getTextoPreguntasCurso(){
         String texto = "[";
@@ -117,20 +124,24 @@ public class ResultadoEncuesta implements Serializable{
     public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        MapTextoPreguntasCurso = new HashMap<>();
+        MapTextoPreguntasDocente = new HashMap<>();
+        MapResultadoDocente = new HashMap<>();
+        MapResultadoCurso = new HashMap<>();
         try{
-            IdEncuesta = Integer.parseInt((String) request.getParameter("id"));
-            EncuestaSeleccionada = fEnc.GetEncuestaPorId(IdEncuesta);
-            MapResultadoCurso = EncuestaSeleccionada.getResultadosPreguntasCurso();
-            MapResultadoDocente = EncuestaSeleccionada.getResultadosPreguntasDocente();
-            MapTextoPreguntasCurso = new HashMap<>();
-            MapTextoPreguntasDocente = new HashMap<>();
-            for(int i=0; i < MapResultadoDocente.size(); i++){
-                MapTextoPreguntasDocente.put((i+1), (String)MapResultadoDocente.keySet().toArray()[i]);
+            int idCurso = Integer.parseInt((String) request.getParameter("id"));
+            if (fCur.BuscarCurso(idCurso).getEncuestaCurso() != null ){
+                IdEncuesta = fCur.BuscarCurso(idCurso).getEncuestaCurso().getIdEncuesta();
+                EncuestaSeleccionada = fEnc.GetEncuestaPorId(IdEncuesta);
+                MapResultadoCurso = EncuestaSeleccionada.getResultadosPreguntasCurso();
+                MapResultadoDocente = EncuestaSeleccionada.getResultadosPreguntasDocente();
+                for(int i=0; i < MapResultadoDocente.size(); i++){
+                    MapTextoPreguntasDocente.put((i+1), (String)MapResultadoDocente.keySet().toArray()[i]);
+                }
+                for(int i=0; i < MapResultadoCurso.size(); i++){
+                    MapTextoPreguntasCurso.put((i+1), (String)MapResultadoCurso.keySet().toArray()[i]);
+                }
             }
-            for(int i=0; i < MapResultadoCurso.size(); i++){
-                MapTextoPreguntasCurso.put((i+1), (String)MapResultadoCurso.keySet().toArray()[i]);
-            }
-            
         }catch(NullPointerException | NumberFormatException ex){}
     }
     
