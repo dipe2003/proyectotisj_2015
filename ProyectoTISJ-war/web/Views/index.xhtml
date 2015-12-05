@@ -27,7 +27,7 @@
         <script src="../Resources/Scripts/ListarEncuesta.js"></script>
         <script src="../Resources/Scripts/RedirigirListado.js"></script>
         <script src="../Resources/Scripts/Chart.js"></script>
-
+        
     </h:head>
     <h:body>
         <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}" >
@@ -45,7 +45,61 @@
         <h:panelGroup>
             <div class="contentBody">
                 <ui:insert name="page_content" >
-                    Bienvenido
+                    <script>
+                        ! function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0],
+                                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                            if (!d.getElementById(id)) {
+                                js = d.createElement(s);
+                                js.id = id;
+                                js.src = p + "://platform.twitter.com/widgets.js";
+                                js.setAttribute('onload', "twttr.events.bind('rendered',function(e) {doSomething()});");
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }
+                        }(document, "script", "twitter-wjs");
+    
+                        function doSomething(){
+                            $("iframe").contents().find(".timeline-footer").hide();
+                            $("iframe").contents().find(".timeline-header").hide();
+                            $("iframe").contents().find(".stream").css("overflow", "hidden");
+                            $("iframe").contents().find(".footer").css("display", "none");
+                            $("iframe").contents().find(".tweet-actions").css("display", "none");
+                            $("iframe").css({"max-width": "none", "width": "100%", "height": "100%"});
+                            $("iframe").contents().find(".root").css({"border": "none", "max-width": "none", "background-color": "transparent"});
+                            $("iframe").contents().find(".u-photo").css("display", "none");
+                            $("iframe").contents().find(".p-nickname").css("display", "none");
+                            $("iframe").contents().find(".dt-updated").css("display", "none");
+                            $("iframe").contents().find(".tweet").css({
+                                "border": "black solid 1px", 
+                                "padding": "20px",
+                                "margin": "20px",
+                                "box-shadow": "grey 5px 5px 5px",
+                                "color": "black",
+                                "background-color": "white",
+                                "text-shadow": "rgba(0, 0, 0, 0.3) 2px 2px 2px"
+                            });
+                            $("iframe").contents().find(".p-name").css({"font-size": "25px"});
+                            $("iframe").contents().find(".e-entry-title").css({
+                                "text-align": "center",
+                                "font-size": "20px"
+                            });
+                            $("iframe").contents().find(".load-more").css("display", "none");
+                            $("iframe").contents().find(".tco-display").css("color", "black");
+                            
+                            $("iframe").contents().find(".tweet").each(function( index ) {
+                                 if(index>7)  $( this ).hide() ;
+                            });
+                            $("iframe").contents().find(".h-card").css({
+                                "text-align": "center",
+                                "margin-bottom": "15px"
+                            });
+                             $("#escondedor").css({"display": "block"});
+                        };
+    
+                    </script>
+                    <div id="escondedor" style="display: none; margin: 0 auto; height: 900px;">
+                        <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/ti_sj" data-widget-id="673021222955954176">Tweets por el @ti_sj.</a>
+                    </div>
                 </ui:insert>
             </div>
         </h:panelGroup>
