@@ -31,16 +31,20 @@ public class ListarCursosBean implements Serializable{
     private List<Curso> Cursos;
     private String Parametro;
     
+    private List<String> AniosCursos;
+    
     //  Constructores
     public ListarCursosBean(){}
     
     //  Getters
     public List<Curso> getCursos() {return Cursos;}
     public String getParametro(){return this.Parametro;}
-    
+    public List<String> getAniosCursos() {return AniosCursos;}
+
     //  Setters
     public void setCursos(List<Curso> Cursos) {this.Cursos = Cursos;}
     public void setParametro(String Parametro){this.Parametro = Parametro;}
+    public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
     
     /**
      * Inicializa las listas del bean.
@@ -77,6 +81,9 @@ public class ListarCursosBean implements Serializable{
                     break;
             }
         }
+        this.AniosCursos = new ArrayList<>();
+        this.AniosCursos = fCurso.getAniosCursos();
+        this.AniosCursos.add("Todos");
     }
      
     public void filtro(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter){
