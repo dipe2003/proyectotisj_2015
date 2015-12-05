@@ -1,0 +1,89 @@
+<ui:composition template="../Views/index.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"                
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="page_content">
+        <div class="cabecera" >
+            <div class="titulo" >
+                Informacion del Docente 
+            </div>
+        </div>
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Informacion Basica
+            </div>
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Nombre: </div> #{informacionDocente.docenteSeleccionado.nombreUsuario}
+            </div>
+            <div class="ListItemContainer InfoImagen" style="background-image: url(#{informacionDocente.docenteSeleccionado.imagenUsuario}); background-size: contain;" ></div>
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Apellido: </div> #{informacionDocente.docenteSeleccionado.apellidoUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Cedula: </div> #{informacionDocente.docenteSeleccionado.cedulaUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Credencial: </div> #{informacionDocente.docenteSeleccionado.credencialCivicaUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Departamento: </div> #{informacionDocente.docenteSeleccionado.departamentoUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Localidad: </div> #{informacionDocente.docenteSeleccionado.localidadUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Domicilo: </div>#{informacionDocente.docenteSeleccionado.domicilioUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Telefono: </div> #{informacionDocente.docenteSeleccionado.telefonoUsuario}
+            </div>  
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Celular: </div> #{informacionDocente.docenteSeleccionado.celularUsuario} 
+            </div> 
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Fecha de Nacimiento: </div> #{informacionDocente.docenteSeleccionado.fechaNacimientoUsuario} 
+            </div> 
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Lugar de Nacimiento: </div>  #{informacionDocente.docenteSeleccionado.lugarNacimientoUsuario}
+            </div> 
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Estado Civil: </div> #{informacionDocente.docenteSeleccionado.estadoCivilUsuario.estadoCivil} 
+            </div> 
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Sexo: </div> #{informacionDocente.docenteSeleccionado.sexoUsuario} 
+            </div> 
+                        
+        </div>
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Cursos del Docente
+            </div>
+            <h:panelGroup rendered="#{empty informacionDocente.cursosDocente}">
+                <div class="ListItemContainer" >
+                    El Docente no tiene cursos
+                </div>            
+            </h:panelGroup>
+            <c:forEach var="curso" items="#{informacionDocente.cursosDocente}">
+                <div class="ListItemContainer" >
+                    <div class="item">
+                        #{curso.anioCurso}
+                    </div>
+                    <div class="item">
+                        #{curso.semestreCurso}° Semestre
+                    </div> 
+                    <div class="item">
+                        #{curso.asignaturaCurso.nombreAsignatura}
+                    </div>
+                    <a href="../Curso/InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
+                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                    </a>
+                </div>            
+            </c:forEach>
+        </div>                
+        
+    </ui:define>
+</ui:composition>

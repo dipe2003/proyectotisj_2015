@@ -62,6 +62,11 @@
                                     <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                                 </a>
                             </h:panelGroup>
+                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
+                                <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                    <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                </a>
+                            </h:panelGroup>
                         </div>
                         <div class="columna">
                             <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
