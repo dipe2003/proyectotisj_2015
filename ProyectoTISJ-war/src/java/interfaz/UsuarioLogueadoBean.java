@@ -8,7 +8,6 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -64,58 +63,19 @@ public class UsuarioLogueadoBean implements Serializable{
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         Usuario  User = (Usuario)request.getSession().getAttribute("Usuario");
         this.NombreUsuario = User.getNombreUsuario();
-        this.ImagenUsuario = User.getImagenURL();
+        this.ImagenUsuario = User.getImagenUsuario();
         this.CorreoUsuario = User.getCorreoUsuario();
         this.CedulaUsuario = String.valueOf(User.getCedulaUsuario());
+        this.RolSeleccionado = login.getRolSeleccionado();        
+    }
+    
+    public void modificarUsuarioLogueado(Usuario usuario){
+        this.NombreUsuario = usuario.getNombreUsuario();
+        this.ImagenUsuario = usuario.getImagenUsuario();
+        this.CorreoUsuario = usuario.getCorreoUsuario();
+        this.CedulaUsuario = String.valueOf(usuario.getCedulaUsuario());
         this.RolSeleccionado = login.getRolSeleccionado();
+        login.setCedulaUsuario(CedulaUsuario);
     }
     
-    public void modificarUsuario(String actualPass, String newPass, String confirmPass){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        Usuario  User = (Usuario)request.getSession().getAttribute("Usuario");
-        
-        if (!CI.EsCedulaValida(CedulaUsuario)) {
-            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
-            context.addMessage("frmIngresoDatos:inputCedula", fm);
-        }else{
-            if (!actualPass.isEmpty() || !actualPass.equals("")) {
-                if (!User.isValidPass(actualPass)) {
-                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La contraseña actual no es correcta");
-                    context.addMessage("frmIngresoDatos:inputActualPass", fm);
-                }else{
-                    if (newPass.isEmpty() && confirmPass.isEmpty()) {
-                        FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La contraseña no puede ser vacia.");
-                        context.addMessage("frmIngresoDatos:inputConfirmPass", fm);
-                    }else{
-                        if (!newPass.equals(confirmPass)) {
-                            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Las contraseñas no coinciden");
-                            context.addMessage("frmIngresoDatos:inputConfirmPass", fm);
-                        }else{
-                            String ubicacion = fUp.guardarArchivo("ImagenesPerfil", PartImagenUsuario, CedulaUsuario);
-                            if (ubicacion!=null) {
-                                User.setImagenURL(this.ImagenUsuario);
-                            }
-                            guardarModificacion(User, newPass);
-                        }
-                    }
-                }
-            }else{
-                String ubicacion = fUp.guardarArchivo("ImagenesPerfil", PartImagenUsuario, CedulaUsuario);
-                if (ubicacion!=null) {
-                    User.setImagenURL(ubicacion);
-                }
-                guardarModificacion(User, User.getPasswordUsuario());
-            }
-        }
-    }
-    
-    private void guardarModificacion(Usuario User, String newPass){
-        User.setCedulaUsuario(Integer.valueOf(this.CedulaUsuario));
-        User.setNombreUsuario(this.NombreUsuario);
-        User.setPasswordUsuario(newPass);
-        User.setCorreoUsuario(this.CorreoUsuario);
-        fUser.ModificarUsuario(User, RolSeleccionado);
-        ImagenUsuario = User.getImagenURL();
-    }
 }

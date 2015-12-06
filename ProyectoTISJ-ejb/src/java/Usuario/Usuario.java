@@ -79,7 +79,6 @@ abstract public class Usuario implements Serializable{
     public String getLocalidadUsuario() {return LocalidadUsuario;}
     public String getTelefonoUsuario() {return TelefonoUsuario;}
     public String getCelularUsuario() {return CelularUsuario;}
-    public String getImagenURL(){return this.ImagenUsuario;}
     public EstadoCivil getEstadoCivilUsuario() {return EstadoCivilUsuario;}
     public Date getFechaNacimientoUsuario() {return FechaNacimientoUsuario;}
     public EnumSexo getSexoUsuario() {return SexoUsuario;}
@@ -100,7 +99,6 @@ abstract public class Usuario implements Serializable{
     public void setLocalidadUsuario(String LocalidadUsuario) {this.LocalidadUsuario = LocalidadUsuario;}
     public void setTelefonoUsuario(String TelefonoUsuario) {this.TelefonoUsuario = TelefonoUsuario;}
     public void setCelularUsuario(String CelularUsuario) {this.CelularUsuario = CelularUsuario;}
-    public void setImagenURL(String ImagenURL){this.ImagenUsuario = ImagenURL;}
     public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
     public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
     public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}

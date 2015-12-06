@@ -39,7 +39,7 @@ public class FacadeEstudiante implements Serializable {
         Estudiante estudiante = cEst.BuscarEstudiante(idEstudiante);
         Estudio estudio = cEstudio.CrearEstudio(tipo, Orientacion);
         estudiante.addEstudioCursado(estudio);
-        cEst.ModificarEstudiante(estudiante);
+        cEst.ModificarInstEstudiante(estudiante);
         cEstudio.ModificarEstudio(estudio);
     }
     

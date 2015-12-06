@@ -36,12 +36,31 @@ public class FacadeDocente implements Serializable {
         return cDoc.getNombreDocente(IdDocente);
     }
     
+    /**
+     * Devuelve una lista de los docentes de cursos a los que pertenece el estudiante.
+     * @param idEstudiante
+     * @return 
+     */
     public List<Docente> ListarProfesoresDeEstudiante(int idEstudiante){
         return cDoc.ListarProfesoresDeEstudiante(idEstudiante);
     }
     
+    /**
+     * Devuelve el docente del curso indicado por su id.
+     * @param idCurso
+     * @return 
+     */
     public Docente getDocenteCurso(int idCurso){
         return cDoc.getDocenteCurso(idCurso);
+    }
+    
+    /**
+     * Devuelve el docente inicado por su id.
+     * @param IdDocente
+     * @return 
+     */
+    public Docente GetDocente(int IdDocente){
+        return cDoc.BuscarDocente(IdDocente);
     }
     
 }

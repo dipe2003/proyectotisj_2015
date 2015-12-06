@@ -4,82 +4,127 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="page_content">
-        <h:form enctype="multipart/form-data" id="frmIngresoDatos">
-            <div id="menuContainer">
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
-                        <img src="../Resources/Images/cedula.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
-                    </div>
-                    <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{usuarioLogueadoBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." 
-                                     p:placeholder="Cedula" class="Texto" id="inputCedula"/><br/>
-                        <h:message class="error" for="inputCedula"/>
-                    </div>
-                </div>
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
-                        <img src="../Resources/Images/nombre.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
-                    </div>
-                    <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{usuarioLogueadoBean.nombreUsuario}" required="true" requiredMessage="Debes ingresar un nombre."
-                                     p:placeholder="Nombre" class="Texto" id="inputNombre"/><br/>
-                        <h:message class="error" for="inputNombre"/> 
-                    </div>
-                </div>
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion">
-                        <h:message class="error" for="inputActualPass" style="margin-bottom: -35px; display: inherit;"/>
-                        <h:message class="error" for="inputConfirmPass" style="margin-bottom: -35px; display: inherit;"/> 
-                        <img src="../Resources/Images/pass.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
-                    </div>
-                    <div class="textoMenuOpcion" style="margin-top: -50px;">                        
-                        <h:inputSecret value="#{actualPass}" p:placeholder="Contraseña Actual" class="Texto" style="margin: 5px;" id="inputActualPass"/>
-                        <h:inputSecret value="#{newPass}" p:placeholder="Contraseña Nueva" class="Texto" style="margin: 5px;" id="inputNewPass"/>
-                        <h:inputSecret value="#{confirmPass}" p:placeholder="Confirmar Contraseña" class="Texto" style="margin: 5px;" id="inputConfirmPass"/>
-                    </div>
-                </div>
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
-                        <img src="../Resources/Images/mail.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
-                    </div>
-                    <div class="textoMenuOpcion"> 
-                        <h:inputText value="#{usuarioLogueadoBean.correoUsuario}" required="true" requiredMessage="Debes ingresar un correo." 
-                                     p:placeholder="Correo" class="Texto" id="inputCorreo"/><h:message class="error" for="inputCorreo"/> 
-                    </div>
-                </div>
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
-                        <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
-                    </div>
-                    <div class="botonImagen">
-                        <h:inputFile value="#{usuarioLogueadoBean.partImagenUsuario}" required="false" p:accept="image/*" class="boton subirImagen"/>
-                    </div>   
-                </div>
-                <h:panelGroup rendered="#{login.rolSeleccionado == 'Estudiante'}">
-                    <div class="menuOpcion">
-                        <div class="imagenMenuOpcion" rendered=""> 
-                            <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
-                        </div>
-                        <div class="botonImagen">
-                            <h:inputFile value="#{usuarioLogueadoBean.partImagenFormInscripcion}" required="false" p:accept="image/*" class="boton subirImagen"/>
-                        </div>   
-                    </div>
-                </h:panelGroup>
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
-                        <img src="../Resources/Images/siguiente.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
-                    </div>
-                    <h:commandButton action="#{usuarioLogueadoBean.modificarUsuario(actualPass, newPass, confirmPass)}" type="submit" value="Actualizar" class="boton"/>
-                </div>
-                <div class="menuOpcion">
-                    <div class="imagenMenuOpcion"> 
-                        <img src="../Resources/Images/reset.png" width="100" height="100" style="margin-top: 50px;" alt="edit"/>
-                    </div>
-                    <h:commandButton type="reset" value="Reset" class="boton"/>
+        <f:view >
+            <div class="cabecera" >
+                <div class="titulo" >
+                    Actualizar datos de #{editarPerfil.rol} #{editarPerfil.nombreUsuario}
                 </div>
             </div>
-        </h:form>      
+            <div id="contenedor">
+                <h:form id="frmIngresoDatos" enctype="multipart/form-data" >
+                    <div class="menuOpcion SinEstilo">   
+                        <div class="menuOpcion Mitad" >
+                            <div class="nombreDocente">Cuenta</div>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
+                                <h:inputText id="inputCedula" value="#{editarPerfil.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula"/>
+                            </div><h:message id="msjCedula" class="error" for="inputCedula"/>
+                            <h:panelGroup id="datos_uno">
+                                <div class="inputContainer">
+                                    <img class="imagenMenuOpcion" src="../Resources/Images/nombre.png"/>
+                                    <h:inputText id="inputNombre" value="#{editarPerfil.nombreUsuario}" required="true" requiredMessage="Debes ingresar nombre." class="Texto" p:placeholder="Nombre"/>             
+                                </div><h:message class="error" for="inputNombre"/>
+                                <div class="inputContainer">
+                                    <img class="imagenMenuOpcion" src="../Resources/Images/imagen.png"/>
+                                    <h:inputText id="inputApellido" value="#{editarPerfil.apellidoUsuario}" required="true" requiredMessage="Debes ingresar apellido." class="Texto" p:placeholder="Apellido"/>             
+                                </div><h:message class="error" for="inputApellido"/>
+                                <div class="inputContainer">
+                                    <img class="imagenMenuOpcion" src="../Resources/Images/pass.png"/>
+                                    <h:inputSecret id="inputPassActual" value="#{editarPerfil.passwordActual}" class="Texto" p:placeholder="Contraseña actual (dejar vacio para conservar)"/>             
+                                </div><h:message class="error" id="msjPasswordActual" for="inputPassActual"/>
+                                <div class="inputContainer">
+                                    <img class="imagenMenuOpcion" src="../Resources/Images/pass.png"/>
+                                    <h:inputSecret id="inputPassNuevo" value="#{editarPerfil.passwordNuevo}" class="Texto" p:placeholder="Contraseña nueva (dejar vacio para conservar)"/>             
+                                </div><h:message class="error" id="msjPasswordNevo" for="inputPassNuevo"/>
+                            </h:panelGroup>
+                        </div>
+                        <h:panelGroup id="datos_dos">
+                            <div class="menuOpcion Mitad" style="float: right" >
+                                <div class="nombreDocente">Imagen</div>
+                                <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
+                                <div class="botonImagen"><h:inputFile  value="#{editarPerfil.partImagenPerfil}" class="boton subirImagen perfil" p:accept="image/*">
+                                        <f:ajax event="change" listener="#{editarPerfil.setPartImagenPerfil(editarPerfil.partImagenPerfil)}"/>
+                                    </h:inputFile>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                    <h:panelGroup id="datos_tres">
+                        <div class="menuOpcion" >
+                            <div class="nombreDocente">Contacto</div>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/mail.png"/>
+                                <h:inputText id="inputMail" value="#{editarPerfil.correoUsuario}" required="true" requiredMessage="Debes ingresar correo." class="Texto" p:placeholder="Correo"/>            
+                            </div><h:message class="error" for="inputMail"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/telefono.png"/>
+                                <h:inputText id="inputTelefono" value="#{editarPerfil.telefonoUsuario}" required="true" requiredMessage="Debes ingresar telefono." class="Texto" p:placeholder="Telefono"/>         
+                            </div><h:message class="error" for="inputTelefono"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/celular.png"/>
+                                <h:inputText id="inputCelular" value="#{editarPerfil.celularUsuario}" required="true" requiredMessage="Debes ingresar celular." class="Texto" p:placeholder="Celular"/>         
+                            </div><h:message class="error" for="inputCelular"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/credencial.png"/>
+                                <h:inputText id="inputCredencial" value="#{editarPerfil.credencialCivicaUsuario}" required="true" requiredMessage="Debes ingresar credencial." class="Texto" p:placeholder="Credencial"/>         
+                            </div><h:message class="error" for="inputCredencial"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/departamento.png"/>
+                                <h:inputText id="inputDepartamento" value="#{editarPerfil.departamentoUsuario}" required="true" requiredMessage="Debes ingresar departamento." class="Texto" p:placeholder="Departamento"/>         
+                            </div><h:message class="error" for="inputDepartamento"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/localidad.png"/>
+                                <h:inputText id="inputLocalidad" value="#{editarPerfil.localidadUsuario}" required="true" requiredMessage="Debes ingresar localidad." class="Texto" p:placeholder="Ciudad"/>         
+                            </div><h:message class="error" for="inputLocalidad"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/domicilio.png"/>
+                                <h:inputText id="inputDomicilio" value="#{editarPerfil.domicilioUsuario}" required="true" requiredMessage="Debes ingresar domicilio." class="Texto" p:placeholder="Domicilio"/>         
+                            </div><h:message class="error" for="inputDomicilio"/>
+                        </div>
+                        <div class="menuOpcion" >
+                            <div class="nombreDocente">Datos Personales</div>
+                            <div class="inputContainer">
+                                <img style="border-bottom: none" class="imagenMenuOpcion" src="../Resources/Images/sexo.png"/>
+                                <img class="imagenMenuOpcion genero" id="masculino" src="../Resources/Images/masculinoActivo.png"/>
+                                <img class="imagenMenuOpcion genero" id="femenino" src="../Resources/Images/femenino.png"/>
+                                <h:selectOneRadio style="visibility: hidden" value="#{editarPerfil.sexoSeleccionado}" required="true" requiredMessage="Debes seleccionar sexo." id="inputSexo">
+                                    <f:selectItems value="#{editarPerfil.listaSexo}"/>                                    
+                                </h:selectOneRadio>                                     
+                            </div><h:message class="error" for="inputSexo"/>  
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/EstadoCivil.png"/>
+                                <h:selectOneMenu style="margin-top: 3px" class="Texto" value="#{editarPerfil.estadoCivilSeleccionado}" required="true" requiredMessage="Debes seleccionar un estado civil." id="inputEstadoCivil">
+                                    <f:selectItems value="#{editarPerfil.listEstadoCivil}"/>
+                                </h:selectOneMenu>                                        
+                            </div><h:message class="error" for="inputEstadoCivil"/>
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
+                                <h:inputText id="inputFechaNacimiento" value="#{editarPerfil.strFechaNacimiento}" class="datepicker Texto" required="true" requiredMessage="Debes ingresar una fecha de nacimiento." p:placeholder="Fecha de Nacimiento"/>              
+                            </div><h:message class="error" for="inputFechaNacimiento"/>                    
+                            <div class="inputContainer">
+                                <img class="imagenMenuOpcion" src="../Resources/Images/LugarNacimiento.png"/>
+                                <h:inputText id="inputLugarNacimiento" value="#{editarPerfil.lugarNacimientoUsuario}" required="true" requiredMessage="Debes ingresar un lugar de nacimiento." class="Texto" p:placeholder="Lugar de Nacimiento"/>             
+                            </div><h:message class="error" for="inputLugarNacimiento"/>                    
+                        </div>
+                        <h:panelGroup id="datosEstudiante" rendered="#{editarPerfil.rol == 'Estudiante' and (login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo')}">
+                            <div class="menuOpcion" >
+                                <div class="nombreDocente">Estudiante</div>
+                                <div class="inputContainer">
+                                    <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
+                                    <h:inputText id="inputGeneracionEstudiante" class="Texto" value="#{editarPerfil.generacionEstudiante}" required="true" requiredMessage="Debes ingresar la generacion del estudiante." />              
+                                </div><h:message for="inputGeneracionEstudiante" class="error"/>
+                            </div>                    
+                        </h:panelGroup>
+                        <h:inputText id="regRol" value="#{editarPerfil.rol}" style="display:none;"/>
+                    </h:panelGroup>
+                    <div class="menuOpcion" >
+                        <h:commandButton class="boton siguiente" value="Guardar" disabled="false" action="#{editarPerfil.guardarDatos()}"/>
+                    </div>                    
+                </h:form>
+            </div> 
+        </f:view>
     </ui:define>
 </ui:composition>

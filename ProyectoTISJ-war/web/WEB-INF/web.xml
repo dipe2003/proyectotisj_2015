@@ -31,6 +31,6 @@
     </error-page>
     <error-page>
         <exception-type>java.lang.NullPointerException</exception-type>
-        <location>/Error/ErrorInterno.xhtml</location>
+        <location>/Error/Error500.xhtml</location>
     </error-page>
 </web-app>

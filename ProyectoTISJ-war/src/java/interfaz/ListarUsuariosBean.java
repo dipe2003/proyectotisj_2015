@@ -200,7 +200,7 @@ public class ListarUsuariosBean implements Serializable{
         UsrData.setApellidoUsuario(usr.getApellidoUsuario());
         UsrData.setCorreoUsuario(usr.getCorreoUsuario());
         UsrData.setPasswordUsuario(usr.getPasswordUsuario());
-        UsrData.setImagenUsuario(usr.getImagenURL());
+        UsrData.setImagenUsuario(usr.getImagenUsuario());
         UsrData.setCedulaUsuario(String.valueOf(usr.getCedulaUsuario()));
         UsrData.setCredencialCivicaUsuario(usr.getCredencialCivicaUsuario());
         UsrData.setDomicilioUsuario(usr.getDomicilioUsuario());

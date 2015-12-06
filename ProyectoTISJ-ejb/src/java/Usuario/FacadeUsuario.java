@@ -1,17 +1,12 @@
 
 package Usuario;
 
-import Usuario.Administrador.Administrador;
 import Usuario.Administrador.ControladorAdministrador;
-import Usuario.Administrativo.Administrativo;
 import Usuario.Administrativo.ControladorAdministrativo;
 import Usuario.Docente.ControladorDocente;
-import Usuario.Docente.Docente;
 import Enumerados.EstadoCivil.EstadoCivil;
 import Usuario.Estudiante.ControladorEstudiante;
 import Usuario.Estudiante.EnumSexo;
-import Usuario.Estudiante.Estudiante;
-import Usuario.Estudiante.Estudios.ControladorEstudio;
 import Utilidades.Seguridad;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -100,13 +95,13 @@ public class FacadeUsuario implements Serializable {
         String[] pass = new String[2];
         //  si se recibe un idusuario se esta registrando un nuevo rol, por lo que se debe traer password y palabra del ya registrado.
         if(IdUsuario != 0 && IdUsuario != -1) {
-            Usr = BuscarUsuario(IdUsuario);          
+            Usr = BuscarUsuario(IdUsuario);
             pass[0] = Usr.getSaltPasswordUsuario();
             pass[1] = Usr.getPasswordUsuario();
         }else{
-            pass = cSeguridad.getPasswordSeguro(PasswordUsuario);  
+            pass = cSeguridad.getPasswordSeguro(PasswordUsuario);
         }
-        if (ExisteUsuario(CedulaUsuario, Rol)== -1) {          
+        if (ExisteUsuario(CedulaUsuario, Rol)== -1) {
             switch(Rol){
                 case "Administrador":
                     Usr = cAdministrador.CrearAdministrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, pass[1], pass[0], ImagenUsuario,
@@ -162,25 +157,31 @@ public class FacadeUsuario implements Serializable {
     
     /**
      * Actualiza los datos de un usuario en la base de datos.
+     * Comprueba los roles y actualiza los datos de cada uno.
      * @param usuario
-     * @param Rol
      * @return -1 si no se pudo actualizar
      */
-    public int ModificarUsuario(Usuario usuario, String Rol){
-        switch(Rol){
-            case "Administrador":
-                return cAdministrador.ModificarAdministrador((Administrador)usuario);
-                
-            case "Administrativo":
-                return cAdministrativo.ModificarAdministrativo((Administrativo)usuario);
-                
-            case "Docente":
-                return cDoc.ModificarDocente((Docente)usuario);
-                
-            case "Estudiante":
-                return cEst.ModificarEstudiante((Estudiante)usuario);
+    public int ModificarUsuario(Usuario usuario){
+        Usuario userBD = BuscarUsuario(usuario.getIdUsuario());
+        List<String> roles = cUsr.getRolesUsuario(userBD.getCedulaUsuario());
+        int correcto = -1;
+        for(String Rol: roles){
+            switch(Rol){
+                case "Administrador":
+                    correcto = cAdministrador.ModificarAdministrador(usuario, cUsr.ExisteUsuario(usuario.getCedulaUsuario(), Rol).getIdUsuario());
+                    break;
+                case "Administrativo":
+                    correcto =  cAdministrativo.ModificarAdministrativo(usuario, cUsr.ExisteUsuario(usuario.getCedulaUsuario(), Rol).getIdUsuario());
+                    break;
+                case "Docente":
+                    correcto = cDoc.ModificarDocente(usuario, cUsr.ExisteUsuario(usuario.getCedulaUsuario(), Rol).getIdUsuario());
+                    break;
+                case "Estudiante":
+                    correcto =  cEst.ModificarEstudiante(usuario, cUsr.ExisteUsuario(usuario.getCedulaUsuario(), Rol).getIdUsuario());
+                    break;
+            }
         }
-        return -1;
+        return correcto;
     }
     
     /**
@@ -302,7 +303,7 @@ public class FacadeUsuario implements Serializable {
     /**
      * Lista los usuarios estudiantes que pertenecen al curso especificado por su id.
      * @param IdCurso
-     * @return 
+     * @return
      */
     public List<Usuario> listarUsuarioEstudianteCurso(int IdCurso){
         return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesCurso(IdCurso);
@@ -310,7 +311,7 @@ public class FacadeUsuario implements Serializable {
     /**
      * Lista los usuarios estudiantes que no pertenecen al curso especificado por su id.
      * @param IdCurso
-     * @return 
+     * @return
      */
     public List<Usuario> listarUsuarioEstudianteSinCurso(int IdCurso){
         return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesSinCurso(IdCurso);

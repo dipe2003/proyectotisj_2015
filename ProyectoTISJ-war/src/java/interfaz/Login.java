@@ -17,7 +17,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -50,7 +49,9 @@ public class Login implements Serializable {
     public String getPassword() {return Password;}
     public List<String> getRoles() {return Roles;}
     public List<String> getRolesUsuario() {return rolesUsuario;}
-    
+    public int getIdUsuarioLogueado(){
+        return fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, RolSeleccionado);
+    }
     //  Setters
     public void setRolSeleccionado(String RolSeleccionado) {this.RolSeleccionado = RolSeleccionado;}
     public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}

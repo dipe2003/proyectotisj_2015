@@ -14,7 +14,9 @@
                         </a> 
                     </div>
                     <div class="navLabel">
+                        <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
                         <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
+                        </a>
                     </div>
                     <a href="../loginRol.xhtml">
                         <div class="navLabel">
@@ -202,12 +204,6 @@
                         <a href="../Encuesta/ListarEncuesta.xhtml?rol=Administrador" class="SubmenuLink">
                             <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
                             Listar
-                        </a>
-                    </div>
-                    <div class="submenuOpcion">
-                        <a href="../Encuesta/ResultadoEncuesta.xhtml?id=281" class="SubmenuLink">
-                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
-                            138
                         </a>
                     </div>
                 </div> 
