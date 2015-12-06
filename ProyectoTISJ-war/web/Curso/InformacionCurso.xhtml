@@ -57,7 +57,30 @@
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Informacion Basica del Curso
             </div>
+            
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Asignatura: #{informacionCurso.curso.asignaturaCurso.nombreAsignatura}</div>
+            </div>
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Año Dictado: #{informacionCurso.curso.anioCurso}</div>
+            </div>
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Semestre Correspondiente: #{informacionCurso.curso.semestreCurso}</div>
+            </div>
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">Creditos: #{informacionCurso.curso.asignaturaCurso.creditosAsignatura}</div>
+            </div>
+            <div class="ListItemContainer" style="text-align: center" >
+                <div class="negrita" style="margin-left: 20px">Ver Contrato del Docente</div>
+            </div>
+            
             <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
+                <div class="ListItemContainer" style="text-align: center" >
+                    <div class="negrita" style="margin-left: 20px">Resultado de Encuestas</div>
+                    <a href="../Encuesta/InformacionEncuesta.xhtml?id=#{informacionCurso.curso.encuestaCurso.idEncuesta}" class="SubmenuLink">
+                        <div title="Comparar Encuestas" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
+                </div>
                 <div class="GraficaContainer" style="height: 200px" >
                     <canvas id="resCurso" style="width: 100%; height: 200px"></canvas>
                 </div>
@@ -90,6 +113,12 @@
                 </div>
             </div>
             <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoDocente}">
+                <div class="ListItemContainer" style="text-align: center" >
+                    <div class="negrita" style="margin-left: 20px">Resultado de Encuestas</div>
+                    <a href="../Encuesta/InformacionEncuesta.xhtml?id=#{informacionCurso.curso.encuestaCurso.idEncuesta}" class="SubmenuLink">
+                        <div title="Comparar Encuestas" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
+                </div>
                 <div class="GraficaContainer" style="height: 200px" >
                     <canvas id="resDoocente" style="width: 100%; height: 200px"></canvas>
                 </div>
@@ -104,6 +133,22 @@
                     </table>
                 </div>
             </h:panelGroup>
+            <div class="ListItemContainer" style="width: 300px; margin-top: -10px" >
+                <a href="#openModal" style="text-decoration: none;">
+                    <div class="negrita" style="margin-left: 20px">Ver Contrato de Docente</div>
+                </a>
+            </div>
+        </div>
+        
+         <div id="openModal" class="modalDialog">
+            <div style="width: 1000px;">
+                <a href="#close" title="Close" class="close">X</a>
+                <h2> Contraro de Docente</h2>
+                
+                <!--para cambiar por formulario de inscripcion-->
+                <div style="width: 1000px; height: 1000px; background-image: url(#{informacionCurso.docente.imagenUsuario}); background-size: contain;"></div>
+                
+            </div>
         </div>
         
         <div id="contenedor">

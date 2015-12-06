@@ -149,4 +149,8 @@ public class ControladorEncuesta {
         return false;
     }
     
+    public List<Encuesta> getEncuestaPorAnioYSemestre(int Anio, int Semestre){
+         return mEnc.getEncuestaPorAnioYSemestre(Anio, Semestre);
+    }
+    
 }
