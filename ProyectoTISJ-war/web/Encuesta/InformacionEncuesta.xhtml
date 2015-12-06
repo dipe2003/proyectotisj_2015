@@ -7,129 +7,233 @@
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
-                Informacion del Curso #{informacionCurso.curso.asignaturaCurso.nombreAsignatura} del semestre #{informacionCurso.curso.semestreCurso} dicatado en el año #{informacionCurso.curso.anioCurso}
+                Comparacion de Encuestas del Semestre #{informacionEncuesta.semestre} del Año #{informacionEncuesta.anio}
             </div>
-        </div>
-        <Script>
-            $(document).ready(function() {
-                var datosDocente ={
-                    labels: #{resultadoEncuesta.tituloPreguntasDocente},
-                    datasets: [{
-                            label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
-                            fillColor: "rgba(183, 28, 28, 0.5)",
-                            strokeColor: "rgba(183, 28, 28, 1)",
-                            pointColor: "rgba(220,220,220,1)",
-                            pointStrokeColor: "#fff",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: #{resultadoEncuesta.promediosPreguntasDocente}
-                        }]
-                };
-                var datosCurso ={
-                    labels: #{resultadoEncuesta.tituloPreguntasCurso},
-                    datasets: [{
-                            label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
-                            fillColor: "rgba(93, 64, 55, 0.5)",
-                            strokeColor: "rgba(93, 64, 55, 1)",
-                            pointColor: "rgba(220,220,220,1)",
-                            pointStrokeColor: "#fff",
-                            pointHighlightFill: "#fff",
-                            pointHighlightStroke: "rgba(220,220,220,1)",
-                            data: #{resultadoEncuesta.promediosPreguntasCurso}
-                        }]
-                };
-
-                var opciones = {
-                    animationSteps : 200,
-                    bezierCurve: false,
-                    datasetFill : true // colorea la serie de la grafica
-                };                                
-                    
-                var ctxDoc = $("#resDoocente").get(0).getContext("2d");
-                var ctxCurso = $("#resCurso").get(0).getContext("2d");
-                var docenteChart = new Chart(ctxDoc).Line(datosDocente, opciones);
-                var cursoChart = new Chart(ctxCurso).Line(datosCurso, opciones);
-
-            });
-        </Script>
-        
-        <div id="contenedor">
-            <div class="ListItemContainer ListItemClick" style="text-align: center" >
-                Informacion Basica del Curso
-            </div>
-            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
-                <div class="GraficaContainer" style="height: 200px" >
-                    <canvas id="resCurso" style="width: 100%; height: 200px"></canvas>
-                </div>
-                <div class="GraficaContainer" style="font-size: 18px; text-shadow: none;" >
-                    <table style="border: 1px silver;">
-                        <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasCurso.entrySet()}" var="label">                        
-                            <tr>
-                                <td>Pregunta #{label.key}</td>
-                                <td>#{label.value}</td>
-                            </tr>                        
-                        </c:forEach>
-                    </table>
-                </div>
-            </h:panelGroup>
         </div>
         
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
-                Docente del Curso 
+                Docente
             </div>
             <div class="ListItemContainer" >
-                <div class="item">
-                    #{informacionCurso.docente.cedulaUsuario}
+                <div class="negrita" style="margin-left: 20px">
+                    <div class="item" style="width: 15%">
+                        Color
+                    </div>
+                    <div class="item" style="width: 30%">
+                        Nombre del Profesor
+                    </div>
+                    <div class="item" style="width: 30%">
+                        Nombre de la Asignatura
+                    </div>
                 </div>
-                <div class="item">
-                    #{informacionCurso.docente.nombreCompleto}
+            </div> 
+            <Script> 
+                var SetDatos = new Array();
+                var titulos = new Array();
+                var titulosCompletos = false;
+                function getColor(opacidad, indice) {
+                    colores = [
+                        "rgba(244, 67, 54,"+opacidad+")",
+                        "rgba(233, 30, 99,"+opacidad+")",
+                        "rgba(156, 39, 176,"+opacidad+")",
+                        "rgba(103, 58, 183,"+opacidad+")",
+                        "rgba(63, 81, 181,"+opacidad+")",
+                        "rgba(33, 150, 243,"+opacidad+")",
+                        "rgba(3, 169, 244,"+opacidad+")",
+                        "rgba(0, 188, 212,"+opacidad+")",
+                        "rgba(0, 150, 136,"+opacidad+")",
+                        "rgba(76, 175, 80,"+opacidad+")",
+                        "rgba(139, 195, 74,"+opacidad+")",
+                        "rgba(205, 220, 57,"+opacidad+")",
+                        "rgba(255, 235, 59,"+opacidad+")",
+                        "rgba(255, 193, 7,"+opacidad+")",
+                        "rgba(255, 152, 0,"+opacidad+")",
+                        "rgba(255, 87, 34,"+opacidad+")",
+                        "rgba(121, 85, 72,"+opacidad+")",
+                        "rgba(158, 158, 158, "+opacidad+")",
+                        "rgba(96, 125, 139,"+opacidad+")"
+                    ];
+                    var color = colores[indice];
+                    return color;
+                }
+                var numeroRandom = 0;
+                var ColoresUsados = new Array();
+                //<![CDATA[
+                function colorUsado(indiceColor){
+                    if (ColoresUsados.length< 17){
+                        for (var i = 0; i < ColoresUsados.length; i++) {
+                            if (ColoresUsados[i] === indiceColor) return true;
+                        }
+                    }
+                    return false;
+                }
+                //]]>		
+                
+            </Script>
+            <c:forEach var="encuesta" items="#{informacionEncuesta.encuestas}">
+                <Script> 
+                    var respuestas#{encuesta.idEncuesta} = new Array();
+                </Script>
+                <c:forEach var="respuestaEncuesta" items="#{encuesta.respuestasEncuesta}" varStatus="indiceRespuesta">
+                    <c:if test="#{respuestaEncuesta.getTipoPregunta()=='Docente' and respuestaEncuesta.respuestasEncuesta!=null and !empty respuestaEncuesta.respuestasEncuesta }">
+                        <Script> 
+                            if (! titulosCompletos){
+                                titulos.push("Pregunta #{indiceRespuesta.index+1}"); 
+                            }
+                            respuestas#{encuesta.idEncuesta}.push("#{respuestaEncuesta.getPromedioResultado()}"); 
+                        </Script>
+                    </c:if>    
+                </c:forEach>
+                <Script>
+                    numeroRandom =  Math.floor((Math.random() * 18));
+                    while (colorUsado(numeroRandom)){
+                        numeroRandom =  Math.floor((Math.random() * 18));
+                    }   
+                    ColoresUsados.push(numeroRandom);
+                    
+                    var Dato#{encuesta.idEncuesta} = {
+                        label: "My First dataset",
+                        fillColor: getColor("0.5",numeroRandom),
+                        strokeColor: getColor("0.8",numeroRandom),
+                        highlightFill: getColor("0.75",numeroRandom),
+                        highlightStroke: getColor("1",numeroRandom),
+                        pointColor: getColor("1",numeroRandom),
+                        data: respuestas#{encuesta.idEncuesta}
+                    };
+                    SetDatos.push(Dato#{encuesta.idEncuesta});
+                    titulosCompletos=true;
+                    
+                </Script>
+                <div class="ListItemContainer" >
+                    <div class="negrita" style="margin-left: 20px">
+                        <div class="item" style="width: 15%">
+                            <div class="cuadrado#{encuesta.idEncuesta} cuadrado" style="background-color: rgba(33, 150, 243, 1)" ></div>
+                        </div>
+                        <div class="item" style="width: 30%">
+                            #{encuesta.cursoEncuesta.docenteCurso.nombreCompleto}
+                        </div>
+                        <div class="item" style="width: 30%">
+                            #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
+                        </div>
+                    </div>
                 </div>
-                <div class="item">
-                    #{informacionCurso.docente.correoUsuario}
-                </div>
+                <Script>
+                    $(".cuadrado#{encuesta.idEncuesta}").css("background-color", getColor("0.75",numeroRandom));
+                </Script>
+            </c:forEach>
+            <Script> 
+                $(document).ready(function() {
+                    var data = {
+                        labels: titulos,
+                        datasets: SetDatos
+                    };  
+                    var ctxDoc = $("#respuestas").get(0).getContext("2d");
+                    var docenteChart = new Chart(ctxDoc).Line(data);
+                });
+            </Script>
+            <div class="GraficaContainer" style="height: 200px" >
+                <canvas id="respuestas" style="width: 100%; height: 200px"></canvas>
             </div>
-            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoDocente}">
-                <div class="GraficaContainer" style="height: 200px" >
-                    <canvas id="resDoocente" style="width: 100%; height: 200px"></canvas>
-                </div>
-                <div class="GraficaContainer" style="font-size: 18px; text-shadow: none;" >
-                    <table style="border: 1px silver;">
-                        <c:forEach items="#{resultadoEncuesta.mapTextoPreguntasDocente.entrySet()}" var="titulo">                        
-                            <tr>
-                                <td>Pregunta #{titulo.key}</td>
-                                <td>#{titulo.value}</td>
-                            </tr>                        
-                        </c:forEach>
-                    </table>
-                </div>
-            </h:panelGroup>
         </div>
         
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
-                Alumnos del Curso
+                Curso
             </div>
-            <h:panelGroup rendered="#{empty informacionCurso.estudiantes}">
+            <div class="ListItemContainer" >
+                <div class="negrita" style="margin-left: 20px">
+                    <div class="item" style="width: 15%">
+                        Color
+                    </div>
+                    <div class="item" style="width: 30%">
+                        Nombre del Profesor
+                    </div>
+                    <div class="item" style="width: 30%">
+                        Nombre de la Asignatura
+                    </div>
+                </div>
+            </div> 
+            <Script> 
+                var SetDatosDoc = new Array();
+                var titulosDoc = new Array();
+                var titulosCompletosDoc = false;
+                var numeroRandom = 0;
+                
+            </Script>
+            <c:forEach var="encuesta" items="#{informacionEncuesta.encuestas}">
+                <Script> 
+                    var respuestasDoc#{encuesta.idEncuesta} = new Array();
+                </Script>
+                <c:forEach var="respuestaEncuesta" items="#{encuesta.respuestasEncuesta}" varStatus="indiceRespuesta">
+                    <c:if test="#{respuestaEncuesta.getTipoPregunta()=='Curso' and respuestaEncuesta.respuestasEncuesta!=null and !empty respuestaEncuesta.respuestasEncuesta }">
+                        <Script> 
+                            if (! titulosCompletosDoc){
+                                titulosDoc.push("Pregunta #{indiceRespuesta.index+1}"); 
+                            }
+                            respuestasDoc#{encuesta.idEncuesta}.push("#{respuestaEncuesta.getPromedioResultado()}"); 
+                        </Script>
+                    </c:if>    
+                </c:forEach>
+                <Script>
+                    numeroRandom =  Math.floor((Math.random() * 18));
+                    while (colorUsado(numeroRandom)){
+                        numeroRandom =  Math.floor((Math.random() * 18));
+                    }   
+                    ColoresUsados.push(numeroRandom);
+                    var DatoDoc#{encuesta.idEncuesta} = {
+                        label: "My First dataset",
+                        fillColor: getColor("0.5",numeroRandom),
+                        strokeColor: getColor("0.8",numeroRandom),
+                        highlightFill: getColor("0.75",numeroRandom),
+                        highlightStroke: getColor("1",numeroRandom),
+                        pointColor: getColor("1",numeroRandom),
+                        data: respuestasDoc#{encuesta.idEncuesta}
+                    };
+                    SetDatosDoc.push(DatoDoc#{encuesta.idEncuesta});
+                    titulosCompletosDoc=true;
+                    
+                </Script>
                 <div class="ListItemContainer" >
-                    Lista de Estudiantes Vacia
-                </div>            
-            </h:panelGroup>
-            <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
+                    <div class="negrita" style="margin-left: 20px">
+                        <div class="item" style="width: 15%">
+                            <div class="cuadradoDoc#{encuesta.idEncuesta} cuadrado" style="background-color: rgba(33, 150, 243, 1)" ></div>
+                        </div>
+                        <div class="item" style="width: 30%">
+                            #{encuesta.cursoEncuesta.docenteCurso.nombreCompleto}
+                        </div>
+                        <div class="item" style="width: 30%">
+                            #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
+                        </div>
+                    </div>
+                </div>
+                <Script>
+                    $(".cuadradoDoc#{encuesta.idEncuesta}").css("background-color", getColor("0.75",numeroRandom));
+                </Script>
+            </c:forEach>
+            <Script> 
+                $(document).ready(function() {
+                    var data = {
+                        labels: titulosDoc,
+                        datasets: SetDatosDoc
+                    };  
+                    var ctxDocCur = $("#respuestasCur").get(0).getContext("2d");
+                    var docenteChartCur = new Chart(ctxDocCur).Line(data);
+                });
+            </Script>
+            <div class="GraficaContainer" style="height: 200px" >
+                <canvas id="respuestasCur" style="width: 100%; height: 200px"></canvas>
+            </div>
+        </div>
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Preguntas
+            </div>
+            <c:forEach var="textoPregunta" items="#{informacionEncuesta.textoPreguntas}" varStatus="indice">
                 <div class="ListItemContainer" >
-                    <div class="item">
-                        #{estudiante.cedulaUsuario}
-                    </div>
-                    <div class="item">
-                        #{estudiante.nombreCompleto}
-                    </div>
-                    <div class="item">
-                        #{estudiante.correoUsuario}
-                    </div>
-                    <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
-                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                    </a>
-                </div>            
+                    <div class="negrita" style="margin-left: 20px">Pregunta #{indice.index+1}: </div> #{textoPregunta}
+                </div>
             </c:forEach>
         </div>
         

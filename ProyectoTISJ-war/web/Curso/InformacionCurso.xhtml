@@ -56,6 +56,11 @@
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Informacion Basica del Curso
+                <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
+                    <a href="../Curso/InformacionCurso.xhtml?id=#{informacionCurso.curso.idCurso}" class="SubmenuLink">
+                        <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
+                </h:panelGroup>
             </div>
             <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
                 <div class="GraficaContainer" style="height: 200px" >
@@ -77,6 +82,11 @@
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Docente del Curso 
+                <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoDocente}">
+                    <a href="../Curso/InformacionCurso.xhtml?id=#{informacionCurso.curso.idCurso}" class="SubmenuLink">
+                        <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
+                </h:panelGroup>
             </div>
             <div class="ListItemContainer" >
                 <div class="item">

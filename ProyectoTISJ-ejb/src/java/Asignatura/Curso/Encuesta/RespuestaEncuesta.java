@@ -70,4 +70,8 @@ public class RespuestaEncuesta implements Serializable {
         return promedio;
     }
     
+    public String getTipoPregunta(){
+        return this.PreguntaRespuestasEncuesta.getTipoPregunta().toString();
+    }
+    
 }

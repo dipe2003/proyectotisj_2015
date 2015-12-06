@@ -92,5 +92,18 @@ public class ManejadorEncuesta {
         return lista;
     }
     
+    public List<Encuesta> getEncuestaPorAnioYSemestre(int Anio, int Semestre){
+        List<Encuesta> lista = new ArrayList<>();
+        try{
+            TypedQuery<Encuesta> query = em.createQuery("SELECT e FROM Encuesta e, Curso c WHERE e.CursoEncuesta.IdCurso = c.IdCurso AND c.AnioCurso= :Anio AND c.SemestreCurso= :Semestre", Encuesta.class);
+            query.setParameter("Anio", Anio);
+            query.setParameter("Semestre", Semestre);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
 }
 

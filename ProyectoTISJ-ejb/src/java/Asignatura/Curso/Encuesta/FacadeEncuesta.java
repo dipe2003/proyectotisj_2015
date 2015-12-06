@@ -185,4 +185,12 @@ public class FacadeEncuesta {
         return cEnc.BuscarEncuesta(IdEncuesta);
     }
     
+    public List<Encuesta> getEncuestaPorAnioYSemestre(int Anio, int Semestre){
+         return cEnc.getEncuestaPorAnioYSemestre(Anio, Semestre);
+    }
+    
+    public Encuesta BuscarEncuesta(int IdEncuesta){
+        return cEnc.BuscarEncuesta(IdEncuesta);
+    }
+    
 }
