@@ -181,6 +181,7 @@ public class EditarPerfil implements Serializable{
     }
     
     public void guardarDatos() throws IOException{
+        int ok = -1;
         if(comprobarCedula()){
             Usuario user = null;
             switch(Rol){
@@ -219,18 +220,18 @@ public class EditarPerfil implements Serializable{
                 if(comprobarPassword()){
                     user.setPasswordUsuario(PasswordUsuario);
                     user.setSaltPasswordUsuario(SaltPasswordUsuario);
-                    if(fUsr.ModificarUsuario(user)!=-1){
+                    if((ok=fUsr.ModificarUsuario(user))!=-1){
                         FacesContext context = FacesContext.getCurrentInstance();
                         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
                         Usuario  User = (Usuario)request.getSession().getAttribute("Usuario");
                         if(User.getIdUsuario()== user.getIdUsuario()){
                             login.modificarUsuarioLogueado(user);
-                            FacesContext.getCurrentInstance().getExternalContext().redirect("../Views/index.xhtml");
                         }
                     }
                 }
             }catch(NullPointerException ex){}
         }
+        if(ok!=-1) FacesContext.getCurrentInstance().getExternalContext().redirect("../Views/index.xhtml");
     }
     
     /**
