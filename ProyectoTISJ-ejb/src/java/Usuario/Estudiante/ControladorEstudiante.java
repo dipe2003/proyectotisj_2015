@@ -2,6 +2,7 @@
 package Usuario.Estudiante;
 
 import Enumerados.EstadoCivil.EstadoCivil;
+import Usuario.Usuario;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -12,7 +13,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class ControladorEstudiante {
     @EJB
-    ManejadorEstudiante mEst;
+            ManejadorEstudiante mEst;
     
     /**
      * Crea un estudiante y los persiste.
@@ -38,12 +39,12 @@ public class ControladorEstudiante {
      * @return null si no se creo el estudiante
      */
     public Estudiante CrearEstudiante(String FormInscripcion, String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword,
-            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, 
-            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, 
+            String ImagenUsuario, int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario,
+            String LocalidadUsuario, String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario,
             String LugarNacimientoUsuario, EnumSexo SexoUsuario, int GeneracionAnioEstudiante) {
-        Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario, 
-                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario, 
-                FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);        
+        Estudiante est = new Estudiante(FormInscripcion, NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario,
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, EstadoCivilUsuario,
+                FechaNacimientoUsuario, LugarNacimientoUsuario, SexoUsuario, GeneracionAnioEstudiante);
         if (mEst.CrearEstudiante(est)!=-1) {
             return est;
         }
@@ -53,9 +54,39 @@ public class ControladorEstudiante {
     /**
      * Modifica los datos de un Estudiante en la base de datos.
      * @param estudiante
+     * @param IdEstudiante
      * @return Devuelve -1 si no se pudo actualizar.
      */
-    public int ModificarEstudiante(Estudiante estudiante){
+    public int ModificarEstudiante(Usuario estudiante, int IdEstudiante){
+        Estudiante est = mEst.BuscarEstudiante(IdEstudiante);
+        est.setPasswordUsuario(estudiante.getPasswordUsuario());
+        est.setSaltPasswordUsuario(estudiante.getSaltPasswordUsuario());
+        est.setApellidoUsuario(estudiante.getApellidoUsuario());
+        est.setCedulaUsuario(estudiante.getCedulaUsuario());
+        est.setCelularUsuario(estudiante.getCelularUsuario());
+        est.setCorreoUsuario(estudiante.getCorreoUsuario());
+        est.setCredencialCivicaUsuario(estudiante.getCredencialCivicaUsuario());
+        est.setDepartamentoUsuario(estudiante.getDepartamentoUsuario());
+        est.setDomicilioUsuario(estudiante.getDomicilioUsuario());
+        est.setEstadoCivilUsuario(estudiante.getEstadoCivilUsuario());
+        est.setFechaNacimientoUsuario(estudiante.getFechaNacimientoUsuario());
+        est.setImagenUsuario(estudiante.getImagenUsuario());
+        est.setLocalidadUsuario(estudiante.getLocalidadUsuario());
+        est.setLugarNacimientoUsuario(estudiante.getLugarNacimientoUsuario());
+        est.setNombreUsuario(estudiante.getNombreUsuario());
+        est.setSexoUsuario(estudiante.getSexoUsuario());
+        est.setTelefonoUsuario(estudiante.getTelefonoUsuario());
+        est.setGeneracionAnioEstudiante(((Estudiante)estudiante).getGeneracionAnioEstudiante());
+        //est.setEstudiosCursadosEstudiante(((Estudiante)estudiante).getEstudiosCursadosEstudiante());
+        return mEst.ModificarEstudiante(est);
+    }
+    
+    /**
+     * Actualiza todos los datos del estudiante en la base de datos
+     * @param estudiante
+     * @return 
+     */
+    public int ModificarInstEstudiante(Estudiante estudiante){
         return mEst.ModificarEstudiante(estudiante);
     }
     
@@ -79,7 +110,7 @@ public class ControladorEstudiante {
     
     /**
      * Devuelve una lista de Estudiantes desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Estudiante> ListarEstudiantes(){
         return mEst.ListarEstudiantes();
@@ -87,7 +118,7 @@ public class ControladorEstudiante {
     /**
      * Devuelve una lista de Estudiantes desde la base de datos segun sus ids.
      * @param IdsEstudiantes
-     * @return 
+     * @return
      */
     public List<Estudiante> ListarEstudiantes(List<Integer> IdsEstudiantes){
         return mEst.ListarEstudiantes(IdsEstudiantes);
@@ -95,7 +126,7 @@ public class ControladorEstudiante {
     /**
      * Devuelve una lista de Estudiantes que pertenezcan al curso indicado por su id.
      * @param IdCurso
-     * @return 
+     * @return
      */
     public List<Estudiante> ListarEstudiantesCurso(int IdCurso){
         return mEst.ListarEstudiantesCurso(IdCurso);
@@ -103,7 +134,7 @@ public class ControladorEstudiante {
     /**
      * Devuelve una lista de Estudiantes que no pertenezcan al curso indicado por su id.
      * @param IdCurso
-     * @return 
+     * @return
      */
     public List<Estudiante> ListarEstudiantesSinCurso(int IdCurso){
         return mEst.ListarEstudiantesSinCurso(IdCurso);
@@ -112,7 +143,7 @@ public class ControladorEstudiante {
     /**
      * Devuelve una lista de ids de estudios cursados del estudiante.
      * @param IdEstudiante
-     * @return 
+     * @return
      */
     public List<Integer> ListarEstudiosOrientacionCursados(int IdEstudiante){
         return mEst.ListarEstudios(IdEstudiante);
@@ -171,7 +202,7 @@ public class ControladorEstudiante {
     /**
      * Devuelve los estudiantes que contestaron la encuesta.
      * @param IdEncuesta
-     * @return 
+     * @return
      */
     public List<Estudiante> getEstudiantesEncuesta(int IdEncuesta){
         return mEst.ListarEstudiantesEncuesta(IdEncuesta);
@@ -180,7 +211,7 @@ public class ControladorEstudiante {
     /**
      * Devuelve los estudiantes que deben contestar la encuesta
      * @param IdEncuesta
-     * @return 
+     * @return
      */
     public List<Estudiante> getEstudiantesCursoEncuesta(int IdEncuesta){
         return mEst.ListarEstudiantesEncuestaCurso(IdEncuesta);

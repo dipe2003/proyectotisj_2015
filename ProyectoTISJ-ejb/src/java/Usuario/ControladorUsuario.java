@@ -19,7 +19,7 @@ public class ControladorUsuario {
     private ManejadorUsuario mUsr;
     @EJB
     private Seguridad cSeg;
-        
+    
     /**
      * Modifica los datos de un Usuario en la base de datos.
      * @param usuario
@@ -80,7 +80,23 @@ public class ControladorUsuario {
                 Usuario user = Usuarios.get(i);
                 if (cSeg.getPasswordSeguro(Password, user.getSaltPasswordUsuario()).equals(user.getPasswordUsuario())) {
                     Roles.add(getRol(user));
-                }                
+                }
+            }
+        }
+        return Roles;
+    }
+    /**
+     * Devuelve todos los roles del usuario que coincida con los datos especificados.
+     * @param Cedula
+     * @return Devuelve al menos un rol si el usuario existe.
+     */
+    public List<String> getRolesUsuario(int Cedula){
+        List<Usuario> Usuarios = mUsr.BuscarUsuarioPorCedula(Cedula);
+        List<String> Roles = new ArrayList<>();
+        if (!Usuarios.isEmpty()) {
+            for (int i = 0; i < Usuarios.size(); i++) {
+                Usuario user = Usuarios.get(i);
+                Roles.add(getRol(user));
             }
         }
         return Roles;
@@ -189,7 +205,7 @@ public class ControladorUsuario {
     
     /**
      * Quita los usuarios repetidos, dejando una unica instancia de cada uno
-     * @param usuarios 
+     * @param usuarios
      */
     public void removeRepeatUsr(List<Usuario> usuarios){
         boolean UsrRepetido;
@@ -210,7 +226,7 @@ public class ControladorUsuario {
     /**
      * retorna true si el usuario de cedula Cedula existe en la base de datos
      * @param Cedula
-     * @return 
+     * @return
      */
     public boolean ExisteUsuario(int Cedula){
         return mUsr.ExisteUsuario(Cedula);

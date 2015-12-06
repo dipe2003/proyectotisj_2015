@@ -3,12 +3,19 @@ package Docente;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Enumerados.FacadeEnumerados;
+import Usuario.Administrador.Administrador;
+import Usuario.Administrativo.Administrativo;
 import Usuario.Docente.Docente;
 import Usuario.Docente.FacadeDocente;
 import Usuario.Estudiante.EnumSexo;
+import Usuario.Estudiante.Estudiante;
 import Usuario.FacadeUsuario;
+import Usuario.Usuario;
 import Utilidades.Cedula;
+import Utilidades.Seguridad;
 import interfaz.FileUpload;
+import interfaz.UsuarioLogueadoBean;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,22 +26,23 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 @Named
 @ViewScoped
-@ManagedBean
-public class EditarDocente implements Serializable{
+public class EditarPerfil implements Serializable{
     
+    private Usuario usuario;
     private String NombreUsuario;
     private String ApellidoUsuario;
     private String CorreoUsuario;
     private String PasswordUsuario;
+    private String SaltPasswordUsuario;
     private String ImagenUsuario;
     private String CedulaUsuario;
     private String CredencialCivicaUsuario;
@@ -55,19 +63,26 @@ public class EditarDocente implements Serializable{
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
     private int IdUsuario;
+    private int GeneracionEstudiante;
     
-    private boolean Correcto;
-    
+    /*
+    *   Cambio de password  *
+    */
+    private String PasswordActual;
+    private String PasswordNuevo;
+
     @EJB
     private FacadeUsuario fUsr;
     @EJB
     private FacadeDocente fDoc;
     @EJB
     private FileUpload fUp;
-    
+    @Inject
+    private UsuarioLogueadoBean login;
     @EJB
     private Cedula verifCedula;
-    
+    @EJB
+    private Seguridad cSeg;
     @EJB
     private FacadeEnumerados fEnum;
     
@@ -76,6 +91,7 @@ public class EditarDocente implements Serializable{
     public String getApellidoUsuario() {return ApellidoUsuario;}
     public String getCorreoUsuario() {return CorreoUsuario;}
     public String getPasswordUsuario() {return PasswordUsuario;}
+    public String getSaltPasswordUsuario() {return SaltPasswordUsuario;}
     public String getImagenUsuario() {return ImagenUsuario;}
     public String getCedulaUsuario() {return CedulaUsuario;}
     public String getCredencialCivicaUsuario() {return CredencialCivicaUsuario;}
@@ -102,16 +118,17 @@ public class EditarDocente implements Serializable{
         }
     }
     public int getIdUsuario() {return IdUsuario;}
+    public int getGeneracionEstudiante() {return GeneracionEstudiante;}
     
-    
-    /*  validacion  */
-    public boolean isCorrecto(){return this.Correcto;}
+    public String getPasswordActual() {return PasswordActual;}
+    public String getPasswordNuevo() {return PasswordNuevo;}
     
     //  Setters
     public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
     public void setApellidoUsuario(String ApellidoUsuario) {this.ApellidoUsuario = ApellidoUsuario;}
     public void setCorreoUsuario(String CorreoUsuario) {this.CorreoUsuario = CorreoUsuario;}
     public void setPasswordUsuario(String PasswordUsuario) {this.PasswordUsuario = PasswordUsuario;}
+    public void setSaltPasswordUsuario(String SaltPasswordUsuario) {this.SaltPasswordUsuario = SaltPasswordUsuario;}
     public void setImagenUsuario(String ImagenUsuario) {this.ImagenUsuario = ImagenUsuario;}
     public void setCedulaUsuario(String CedulaUsuario) {this.CedulaUsuario = CedulaUsuario;}
     public void setCredencialCivicaUsuario(String CredencialCivicaUsuario) {this.CredencialCivicaUsuario = CredencialCivicaUsuario;}
@@ -144,30 +161,76 @@ public class EditarDocente implements Serializable{
         this.strFechaNacimiento = strFechaNacimiento;
         this.FechaNacimientoUsuario = cal.getTime();
     }
-    public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
+    public void setPasswordActual(String PasswordActual) {this.PasswordActual = PasswordActual;}
+    public void setPasswordNuevo(String PasswordNuevo) {this.PasswordNuevo = PasswordNuevo;}
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
+    public void setGeneracionEstudiante(int GeneracionEstudiante) {this.GeneracionEstudiante = GeneracionEstudiante;}
     
     /**
      * Comprueba que la cedula sea valida.
      * @param Cedula
+     * @return
      */
-    public void comprobarCedula(String Cedula){
-        if (!verifCedula.EsCedulaValida(Cedula)) {
+    public boolean comprobarCedula(){
+        if (!verifCedula.EsCedulaValida(this.CedulaUsuario)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
-        }else{
-            if (fUsr.ExisteUsuario(Cedula)) {
-                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
-                FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
-            }
+            return false;
         }
-        this.CedulaUsuario = Cedula;
+        return true;
     }
     
-   
-    private void guardarDatos(){
-        
-        Correcto=true;
+    public void guardarDatos() throws IOException{
+        if(comprobarCedula()){
+            Usuario user = null;
+            switch(Rol){
+                case "Administrador":
+                    user = new Administrador();
+                    break;
+                case "Administrativo":
+                    user = new Administrativo();
+                    break;
+                case "Docente":
+                    user = new Docente();
+                    break;
+                case "Estudiante":
+                    user = new Estudiante();
+                    break;
+            }
+            try{
+                user.setApellidoUsuario(ApellidoUsuario);
+                user.setCedulaUsuario(Integer.parseInt(CedulaUsuario));
+                user.setCelularUsuario(CelularUsuario);
+                user.setCorreoUsuario(CorreoUsuario);
+                user.setCredencialCivicaUsuario(CredencialCivicaUsuario);
+                user.setDepartamentoUsuario(DepartamentoUsuario);
+                user.setDomicilioUsuario(DomicilioUsuario);
+                user.setEstadoCivilUsuario(EstadoCivilUsuario);
+                user.setFechaNacimientoUsuario(FechaNacimientoUsuario);
+                user.setIdUsuario(IdUsuario);
+                user.setImagenUsuario(ImagenUsuario);
+                user.setLocalidadUsuario(LocalidadUsuario);
+                user.setLugarNacimientoUsuario(LugarNacimientoUsuario);
+                user.setNombreUsuario(NombreUsuario);
+                user.setSexoUsuario(EnumSexoSeleccionado);
+                user.setTelefonoUsuario(TelefonoUsuario);
+                if(Rol.equals("Estudiante")) ((Estudiante)user).setGeneracionAnioEstudiante(GeneracionEstudiante);
+                
+                if(comprobarPassword()){
+                    user.setPasswordUsuario(PasswordUsuario);
+                    user.setSaltPasswordUsuario(SaltPasswordUsuario);
+                    if(fUsr.ModificarUsuario(user)!=-1){
+                        FacesContext context = FacesContext.getCurrentInstance();
+                        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+                        Usuario  User = (Usuario)request.getSession().getAttribute("Usuario");
+                        if(User.getIdUsuario()== user.getIdUsuario()){
+                            login.modificarUsuarioLogueado(user);
+                            FacesContext.getCurrentInstance().getExternalContext().redirect("../Views/index.xhtml");
+                        }
+                    }
+                }
+            }catch(NullPointerException ex){}
+        }
     }
     
     /**
@@ -183,6 +246,33 @@ public class EditarDocente implements Serializable{
             }
         }
         return null;
+    }
+    
+    public boolean comprobarPassword(){
+        if(PasswordActual.isEmpty() && PasswordNuevo.isEmpty()){
+            PasswordUsuario = usuario.getPasswordUsuario();
+            SaltPasswordUsuario = usuario.getSaltPasswordUsuario();
+            return true;
+        }else{
+            if(PasswordActual.isEmpty() | PasswordNuevo.isEmpty()){
+                FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Falta ingresar un password");
+                FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputPassNuevo", fm);
+            }else{
+                String keyDocente = usuario.getSaltPasswordUsuario();
+                String passDocente = usuario.getPasswordUsuario();
+                String passEditar = cSeg.getPasswordSeguro(PasswordActual, keyDocente);
+                if(!passEditar.equals(passDocente)){
+                    FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El password ingresado no es correcto");
+                    FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputPassActual", fm);
+                }else{
+                    String[] nuevoPass = cSeg.getPasswordSeguro(PasswordNuevo);
+                    PasswordUsuario = nuevoPass[1];
+                    SaltPasswordUsuario = nuevoPass[0];
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     /**
@@ -209,27 +299,29 @@ public class EditarDocente implements Serializable{
         
         try{
             IdUsuario = Integer.parseInt(request.getParameter("id"));
-            Docente doc = fDoc.GetDocente(IdUsuario);
-            NombreUsuario = doc.getNombreUsuario();
-            ApellidoUsuario = doc.getApellidoUsuario();
-            CorreoUsuario = doc.getCorreoUsuario();
+            Rol = request.getParameter("Rol");
+            usuario = fUsr.BuscarUsuario(IdUsuario);
+            NombreUsuario = usuario.getNombreUsuario();
+            ApellidoUsuario = usuario.getApellidoUsuario();
+            CorreoUsuario = usuario.getCorreoUsuario();
             
-            ImagenUsuario = doc.getImagenUsuario();
-            CedulaUsuario = String.valueOf(doc.getCedulaUsuario());
-            CredencialCivicaUsuario = doc.getCredencialCivicaUsuario();
-            DomicilioUsuario = doc.getDomicilioUsuario();
-            DepartamentoUsuario = doc.getDepartamentoUsuario();
-            LocalidadUsuario = doc.getLocalidadUsuario();
-            TelefonoUsuario = doc.getTelefonoUsuario();
-            CelularUsuario = doc.getCelularUsuario();
-            EstadoCivilUsuario = doc.getEstadoCivilUsuario();
-            FechaNacimientoUsuario = doc.getFechaNacimientoUsuario();
-            LugarNacimientoUsuario = doc.getLugarNacimientoUsuario();
-            EnumSexoSeleccionado = doc.getSexoUsuario();
-            this.setEstadoCivilSeleccionado(doc.getEstadoCivilUsuario().getEstadoCivil()); 
-            this.setSexoSeleccionado(doc.getSexoUsuario().toString());
+            ImagenUsuario = usuario.getImagenUsuario();
+            CedulaUsuario = String.valueOf(usuario.getCedulaUsuario());
+            CredencialCivicaUsuario = usuario.getCredencialCivicaUsuario();
+            DomicilioUsuario = usuario.getDomicilioUsuario();
+            DepartamentoUsuario = usuario.getDepartamentoUsuario();
+            LocalidadUsuario = usuario.getLocalidadUsuario();
+            TelefonoUsuario = usuario.getTelefonoUsuario();
+            CelularUsuario = usuario.getCelularUsuario();
+            EstadoCivilUsuario = usuario.getEstadoCivilUsuario();
+            FechaNacimientoUsuario = usuario.getFechaNacimientoUsuario();
+            LugarNacimientoUsuario = usuario.getLugarNacimientoUsuario();
+            EnumSexoSeleccionado = usuario.getSexoUsuario();
+            this.setEstadoCivilSeleccionado(usuario.getEstadoCivilUsuario().getEstadoCivil());
+            this.setSexoSeleccionado(usuario.getSexoUsuario().toString());
+            if(Rol.equals("Estudiante")) GeneracionEstudiante = ((Estudiante)usuario).getGeneracionAnioEstudiante();
+            
         }catch(NullPointerException ex){}
-                this.Correcto = false;
     }
 }
 

@@ -3,6 +3,7 @@ package Usuario.Administrador;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Usuario.Estudiante.EnumSexo;
+import Usuario.Usuario;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -13,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class ControladorAdministrador {
     @EJB
-    ManejadorAdmininstrador mAdmin;
+            ManejadorAdmininstrador mAdmin;
     
     /**
      * Crea un Administrador y lo persiste.
@@ -36,12 +37,12 @@ public class ControladorAdministrador {
      * @param SexoUsuario
      * @return Devulve un Admininstrador si fue creado, de lo contrario devuelve null.
      */
-    public Administrador CrearAdministrador(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword, String ImagenUsuario, 
-            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario, 
-            String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario, 
+    public Administrador CrearAdministrador(String NombreUsuario, String ApellidoUsuario, String CorreoUsuario, String PasswordUsuario, String SaltPassword, String ImagenUsuario,
+            int CedulaUsuario, String CredencialCivicaUsuario, String DomicilioUsuario, String DepartamentoUsuario, String LocalidadUsuario,
+            String TelefonoUsuario, String CelularUsuario, EstadoCivil EstadoCivilUsuario, Date FechaNacimientoUsuario, String LugarNacimientoUsuario,
             EnumSexo SexoUsuario){
-        Administrador admin = new Administrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario, 
-                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario, 
+        Administrador admin = new Administrador(NombreUsuario, ApellidoUsuario, CorreoUsuario, PasswordUsuario, SaltPassword, ImagenUsuario, CedulaUsuario,
+                CredencialCivicaUsuario, DomicilioUsuario, DepartamentoUsuario, LocalidadUsuario, TelefonoUsuario, CelularUsuario,
                 EstadoCivilUsuario, FechaNacimientoUsuario, LugarNacimientoUsuario,SexoUsuario);
         if (mAdmin.CrearAdministrador(admin)!=-1) {
             return admin;
@@ -52,10 +53,29 @@ public class ControladorAdministrador {
     /**
      * Modifica los datos de un Administrador en la base de datos.
      * @param administrador
+     * @param IdUsuarioAdmin
      * @return Devuelve -1 si no se pudo actualizar.
      */
-    public int ModificarAdministrador(Administrador administrador){
-        return mAdmin.ModificarAdministrador(administrador);
+    public int ModificarAdministrador(Usuario administrador, int IdUsuarioAdmin){
+        Administrador admin = mAdmin.BuscarAdministrador(IdUsuarioAdmin);
+        admin.setPasswordUsuario(administrador.getPasswordUsuario());
+        admin.setSaltPasswordUsuario(administrador.getSaltPasswordUsuario());
+        admin.setApellidoUsuario(administrador.getApellidoUsuario());
+        admin.setCedulaUsuario(administrador.getCedulaUsuario());
+        admin.setCelularUsuario(administrador.getCelularUsuario());
+        admin.setCorreoUsuario(administrador.getCorreoUsuario());
+        admin.setCredencialCivicaUsuario(administrador.getCredencialCivicaUsuario());
+        admin.setDepartamentoUsuario(administrador.getDepartamentoUsuario());
+        admin.setDomicilioUsuario(administrador.getDomicilioUsuario());
+        admin.setEstadoCivilUsuario(administrador.getEstadoCivilUsuario());
+        admin.setFechaNacimientoUsuario(administrador.getFechaNacimientoUsuario());
+        admin.setImagenUsuario(administrador.getImagenUsuario());
+        admin.setLocalidadUsuario(administrador.getLocalidadUsuario());
+        admin.setLugarNacimientoUsuario(administrador.getLugarNacimientoUsuario());
+        admin.setNombreUsuario(administrador.getNombreUsuario());
+        admin.setSexoUsuario(administrador.getSexoUsuario());
+        admin.setTelefonoUsuario(administrador.getTelefonoUsuario());
+        return mAdmin.ModificarAdministrador(admin);
     }
     
     /**

@@ -2,7 +2,7 @@ package Usuario.Docente;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Usuario.Estudiante.EnumSexo;
-import java.util.ArrayList;
+import Usuario.Usuario;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -14,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 public class ControladorDocente {
     
     @EJB
-            ManejadorDocente mDoc;
+    private ManejadorDocente mDoc;
     
     /**
      * Crea un Docente y lo persiste.
@@ -53,10 +53,29 @@ public class ControladorDocente {
     /**
      * Modifica los datos de un Docente en la base de datos.
      * @param docente
+     * @param IdDocente
      * @return Devuelve -1 si no se pudo actualizar.
      */
-    public int ModificarDocente(Docente docente){
-        return mDoc.ModificarDocente(docente);
+    public int ModificarDocente(Usuario docente, int IdDocente){
+        Docente doc = mDoc.BuscarDocente(IdDocente);
+        doc.setPasswordUsuario(docente.getPasswordUsuario());
+        doc.setSaltPasswordUsuario(docente.getSaltPasswordUsuario());
+        doc.setApellidoUsuario(docente.getApellidoUsuario());
+        doc.setCedulaUsuario(docente.getCedulaUsuario());
+        doc.setCelularUsuario(docente.getCelularUsuario());
+        doc.setCorreoUsuario(docente.getCorreoUsuario());
+        doc.setCredencialCivicaUsuario(docente.getCredencialCivicaUsuario());
+        doc.setDepartamentoUsuario(docente.getDepartamentoUsuario());
+        doc.setDomicilioUsuario(docente.getDomicilioUsuario());
+        doc.setEstadoCivilUsuario(docente.getEstadoCivilUsuario());
+        doc.setFechaNacimientoUsuario(docente.getFechaNacimientoUsuario());
+        doc.setImagenUsuario(docente.getImagenUsuario());
+        doc.setLocalidadUsuario(docente.getLocalidadUsuario());
+        doc.setLugarNacimientoUsuario(docente.getLugarNacimientoUsuario());
+        doc.setNombreUsuario(docente.getNombreUsuario());
+        doc.setSexoUsuario(docente.getSexoUsuario());
+        doc.setTelefonoUsuario(docente.getTelefonoUsuario());
+        return mDoc.ModificarDocente(doc);
     }
     
     /**

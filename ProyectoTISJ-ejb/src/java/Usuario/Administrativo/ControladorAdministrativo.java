@@ -2,6 +2,7 @@ package Usuario.Administrativo;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Usuario.Estudiante.EnumSexo;
+import Usuario.Usuario;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -52,10 +53,29 @@ public class ControladorAdministrativo {
     /**
      * Modifica los datos de un Administrativo en la base de datos.
      * @param administrativo
+     * @param IdAdministrativo
      * @return Devuelve -1 si no se pudo actualizar.
      */
-    public int ModificarAdministrativo(Administrativo administrativo){
-        return mAdmin.ModificarAdministrativo(administrativo);
+    public int ModificarAdministrativo(Usuario administrativo, int IdAdministrativo){
+        Administrativo admin = mAdmin.BuscarAdministrativo(IdAdministrativo);
+        admin.setPasswordUsuario(administrativo.getPasswordUsuario());
+        admin.setSaltPasswordUsuario(administrativo.getSaltPasswordUsuario());
+        admin.setApellidoUsuario(administrativo.getApellidoUsuario());
+        admin.setCedulaUsuario(administrativo.getCedulaUsuario());
+        admin.setCelularUsuario(administrativo.getCelularUsuario());
+        admin.setCorreoUsuario(administrativo.getCorreoUsuario());
+        admin.setCredencialCivicaUsuario(administrativo.getCredencialCivicaUsuario());
+        admin.setDepartamentoUsuario(administrativo.getDepartamentoUsuario());
+        admin.setDomicilioUsuario(administrativo.getDomicilioUsuario());
+        admin.setEstadoCivilUsuario(administrativo.getEstadoCivilUsuario());
+        admin.setFechaNacimientoUsuario(administrativo.getFechaNacimientoUsuario());
+        admin.setImagenUsuario(administrativo.getImagenUsuario());
+        admin.setLocalidadUsuario(administrativo.getLocalidadUsuario());
+        admin.setLugarNacimientoUsuario(administrativo.getLugarNacimientoUsuario());
+        admin.setNombreUsuario(administrativo.getNombreUsuario());
+        admin.setSexoUsuario(administrativo.getSexoUsuario());
+        admin.setTelefonoUsuario(administrativo.getTelefonoUsuario());
+        return mAdmin.ModificarAdministrativo(admin);
     }
     
     /**

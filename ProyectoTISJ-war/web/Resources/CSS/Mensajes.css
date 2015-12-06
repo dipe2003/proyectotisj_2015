@@ -6,8 +6,8 @@
     padding:8px 8px 8px 50px;
     background-repeat: no-repeat;
     background-position: 10px center;
-    display: flex;
-    width: 100%;
+    display: flex
+    /*width: 100%;*/
 }
 .info {
     color: #00529B;
