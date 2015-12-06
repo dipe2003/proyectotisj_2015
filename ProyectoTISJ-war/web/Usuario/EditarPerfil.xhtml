@@ -10,7 +10,7 @@
         <f:view >
             <div class="cabecera" >
                 <div class="titulo" >
-                    Actualizar datos de #{editarPerfil.rol} #{editarPerfil.nombreUsuario}
+                    Actualizar datos de #{editarPerfil.rol} #{editarPerfil.nombreUsuario} #{editarPerfil.apellidoUsuario}
                 </div>
             </div>
             <div id="contenedor">
@@ -116,7 +116,22 @@
                                     <img class="imagenMenuOpcion" src="../Resources/Images/FechaNacimiento.png"/>
                                     <h:inputText id="inputGeneracionEstudiante" class="Texto" value="#{editarPerfil.generacionEstudiante}" required="true" requiredMessage="Debes ingresar la generacion del estudiante." />              
                                 </div><h:message for="inputGeneracionEstudiante" class="error"/>
-                            </div>                    
+                            </div>
+                            <div class="menuOpcion" >
+                                <div class="nombreDocente">Estudios</div>
+                                <div class="inputContainer">
+                                    <h:dataTable columnClasses="columnaEstudios" value="#{editarPerfil.listaEstudiosCursados}" var="estudio">
+                                        <h:column>    				
+                                            <f:facet name="header">Estudio</f:facet>
+                                            <h:outputText value="#{estudio.tipoEstudio}" />
+                                        </h:column>
+                                        <h:column>    				
+                                            <f:facet name="header">Orientacion</f:facet>
+                                            <h:inputText class="Texto" value="#{estudio.orientacionEstudio}"/>
+                                        </h:column>
+                                    </h:dataTable>
+                                </div>
+                            </div>
                         </h:panelGroup>
                         <h:inputText id="regRol" value="#{editarPerfil.rol}" style="display:none;"/>
                     </h:panelGroup>
