@@ -22,17 +22,17 @@
             </h:panelGroup>
             <c:forEach var="curso" items="#{listarCursosBean.cursos}">
                 <div class="ListItemContainer" >
-                    <div class="item" style="width: 10%">
+                    <div title="#{curso.anioCurso}" class="item" style="width: 5%">
                         #{curso.anioCurso}
                     </div>
-                    <div class="item">
+                    <div title="#{curso.semestreCurso}° semestre." class="item" style="width: 10%">
                         #{curso.semestreCurso}° semestre.
                     </div>
-                    <div class="item">
+                    <div title="  #{curso.asignaturaCurso.nombreAsignatura}" class="item" style="width:30%">
                         #{curso.asignaturaCurso.nombreAsignatura}
                     </div>
                     <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrativo' or login.rolSeleccionado == 'Administrador'}">
-                        <div class="item">
+                        <div title="#{curso.docenteCurso.nombreCompleto}" class="item" style="width:25%">
                             #{curso.docenteCurso.nombreCompleto}
                         </div>
                     </h:panelGroup>

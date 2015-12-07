@@ -103,14 +103,14 @@
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Docente del Curso 
             </div>
-            <div class="ListItemContainer" >
-                <div class="item">
+            <div class="ListItemContainer"  >
+                <div title=" #{informacionCurso.docente.cedulaUsuario}" class="item" style="width: 10%">
                     #{informacionCurso.docente.cedulaUsuario}
                 </div>
-                <div class="item">
+                <div title=" #{informacionCurso.docente.nombreCompleto}" class="item" style="width: 40%">
                     #{informacionCurso.docente.nombreCompleto}
                 </div>
-                <div class="item">
+                <div title="#{informacionCurso.docente.correoUsuario}" class="item" style="width: 40%">
                     #{informacionCurso.docente.correoUsuario}
                 </div>
             </div>
@@ -140,7 +140,7 @@
             </h:panelGroup>
             <div class="ListItemContainer" style="width: 300px; margin-top: -10px; text-align: center;" >
                 <a href="#openModal" style="text-decoration: none;">
-                    <div class="negrita" style="margin-left: 20px">Ver Contrato de Docente</div>
+                    <div class="negrita Texto" style="margin-left: 20px; border: none">Ver Contrato de Docente</div>
                 </a>
             </div>
         </div>
@@ -167,13 +167,13 @@
             </h:panelGroup>
             <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
                 <div class="ListItemContainer" >
-                    <div class="item">
+                    <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">
                         #{estudiante.cedulaUsuario}
                     </div>
-                    <div class="item">
+                    <div title="#{estudiante.nombreCompleto}" class="item" style="width: 40%">
                         #{estudiante.nombreCompleto}
                     </div>
-                    <div class="item">
+                    <div title="#{estudiante.correoUsuario}" class="item" style="width: 40%">
                         #{estudiante.correoUsuario}
                     </div>
                     <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">

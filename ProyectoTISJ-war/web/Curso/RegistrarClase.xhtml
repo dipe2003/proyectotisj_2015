@@ -16,16 +16,16 @@
             <div id="contenedor">
                 <c:forEach var="usuario" items="#{usuariosClase.usuarios}">
                     <div class="ListItemContainer" >
-                        <div class="item" >
+                        <div class="item" style="width: 10%">
                             <h:selectBooleanCheckbox class="BotonCheck" value="#{usuariosClase.listChecked[usuario.idUsuario]}" />
                         </div>
-                        <div class="item">
+                        <div title="#{usuario.cedulaUsuario}" class="item" style="width: 15%">
                             #{usuario.cedulaUsuario}
                         </div>
-                        <div class="item">
+                        <div title=" #{usuario.nombreCompleto}" class="item" style="width: 30%">
                             #{usuario.nombreCompleto}
                         </div>
-                        <div class="item">
+                        <div title=" Inasistencias: #{usuariosClase.inasistenciaEstudiante(usuario.idUsuario)}" class="item" >
                             Inasistencias: #{usuariosClase.inasistenciaEstudiante(usuario.idUsuario)}
                         </div>     
                     </div>

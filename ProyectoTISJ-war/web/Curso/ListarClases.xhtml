@@ -19,10 +19,10 @@
             <c:forEach var="clase" items="#{listarClasesBean.clases}">
                 <div class="ListItemContainer" >
                     <div class="ListItem" >
-                        <div class="item">
+                        <div title="#{clase.fechaClase}" class="item">
                             #{clase.fechaClase}
                         </div>
-                        <div class="item">
+                        <div title="#{clase.temaClase}" class="item" style="width: 70%">
                             #{clase.temaClase}
                         </div>
                         <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
