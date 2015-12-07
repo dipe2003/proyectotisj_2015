@@ -21,13 +21,13 @@
                 
                 <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
                     <div class="ListItemContainer" >
-                        <div class="item" >
+                        <div class="item" style="width: 10%">
                             <h:selectBooleanCheckbox class="botonRadioSimil BotonCheck" value="#{listarEncuesta.listChecked[encuesta.idEncuesta]}" />
                         </div>
-                        <div class="item">
+                        <div class="item" style="width: 15%">
                             #{encuesta.cursoEncuesta.anioCurso}
                         </div>
-                         <div class="item">
+                         <div class="item" style="width: 60%">
                             #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                         </div>
                     </div>            

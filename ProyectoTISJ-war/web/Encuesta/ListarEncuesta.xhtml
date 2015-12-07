@@ -22,10 +22,10 @@
                 <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
                     <div class="ListItemContainer" >
                         <div class="ListItem" >
-                            <div class="item">
+                            <div title="#{encuesta.cursoEncuesta.anioCurso}" class="item" style="width: 10%">
                                 #{encuesta.cursoEncuesta.anioCurso}
                             </div>
-                            <div class="item">
+                            <div title="#{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}" class="item" style="width: 70%">
                                 #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                             </div>
                             <h:panelGroup rendered="#{listarEncuesta.rol == 'Administrador'}">
