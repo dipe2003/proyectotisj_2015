@@ -33,18 +33,18 @@
                 <c:forEach var="usuario" items="#{listarUsuariosBean.usuariosFiltrados}">
                     <div class="ListItemContainer" >
                         <div class="ListItem" >
-                            <div class="item" >
+                            <div class="item" style="width: 5%" >
                                 <div class="ImagenItem">
                                     <img src="#{usuario.imagenUsuario}" height="100%" width="100%"/>
                                 </div>
                             </div>
-                            <div class="item">
+                            <div title="#{usuario.cedulaUsuario}" class="item" style="width: 10%">
                                 #{usuario.cedulaUsuario}
                             </div>
-                            <div class="item">
+                            <div title="#{usuario.nombreCompleto}" class="item" style="width: 35%">
                                 #{usuario.nombreCompleto}
                             </div>
-                            <div class="item">
+                            <div title="#{usuario.correoUsuario}" class="item" style="width: 30%">
                                 #{usuario.correoUsuario}
                             </div>
                             <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">

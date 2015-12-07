@@ -12,12 +12,14 @@
         </div>
         <Script>
             $(document).ready(function() {
+                var color1 =  numeroRandom =  Math.floor((Math.random() * 18));
+                var color3 =  numeroRandom =  Math.floor((Math.random() * 18));
                 var datosDocente ={
                     labels: #{resultadoEncuesta.tituloPreguntasDocente},
                     datasets: [{
                             label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
-                            fillColor: "rgba(183, 28, 28, 0.5)",
-                            strokeColor: "rgba(183, 28, 28, 1)",
+                            fillColor: getColor(0.5,color1),
+                            strokeColor: getColor(1,color1),
                             pointColor: "rgba(220,220,220,1)",
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
@@ -29,8 +31,8 @@
                     labels: #{resultadoEncuesta.tituloPreguntasCurso},
                     datasets: [{
                             label: '#{resultadoEncuesta.encuestaSeleccionada.cursoEncuesta.asignaturaCurso.nombreAsignatura}',
-                            fillColor: "rgba(93, 64, 55, 0.5)",
-                            strokeColor: "rgba(93, 64, 55, 1)",
+                            fillColor: getColor(0.5,color3),
+                            strokeColor: getColor(1,color3),
                             pointColor: "rgba(220,220,220,1)",
                             pointStrokeColor: "#fff",
                             pointHighlightFill: "#fff",
@@ -70,15 +72,15 @@
             <div class="ListItemContainer" >
                 <div class="negrita" style="margin-left: 20px">Creditos: #{informacionCurso.curso.asignaturaCurso.creditosAsignatura}</div>
             </div>
-            <div class="ListItemContainer" style="text-align: center" >
-                <div class="negrita" style="margin-left: 20px">Ver Contrato del Docente</div>
-            </div>
             
             <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
                 <div class="ListItemContainer" style="text-align: center" >
                     <div class="negrita" style="margin-left: 20px">Resultado de Encuestas</div>
                     <a href="../Encuesta/InformacionEncuesta.xhtml?id=#{informacionCurso.curso.encuestaCurso.idEncuesta}" class="SubmenuLink">
                         <div title="Comparar Encuestas" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
+                    <a href="#ModalEncuestaDocente" class="SubmenuLink">
+                        <div title="Informacion Detallada de la Encuesta" class="optionItem" style="background-image: url(../Resources/Images/listar.png)"></div>
                     </a>
                 </div>
                 <div class="GraficaContainer" style="height: 200px" >
@@ -101,14 +103,14 @@
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Docente del Curso 
             </div>
-            <div class="ListItemContainer" >
-                <div class="item">
+            <div class="ListItemContainer"  >
+                <div title=" #{informacionCurso.docente.cedulaUsuario}" class="item" style="width: 10%">
                     #{informacionCurso.docente.cedulaUsuario}
                 </div>
-                <div class="item">
+                <div title=" #{informacionCurso.docente.nombreCompleto}" class="item" style="width: 40%">
                     #{informacionCurso.docente.nombreCompleto}
                 </div>
-                <div class="item">
+                <div title="#{informacionCurso.docente.correoUsuario}" class="item" style="width: 40%">
                     #{informacionCurso.docente.correoUsuario}
                 </div>
             </div>
@@ -117,6 +119,9 @@
                     <div class="negrita" style="margin-left: 20px">Resultado de Encuestas</div>
                     <a href="../Encuesta/InformacionEncuesta.xhtml?id=#{informacionCurso.curso.encuestaCurso.idEncuesta}" class="SubmenuLink">
                         <div title="Comparar Encuestas" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
+                    <a href="#ModalEncuestaDocente" class="SubmenuLink">
+                        <div title="Informacion Detallada de la Encuesta" class="optionItem" style="background-image: url(../Resources/Images/listar.png)"></div>
                     </a>
                 </div>
                 <div class="GraficaContainer" style="height: 200px" >
@@ -133,14 +138,14 @@
                     </table>
                 </div>
             </h:panelGroup>
-            <div class="ListItemContainer" style="width: 300px; margin-top: -10px" >
+            <div class="ListItemContainer" style="width: 300px; margin-top: -10px; text-align: center;" >
                 <a href="#openModal" style="text-decoration: none;">
-                    <div class="negrita" style="margin-left: 20px">Ver Contrato de Docente</div>
+                    <div class="negrita Texto" style="margin-left: 20px; border: none">Ver Contrato de Docente</div>
                 </a>
             </div>
         </div>
         
-         <div id="openModal" class="modalDialog">
+        <div id="openModal" class="modalDialog">
             <div style="width: 1000px;">
                 <a href="#close" title="Close" class="close">X</a>
                 <h2> Contrato de Docente</h2>
@@ -162,13 +167,13 @@
             </h:panelGroup>
             <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
                 <div class="ListItemContainer" >
-                    <div class="item">
+                    <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">
                         #{estudiante.cedulaUsuario}
                     </div>
-                    <div class="item">
+                    <div title="#{estudiante.nombreCompleto}" class="item" style="width: 40%">
                         #{estudiante.nombreCompleto}
                     </div>
-                    <div class="item">
+                    <div title="#{estudiante.correoUsuario}" class="item" style="width: 40%">
                         #{estudiante.correoUsuario}
                     </div>
                     <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
@@ -176,6 +181,25 @@
                     </a>
                 </div>            
             </c:forEach>
+        </div>
+        
+        <div id="ModalEncuestaDocente" class="modalDialog">
+            <div style="width: 1000px;">
+                <a href="#close" title="Close" class="close">X</a>
+                <h2> Detalles de la Encuesta</h2>
+                
+                <table>
+                    <c:forEach items="#{resultadoEncuesta.encuestaSeleccionada.respuestasEncuesta}" varStatus="indice" var="pregunta">                        
+                        <tr>
+                            <td>Pregunta #{indice.index}:</td>
+                            <c:forEach items="#{pregunta.respuestasEncuesta}" var="respuesta">
+                                <td>#{respuesta.resultadoRespuesta}</td>
+                            </c:forEach>           
+                        </tr>                        
+                    </c:forEach>
+                </table>
+                
+            </div>
         </div>
         
     </ui:define>

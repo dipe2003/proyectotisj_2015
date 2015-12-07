@@ -23,10 +23,10 @@
             </h:panelGroup>
             <c:forEach var="asignatura" items="#{listarAsignaturasBean.asignaturas}">
                 <div class="ListItemContainer" >     
-                    <div class="item">
+                    <div title="#{asignatura.nombreAsignatura}" class="item" style="width: 75%">
                         #{asignatura.nombreAsignatura}
                     </div>
-                    <div class="item">
+                    <div title="#{asignatura.creditosAsignatura} creditos." class="item" style="width: 15%">
                         #{asignatura.creditosAsignatura} creditos.
                     </div>
                     <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarAsignaturasBean.opt =='regcurso' }">
