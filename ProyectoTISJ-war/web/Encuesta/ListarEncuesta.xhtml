@@ -30,6 +30,9 @@
                             </div>
                             <h:panelGroup rendered="#{listarEncuesta.rol == 'Administrador'}">
                                 <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                <a href="../Curso/InformacionCurso.xhtml?id=#{encuesta.cursoEncuesta.idCurso}" class="SubmenuLink">
+                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                    </a>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{listarEncuesta.rol == 'Estudiante'}">
                                 <a href="ListarEncuesta.xhtml?rol=Estudiante#openModal_#{encuesta.idEncuesta}" class="SubmenuLink">
