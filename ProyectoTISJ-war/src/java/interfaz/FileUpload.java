@@ -47,11 +47,13 @@ public class FileUpload implements Serializable{
             try{
                 ServletContext context = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
                 String resPath = "Tecnoinf"+separator+"Resources"+separator+"Images"+separator+DirectorioArchivo+separator;
+                
                 String extensionArchivo = FilenameUtils.getExtension(Archivo.getSubmittedFileName());
                 NombreArchivo += "."+extensionArchivo;
+                String baseDatos = "/img/"+DirectorioArchivo+"/"+NombreArchivo;
                 realPath = homeDir+separator+resPath+NombreArchivo;
                 Archivo.write(realPath);
-                return realPath;
+                return baseDatos;
             }catch(FileNotFoundException ex){
                 System.out.println("Archivo no econtrado: " + ex.getMessage());
             }catch(IOException ex){
