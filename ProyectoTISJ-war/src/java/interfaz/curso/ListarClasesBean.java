@@ -77,25 +77,24 @@ public class ListarClasesBean implements Serializable{
                 this.Clases = fClase.ListarClases(Integer.parseInt(opt));
                 List<Estudiante> estudiantes = fEst.ListarEstudiantesCurso(curso.getIdCurso());
                 InasistenciasClases = new HashMap<>();
-                for (int i = 0; i < estudiantes.size(); i++) {
-                    Estudiante est = estudiantes.get(i);
+                for (int i = 0; i < Clases.size(); i++) {
+                    Clase clase = Clases.get(i);
                     String Inasistencias="";
-                    for(int j = 0; j < Clases.size(); j++){
-                        Clase clase = Clases.get(j);
+                    for (int j = 0; j < estudiantes.size(); j++) {
+                        Estudiante est = estudiantes.get(j);
                         if(clase.getAsistenciaEstudiante(est.getIdUsuario())!=1){
                             Inasistencias += est.getNombreCompleto();
-                            if(j+1<Clases.size()) {
+                            if(j+1<estudiantes.size()) {
                                 Inasistencias +=", ";
                             }else{
                                 Inasistencias += ". ";
                             }
                         }
-                        InasistenciasClases.put(clase.getIdClase(), Inasistencias);
                     }
+                    if(!Inasistencias.isEmpty()) InasistenciasClases.put(clase.getIdClase(), Inasistencias);
                 }
             }catch(NullPointerException ex){}
         }
-        
     }
     
     

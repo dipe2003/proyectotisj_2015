@@ -3,17 +3,18 @@ package Docente;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Enumerados.FacadeEnumerados;
+import Enumerados.TipoDeEstudio.TipoEstudio;
 import Usuario.Administrador.Administrador;
 import Usuario.Administrativo.Administrativo;
 import Usuario.Docente.Docente;
-import Usuario.Docente.FacadeDocente;
 import Usuario.Estudiante.EnumSexo;
 import Usuario.Estudiante.Estudiante;
+import Usuario.Estudiante.Estudios.Estudio;
+import Usuario.Estudiante.FacadeEstudiante;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import Utilidades.Cedula;
 import Utilidades.Seguridad;
-import interfaz.FileUpload;
 import interfaz.UsuarioLogueadoBean;
 import java.io.IOException;
 import java.io.Serializable;
@@ -63,20 +64,21 @@ public class EditarPerfil implements Serializable{
     private EnumSexo EnumSexoSeleccionado;
     private String strFechaNacimiento;
     private int IdUsuario;
+    
+    /*
+    *   Estudiante  *
+    */
     private int GeneracionEstudiante;
+    private static List<EstudioCursado> ListaEstudiosCursados;
     
     /*
     *   Cambio de password  *
     */
     private String PasswordActual;
     private String PasswordNuevo;
-
+    
     @EJB
     private FacadeUsuario fUsr;
-    @EJB
-    private FacadeDocente fDoc;
-    @EJB
-    private FileUpload fUp;
     @Inject
     private UsuarioLogueadoBean login;
     @EJB
@@ -85,6 +87,8 @@ public class EditarPerfil implements Serializable{
     private Seguridad cSeg;
     @EJB
     private FacadeEnumerados fEnum;
+    @EJB
+    private FacadeEstudiante fEst;
     
     //  Getters
     public String getNombreUsuario() {return NombreUsuario;}
@@ -117,8 +121,10 @@ public class EditarPerfil implements Serializable{
             return fDate.format(FechaNacimientoUsuario);
         }
     }
+    public EnumSexo getEnumSexoSeleccionado() {return EnumSexoSeleccionado;}
     public int getIdUsuario() {return IdUsuario;}
     public int getGeneracionEstudiante() {return GeneracionEstudiante;}
+    public List<EstudioCursado> getListaEstudiosCursados() {return ListaEstudiosCursados;}
     
     public String getPasswordActual() {return PasswordActual;}
     public String getPasswordNuevo() {return PasswordNuevo;}
@@ -140,6 +146,7 @@ public class EditarPerfil implements Serializable{
     public void setEstadoCivilUsuario(EstadoCivil EstadoCivilUsuario) {this.EstadoCivilUsuario = EstadoCivilUsuario;}
     public void setFechaNacimientoUsuario(Date FechaNacimientoUsuario) {this.FechaNacimientoUsuario = FechaNacimientoUsuario;}
     public void setLugarNacimientoUsuario(String LugarNacimientoUsuario) {this.LugarNacimientoUsuario = LugarNacimientoUsuario;}
+    public void setEnumSexoSeleccionado(EnumSexo EnumSexoSeleccionado) {this.EnumSexoSeleccionado = EnumSexoSeleccionado;}
     public void setSexoSeleccionado(String SexoSeleccionado) {
         this.SexoSeleccionado = SexoSeleccionado;
         EnumSexoSeleccionado = EnumSexo.valueOf(SexoSeleccionado);
@@ -165,10 +172,10 @@ public class EditarPerfil implements Serializable{
     public void setPasswordNuevo(String PasswordNuevo) {this.PasswordNuevo = PasswordNuevo;}
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
     public void setGeneracionEstudiante(int GeneracionEstudiante) {this.GeneracionEstudiante = GeneracionEstudiante;}
+    public void setListaEstudiosCursados(List<EstudioCursado> ListaEstudiosCursados) {EditarPerfil.ListaEstudiosCursados = ListaEstudiosCursados;}
     
     /**
      * Comprueba que la cedula sea valida.
-     * @param Cedula
      * @return
      */
     public boolean comprobarCedula(){
@@ -215,12 +222,19 @@ public class EditarPerfil implements Serializable{
                 user.setNombreUsuario(NombreUsuario);
                 user.setSexoUsuario(EnumSexoSeleccionado);
                 user.setTelefonoUsuario(TelefonoUsuario);
-                if(Rol.equals("Estudiante")) ((Estudiante)user).setGeneracionAnioEstudiante(GeneracionEstudiante);
+                if(Rol.equals("Estudiante")) {
+                    ((Estudiante)user).setGeneracionAnioEstudiante(GeneracionEstudiante);
+                }
                 
                 if(comprobarPassword()){
                     user.setPasswordUsuario(PasswordUsuario);
                     user.setSaltPasswordUsuario(SaltPasswordUsuario);
                     if((ok=fUsr.ModificarUsuario(user))!=-1){
+                        if(Rol.equals("Estudiante")) {
+                            for (int i = 0; i < ListaEstudiosCursados.size(); i++) {
+                                fEst.actualizarEstudioEstudiante(ListaEstudiosCursados.get(i).IdEstudio, ListaEstudiosCursados.get(i).OrientacionEstudio, user.getIdUsuario());
+                            }
+                        }
                         FacesContext context = FacesContext.getCurrentInstance();
                         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
                         Usuario  User = (Usuario)request.getSession().getAttribute("Usuario");
@@ -320,9 +334,59 @@ public class EditarPerfil implements Serializable{
             EnumSexoSeleccionado = usuario.getSexoUsuario();
             this.setEstadoCivilSeleccionado(usuario.getEstadoCivilUsuario().getEstadoCivil());
             this.setSexoSeleccionado(usuario.getSexoUsuario().toString());
-            if(Rol.equals("Estudiante")) GeneracionEstudiante = ((Estudiante)usuario).getGeneracionAnioEstudiante();
+            if(Rol.equals("Estudiante")) {
+                GeneracionEstudiante = ((Estudiante)usuario).getGeneracionAnioEstudiante();
+                ListaEstudiosCursados = new ArrayList<>();
+                List<TipoEstudio> lstTipoEstudios = fEnum.ListarTiposDeEstudios();
+                if (ListaEstudiosCursados.isEmpty()) {
+                    for (int i = 0; i < lstTipoEstudios.size(); i++) {
+                        ListaEstudiosCursados.add(new EstudioCursado(lstTipoEstudios.get(i).getIdTipoEstudio(), lstTipoEstudios.get(i).getTipoDeEstudio(),""));
+                    }
+                }
+                for (int i = 0; i < ((Estudiante)usuario).getEstudiosCursadosEstudiante().size(); i++) {
+                    Estudio estudio = ((Estudiante)usuario).getEstudiosCursadosEstudiante().get(i);
+                    for (int j = 0; j < ListaEstudiosCursados.size(); j++) {
+                        if(ListaEstudiosCursados.get(j).getTipoEstudio().equals(estudio.getTipoEstudio().getTipoDeEstudio())){
+                            EstudioCursado est = new EstudioCursado(estudio.getTipoEstudio().getIdTipoEstudio(), estudio.getTipoEstudio().getTipoDeEstudio(), estudio.getOrientacionEstudio());
+                            ListaEstudiosCursados.remove(j);
+                            ListaEstudiosCursados.add(est);
+                        }
+                    }
+                }
+            }
             
         }catch(NullPointerException ex){}
     }
+    
+    /**
+     * clase para representar los estudios cursados por el estudiante.
+     */
+    public static class EstudioCursado {
+        private int IdEstudio;
+        private String TipoEstudio;
+        private String OrientacionEstudio;
+        
+        public EstudioCursado(int IdEstudio, String TipoEstudio, String OrientacionEstudio) {
+            this.IdEstudio = IdEstudio;
+            this.TipoEstudio = TipoEstudio;
+            this.OrientacionEstudio = OrientacionEstudio;
+        }
+        
+        public EstudioCursado() {}
+        
+        //  Setters
+        
+        public void setIdEstudio(int IdEstudio) {this.IdEstudio = IdEstudio;}
+        public void setTipoEstudio(String TipoEstudio) {this.TipoEstudio = TipoEstudio;}
+        public void setOrientacionEstudio(String OrientacionEstudio) {this.OrientacionEstudio = OrientacionEstudio;}
+        
+        // Getters
+        
+        public int getIdEstudio() {return IdEstudio;}
+        public String getTipoEstudio() {return TipoEstudio;}
+        public String getOrientacionEstudio() {return OrientacionEstudio;}
+        
+    }
+    
 }
 
