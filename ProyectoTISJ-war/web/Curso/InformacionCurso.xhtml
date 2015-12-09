@@ -183,6 +183,35 @@
             </c:forEach>
         </div>
         
+        
+        <div id="contenedor">
+            <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                Clases Dictadas del Curso
+            </div>
+            <h:panelGroup rendered="#{empty informacionCurso.clases}">
+                <div class="ListItemContainer">
+                    No hay Clases Registradas
+                </div>
+            </h:panelGroup>
+            <c:forEach var="clase" items="#{informacionCurso.clases}">
+                <div class="ListItemContainer" >
+                    <div class="ListItem" >
+                        <div title="#{clase.fechaClase}" class="item">
+                            #{clase.fechaClase}
+                        </div>
+                        <div title="#{clase.temaClase}" class="item" style="width: 70%">
+                            #{clase.temaClase}
+                        </div>
+                        <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
+                    </div>
+                    <div class="sinColumna">
+                        <div class="negrita">Inasistencias: </div> #{informacionCurso.inasistenciasClases.get(clase.idClase)}<br/>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        
+        
         <div id="ModalEncuestaDocente" class="modalDialog">
             <div style="width: 1000px;">
                 <a href="#close" title="Close" class="close">X</a>
