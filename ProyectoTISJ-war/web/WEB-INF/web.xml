@@ -30,7 +30,7 @@
         <location>/Error/Error404.xhtml</location>
     </error-page>
     <error-page>
-        <exception-type>java.lang.NullPointerException</exception-type>
+        <exception-type>java.lang.Exception</exception-type>
         <location>/Error/Error500.xhtml</location>
     </error-page>
 </web-app>

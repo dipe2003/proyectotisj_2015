@@ -7,19 +7,19 @@
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/Resources/CSS/login.css" />
         <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/Resources/CSS/Mensajes.css" />
         <script src="#{facesContext.externalContext.requestContextPath}/Resources/Scripts/jquery-1.11.3.min.js"></script>
-        <title>500</title>      
+        <title>401</title>      
     </h:head>
     <h:body>                 
             <div id="linea">
                 <div id="titulo">
                     <img width="100px" src="#{facesContext.externalContext.requestContextPath}/Resources/Images/error_white.png"/><br/>
-                    Error 500
+                    Error 401
                 </div>
                 <div class="error_404" >
-                    La pagina a la que intenta acceder no está disponible debido a un error interno.
+                    No esta autorizado para ver esta pagina.
                 </div>
             </div>
-        <meta http-equiv="refresh" content="10;url=#{facesContext.externalContext.requestContextPath}/Views/index.xhtml"></meta>
+        <meta http-equiv="refresh" content="10;url=#{facesContext.externalContext.requestContextPath}/login.xhtml"></meta>
     </h:body>
 </html>
 

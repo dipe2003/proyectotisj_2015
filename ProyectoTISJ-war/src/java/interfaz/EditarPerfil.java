@@ -1,5 +1,5 @@
 
-package Docente;
+package interfaz;
 
 import Enumerados.EstadoCivil.EstadoCivil;
 import Enumerados.FacadeEnumerados;
