@@ -295,7 +295,7 @@ public class ListarUsuariosBean implements Serializable{
         
         if(Rol.equals("Docente")){
             Usuarios = fUsr.listarUsuariosDocente(semestre, anio, Idasignatura);
-        }else if (Rol.equals("Estudiantes")){
+        }else if (Rol.equals("Estudiante")){
             Usuarios = fUsr.listarUsuariosEstudiante(semestre, anio, Idasignatura);
         }
         UsuariosFiltrados = Usuarios;

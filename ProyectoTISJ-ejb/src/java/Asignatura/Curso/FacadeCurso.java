@@ -7,6 +7,7 @@ import Asignatura.Curso.Clase.ControladorClase;
 import Usuario.Docente.ControladorDocente;
 import Usuario.Estudiante.ControladorEstudiante;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -29,7 +30,7 @@ public class FacadeCurso implements Serializable {
     private ControladorClase cClase;
     
     public FacadeCurso() {}
-       
+    
     /**
      * Devuelve el id del curso creado.
      * @param Semestre
@@ -46,21 +47,21 @@ public class FacadeCurso implements Serializable {
         }
         return -1;
     }
-   
+    
     /**
      * Devuelve el curso identificado por su id.
      * PRE: existe el curso en la base de datos.
      * @param Id
-     * @return 
+     * @return
      */
     public Curso BuscarCurso(int Id){
         return cCurso.BuscarCurso(Id);
     }
     
-        
+    
     /**
      * Actualiza los datos de curso en la base de datos.
-     * @param curso 
+     * @param curso
      * @return -1 si no se pudo actualizar
      */
     public int ModificarCurso(Curso curso){
@@ -69,7 +70,7 @@ public class FacadeCurso implements Serializable {
     
     /**
      * Lista todos los cursos registrados en la base de datos.
-     * @return 
+     * @return
      */
     public List<Curso> ListarCurso(){
         return cCurso.ListarCursos();
@@ -78,7 +79,7 @@ public class FacadeCurso implements Serializable {
     /**
      * Lista todos los cursos del docente especificado por su id
      * @param IdDocente
-     * @return 
+     * @return
      */
     public List<Curso> ListarCursosDocente(int IdDocente){
         return cCurso.ListarCursos(IdDocente, true);
@@ -96,7 +97,7 @@ public class FacadeCurso implements Serializable {
     /**
      * Agrega el estudiante al curso especificado por su id.
      * @param IdEstudiante
-     * @param IdCurso 
+     * @param IdCurso
      */
     public void AgregarEstudianteACurso(int IdEstudiante, int IdCurso){
         cCurso.AgregarEstudianteACurso(cEst.BuscarEstudiante(IdEstudiante), IdCurso);
@@ -104,17 +105,17 @@ public class FacadeCurso implements Serializable {
     
     /**
      * Devuelve todos los anios que tengan cursos regitrados
-     * @return 
+     * @return
      */
     public List<String> getAniosCursos(){
         return cCurso.getAniosCursos();
     }
     
-
+    
     /**
      * Devuelve la catidad de clases dictadas del curso especificado por su id.
      * @param IdCurso
-     * @return 
+     * @return
      */
     public int GetCantidadClasesCurso(int IdCurso){
         return cClase.ListarClases(IdCurso).size();
@@ -124,17 +125,33 @@ public class FacadeCurso implements Serializable {
      * Devuelve el total de inasistencias de un estudiante para el curso especificado.
      * @param IdEstudiante
      * @param IdCurso
-     * @return 
+     * @return
      */
-   public int GetInanistenciasEstudianteCurso(int IdEstudiante, int IdCurso)    {
-       return cClase.GetInasistenciasEstudianteCurso(IdCurso, IdEstudiante);
-   }
-   
-   /**
-    * Devuelve los cursos que se estan dictando actualmente (en el año y semestre actual).
-    * @return 
-    */
-   public List<Curso> GetCursosActuales(){
-       return cCurso.GetCursosActuales();
-   }
+    public int GetInanistenciasEstudianteCurso(int IdEstudiante, int IdCurso)    {
+        return cClase.GetInasistenciasEstudianteCurso(IdCurso, IdEstudiante);
+    }
+    
+    /**
+     * Devuelve los cursos que se estan dictando actualmente (en el año y semestre actual).
+     * @return
+     */
+    public List<Curso> GetCursosActuales(){
+        return cCurso.GetCursosActuales();
+    }
+    
+    public List<Curso> filtrarCursos(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter, int idAsignatura){
+        List<Curso> cursos = cCurso.filtrarCursos(anioFilter, semestreFilter, idAsignatura);
+        List<Curso> cursosFiltrados;
+        if (((nameDocente == null) || (nameDocente.isEmpty()))&&((nameAsignatura == null) || (nameAsignatura.isEmpty()))){
+            cursosFiltrados = cursos;
+        }else{
+            cursosFiltrados = new ArrayList<>();
+            for (Curso item : cursos){
+                if (((item.getDocenteCurso().getNombreCompleto().toLowerCase().contains(nameDocente.toLowerCase())))
+                        && (item.getAsignaturaCurso().getNombreAsignatura().toLowerCase().contains(nameAsignatura.toLowerCase())))
+                    cursosFiltrados.add(item);
+            }
+        }
+        return cursosFiltrados;
+    }
 }

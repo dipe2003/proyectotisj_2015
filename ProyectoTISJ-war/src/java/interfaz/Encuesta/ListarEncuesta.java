@@ -1,12 +1,14 @@
 
 package interfaz.Encuesta;
 
+import Asignatura.Asignatura;
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.FacadeEncuesta;
 import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.FacadeCurso;
+import Asignatura.FacadeAsignatura;
 import Usuario.Estudiante.Estudiante;
 import Usuario.Usuario;
 import java.io.IOException;
@@ -33,18 +35,30 @@ public class ListarEncuesta implements Serializable{
     @EJB
     private FacadeCurso fCurso;
     
+    @EJB
+    private FacadeAsignatura fAsig;
+    
     List<Encuesta> encuestas;
     
     private Map<Integer, Boolean> listChecked;
     
+    private List<String> AniosCursos;
+    
+    private Map<String, Integer> AsignaturasCursos;
+    
     private String Rol;
-
+    
     public String getRol() {return Rol;}
     public List<Encuesta> getEncuestas() {return encuestas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
+    public List<String> getAniosCursos() {return AniosCursos;}
+    public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
+    
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setEncuestas(List<Encuesta> encuestas) {this.encuestas = encuestas;}
     public void setRol(String Rol) {this.Rol = Rol;}
+    public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
+    public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
     
     private int idEstudiante;
     
@@ -57,7 +71,7 @@ public class ListarEncuesta implements Serializable{
         Rol = request.getParameter("rol");
         encuestas = new ArrayList<>();
         if ((Rol.equalsIgnoreCase("Administrador"))||(Rol.equalsIgnoreCase("Administrativo"))){
-        encuestas = fEnc.ListarEncuestas();
+            encuestas = fEnc.ListarEncuestas();
         }else if (Rol.equalsIgnoreCase("Estudiante")){
             encuestas = fEnc.getEncuestasEstudianteSinResponder(usr.getIdUsuario());
         }else if (Rol.equalsIgnoreCase("Docente")){
@@ -68,7 +82,16 @@ public class ListarEncuesta implements Serializable{
         for (Encuesta item : encuestas) {
             listChecked.put(item.getIdEncuesta(), Boolean.FALSE);
         }
+        this.AniosCursos = new ArrayList<>();
+        this.AniosCursos = fCurso.getAniosCursos();
+        this.AniosCursos.add("Todos");
         
+        AsignaturasCursos = new HashMap<>();
+        AsignaturasCursos.put("Todos",0);
+        List<Asignatura> ListAsignaturaCurso =  fAsig.ListarAsignaturasCurso();
+        for (int i = 0; i < ListAsignaturaCurso.size(); i++) {
+            AsignaturasCursos.put(ListAsignaturaCurso.get(i).getNombreAsignatura(),ListAsignaturaCurso.get(i).getIdAsignatura());
+        }
     }
     
     public void importarEncuesta(){
@@ -129,4 +152,13 @@ public class ListarEncuesta implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().redirect("ListarEncuesta.xhtml?rol=Estudiante");
     }
+    
+    public void filtro( String anioFilter, int semestreFilter, int idAsignatura){
+        int anio = 0;
+        if (!anioFilter.equalsIgnoreCase("Todos")){
+            anio = Integer.valueOf(anioFilter);
+        }
+        encuestas =  fEnc.filtrarEncuestas(anio, semestreFilter, idAsignatura);
+    }
+    
 }

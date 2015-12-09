@@ -15,51 +15,53 @@
         </div>
         
         <div id="contenedor">
-            <h:panelGroup rendered="#{empty listarCursosBean.cursos}">
-                <div class="ListItemContainer">
-                    No hay Cursos Registrados
-                </div>
-            </h:panelGroup>
-            <c:forEach var="curso" items="#{listarCursosBean.cursos}">
-                <div class="ListItemContainer" >
-                    <div title="#{curso.anioCurso}" class="item" style="width: 5%">
-                        #{curso.anioCurso}
+            <h:panelGroup id="actualizarLista" >
+                <h:panelGroup rendered="#{empty listarCursosBean.cursos}">
+                    <div class="ListItemContainer">
+                        No hay Cursos Registrados
                     </div>
-                    <div title="#{curso.semestreCurso}° semestre." class="item" style="width: 10%">
-                        #{curso.semestreCurso}° semestre.
-                    </div>
-                    <div title="  #{curso.asignaturaCurso.nombreAsignatura}" class="item" style="width:30%">
-                        #{curso.asignaturaCurso.nombreAsignatura}
-                    </div>
-                    <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrativo' or login.rolSeleccionado == 'Administrador'}">
-                        <div title="#{curso.docenteCurso.nombreCompleto}" class="item" style="width:25%">
-                            #{curso.docenteCurso.nombreCompleto}
+                </h:panelGroup>
+                <c:forEach var="curso" items="#{listarCursosBean.cursos}">
+                    <div class="ListItemContainer" >
+                        <div title="#{curso.anioCurso}" class="item" style="width: 5%">
+                            #{curso.anioCurso}
                         </div>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
-                        
-                        <a href="ListarClases.xhtml?opt=#{curso.idCurso}" class="SubmenuLink">
-                            <div title="Listar Clases" class="optionItem" style="background-image: url(../Resources/Images/listaClases.png)"></div>
+                        <div title="#{curso.semestreCurso}° semestre." class="item" style="width: 10%">
+                            #{curso.semestreCurso}° semestre.
+                        </div>
+                        <div title="  #{curso.asignaturaCurso.nombreAsignatura}" class="item" style="width:30%">
+                            #{curso.asignaturaCurso.nombreAsignatura}
+                        </div>
+                        <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrativo' or login.rolSeleccionado == 'Administrador'}">
+                            <div title="#{curso.docenteCurso.nombreCompleto}" class="item" style="width:25%">
+                                #{curso.docenteCurso.nombreCompleto}
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
+                            
+                            <a href="ListarClases.xhtml?opt=#{curso.idCurso}" class="SubmenuLink">
+                                <div title="Listar Clases" class="optionItem" style="background-image: url(../Resources/Images/listaClases.png)"></div>
+                            </a>
+                            
+                            <a href="RegistrarClase.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
+                                <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
+                            </a>
+                            
+                            <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=addestcurso&amp;idopt=#{curso.idCurso}" class="SubmenuLink">
+                                <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
+                            </a>
+                            
+                            <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
+                                <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
+                            </a>
+                            
+                        </h:panelGroup>
+                        <a href="InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
+                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                         </a>
-                        
-                        <a href="RegistrarClase.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
-                            <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
-                        </a>
-                        
-                        <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Estudiante&amp;opt=addestcurso&amp;idopt=#{curso.idCurso}" class="SubmenuLink">
-                            <div title="Agregar Alumnos" class="optionItem" style="background-image: url(../Resources/Images/AddUsrblack.png)"></div>
-                        </a>
-                        
-                        <a href="RegistrarEvaluacion.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
-                            <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
-                        </a>
-                        
-                    </h:panelGroup>
-                    <a href="InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
-                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                    </a>
-                </div>
-            </c:forEach>
+                    </div>
+                </c:forEach>
+            </h:panelGroup>
         </div>
         
         <!-- PopUp para filtro -->
@@ -74,37 +76,40 @@
                     <div class="filtroLabel">Docente</div>
                     <h:inputText class="Texto" id="nameDocente" value="#{nameDocente}"></h:inputText>
                     
-                    <div class="filtroLabel">Cedula </div>
+                    <div class="filtroLabel">Asignatura </div>
                     <h:inputText class="Texto" id="nameAsignatura" value="#{nameAsignatura}"></h:inputText>
                     
-                    <h:panelGroup rendered="#{!(login.rolSeleccionado== 'Administrador' or login.rolSeleccionado == 'Administrativo')}"><!--hacer rendered en el caso de que sea docente o estudiante-->
-                        
-                        <div class="filtroLabel">Anio </div>
-                        <h:selectOneMenu class="Texto" value="#{anioFilter}">
-                            <f:selectItems value="#{listarCursosBean.aniosCursos}" />
-                        </h:selectOneMenu>
-                        
-                        
-                        <div class="filtroLabel">Semestre  </div>
-                        <h:selectOneMenu class="Texto" value="#{semestreFilter}">
-                            <f:selectItem itemValue="1" itemLabel="1" />
-                            <f:selectItem itemValue="2" itemLabel="2" />
-                            <f:selectItem itemValue="3" itemLabel="3" />
-                            <f:selectItem itemValue="4" itemLabel="4" />
-                            <f:selectItem itemValue="5" itemLabel="5" />	
-                            <f:selectItem itemValue="6" itemLabel="6" />
-                            <f:selectItem itemValue="0" itemLabel="Todos" />
-                        </h:selectOneMenu>	
-                        
-                        
-                        
-                        <div class="filtroLabel">
-                            <h:commandButton class="boton" value="Filtrar">
-                                <f:ajax listener="#{listarCursosBean.filtro(nameDocente,nameAsignatura,anioFilter,semestreFilter)}" event="click" execute="@form" render="actualizarLista"/>
-                            </h:commandButton>
-                        </div>
-                        
-                    </h:panelGroup>
+                    
+                    
+                    <div class="filtroLabel">Anio </div>
+                    <h:selectOneMenu class="Texto" value="#{anioFilter}">
+                        <f:selectItems value="#{listarCursosBean.aniosCursos}" />
+                    </h:selectOneMenu>
+                    
+                    
+                    <div class="filtroLabel">Semestre  </div>
+                    <h:selectOneMenu class="Texto" value="#{semestreFilter}">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                        <f:selectItem itemValue="4" itemLabel="4" />
+                        <f:selectItem itemValue="5" itemLabel="5" />	
+                        <f:selectItem itemValue="6" itemLabel="6" />
+                        <f:selectItem itemValue="0" itemLabel="Todos" />
+                    </h:selectOneMenu>	
+                    
+                    <div class="filtroLabel">Asignatura</div>
+                    <h:selectOneMenu class="Texto" value="#{asignaturaFilter}">
+                        <f:selectItems value="#{listarCursosBean.asignaturasCursos}" />
+                    </h:selectOneMenu>
+                    
+                    <div class="filtroLabel">
+                        <h:commandButton class="boton" value="Filtrar">
+                            <f:ajax listener="#{listarCursosBean.filtro(nameDocente,nameAsignatura,anioFilter,semestreFilter, asignaturaFilter)}" event="click" execute="@form" render="actualizarLista"/>
+                        </h:commandButton>
+                    </div>
+                    
+                    
                 </h:form>
             </div>
         </div>

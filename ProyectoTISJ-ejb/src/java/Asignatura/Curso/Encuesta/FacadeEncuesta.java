@@ -193,4 +193,8 @@ public class FacadeEncuesta {
         return cEnc.BuscarEncuesta(IdEncuesta);
     }
     
+    public List<Encuesta> filtrarEncuestas(int anioFilter, int semestreFilter, int idAsignatura){
+        return cEnc.filtrarEncuestas(anioFilter, semestreFilter, idAsignatura);
+    }
+    
 }

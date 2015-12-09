@@ -179,12 +179,12 @@ public class ControladorEstudiante {
         
         //  semestre != 0 | anio  = 0 | asignatura  = 0
         if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura == 0) {
-            return mEst.ListarEstudiantesCursoAnio(AnioCurso);
+            return mEst.ListarEstudiantesCursoSemestre(SemestreCurso);
         }
         
         //  semestre != 0 | anio  = 0 | asingatura != 0
         if (SemestreCurso != 0 && AnioCurso == 0 && IdAsignatura != 0) {
-            return mEst.ListarEstudiantesCursoAsignaturaAnio(AnioCurso, IdAsignatura);
+            return mEst.ListarEstudiantesCursoAsignaturaSemestre(AnioCurso, IdAsignatura);
         }
         
         //  semestre != 0 | anio != 0 | asignatura  = 0

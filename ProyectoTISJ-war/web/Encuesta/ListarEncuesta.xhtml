@@ -7,87 +7,132 @@
     <ui:define name="page_content">
         <div class="cabecera" >
             <div class="titulo" >
-                Seleccione las Preguntas 
+                Lista de Encuestas
+                <a href="#openModal">
+                    <div id="BotonFiltro"></div>
+                </a>
             </div>
         </div>
-        <div id="contenedor">            
-            <h:panelGroup rendered="#{empty listarEncuesta.encuestas}">
-                <div class="ListItemContainer" >
-                    No hay Encuestas.
-                </div>            
-            </h:panelGroup>
-            
-            <h:form id="Formulario">
-                
-                <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
+        <div id="contenedor">
+            <h:panelGroup id="actualizarLista" >
+                <h:panelGroup rendered="#{empty listarEncuesta.encuestas}">
                     <div class="ListItemContainer" >
-                        <div class="ListItem" >
-                            <div title="#{encuesta.cursoEncuesta.anioCurso}" class="item" style="width: 10%">
-                                #{encuesta.cursoEncuesta.anioCurso}
-                            </div>
-                            <div title="#{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}" class="item" style="width: 70%">
-                                #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
-                            </div>
-                            <h:panelGroup rendered="#{listarEncuesta.rol == 'Administrador'}">
-                                <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
-                                <a href="../Curso/InformacionCurso.xhtml?id=#{encuesta.cursoEncuesta.idCurso}" class="SubmenuLink">
-                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
-                    </a>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{listarEncuesta.rol == 'Estudiante'}">
-                                <a href="ListarEncuesta.xhtml?rol=Estudiante#openModal_#{encuesta.idEncuesta}" class="SubmenuLink">
-                                    <div title="Responder Encuesta" class="optionItem" style="background-image: url(../Resources/Images/mas.png)"></div>
-                                </a>
-                            </h:panelGroup>
-                        </div>
-                        <div class="sinColumna">
-                            #{listarEncuesta.getEstudiantesSinRespuesta(encuesta)}
-                        </div>
-                    </div>   
-                    <div id="openModal_#{encuesta.idEncuesta}" class="modalDialog">
-                        <div style="width: inherit !important;display: inline-block; text-align: left; ">
-                            <a href="#close" title="Close" class="close">X</a>
-                            <div style="text-align: center !important;"><h2> Encuesta de #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura} </h2></div>
-                            <div style="text-align: center !important; font-size: 15px !important;"><h2>Docente</h2></div>
-                            <c:forEach var="pregunta" items="#{encuesta.preguntasEncuestaDocente}">
-                                
-                                <div class="datos_#{encuesta.idEncuesta}" style="margin-bottom: 10px;"> 
-                                    <h:selectOneMenu class="respuesta" value="3">
-                                        <f:selectItem itemValue="1" itemLabel="Malo" />
-                                        <f:selectItem itemValue="2" itemLabel="Regular" />
-                                        <f:selectItem itemValue="3" itemLabel="Aceptable" />
-                                        <f:selectItem itemValue="4" itemLabel="Bueno" />
-                                        <f:selectItem itemValue="5" itemLabel="Muy Bueno" />	
-                                    </h:selectOneMenu>	
-                                    #{pregunta.textoPregunta}
-                                    <h:inputText class="idPregunta" value="#{pregunta.idPregunta}" style="visibility: hidden"></h:inputText>
-                                </div>
-                            </c:forEach>
-                            <div style="text-align: center !important; font-size: 15px !important;"><h2>Curso</h2></div>
-                            <c:forEach var="pregunta" items="#{encuesta.preguntasEncuestaCurso}">
-                                <div class="datos_#{encuesta.idEncuesta}" style="margin-bottom: 10px;"> 
-                                    <h:selectOneMenu class="respuesta" value="3">
-                                        <f:selectItem itemValue="1" itemLabel="Malo" />
-                                        <f:selectItem itemValue="2" itemLabel="Regular" />
-                                        <f:selectItem itemValue="3" itemLabel="Aceptable" />
-                                        <f:selectItem itemValue="4" itemLabel="Bueno" />
-                                        <f:selectItem itemValue="5" itemLabel="Muy Bueno" />	
-                                    </h:selectOneMenu>	
-                                    #{pregunta.textoPregunta}
-                                    <h:inputText class="idPregunta" value="#{pregunta.idPregunta}" style="visibility: hidden"></h:inputText>
-                                </div>
-                            </c:forEach>
-                            <div style="text-align: center !important;">
-                                <h:commandButton class="boton" action="#{listarEncuesta.registrarResultadoEncuesta(respuestas, encuesta.idEncuesta)}" onclick="ObtenerDatos(#{encuesta.idEncuesta})" value="Enviar"/>
-                            </div>
-                        </div>
-                    </div>
-
-                </c:forEach>
-                <h:inputText id="hiddenRespuesta" value="#{respuestas}" style="visibility: hidden"></h:inputText>
+                        No hay Encuestas.
+                    </div>            
+                </h:panelGroup>
                 
-            </h:form>
-            
+                <h:form id="Formulario">
+                    
+                    <c:forEach var="encuesta" items="#{listarEncuesta.encuestas}">
+                        <div class="ListItemContainer" >
+                            <div class="ListItem" >
+                                <div title="#{encuesta.cursoEncuesta.anioCurso}" class="item" style="width: 10%">
+                                    #{encuesta.cursoEncuesta.anioCurso}
+                                </div>
+                                <div title="#{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}" class="item" style="width: 70%">
+                                    #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
+                                </div>
+                                <h:panelGroup rendered="#{listarEncuesta.rol == 'Administrador'}">
+                                    <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                    <a href="../Curso/InformacionCurso.xhtml?id=#{encuesta.cursoEncuesta.idCurso}" class="SubmenuLink">
+                                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/grafica.png)"></div>
+                                    </a>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{listarEncuesta.rol == 'Estudiante'}">
+                                    <a href="ListarEncuesta.xhtml?rol=Estudiante#openModal_#{encuesta.idEncuesta}" class="SubmenuLink">
+                                        <div title="Responder Encuesta" class="optionItem" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                    </a>
+                                </h:panelGroup>
+                            </div>
+                            <div class="sinColumna">
+                                #{listarEncuesta.getEstudiantesSinRespuesta(encuesta)}
+                            </div>
+                        </div>   
+                        <div id="openModal_#{encuesta.idEncuesta}" class="modalDialog">
+                            <div style="width: inherit !important;display: inline-block; text-align: left; ">
+                                <a href="#close" title="Close" class="close">X</a>
+                                <div style="text-align: center !important;"><h2> Encuesta de #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura} </h2></div>
+                                <div style="text-align: center !important; font-size: 15px !important;"><h2>Docente</h2></div>
+                                <c:forEach var="pregunta" items="#{encuesta.preguntasEncuestaDocente}">
+                                    
+                                    <div class="datos_#{encuesta.idEncuesta}" style="margin-bottom: 10px;"> 
+                                        <h:selectOneMenu class="respuesta" value="3">
+                                            <f:selectItem itemValue="1" itemLabel="Malo" />
+                                            <f:selectItem itemValue="2" itemLabel="Regular" />
+                                            <f:selectItem itemValue="3" itemLabel="Aceptable" />
+                                            <f:selectItem itemValue="4" itemLabel="Bueno" />
+                                            <f:selectItem itemValue="5" itemLabel="Muy Bueno" />	
+                                        </h:selectOneMenu>	
+                                        #{pregunta.textoPregunta}
+                                        <h:inputText class="idPregunta" value="#{pregunta.idPregunta}" style="visibility: hidden"></h:inputText>
+                                    </div>
+                                </c:forEach>
+                                <div style="text-align: center !important; font-size: 15px !important;"><h2>Curso</h2></div>
+                                <c:forEach var="pregunta" items="#{encuesta.preguntasEncuestaCurso}">
+                                    <div class="datos_#{encuesta.idEncuesta}" style="margin-bottom: 10px;"> 
+                                        <h:selectOneMenu class="respuesta" value="3">
+                                            <f:selectItem itemValue="1" itemLabel="Malo" />
+                                            <f:selectItem itemValue="2" itemLabel="Regular" />
+                                            <f:selectItem itemValue="3" itemLabel="Aceptable" />
+                                            <f:selectItem itemValue="4" itemLabel="Bueno" />
+                                            <f:selectItem itemValue="5" itemLabel="Muy Bueno" />	
+                                        </h:selectOneMenu>	
+                                        #{pregunta.textoPregunta}
+                                        <h:inputText class="idPregunta" value="#{pregunta.idPregunta}" style="visibility: hidden"></h:inputText>
+                                    </div>
+                                </c:forEach>
+                                <div style="text-align: center !important;">
+                                    <h:commandButton class="boton" action="#{listarEncuesta.registrarResultadoEncuesta(respuestas, encuesta.idEncuesta)}" onclick="ObtenerDatos(#{encuesta.idEncuesta})" value="Enviar"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </c:forEach>
+                    <h:inputText id="hiddenRespuesta" value="#{respuestas}" style="visibility: hidden"></h:inputText>
+                    
+                </h:form>
+            </h:panelGroup>
         </div>
+        
+        <div id="openModal" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2> Filtro de Cursos Registrados</h2>
+                
+                <h:form id="filtro">
+                    
+                    <div class="filtroLabel">Anio </div>
+                    <h:selectOneMenu class="Texto" value="#{anioFilter}">
+                        <f:selectItems value="#{listarEncuesta.aniosCursos}" />
+                    </h:selectOneMenu>
+                    
+                    
+                    <div class="filtroLabel">Semestre  </div>
+                    <h:selectOneMenu class="Texto" value="#{semestreFilter}">
+                        <f:selectItem itemValue="1" itemLabel="1" />
+                        <f:selectItem itemValue="2" itemLabel="2" />
+                        <f:selectItem itemValue="3" itemLabel="3" />
+                        <f:selectItem itemValue="4" itemLabel="4" />
+                        <f:selectItem itemValue="5" itemLabel="5" />	
+                        <f:selectItem itemValue="6" itemLabel="6" />
+                        <f:selectItem itemValue="0" itemLabel="Todos" />
+                    </h:selectOneMenu>	
+                    
+                    <div class="filtroLabel">Asignatura</div>
+                    <h:selectOneMenu class="Texto" value="#{asignaturaFilter}">
+                        <f:selectItems value="#{listarEncuesta.asignaturasCursos}" />
+                    </h:selectOneMenu>
+                    
+                    <div class="filtroLabel">
+                        <h:commandButton class="boton" value="Filtrar">
+                            <f:ajax listener="#{listarEncuesta.filtro(anioFilter,semestreFilter, asignaturaFilter)}" event="click" execute="@form" render="actualizarLista"/>
+                        </h:commandButton>
+                    </div>
+                    
+                    
+                </h:form>
+            </div>
+        </div>
+        
     </ui:define>
 </ui:composition>

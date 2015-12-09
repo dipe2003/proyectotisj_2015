@@ -124,4 +124,8 @@ public class ControladorCurso {
         return lista;
     }
     
+    public List<Curso> filtrarCursos(int anioFilter, int semestreFilter, int idAsignatura){
+       return mCurso.filtrarCursos(anioFilter, semestreFilter, idAsignatura);
+   }
+    
 }

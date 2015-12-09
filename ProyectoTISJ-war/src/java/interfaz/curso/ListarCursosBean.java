@@ -2,14 +2,18 @@
 package interfaz.curso;
 
 
+import Asignatura.Asignatura;
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.FacadeCurso;
+import Asignatura.FacadeAsignatura;
 import Usuario.Estudiante.FacadeEstudiante;
 import Usuario.Usuario;
 import interfaz.Login;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -24,6 +28,8 @@ public class ListarCursosBean implements Serializable{
     @EJB
     private FacadeCurso fCurso;
     @EJB
+    private FacadeAsignatura fAsig;
+    @EJB
     private FacadeEstudiante fEst;
     @Inject
     private Login login;
@@ -33,6 +39,8 @@ public class ListarCursosBean implements Serializable{
     
     private List<String> AniosCursos;
     
+    private Map<String, Integer> AsignaturasCursos;
+    
     //  Constructores
     public ListarCursosBean(){}
     
@@ -40,11 +48,13 @@ public class ListarCursosBean implements Serializable{
     public List<Curso> getCursos() {return Cursos;}
     public String getParametro(){return this.Parametro;}
     public List<String> getAniosCursos() {return AniosCursos;}
-
+    public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
+    
     //  Setters
     public void setCursos(List<Curso> Cursos) {this.Cursos = Cursos;}
     public void setParametro(String Parametro){this.Parametro = Parametro;}
     public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
+    public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
     
     /**
      * Inicializa las listas del bean.
@@ -84,9 +94,20 @@ public class ListarCursosBean implements Serializable{
         this.AniosCursos = new ArrayList<>();
         this.AniosCursos = fCurso.getAniosCursos();
         this.AniosCursos.add("Todos");
-    }
-     
-    public void filtro(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter){
         
+        AsignaturasCursos = new HashMap<>();
+        AsignaturasCursos.put("Todos",0);
+        List<Asignatura> ListAsignaturaCurso =  fAsig.ListarAsignaturasCurso();
+        for (int i = 0; i < ListAsignaturaCurso.size(); i++) {
+            AsignaturasCursos.put(ListAsignaturaCurso.get(i).getNombreAsignatura(),ListAsignaturaCurso.get(i).getIdAsignatura());
+        }
+    }
+    
+    public void filtro(String nameDocente, String nameAsignatura, String anioFilter, int semestreFilter, int idAsignatura){
+        int anio = 0;
+        if (!anioFilter.equalsIgnoreCase("Todos")){
+            anio = Integer.valueOf(anioFilter);
+        }
+        Cursos = fCurso.filtrarCursos(nameDocente, nameAsignatura, anio, semestreFilter, idAsignatura);
     }
 }

@@ -153,4 +153,8 @@ public class ControladorEncuesta {
          return mEnc.getEncuestaPorAnioYSemestre(Anio, Semestre);
     }
     
+    public List<Encuesta> filtrarEncuestas(int anioFilter, int semestreFilter, int idAsignatura){
+        return mEnc.filtrarEncuestas(anioFilter, semestreFilter, idAsignatura);
+    }
+    
 }

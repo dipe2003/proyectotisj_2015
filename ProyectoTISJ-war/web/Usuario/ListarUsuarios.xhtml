@@ -120,7 +120,7 @@
                     
                     <div class="filtroLabel">Nombre</div>
                     <h:inputText class="Texto" id="nameFilter" value="#{nameFilter}"> 
-                        <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}"/>
+                        <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}" onevent="eventoClick"/>
                     </h:inputText>
                     
                     <div class="filtroLabel">Cedula </div>

@@ -53,6 +53,10 @@
     margin-top: 70px;
 }
 
+.twitterBG{
+    background-image: url(../Images/twitterBackGround.jpg) !important;
+}
+
 /*----------------------------------MENU---------------------------------------------*/
 
 .nav {

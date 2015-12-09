@@ -136,6 +136,31 @@ public class ManejadorCurso {
         }
         return lista;
     }
+    
+    public List<Curso> filtrarCursos(int anioFilter, int semestreFilter, int idAsignatura){
+       List<Curso> lista = new ArrayList<>();
+       String SELECT = "SELECT DISTINCT c ";
+       String FROM = "FROM Curso c ";
+       String WHERE = "WHERE c.IdCurso = c.IdCurso ";
+       if (anioFilter!=0) WHERE += "and c.AnioCurso= :Anio ";
+       if (semestreFilter!=0) WHERE += "and c.SemestreCurso= :Semestre ";
+       if (idAsignatura!=0){
+           FROM += ", Asignatura a ";
+           WHERE += "and c.AsignaturaCurso.IdAsignatura = a.IdAsignatura and a.IdAsignatura= :idAsig ";
+       }
+       String consulta = SELECT + FROM + WHERE;
+        TypedQuery<Curso> query;
+            query = em.createQuery(consulta, Curso.class);
+            if (anioFilter!=0) query.setParameter("Anio", anioFilter);
+            if (semestreFilter!=0) query.setParameter("Semestre", semestreFilter);
+            if (idAsignatura!=0) query.setParameter("idAsig", idAsignatura);
+        try{
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 
     
 }

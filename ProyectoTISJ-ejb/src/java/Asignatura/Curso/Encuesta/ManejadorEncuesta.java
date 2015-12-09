@@ -105,5 +105,26 @@ public class ManejadorEncuesta {
         return lista;
     }
     
+    public List<Encuesta> filtrarEncuestas(int anioFilter, int semestreFilter, int idAsignatura){
+        List<Encuesta> lista = new ArrayList<>();
+        String SELECT = "SELECT DISTINCT e ";
+        String FROM = "FROM Encuesta e ";
+        String WHERE = "WHERE e.IdEncuesta = e.IdEncuesta ";
+        if (anioFilter!=0) WHERE += "and e.CursoEncuesta.AnioCurso= :Anio ";
+        if (semestreFilter!=0) WHERE += "and e.CursoEncuesta.SemestreCurso= :Semestre ";
+        if (idAsignatura!=0) WHERE += "and e.CursoEncuesta.AsignaturaCurso.IdAsignatura= :idAsig ";
+        String consulta = SELECT + FROM + WHERE;
+        TypedQuery<Encuesta> query = em.createQuery(consulta, Encuesta.class);
+        if (anioFilter!=0) query.setParameter("Anio", anioFilter);
+        if (semestreFilter!=0) query.setParameter("Semestre", semestreFilter);
+        if (idAsignatura!=0) query.setParameter("idAsig", idAsignatura);
+        try{
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
 }
 
