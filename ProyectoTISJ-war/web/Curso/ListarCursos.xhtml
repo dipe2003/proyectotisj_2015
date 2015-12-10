@@ -39,10 +39,6 @@
                         </h:panelGroup>
                         <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
                             
-                            <a href="ListarClases.xhtml?opt=#{curso.idCurso}" class="SubmenuLink">
-                                <div title="Listar Clases" class="optionItem" style="background-image: url(../Resources/Images/listaClases.png)"></div>
-                            </a>
-                            
                             <a href="RegistrarClase.xhtml?rol=Estudiante&amp;idCurso=#{curso.idCurso}" class="SubmenuLink">
                                 <div title="Registrar Inasistencia" class="optionItem" style="background-image: url(../Resources/Images/ListUsrblack.png)"></div>
                             </a>
