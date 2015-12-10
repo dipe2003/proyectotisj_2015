@@ -90,6 +90,16 @@ public class InformacionEstudiante implements Serializable{
                 AssignarResultado(ResultadosCursos, idCurso, item);
             }
         }
+        for (Curso item : cursos){
+            if (getResultadoCursosByCurso(item.getIdCurso(),ResultadosCursos)==null){
+                int id = item.getIdCurso();
+                String nombre = item.getAsignaturaCurso().getNombreAsignatura();
+                int semestre = item.getSemestreCurso();
+                int anio = item.getAnioCurso();
+                int insasistencias =  fCur.GetInanistenciasEstudianteCurso(idEstudiante, id);
+                ResultadosCursos.add(new ResultadoCursos(id,nombre,semestre, anio, insasistencias));
+            }
+        }
     }
     
     private void AssignarResultado(List<ResultadoCursos> lista, int idCurso, Resultado result){
