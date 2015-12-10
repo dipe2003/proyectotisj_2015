@@ -8,6 +8,7 @@ import Asignatura.Curso.Evaluacion.Laboratorio.ControladorLaboratorio;
 import Asignatura.Curso.Evaluacion.Parcial.ControladorParcial;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.bean.RequestScoped;
@@ -65,4 +66,8 @@ public class FacadeEvaluacion implements Serializable {
         return -1;
     }
 
+    
+    public List<Evaluacion> getEvaluacionesPorCurso(int idCurso){
+        return cEva.getEvaluacionesPorCurso(idCurso);
+    }
 }

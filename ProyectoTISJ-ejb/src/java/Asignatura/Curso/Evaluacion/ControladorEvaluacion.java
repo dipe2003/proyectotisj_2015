@@ -15,7 +15,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class ControladorEvaluacion {
     @EJB
-    ManejadorEvaluacion mEva;  
+            ManejadorEvaluacion mEva;
     
     /**
      * Modifica los datos de un Evaluacion en la base de datos.
@@ -46,9 +46,14 @@ public class ControladorEvaluacion {
     
     /**
      * Devuelve una lista de Evaluacions desde la base de datos.
-     * @return 
+     * @return
      */
     public List<Evaluacion> ListarEvaluaciones(){
         return mEva.ListarEvaluaciones();
     }
+    
+    public List<Evaluacion> getEvaluacionesPorCurso(int idCurso){
+        return mEva.getEvaluacionesPorCurso(idCurso);
+    }
+    
 }

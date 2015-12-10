@@ -165,6 +165,22 @@
                     Lista de Estudiantes Vacia
                 </div>            
             </h:panelGroup>
+            <div class="ListItemContainer" >
+                    <div title="Cedula" class="item" style="width: 10%">
+                        Cedula
+                    </div>
+                    <div title="Nombre" class="item" style="width: 10%">
+                        Nombre
+                    </div>
+                    <div title="Correo" class="item" style="width: 10%">
+                        Correo
+                    </div>
+                <c:forEach var="evaluacion" items="#{informacionCurso.titulosEvaluaciones}">
+                    <div title="#{evaluacion}" class="item" style="width: 10%">
+                        #{evaluacion}
+                    </div>
+                </c:forEach>
+                </div>
             <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
                 <div class="ListItemContainer" >
                     <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">

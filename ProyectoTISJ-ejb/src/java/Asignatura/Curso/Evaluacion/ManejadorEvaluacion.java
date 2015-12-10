@@ -25,7 +25,7 @@ public class ManejadorEvaluacion {
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
             return -1;
-        }        
+        }
     }
     
     public int ModificarEvaluacion(Evaluacion evaluacion){
@@ -67,6 +67,17 @@ public class ManejadorEvaluacion {
         }
         return lista;
     }
-        
-}
     
+    public List<Evaluacion> getEvaluacionesPorCurso(int idCurso){
+        List<Evaluacion> lista = new ArrayList<>();
+        try{
+            TypedQuery<Evaluacion> query = em.createQuery("SELECT e FROM Evaluacion e WHERE e.CursoEvaluacion.IdCurso= :idCurso", Evaluacion.class);
+            query.setParameter("idCurso", idCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+}
+

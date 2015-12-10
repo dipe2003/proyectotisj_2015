@@ -8,6 +8,11 @@ import Asignatura.Asignatura;
 import Asignatura.Curso.Clase.Clase;
 import Asignatura.Curso.Clase.FacadeClase;
 import Asignatura.Curso.Curso;
+import Asignatura.Curso.Evaluacion.Evaluacion;
+import Asignatura.Curso.Evaluacion.Examen.Examen;
+import Asignatura.Curso.Evaluacion.FacadeEvaluacion;
+import Asignatura.Curso.Evaluacion.Laboratorio.Laboratorio;
+import Asignatura.Curso.Evaluacion.Parcial.Parcial;
 import Asignatura.Curso.FacadeCurso;
 import Asignatura.FacadeAsignatura;
 import Usuario.Docente.Docente;
@@ -45,11 +50,16 @@ public class InformacionCurso implements Serializable{
     @EJB
     private FacadeClase fClase;
     
+    @EJB
+    private FacadeEvaluacion fEva;
+    
     private Curso curso;
     
     private Docente docente;
     
     private List<Estudiante> Estudiantes;
+    
+    private List<String> titulosEvaluaciones;
     
     @Inject
     private Login login;
@@ -67,13 +77,15 @@ public class InformacionCurso implements Serializable{
     public String getNombreCurso(){return this.NombreCurso;}
     public int getTotalClases(){return this.Clases.size();}
     public Map<Integer, String> getInasistenciasClases() {return InasistenciasClases;}
+    public List<String> getTitulosEvaluaciones() {return titulosEvaluaciones;}
     
     public void setEstudiantes(List<Estudiante> Estudiantes) {this.Estudiantes = Estudiantes;}
     public void setCurso(Curso curso) {this.curso = curso;}
     public void setDocente(Docente docente) {this.docente = docente;}
-     public void setClases(List<Clase> Clases){this.Clases = Clases;}
+    public void setClases(List<Clase> Clases){this.Clases = Clases;}
     public void setOpt(String opt) {this.opt = opt;}
     public void setInasistenciasClases(Map<Integer, String> InasistenciasClases) {this.InasistenciasClases = InasistenciasClases;}
+    public void setTitulosEvaluaciones(List<String> titulosEvaluaciones) {this.titulosEvaluaciones = titulosEvaluaciones;}
     
 //  Constructores
     public InformacionCurso(){}
@@ -120,7 +132,23 @@ public class InformacionCurso implements Serializable{
                 }
             }catch(NullPointerException ex){}
         }
+        int p=1;
+        int e=1;
+        int l=1;
+        titulosEvaluaciones = new ArrayList<>();
+        for (Evaluacion item : fEva.getEvaluacionesPorCurso(curso.getIdCurso())){
+            if (item instanceof Parcial) {
+                titulosEvaluaciones.add("Parcial"+p);
+                p++;
+            }else if (item instanceof Examen) {
+                titulosEvaluaciones.add("Examen"+e);
+                p++;
+            }else if (item instanceof Laboratorio) {
+                titulosEvaluaciones.add("Laboratorio"+l);
+                p++;
+            }
+        }
+        
     }
-    
     
 }
