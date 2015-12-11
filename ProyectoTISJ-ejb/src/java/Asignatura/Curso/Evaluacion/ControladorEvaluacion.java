@@ -56,4 +56,8 @@ public class ControladorEvaluacion {
         return mEva.getEvaluacionesPorCurso(idCurso);
     }
     
+    public List<Evaluacion> getEvaluacionPorEstudiante(int idEstudiante){
+        return mEva.getEvaluacionPorEstudiante(idEstudiante);
+    }
+    
 }

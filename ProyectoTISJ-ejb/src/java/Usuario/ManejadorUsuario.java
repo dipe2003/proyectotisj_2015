@@ -86,7 +86,7 @@ public class ManejadorUsuario {
     public List<Usuario> ListarUsuarios(){
         List<Usuario> lista = new ArrayList<>();
         try{
-            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
+            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u ORDER BY u.ApellidoUsuario", Usuario.class);
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());

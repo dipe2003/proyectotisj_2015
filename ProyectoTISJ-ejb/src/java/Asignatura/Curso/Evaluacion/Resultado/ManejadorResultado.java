@@ -80,5 +80,18 @@ public class ManejadorResultado {
         return lista;
     }
         
+    public List<Resultado> ListarResultadosEstudiantePorCurso(int idEstudiante, int idCurso){
+        List<Resultado> lista = new ArrayList<>();
+        try{
+            TypedQuery<Resultado> query = em.createQuery("SELECT r FROM Resultado r WHERE r.EstudianteResultado.IdUsuario = :IdEstudiante AND r.EvaluacionResultado.CursoEvaluacion.IdCurso= :idCurso", Resultado.class);
+            query.setParameter("IdEstudiante", idEstudiante);
+            query.setParameter("idCurso", idCurso);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
+        
 }
     

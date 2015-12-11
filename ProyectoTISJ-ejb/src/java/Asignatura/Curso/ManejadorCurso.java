@@ -61,7 +61,7 @@ public class ManejadorCurso {
     public List<Curso> ListarCursos(){
         List<Curso> lista = new ArrayList<>();
         try{
-            TypedQuery<Curso> query = em.createQuery("SELECT c FROM Curso c", Curso.class);
+            TypedQuery<Curso> query = em.createQuery("SELECT c FROM Curso c ORDER BY c.AnioCurso DESC", Curso.class);
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
@@ -73,7 +73,7 @@ public class ManejadorCurso {
         List<Curso> lista = new ArrayList<>();
         TypedQuery<Curso> query;
         if (docente) {
-            query = em.createQuery("SELECT c FROM Curso c WHERE c.DocenteCurso.IdUsuario= :IdDocente", Curso.class);
+            query = em.createQuery("SELECT c FROM Curso c WHERE c.DocenteCurso.IdUsuario= :IdDocente ORDER BY c.AnioCurso DESC", Curso.class);
             query.setParameter("IdDocente", IdUsuario);
         }else{
             query = em.createQuery("SELECT c FROM Curso c, Estudiante es WHERE es.IdUsuario= :idEstudiante and c MEMBER OF es.CursosEstudiante ", Curso.class);

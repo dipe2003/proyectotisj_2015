@@ -166,32 +166,39 @@
                 </div>            
             </h:panelGroup>
             <div class="ListItemContainer" >
-                    <div title="Cedula" class="item" style="width: 10%">
-                        Cedula
-                    </div>
-                    <div title="Nombre" class="item" style="width: 10%">
-                        Nombre
-                    </div>
-                    <div title="Correo" class="item" style="width: 10%">
-                        Correo
-                    </div>
+                <div title="Cedula" class="item" style="width: 10%">
+                    Cedula
+                </div>
+                <div title="Nombre" class="item" style="width: 10%">
+                    Nombre
+                </div>
+                <div title="Correo" class="item" style="width: 10%">
+                    Correo
+                </div>
                 <c:forEach var="evaluacion" items="#{informacionCurso.titulosEvaluaciones}">
                     <div title="#{evaluacion}" class="item" style="width: 10%">
                         #{evaluacion}
                     </div>
                 </c:forEach>
-                </div>
+            </div>
             <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
                 <div class="ListItemContainer" >
                     <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">
                         #{estudiante.cedulaUsuario}
                     </div>
-                    <div title="#{estudiante.nombreCompleto}" class="item" style="width: 40%">
+                    <div title="#{estudiante.nombreCompleto}" class="item" style="width: 10%">
                         #{estudiante.nombreCompleto}
                     </div>
-                    <div title="#{estudiante.correoUsuario}" class="item" style="width: 40%">
+                    <div title="#{estudiante.correoUsuario}" class="item" style="width: 10%">
                         #{estudiante.correoUsuario}
                     </div>
+                    
+                    <c:forEach var="resultados" items="#{informacionCurso.resultadosEsstudiante.get(estudiante.idUsuario)}">
+                        <div title=" #{resultados}" class="item" style="width: 10%">
+                            #{resultados}
+                        </div>
+                    </c:forEach>
+                    
                     <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
                         <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                     </a>

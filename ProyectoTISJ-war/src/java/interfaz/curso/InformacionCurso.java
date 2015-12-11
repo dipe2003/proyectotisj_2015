@@ -13,6 +13,8 @@ import Asignatura.Curso.Evaluacion.Examen.Examen;
 import Asignatura.Curso.Evaluacion.FacadeEvaluacion;
 import Asignatura.Curso.Evaluacion.Laboratorio.Laboratorio;
 import Asignatura.Curso.Evaluacion.Parcial.Parcial;
+import Asignatura.Curso.Evaluacion.Resultado.FacadeResultado;
+import Asignatura.Curso.Evaluacion.Resultado.Resultado;
 import Asignatura.Curso.FacadeCurso;
 import Asignatura.FacadeAsignatura;
 import Usuario.Docente.Docente;
@@ -53,6 +55,9 @@ public class InformacionCurso implements Serializable{
     @EJB
     private FacadeEvaluacion fEva;
     
+    @EJB
+    private FacadeResultado fRes;
+    
     private Curso curso;
     
     private Docente docente;
@@ -60,6 +65,8 @@ public class InformacionCurso implements Serializable{
     private List<Estudiante> Estudiantes;
     
     private List<String> titulosEvaluaciones;
+    
+    private Map<Integer, List<Integer>> ResultadosEsstudiante;
     
     @Inject
     private Login login;
@@ -78,7 +85,8 @@ public class InformacionCurso implements Serializable{
     public int getTotalClases(){return this.Clases.size();}
     public Map<Integer, String> getInasistenciasClases() {return InasistenciasClases;}
     public List<String> getTitulosEvaluaciones() {return titulosEvaluaciones;}
-    
+    public Map<Integer, List<Integer>> getResultadosEsstudiante() {return ResultadosEsstudiante;}
+
     public void setEstudiantes(List<Estudiante> Estudiantes) {this.Estudiantes = Estudiantes;}
     public void setCurso(Curso curso) {this.curso = curso;}
     public void setDocente(Docente docente) {this.docente = docente;}
@@ -86,6 +94,7 @@ public class InformacionCurso implements Serializable{
     public void setOpt(String opt) {this.opt = opt;}
     public void setInasistenciasClases(Map<Integer, String> InasistenciasClases) {this.InasistenciasClases = InasistenciasClases;}
     public void setTitulosEvaluaciones(List<String> titulosEvaluaciones) {this.titulosEvaluaciones = titulosEvaluaciones;}
+    public void setResultadosEsstudiante(Map<Integer, List<Integer>> ResultadosEsstudiante) {this.ResultadosEsstudiante = ResultadosEsstudiante;}
     
 //  Constructores
     public InformacionCurso(){}
@@ -149,6 +158,15 @@ public class InformacionCurso implements Serializable{
             }
         }
         
+        ResultadosEsstudiante =  new HashMap<>();
+        for (Estudiante item : Estudiantes){
+            List<Integer> notas = new ArrayList<>();
+            List<Resultado> resultados = fRes.ListarResultadosEstudiantePorCurso(item.getIdUsuario(), idCurso);
+            for (Resultado itemR: resultados){
+                notas.add(itemR.getResultadoEvaluacion());
+            }
+            ResultadosEsstudiante.put(item.getIdUsuario(), notas);
+        }
     }
     
 }

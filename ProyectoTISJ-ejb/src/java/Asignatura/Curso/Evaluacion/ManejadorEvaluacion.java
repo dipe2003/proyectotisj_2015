@@ -79,5 +79,17 @@ public class ManejadorEvaluacion {
         }
         return lista;
     }
+    
+    public List<Evaluacion> getEvaluacionPorEstudiante(int idEstudiante){
+        List<Evaluacion> lista = new ArrayList<>();
+        try{
+            TypedQuery<Evaluacion> query = em.createQuery("SELECT e FROM Evaluacion e, Estudiante es WHERE e MEMBER OF es.EvaluacionesEstudiante AND es.IdUsuario= :idEstudiante", Evaluacion.class);
+            query.setParameter("idEstudiante", idEstudiante);
+            lista = query.getResultList();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return lista;
+    }
 }
 

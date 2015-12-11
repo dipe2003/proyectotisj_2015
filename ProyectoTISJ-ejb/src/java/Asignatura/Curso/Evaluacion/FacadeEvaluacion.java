@@ -70,4 +70,8 @@ public class FacadeEvaluacion implements Serializable {
     public List<Evaluacion> getEvaluacionesPorCurso(int idCurso){
         return cEva.getEvaluacionesPorCurso(idCurso);
     }
+    
+    public List<Evaluacion> getEvaluacionPorEstudiante(int idEstudiante){
+        return cEva.getEvaluacionPorEstudiante(idEstudiante);
+    }
 }

@@ -40,4 +40,8 @@ public class FacadeResultado implements Serializable {
     public List<Resultado> ListarResultadosEstudiante(int idEstudiante){
         return cRes.ListarResultadosEstudiante(idEstudiante);
     }
+    
+    public List<Resultado> ListarResultadosEstudiantePorCurso(int idEstudiante, int idCurso){
+        return cRes.ListarResultadosEstudiantePorCurso(idEstudiante, idCurso);
+    }
 }

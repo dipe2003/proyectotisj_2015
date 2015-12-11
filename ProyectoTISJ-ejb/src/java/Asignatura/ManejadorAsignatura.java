@@ -60,7 +60,7 @@ public class ManejadorAsignatura {
     public List<Asignatura> ListarAsignaturas(){
         List<Asignatura> lista = new ArrayList<>();
         try{
-            TypedQuery<Asignatura> query = em.createQuery("SELECT a FROM Asignatura a", Asignatura.class);
+            TypedQuery<Asignatura> query = em.createQuery("SELECT a FROM Asignatura a ORDER BY a.NombreAsignatura ASC", Asignatura.class);
             lista = query.getResultList();
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
