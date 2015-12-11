@@ -57,6 +57,22 @@
     background-image: url(../Images/twitterBackGround.jpg) !important;
 }
 
+.Logo{
+    width: 500px; 
+    height: 300px;
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    float: left
+}
+
+.textoLogo{
+    height: 50px; 
+    float: left; 
+    width: 500px;
+    color: darkblue;
+}
+
 /*----------------------------------MENU---------------------------------------------*/
 
 .nav {

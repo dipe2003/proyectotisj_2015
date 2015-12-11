@@ -28,6 +28,7 @@
         <script src="../Resources/Scripts/RedirigirListado.js"></script>
         <script src="../Resources/Scripts/RandomColor.js"></script>
         <script src="../Resources/Scripts/Chart.js"></script>
+        <script src="../Resources/Scripts/Twitter.js"></script>
         
     </h:head>
     <h:body>
@@ -46,69 +47,16 @@
         <h:panelGroup>
             <div class="contentBody">
                 <ui:insert name="page_content" >
-                    <script>
-                        ! function(d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0],
-                                    p = /^http:/.test(d.location) ? 'http' : 'https';
-                            if (!d.getElementById(id)) {
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = p + "://platform.twitter.com/widgets.js";
-                                js.setAttribute('onload', "twttr.events.bind('rendered',function(e) {doSomething()});");
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }
-                        }(document, "script", "twitter-wjs");
-    
-                        function doSomething(){
-                            $("iframe").contents().find(".timeline-footer").hide();
-                            $("iframe").contents().find(".timeline-header").hide();
-                            $("iframe").contents().find(".stream").css("overflow", "hidden");
-                            $("iframe").contents().find(".footer").css("display", "none");
-                            $("iframe").contents().find(".tweet-actions").css("display", "none");
-                            $("iframe").css({"max-width": "none", "width": "100%", "height": "100%"});
-                            $("iframe").contents().find(".root").css({"border": "none", "max-width": "none", "background-color": "transparent"});
-                            $("iframe").contents().find(".u-photo").css("display", "none");
-                            $("iframe").contents().find(".p-nickname").css("display", "none");
-                            $("iframe").contents().find(".dt-updated").css("display", "none");
-                            $("iframe").contents().find(".tweet").css({
-                                "border": "black solid 1px", 
-                                "padding": "20px",
-                                "margin": "20px",
-                                "box-shadow": "grey 5px 5px 5px",
-                                "color": "black",
-                                "background-color": "white",
-                                "text-shadow": "rgba(0, 0, 0, 0.3) 2px 2px 2px",
-                                "background-image": "url(http://brianjdixon.com/wp-content/uploads/2015/06/image-1356452952_twitter_bird_on_cloud_hd_wallpaper.jpg)",
-                                "background-size": "cover",
-                                "background-repeat-y": "repeat"
-                            });
-                            $("iframe").contents().find(".p-name").css({"font-size": "25px", "color":"white"});
-                            $("iframe").contents().find(".e-entry-title").css({
-                                "text-align": "center",
-                                "font-size": "20px", 
-                                "color":"white"
-                            });
-                            $("iframe").contents().find(".load-more").css("display", "none");
-                            $("iframe").contents().find(".tco-display").css("color", "white");
-                            
-                            $("iframe").contents().find(".tweet").each(function( index ) {
-                                if(index>7)  $( this ).hide() ;
-                            });
-                            $("iframe").contents().find(".h-card").css({
-                                "text-align": "center",
-                                "margin-bottom": "15px"
-                            });
-                            
-                            $("iframe").contents().find(".tweet").each(function( index ) {
-                                var posicion = -100 * index;
-                                $(this).css("background-position-y",posicion+"px")
-                            });
-                            
-                            $("#escondedor").css({"display": "block"});
-                        };
-    
-                    </script>
-                    <div style="width: 100%; height: 300px; background-image: url(../Resources/Images/twitter.png); background-size: contain; background-repeat: no-repeat; background-position: center"></div>
+                    
+                    <div style="width: 1500px; height: 350px; text-align: center; margin: 0 auto;">
+                        <div class="Logo" style="background-image: url(../Resources/Images/fing.png)"></div>
+                        <div class="Logo" style="background-image: url(../Resources/Images/tecnoinf.png)"></div>
+                        <div class="Logo" style="background-image: url(../Resources/Images/utu.png)"></div>
+                        <div class="textoLogo">Facultad de Ingenieria</div>
+                        <div class="textoLogo" >Tecnologo en Informatica</div>
+                        <div class="textoLogo" >Universidad del Trabajo del Uruguay</div>
+                    </div>
+                    
                     <div id="escondedor" style="display: none; margin: 0 auto; height: 900px;">
                         <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/ti_sj" data-widget-id="673021222955954176">Tweets por el @ti_sj.</a>
                     </div>
