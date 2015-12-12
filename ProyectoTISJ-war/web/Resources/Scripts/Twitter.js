@@ -52,8 +52,10 @@ function doSomething(){
     
     $("iframe").contents().find(".tweet").each(function( index ) {
         var posicion = -100 * index;
-        $(this).css("background-position-y",posicion+"px")
+        $(this).css("background-position-y",posicion+"px");
     });
     
     $("#escondedor").css({"display": "block"});
+    
+    $("#footer").css({"visibility": "visible"});
 };
