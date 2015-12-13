@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     
+    
     <div class="nav"> 
+        <div id="scrollContainer">
         <div class="navHeader">
             <div class="navBadge">
                 <a href="../Views/index.xhtml" >
@@ -12,15 +14,36 @@
             </div>
             <div class="navLabel">
                 <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
-                <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
+                    <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
                 </a>
             </div>
             <a href="../loginRol.xhtml">
-            <div class="navLabel">
-                (Docente)
-            </div>
+                <div class="navLabel">
+                    (Docente)
+                </div>
             </a>
         </div>
+        
+        <div class="navDivider"></div>
+        <a href="../Views/index.xhtml" >
+            <div class="navOptMenu">
+                Inicio
+            </div>
+        </a>
+        
+        <div class="navDivider"></div>
+        <a href="../Docente/InformacionDocente.xhtml?id=#{login.idUsuarioLogueado}">
+            <div class="navOptMenu">
+                Mi Perfil
+            </div>
+        </a>
+        
+        <div class="navDivider"></div>
+        <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
+            <div class="navOptMenu">
+                Editar Perfil
+            </div>
+        </a>
         
         <div class="navDivider"></div>
         <a href="../Docente/ListarUsuarios.xhtml">
@@ -37,13 +60,6 @@
         </a>
         
         <div class="navDivider"></div>
-        <a href="">
-            <div class="navOptMenu">
-                Encuestas
-            </div>
-        </a>
-        
-        <div class="navDivider"></div>
         <h:form rendered="#{login.usuarioLogueado}">
             <h:commandLink type="submit" action="#{login.logout()}">
                 <div class="navOptMenu">
@@ -53,6 +69,7 @@
         </h:form>
         
         <div class="navDivider"></div>
+        </div>
     </div>
     
 </html>

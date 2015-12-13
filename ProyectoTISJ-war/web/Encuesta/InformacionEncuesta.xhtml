@@ -91,9 +91,11 @@
                         <div class="item" style="width: 30%">
                             #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                         </div>
+                        <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Docente')}">
                         <a href="../Curso/InformacionCurso.xhtml?id=#{encuesta.cursoEncuesta.idCurso}" class="SubmenuLink">
                             <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                         </a>
+                        </h:panelGroup>
                     </div>
                 </div>
                 <Script>
@@ -183,9 +185,11 @@
                         <div class="item" style="width: 30%">
                             #{encuesta.cursoEncuesta.asignaturaCurso.nombreAsignatura}
                         </div>
+                        <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Docente')}">
                         <a href="../Curso/InformacionCurso.xhtml?id=#{encuesta.cursoEncuesta.idCurso}" class="SubmenuLink">
                             <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                         </a>
+                            </h:panelGroup>
                     </div>
                 </div>
                 <Script>

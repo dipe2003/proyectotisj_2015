@@ -73,7 +73,7 @@
                 <div class="negrita" style="margin-left: 20px">Creditos: #{informacionCurso.curso.asignaturaCurso.creditosAsignatura}</div>
             </div>
             
-            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso}">
+            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoCurso and !(login.rolSeleccionado == 'Estudiante')}">
                 <div class="ListItemContainer" style="text-align: center" >
                     <div class="negrita" style="margin-left: 20px">Resultado de Encuestas</div>
                     <a href="../Encuesta/InformacionEncuesta.xhtml?id=#{informacionCurso.curso.encuestaCurso.idEncuesta}" class="SubmenuLink">
@@ -114,7 +114,7 @@
                     #{informacionCurso.docente.correoUsuario}
                 </div>
             </div>
-            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoDocente}">
+            <h:panelGroup rendered="#{!empty resultadoEncuesta.mapResultadoDocente and !(login.rolSeleccionado == 'Estudiante')}">
                 <div class="ListItemContainer" style="text-align: center" >
                     <div class="negrita" style="margin-left: 20px">Resultado de Encuestas</div>
                     <a href="../Encuesta/InformacionEncuesta.xhtml?id=#{informacionCurso.curso.encuestaCurso.idEncuesta}" class="SubmenuLink">
@@ -138,24 +138,26 @@
                     </table>
                 </div>
             </h:panelGroup>
-            <div class="ListItemContainer" style="width: 300px; margin-top: -10px; text-align: center;" >
-                <a href="#openModal" style="text-decoration: none;">
-                    <div class="negrita Texto" style="margin-left: 20px; border: none">Ver Contrato de Docente</div>
-                </a>
-            </div>
+            <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
+                <div class="ListItemContainer" style="width: 300px; margin-top: -10px; text-align: center;" >
+                    <a href="#openModal" style="text-decoration: none;">
+                        <div class="negrita Texto" style="margin-left: 20px; border: none">Ver Contrato de Docente</div>
+                    </a>
+                </div>
+            </h:panelGroup>
         </div>
-        
-        <div id="openModal" class="modalDialog">
-            <div style="width: 1000px;">
-                <a href="#close" title="Close" class="close">X</a>
-                <h2> Contrato de Docente</h2>
-                
-                <!--para cambiar por formulario de inscripcion-->
-                <div style="width: 1000px; height: 1000px; background-image: url(#{informacionCurso.curso.contratoDocenteCurso}); background-size: contain;"></div>
-                
+        <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
+            <div id="openModal" class="modalDialog">
+                <div style="width: 1000px;">
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h2> Contrato de Docente</h2>
+                    
+                    <!--para cambiar por formulario de inscripcion-->
+                    <div style="width: 1000px; height: 1000px; background-image: url(#{informacionCurso.curso.contratoDocenteCurso}); background-size: contain;"></div>
+                    
+                </div>
             </div>
-        </div>
-        
+        </h:panelGroup>
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >
                 Alumnos del Curso
@@ -198,10 +200,11 @@
                             #{resultados}
                         </div>
                     </c:forEach>
-                    
-                    <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
-                        <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                    </a>
+                    <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
+                        <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
+                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                        </a>
+                    </h:panelGroup>
                 </div>            
             </c:forEach>
         </div>
@@ -243,7 +246,7 @@
                 <table>
                     <c:forEach items="#{resultadoEncuesta.encuestaSeleccionada.respuestasEncuesta}" varStatus="indice" var="pregunta">                        
                         <tr>
-                            <td>Pregunta #{indice.index}:</td>
+                            <td>Pregunta #{indice.index+1}:</td>
                             <c:forEach items="#{pregunta.respuestasEncuesta}" var="respuesta">
                                 <td>#{respuesta.resultadoRespuesta}</td>
                             </c:forEach>           

@@ -8,9 +8,11 @@
         <div class="cabecera" >
             <div class="titulo" >
                 Listado de Cursos
-                <a href="#openModal">
-                    <div id="BotonFiltro"></div>
-                </a>
+                <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
+                    <a href="#openModal">
+                        <div id="BotonFiltro"></div>
+                    </a>
+                </h:panelGroup>
             </div>
         </div>
         
@@ -61,54 +63,54 @@
         </div>
         
         <!-- PopUp para filtro -->
-        
-        <div id="openModal" class="modalDialog">
-            <div>
-                <a href="#close" title="Close" class="close">X</a>
-                <h2> Filtro de Cursos Registrados</h2>
-                
-                <h:form id="filtro">
+        <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
+            <div id="openModal" class="modalDialog">
+                <div>
+                    <a href="#close" title="Close" class="close">X</a>
+                    <h2> Filtro de Cursos Registrados</h2>
                     
-                    <div class="filtroLabel">Docente</div>
-                    <h:inputText class="Texto" id="nameDocente" value="#{nameDocente}"></h:inputText>
-                    
-                    <div class="filtroLabel">Asignatura </div>
-                    <h:inputText class="Texto" id="nameAsignatura" value="#{nameAsignatura}"></h:inputText>
-                    
-                    
-                    
-                    <div class="filtroLabel">Anio </div>
-                    <h:selectOneMenu class="Texto" value="#{anioFilter}">
-                        <f:selectItems value="#{listarCursosBean.aniosCursos}" />
-                    </h:selectOneMenu>
-                    
-                    
-                    <div class="filtroLabel">Semestre  </div>
-                    <h:selectOneMenu class="Texto" value="#{semestreFilter}">
-                        <f:selectItem itemValue="1" itemLabel="1" />
-                        <f:selectItem itemValue="2" itemLabel="2" />
-                        <f:selectItem itemValue="3" itemLabel="3" />
-                        <f:selectItem itemValue="4" itemLabel="4" />
-                        <f:selectItem itemValue="5" itemLabel="5" />	
-                        <f:selectItem itemValue="6" itemLabel="6" />
-                        <f:selectItem itemValue="0" itemLabel="Todos" />
-                    </h:selectOneMenu>	
-                    
-                    <div class="filtroLabel">Asignatura</div>
-                    <h:selectOneMenu class="Texto" value="#{asignaturaFilter}">
-                        <f:selectItems value="#{listarCursosBean.asignaturasCursos}" />
-                    </h:selectOneMenu>
-                    
-                    <div class="filtroLabel">
-                        <h:commandButton class="boton" value="Filtrar">
-                            <f:ajax listener="#{listarCursosBean.filtro(nameDocente,nameAsignatura,anioFilter,semestreFilter, asignaturaFilter)}" event="click" execute="@form" render="actualizarLista"/>
-                        </h:commandButton>
-                    </div>
-                    
-                    
-                </h:form>
+                    <h:form id="filtro">
+                        
+                        <div class="filtroLabel">Docente</div>
+                        <h:inputText class="Texto" id="nameDocente" value="#{nameDocente}"></h:inputText>
+                        
+                        <div class="filtroLabel">Asignatura </div>
+                        <h:inputText class="Texto" id="nameAsignatura" value="#{nameAsignatura}"></h:inputText>
+                        
+                        
+                        
+                        <div class="filtroLabel">Anio </div>
+                        <h:selectOneMenu class="Texto" value="#{anioFilter}">
+                            <f:selectItems value="#{listarCursosBean.aniosCursos}" />
+                        </h:selectOneMenu>
+                        
+                        
+                        <div class="filtroLabel">Semestre  </div>
+                        <h:selectOneMenu class="Texto" value="#{semestreFilter}">
+                            <f:selectItem itemValue="1" itemLabel="1" />
+                            <f:selectItem itemValue="2" itemLabel="2" />
+                            <f:selectItem itemValue="3" itemLabel="3" />
+                            <f:selectItem itemValue="4" itemLabel="4" />
+                            <f:selectItem itemValue="5" itemLabel="5" />	
+                            <f:selectItem itemValue="6" itemLabel="6" />
+                            <f:selectItem itemValue="0" itemLabel="Todos" />
+                        </h:selectOneMenu>	
+                        
+                        <div class="filtroLabel">Asignatura</div>
+                        <h:selectOneMenu class="Texto" value="#{asignaturaFilter}">
+                            <f:selectItems value="#{listarCursosBean.asignaturasCursos}" />
+                        </h:selectOneMenu>
+                        
+                        <div class="filtroLabel">
+                            <h:commandButton class="boton" value="Filtrar">
+                                <f:ajax listener="#{listarCursosBean.filtro(nameDocente,nameAsignatura,anioFilter,semestreFilter, asignaturaFilter)}" event="click" execute="@form" render="actualizarLista"/>
+                            </h:commandButton>
+                        </div>
+                        
+                        
+                    </h:form>
+                </div>
             </div>
-        </div>
-        
+        </h:panelGroup>
     </ui:define>
 </ui:composition>

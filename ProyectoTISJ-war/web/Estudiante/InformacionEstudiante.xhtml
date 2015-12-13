@@ -87,9 +87,11 @@
                     <div class="item">
                         #{curso.asignaturaCurso.nombreAsignatura}
                     </div>
+                    <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
                     <a href="../Curso/InformacionCurso.xhtml?id=#{curso.idCurso}" class="SubmenuLink">
                         <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                     </a>
+                    </h:panelGroup>
                 </div>            
             </c:forEach>
         </div>

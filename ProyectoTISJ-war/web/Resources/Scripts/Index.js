@@ -19,7 +19,7 @@ $(document).ready(function(){
     var blurFix = 0;
     $( "#triger" ).mouseenter(function() {
         $(function() {
-            $({blurRadius: blurFix}).animate({blurRadius: 50}, {
+            $({blurRadius: blurFix}).animate({blurRadius: 10}, {
                 duration: 200,
                 easing: 'swing',
                 step: function() {
@@ -34,7 +34,7 @@ $(document).ready(function(){
         });
     }).mouseleave(function() {
         $(function() {
-            $({blurRadius: 50}).animate({blurRadius: 0}, {
+            $({blurRadius: 10}).animate({blurRadius: 0}, {
                 duration: 200,
                 easing: 'swing',
                 step: function() {

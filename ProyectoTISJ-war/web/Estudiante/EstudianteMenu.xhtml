@@ -4,14 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition>
-        <div class="nav"> 
+        <div class="nav">
+            <div id="scrollContainer">
             <div class="navHeader">
-                <div class="navBadge">
+                <div title="Incio" class="navBadge">
                     <a href="../Views/index.xhtml" >
                         <h:graphicImage url="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
                     </a>
                 </div>
-                <div class="navLabel">
+                <div title="Editar Perfil" class="navLabel">
                     <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
                     <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
                     </a>
@@ -20,6 +21,28 @@
                     (Estudiante)
                 </div>
             </div>
+            
+            <div class="navDivider"></div>
+            <a href="../Views/index.xhtml" >
+                <div class="navOptMenu">
+                    Inicio
+                </div>
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{login.idUsuarioLogueado}">
+                <div class="navOptMenu">
+                    Mi Perfil
+                </div>
+            </a>
+            
+            <div class="navDivider"></div>
+            <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
+                <div class="navOptMenu">
+                    Editar Perfil
+                </div>
+            </a>
+            
             <div class="navDivider"></div>
             <a href="../Estudiante/ListarUsuarios.xhtml?tipo=Docente">
                 <div class="navOptMenu">
@@ -59,6 +82,7 @@
             </h:form>
             
             <div class="navDivider"></div>
+            </div>
         </div>
     </ui:composition>
 </html>

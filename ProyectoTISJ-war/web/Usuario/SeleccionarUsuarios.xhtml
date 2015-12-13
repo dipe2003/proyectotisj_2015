@@ -43,8 +43,9 @@
                     <h:commandButton class="boton" value="Seleccionar" action="#{listarUsuariosBean.agregarEstudianteACurso()}"/>
                 </div>
             </h:panelGroup>
+                <f:viewParam name="rol" value="#{registrarUsuarioBean.rol}"/>
             </h:form>
-            <f:viewParam name="rol" value="#{registrarUsuarioBean.rol}"/>
+            
         </div>
     </ui:define>
 </ui:composition>

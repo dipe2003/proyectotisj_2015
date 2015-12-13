@@ -40,7 +40,7 @@
                         <h:inputText disabled="true" id="outputAsignatura" value="#{datosRegCurso.asignaturaSeleccionada}" class="Texto" />                                 
                     </div><h:message class="error" for="outputAsignatura"/>
                         
-                    <div class="inputContainer">
+                    <div class="inputContainer" style="text-align: center">
                         <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="formulario"/>                           
                         <div class="botonImagen">
                             <h:inputFile id="inputContratoDocente" class="boton subirImagen formulario" value="#{datosRegCurso.partContratoDocente}" p:accept="image/*">
@@ -52,14 +52,16 @@
                     
                     <h:inputText id="exitoRegCurso" value="#{datosRegCurso.correcto}" style="display: none;"/>
                     
-                    <div class="menuOpcion">
+                   
+                    
+                </div>
+                
+                 <div class="menuOpcion">
                         <h:commandButton class="boton siguiente" value="Registrar" >
                             <f:ajax execute="@form" event="click" listener="#{datosRegCurso.onFinish()}" render="exitoRegCurso" onevent="RedirigirCurso" />
                         </h:commandButton>
                         <h:commandButton class="boton" value="Reset" type="reset"/> 
                     </div>  
-                    
-                </div>
             </div>
         </h:form>
     </ui:define>
