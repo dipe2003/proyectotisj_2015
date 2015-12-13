@@ -16,4 +16,42 @@ $(document).ready(function(){
         }); 
     });
     
+    var blurFix = 0;
+    $( "#triger" ).mouseenter(function() {
+        $(function() {
+            $({blurRadius: blurFix}).animate({blurRadius: 50}, {
+                duration: 200,
+                easing: 'swing',
+                step: function() {
+                    console.log(this.blurRadius);
+                    $("#fondo").css({
+                        "-webkit-filter": "blur("+this.blurRadius+"px)",
+                        "-moz-filter": "blur("+this.blurRadius+"px)",
+                        "filter": "blur("+this.blurRadius+"px)"
+                    });
+                }
+            });
+        });
+    }).mouseleave(function() {
+        $(function() {
+            $({blurRadius: 50}).animate({blurRadius: 0}, {
+                duration: 200,
+                easing: 'swing',
+                step: function() {
+                    console.log(this.blurRadius);
+                    $("#fondo").css({
+                        "-webkit-filter": "blur("+this.blurRadius+"px)",
+                        "-moz-filter": "blur("+this.blurRadius+"px)",
+                        "filter": "blur("+this.blurRadius+"px)"
+                    });
+                    blurFix = this.blurRadius;
+                }
+            });
+        });
+    });
+    
 });
+
+
+
+

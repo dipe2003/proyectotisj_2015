@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../Resources/CSS/Modal.css" />
         <link rel="stylesheet" href="../Resources/CSS/jquery-ui.css" />
         <link rel="stylesheet" href="../Resources/CSS/InformacionEstudiante.css" />
-        
+            
         <script src="../Resources/Scripts/jquery-1.11.3.min.js"></script>
         <script src="../Resources/Scripts/jquery-ui.js"></script>
         <script src="../Resources/Scripts/Slimscroll.js"></script>
@@ -48,43 +48,44 @@
             <div class="contentBody">
                 
                 <ui:insert name="page_content" >
-                    
-                    <div style="height: 300px;width: 1500px;overflow: hidden;margin: 0 auto;" >
-                        <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="1000" height="300">
-                            <param name="movie" value="../Resources/Flash/tecnoinf(san jose).swf" />
-                            <param name="quality" value="high" />
-                            <param name="wmode" value="opaque" />
-                            <param name="swfversion" value="6.0.65.0" />
-                            <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don’t want users to see the prompt. -->
-                            <param name="expressinstall" value="../Resources/Scripts/expressInstall.swf" />
-                            <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
-                            <!--[if !IE]>-->
-                            <object type="application/x-shockwave-flash" data="../Resources/Flash/tecnoinf(san jose).swf" width="2000" height="600" style="margin-left: -300px;margin-top: -130px;">
-                                <!--<![endif]-->
+                    <div id="triger" style="height: 300px;width: 100%;" >
+                        <div style="height: 300px;width: 1500px;overflow: hidden;margin: 0 auto;" >
+                            <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="1000" height="300">
+                                <param name="movie" value="../Resources/Flash/tecnoinf(san jose).swf" />
                                 <param name="quality" value="high" />
-                                <param name="wmode" value="transparent" />
+                                <param name="wmode" value="opaque" />
                                 <param name="swfversion" value="6.0.65.0" />
+                                <!-- This param tag prompts users with Flash Player 6.0 r65 and higher to download the latest version of Flash Player. Delete it if you don’t want users to see the prompt. -->
                                 <param name="expressinstall" value="../Resources/Scripts/expressInstall.swf" />
-                                <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
-                                <div>
-                                    <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
-                                    <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
-                                </div>
+                                <!-- Next object tag is for non-IE browsers. So hide it from IE using IECC. -->
                                 <!--[if !IE]>-->
+                                <object type="application/x-shockwave-flash" data="../Resources/Flash/tecnoinf(san jose).swf" width="2000" height="600" style="margin-left: -300px;margin-top: -130px;">
+                                    <!--<![endif]-->
+                                    <param name="quality" value="high" />
+                                    <param name="wmode" value="transparent" />
+                                    <param name="swfversion" value="6.0.65.0" />
+                                    <param name="expressinstall" value="../Resources/Scripts/expressInstall.swf" />
+                                    <!-- The browser displays the following alternative content for users with Flash Player 6.0 and older. -->
+                                    <div>
+                                        <h4>Content on this page requires a newer version of Adobe Flash Player.</h4>
+                                        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" width="112" height="33" /></a></p>
+                                    </div>
+                                    <!--[if !IE]>-->
+                                </object>
+                                <!--<![endif]-->
                             </object>
-                            <!--<![endif]-->
-                        </object>
-                    </div>    
-                    <div style="background-image: url(../Resources/Images/tisj.png); background-size: cover; width: 100%; height: 300px; position: absolute; top: 0px; z-index: -1" ></div>
-                        
+                        </div>  
+                    </div>
+                    <div id="fondo" style="background-image: url(../Resources/Images/tisj.png); background-size: cover; width: 100%; height: 300px; position: absolute; top: 0px; z-index: -1" ></div>
+                    
                     <!--                    <div id="street-view" style="height: 300px;" ></div>-->
-                      
-                    <!--                    <div style="width: 150px; height: 50px; float: left; background-image: url(../Resources/Images/tweetss.png); margin-left: 20px; background-size: cover"></div>-->
                         
+                    <!--                    <div style="width: 150px; height: 50px; float: left; background-image: url(../Resources/Images/tweetss.png); margin-left: 20px; background-size: cover"></div>-->
+                    
                     <div id="escondedor" style="display: none; margin: 0 auto; height: 900px; margin-bottom: 25px;">
                         <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/ti_sj" data-widget-id="673021222955954176">Tweets por el @ti_sj.</a>
                     </div>
-                    
+                        
                     <div id="footer">
                         
                         <div class="contenedorLogos">
@@ -92,7 +93,7 @@
                             <div class="Logo" style="background-image: url(../Resources/Images/tecnoinf.png)"></div><div class="textoLogo" >Tecnologo en Informatica</div>
                             <div class="Logo" style="background-image: url(../Resources/Images/utuFondoBlanco.png)"></div><div class="textoLogo" >Universidad del Trabajo del Uruguay</div>
                         </div>
-                        
+                            
                         <div class="contenedorLogos" style="width: 600px">
                             <div class="textoLogo" style="line-height: normal; height: auto;">Contacto:</div>
                             <div class="textoLogo" style="line-height: normal; width: 350px; text-align: left; font-size: 14px;">
@@ -107,7 +108,7 @@
                                 <div class="Logo" id="mapa"></div>
                             </a>
                         </div>
-                        
+                            
                         <div class="contenedorLogos">
                             <div class="textoLogo" style=" height: auto; width: 350px">Sitios:</div>
                             <div class="textoLogo" style="line-height: normal; width: 350px;">
@@ -118,7 +119,7 @@
                                 <a class="Texto linkFooter" href="https://eva.fing.edu.uy/"> https://eva.fing.edu.uy/</a>
                             </div>
                         </div>
-                            
+                        
                         <div class="contenedorLogos" style="width: 200px;">
                             <div class="textoLogo" style=" height: auto;line-height: normal;width: 200px;">Soporte:</div>
                             <div class="textoLogo" style="line-height: normal; width: 200px;font-size: 14px;">
@@ -132,9 +133,9 @@
                                 098746671
                             </div>
                         </div>
-                        
+                            
                     </div>
-                        
+                    
                     <script>
                         var panorama;
                         function initialize() {
@@ -148,14 +149,14 @@
                         }
                         
                     </script>
-                    
+                        
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0_QUhpHvpmjgWtmfieelQtjI1AgRzPH4&amp;signed_in=true&amp;callback=initialize">
                     </script>
-                    
+                        
                 </ui:insert>
-                
+                    
             </div>
-            
+                
         </h:panelGroup>
     </h:body>
     <script type="text/javascript">
