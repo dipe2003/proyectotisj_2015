@@ -2,86 +2,96 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition>
         <div class="nav">
             <div id="scrollContainer">
-            <div class="navHeader">
-                <div title="Incio" class="navBadge">
-                    <a href="../Views/index.xhtml" >
-                        <h:graphicImage url="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
-                    </a>
-                </div>
-                <div title="Editar Perfil" class="navLabel">
-                    <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
-                    <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
-                    </a>
-                </div>
-                <div class="navLabel">
-                    (Estudiante)
-                </div>
-            </div>
-            
-            <div class="navDivider"></div>
-            <a href="../Views/index.xhtml" >
-                <div class="navOptMenu">
-                    Inicio
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{login.idUsuarioLogueado}">
-                <div class="navOptMenu">
-                    Mi Perfil
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
-                <div class="navOptMenu">
-                    Editar Perfil
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Estudiante/ListarUsuarios.xhtml?tipo=Docente">
-                <div class="navOptMenu">
-                    Profesores
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Estudiante/ListarUsuarios.xhtml?tipo=Estudiante">
-                <div class="navOptMenu">
-                    Estudiantes
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Curso/ListarCursos.xhtml">
-                <div class="navOptMenu">
-                    Cursos
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            <a href="../Encuesta/ListarEncuesta.xhtml?rol=Estudiante">
-                <div class="navOptMenu">
-                    Encuestas
-                </div>
-            </a>
-            
-            <div class="navDivider"></div>
-            
-            <h:form rendered="#{login.usuarioLogueado}">
-                <h:commandLink action="#{login.logout()}">
-                    <div class="navOptMenu">
-                        Salir
+                <div class="navHeader">
+                    <div title="Incio" class="navBadge">
+                        <a href="../Views/index.xhtml" >
+                            <img src="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>                            
+                        </a>
                     </div>
-                </h:commandLink>            
-            </h:form>
-            
-            <div class="navDivider"></div>
+                    <div title="Editar Perfil" class="navLabel">
+                        <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
+                            <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
+                        </a>
+                    </div>
+                    <c:if test="#{login.roles.size() gt 1}" >
+                    <a href="../loginRol.xhtml">
+                        <div class="navLabel">
+                            (Estudiante)
+                        </div>
+                    </a>
+                    </c:if>
+                    <c:if test="#{login.roles.size() le 1}" >
+                        <div class="navLabel">
+                            (Estudiante)
+                        </div>
+                    </c:if>
+                </div>
+                
+                <div class="navDivider"></div>
+                <a href="../Views/index.xhtml" >
+                    <div class="navOptMenu">
+                        Inicio
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{login.idUsuarioLogueado}">
+                    <div class="navOptMenu">
+                        Mi Perfil
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
+                    <div class="navOptMenu">
+                        Editar Perfil
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                <a href="../Estudiante/ListarUsuarios.xhtml?tipo=Docente">
+                    <div class="navOptMenu">
+                        Profesores
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                <a href="../Estudiante/ListarUsuarios.xhtml?tipo=Estudiante">
+                    <div class="navOptMenu">
+                        Estudiantes
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                <a href="../Curso/ListarCursos.xhtml">
+                    <div class="navOptMenu">
+                        Cursos
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                <a href="../Encuesta/ListarEncuesta.xhtml?rol=Estudiante">
+                    <div class="navOptMenu">
+                        Encuestas
+                    </div>
+                </a>
+                
+                <div class="navDivider"></div>
+                
+                <h:form rendered="#{login.usuarioLogueado}">
+                    <h:commandLink action="#{login.logout()}">
+                        <div class="navOptMenu">
+                            Salir
+                        </div>
+                    </h:commandLink>            
+                </h:form>
+                
+                <div class="navDivider"></div>
             </div>
         </div>
     </ui:composition>
