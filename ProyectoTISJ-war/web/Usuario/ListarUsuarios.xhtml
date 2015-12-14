@@ -56,7 +56,7 @@
                                     <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
                                 </h:form>
                             </h:panelGroup>
-                            <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo'}">
+                            <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo' and listarUsuariosBean.rol!='Administrativo'}">
                                 <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
                                     <div title="Editar datos del usuario" class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                                 </a>
