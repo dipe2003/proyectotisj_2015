@@ -2,72 +2,164 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
-    <div class="nav"> 
-        <div class="navHeader">
-            <div class="navBadge">
-                <a href="../Views/index.xhtml" >
-                    <img src="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
-                </a>
-            </div>
-            <div class="navLabel">
-                <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
-                    <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
-                </a>
-            </div>
-            <c:if test="#{login.roles.size() gt 1}" >
-            <a href="../loginRol.xhtml" >
-                <div class="navLabel">
-                    (Administrativo)
+    <ui:composition>
+        <div class="nav"> 
+            <div id="scrollContainer">
+                <div class="navHeader">
+                    <div class="navBadge">
+                        <a href="../Views/index.xhtml" >
+                            <img src="#{usuarioLogueadoBean.imagenUsuario}" width="100%" height="100%" style="max-width:500px"/>
+                        </a> 
+                    </div>
+                    <div class="navLabel">
+                        <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
+                            <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
+                        </a>
+                    </div>
+                    <c:if test="#{login.roles.size() gt 1}" >
+                        <a href="../loginRol.xhtml" >
+                            <div class="navLabel">
+                                (Administrativo)
+                            </div>
+                        </a>
+                    </c:if>
+                    <c:if test="#{login.roles.size() le 1}" >
+                        <div class="navLabel">
+                            (Administrativo)
+                        </div>
+                    </c:if>  
                 </div>
-            </a>
-            </c:if>
-            <c:if test="#{login.roles.size() le 1}" >
-                <div class="navLabel">
-                    (Administrativo)
-                </div>
-            </c:if>  
+                
+                <div class="navDivider"></div>                
+                
+                <div class="navOptMenu" id="administrativos">
+                    <div class="submenuTitulo">
+                        Administrativos
+                    </div>
+                    
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/ListarUsuarios.xhtml?rol=Administrativo" class="SubmenuLink">
+                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
+                            Listar
+                        </a>
+                    </div>
+                </div> 
+                
+                <div class="navDivider"></div>
+                
+                <div class="navOptMenu" id="docentes">
+                    <div class="submenuTitulo">
+                        Docentes
+                    </div>
+                    
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/RegistrarUsuario.xhtml?rol=Docente" class="SubmenuLink">
+                            <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
+                            Nuevo
+                        </a>
+                    </div>
+                    
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=Docente&amp;opt=nuevorol" class="SubmenuLink">
+                            <img src="../Resources/Images/importar.png" width="50" height="50" alt="edit"/>
+                            Importar
+                        </a>
+                    </div>
+                    
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/ListarUsuarios.xhtml?rol=Docente" class="SubmenuLink">
+                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
+                            Listar
+                        </a>
+                    </div>
+                </div> 
+                
+                <div class="navDivider"></div>
+                
+                <div class="navOptMenu" id="estudiantes">
+                    <div class="submenuTitulo">
+                        Estudiantes
+                    </div>
+                    
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/RegistrarUsuario.xhtml?rol=Estudiante" class="SubmenuLink">
+                            <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
+                            Nuevo
+                        </a>
+                    </div>
+                    
+                    <div class="submenuOpcion">
+                        <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante" class="SubmenuLink">
+                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
+                            Listar
+                        </a>
+                    </div>
+                    
+                </div> 
+                
+                <div class="navDivider"></div>
+                
+                <div class="navOptMenu" id="asignatura">
+                    <div class="submenuTitulo">
+                        Asignaturas          
+                    </div>
+                    <div class="submenuOpcion">
+                        <a href="../Asignatura/ListarAsignaturas.xhtml" class="SubmenuLink">
+                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
+                            Listar
+                        </a>
+                    </div>
+                </div> 
+                
+                <div class="navDivider"></div>
+                
+                <div class="navOptMenu" id="cursos">
+                    <div class="submenuTitulo">
+                        Cursos          
+                    </div>
+                    <div class="submenuOpcion">
+                        <a href="../Asignatura/ListarAsignaturas.xhtml?opt=regcurso" class="SubmenuLink">
+                            <img src="../Resources/Images/agregar.png" width="50" height="50" alt="edit"/>
+                            Nuevo
+                        </a>
+                    </div>
+                    <div class="submenuOpcion">
+                        <a href="../Curso/ListarCursos.xhtml" class="SubmenuLink">
+                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
+                            Listar
+                        </a>
+                    </div>
+                </div> 
+                
+                <div class="navDivider"></div>
+                
+                <div class="navOptMenu" id="encuestas">
+                    <div class="submenuTitulo">
+                        Encuestas          
+                    </div>
+                    <div class="submenuOpcion">
+                        <a href="../Encuesta/ListarEncuesta.xhtml?rol=Administrador" class="SubmenuLink">
+                            <img src="../Resources/Images/listar.png" width="50" height="50" alt="edit"/>
+                            Listar
+                        </a>
+                    </div>
+                </div> 
+                
+                <div class="navDivider"></div>
+                
+                <h:form rendered="#{login.usuarioLogueado}">
+                    <h:commandLink action="#{login.logout()}">
+                        <div class="navOptMenu">
+                            Salir
+                        </div>
+                    </h:commandLink>            
+                </h:form>
+                
+                <div class="navDivider"></div>
+            </div>
         </div>
-        <div class="navDivider"></div>
-        <a href="../Usuario/ListarUsuarios.xhtml?rol=Docente">
-            <div class="navOptMenu">
-                Docentes
-            </div>
-        </a>
-        
-        <div class="navDivider"></div>
-        <a href="../Usuario/ListarUsuarios.xhtml?rol=Estudiante">
-            <div class="navOptMenu">
-                Estudiantes
-            </div>
-        </a>
-        
-        <div class="navDivider"></div>
-        <a href="../Asignatura/ListarAsignaturas.xhtml">
-            <div class="navOptMenu">
-                Asignaturas
-            </div>
-        </a>
-        
-        <div class="navDivider"></div>
-        <a href="">
-            <div class="navOptMenu">
-                Encuestas
-            </div>
-        </a>
-        
-        <div class="navDivider"></div>
-        <h:form rendered="#{login.usuarioLogueado}">
-            <h:commandLink action="#{login.logout()}">
-                <div class="navOptMenu">
-                    Salir
-                </div>
-            </h:commandLink>            
-        </h:form>
-        
-        <div class="navDivider"></div>
-    </div>
-    
+    </ui:composition>
 </html>
-
