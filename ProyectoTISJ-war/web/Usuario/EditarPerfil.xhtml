@@ -8,8 +8,10 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="page_content">
         <f:view >
-            <h:panelGroup rendered="#{(login.rolSeleccionado != 'Administrador' and login.idUsuarioLogueado!= editarPerfil.idUsuario)}" >
-            <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
+            <h:panelGroup rendered="#{((login.rolSeleccionado != 'Administrador' and login.idUsuarioLogueado != editarPerfil.idUsuario) and 
+                                      (login.rolSeleccionado != 'Administrativo' and login.idUsuarioLogueado != editarPerfil.idUsuario)) or
+                                      (login.rolSeleccionado == 'Administrativo' and editarPerfil.rol == 'Administrador')}" >
+                <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
             </h:panelGroup>
             <div class="cabecera" >
                 <div class="titulo" >
