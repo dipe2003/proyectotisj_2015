@@ -6,7 +6,9 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="page_content">
-       
+        <h:panelGroup rendered="#{ login.rolSeleccionado != 'Administrador' and login.rolSeleccionado != 'Administrativo' and login.rolSeleccionado != 'Docente'}" >
+            <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
+        </h:panelGroup>
             <div class="cabecera" >
                 <div class="titulo" >
                     Clase de #{usuariosClase.nombreCurso} #{usuariosClase.anioCurso} - Clases dictadas: #{usuariosClase.clasesDictadas}
