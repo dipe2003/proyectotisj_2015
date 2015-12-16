@@ -11,17 +11,21 @@ import Asignatura.Curso.FacadeCurso;
 import Asignatura.FacadeAsignatura;
 import Usuario.Estudiante.Estudiante;
 import Usuario.Usuario;
+import interfaz.Login;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,6 +41,9 @@ public class ListarEncuesta implements Serializable{
     
     @EJB
     private FacadeAsignatura fAsig;
+    
+    @Inject
+    private Login login;
     
     List<Encuesta> encuestas;
     
@@ -64,33 +71,40 @@ public class ListarEncuesta implements Serializable{
     
     @PostConstruct
     public void Init(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        Usuario usr = (Usuario) request.getSession().getAttribute("Usuario");
-        idEstudiante = usr.getIdUsuario();
-        Rol = request.getParameter("rol");
-        encuestas = new ArrayList<>();
-        if ((Rol.equalsIgnoreCase("Administrador"))||(Rol.equalsIgnoreCase("Administrativo"))){
-            encuestas = fEnc.ListarEncuestas();
-        }else if (Rol.equalsIgnoreCase("Estudiante")){
-            encuestas = fEnc.getEncuestasEstudianteSinResponder(usr.getIdUsuario());
-        }else if (Rol.equalsIgnoreCase("Docente")){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            Usuario usr = (Usuario) request.getSession().getAttribute("Usuario");
+            idEstudiante = usr.getIdUsuario();
+            Rol = request.getParameter("rol");
+            if ((login.getRolSeleccionado().equalsIgnoreCase("Estudiante"))&& ((this.Rol.equalsIgnoreCase("Administrador"))||(this.Rol.equalsIgnoreCase("Administrativo")))){
+                context.getExternalContext().redirect("./../Error/Error401.xhtml");
+            }
+            encuestas = new ArrayList<>();
+            if ((Rol.equalsIgnoreCase("Administrador"))||(Rol.equalsIgnoreCase("Administrativo"))){
+                encuestas = fEnc.ListarEncuestas();
+            }else if (Rol.equalsIgnoreCase("Estudiante")){
+                encuestas = fEnc.getEncuestasEstudianteSinResponder(usr.getIdUsuario());
+            }else if (Rol.equalsIgnoreCase("Docente")){
+                
+            }
             
-        }
-        
-        listChecked = new HashMap<>();
-        for (Encuesta item : encuestas) {
-            listChecked.put(item.getIdEncuesta(), Boolean.FALSE);
-        }
-        this.AniosCursos = new ArrayList<>();
-        this.AniosCursos = fCurso.getAniosCursos();
-        this.AniosCursos.add("Todos");
-        
-        AsignaturasCursos = new HashMap<>();
-        AsignaturasCursos.put("Todos",0);
-        List<Asignatura> ListAsignaturaCurso =  fAsig.ListarAsignaturasCurso();
-        for (int i = 0; i < ListAsignaturaCurso.size(); i++) {
-            AsignaturasCursos.put(ListAsignaturaCurso.get(i).getNombreAsignatura(),ListAsignaturaCurso.get(i).getIdAsignatura());
+            listChecked = new HashMap<>();
+            for (Encuesta item : encuestas) {
+                listChecked.put(item.getIdEncuesta(), Boolean.FALSE);
+            }
+            this.AniosCursos = new ArrayList<>();
+            this.AniosCursos = fCurso.getAniosCursos();
+            this.AniosCursos.add("Todos");
+            
+            AsignaturasCursos = new HashMap<>();
+            AsignaturasCursos.put("Todos",0);
+            List<Asignatura> ListAsignaturaCurso =  fAsig.ListarAsignaturasCurso();
+            for (int i = 0; i < ListAsignaturaCurso.size(); i++) {
+                AsignaturasCursos.put(ListAsignaturaCurso.get(i).getNombreAsignatura(),ListAsignaturaCurso.get(i).getIdAsignatura());
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ListarEncuesta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

@@ -12,13 +12,18 @@ import Asignatura.Curso.FacadeCurso;
 import Usuario.Estudiante.Estudiante;
 import Usuario.Estudiante.Estudios.Estudio;
 import Usuario.Estudiante.FacadeEstudiante;
+import interfaz.Login;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
@@ -34,6 +39,9 @@ public class InformacionEstudiante implements Serializable{
     
     @EJB
     private FacadeResultado fRes;
+    
+    @Inject
+    private Login login;
     
     private Estudiante estudiante;
     
@@ -71,6 +79,13 @@ public class InformacionEstudiante implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         int idEstudiante = Integer.valueOf(request.getParameter("id"));
+        if ((idEstudiante != login.getIdUsuarioLogueado())&&(login.getRolSeleccionado().equalsIgnoreCase("Estudiante"))){
+            try {
+                context.getExternalContext().redirect("./../Error/Error401.xhtml");
+            } catch (IOException ex) {
+                Logger.getLogger(InformacionEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         estudiante = fEst.BuscarEstudiante(idEstudiante);
         cursos = fCur.ListarCursosEstudiante(idEstudiante);
         List<Resultado> Resultados = fRes.ListarResultadosEstudiante(idEstudiante);
