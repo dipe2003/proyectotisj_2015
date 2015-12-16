@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     <ui:composition>
         <div class="nav"> 
@@ -15,14 +16,21 @@
                     </div>
                     <div class="navLabel">
                         <a href="../Usuario/EditarPerfil.xhtml?id=#{login.idUsuarioLogueado}&amp;Rol=#{login.rolSeleccionado}" >
-                        <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
+                            <h:outputText value="#{usuarioLogueadoBean.nombreUsuario}"/>
                         </a>
                     </div>
-                    <a href="../loginRol.xhtml">
+                    <c:if test="#{login.roles.size() gt 1}" >
+                        <a href="../loginRol.xhtml" >
+                            <div class="navLabel">
+                                (Administrativo)
+                            </div>
+                        </a>
+                    </c:if>
+                    <c:if test="#{login.roles.size() le 1}" >
                         <div class="navLabel">
                             (Administrativo)
                         </div>
-                    </a>
+                    </c:if>  
                 </div>
                 
                 <div class="navDivider"></div>                

@@ -7,19 +7,23 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="page_content">
+        <h:panelGroup rendered="#{(login.rolSeleccionado != 'Administrador' and login.rolSeleccionado != 'Administrativo') or
+                                  (login.rolSeleccionado == 'Administrativo' and (registrarUsuarioBean.rol != 'Estudiante' and registrarUsuarioBean.rol != 'Docente')) }" >
+            <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
+        </h:panelGroup>
         <div class="cabecera" >
             <div class="titulo" >
                 Registro de nuevo #{registrarUsuarioBean.rol}
             </div>
         </div>
         <div id="contenedor">
-<!--            <div class="ListItemContainer BotonAdd">
-                <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=#{registrarUsuarioBean.rol}">
-                    <div class="ImagenItem ImagenAdd">
-                        <img src="../Resources/Images/add.png" height="100%" width="100%"/>
-                    </div>
-                </a>
-            </div>-->
+            <!--            <div class="ListItemContainer BotonAdd">
+                            <a href="../Usuario/SeleccionarUsuarios.xhtml?rol=#{registrarUsuarioBean.rol}">
+                                <div class="ImagenItem ImagenAdd">
+                                    <img src="../Resources/Images/add.png" height="100%" width="100%"/>
+                                </div>
+                            </a>
+                        </div>-->
             <h:form id="frmIngresoDatos" enctype="multipart/form-data">
                 <f:viewParam name="rol" value="#{registrarUsuarioBean.rol}"/>
                 <div class="menuOpcion SinEstilo">   
@@ -133,7 +137,7 @@
                                 <h:inputFile id="inputFormIngreso" class="boton subirImagen formulario" value="#{registrarUsuarioBean.partImagenFormInscripcion}" p:accept="image/*">
                                     <f:ajax event="change" listener="#{registrarUsuarioBean.setPartImagenFormInscripcion(registrarUsuarioBean.partImagenFormInscripcion)}"/>
                                 </h:inputFile>
-                            <h:message class="error" for="inputFormIngreso"/>
+                                <h:message class="error" for="inputFormIngreso"/>
                             </div>
                             
                             <div class="inputContainer">

@@ -7,6 +7,9 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="page_content">
+        <h:panelGroup rendered="#{ login.rolSeleccionado != 'Administrador' and login.rolSeleccionado != 'Administrativo' and login.rolSeleccionado != 'Docente'}" >
+            <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
+        </h:panelGroup>
         <div class="cabecera" >
             <div class="titulo" >
                 Registro de nueva Evaluacion
