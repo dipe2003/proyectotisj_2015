@@ -133,6 +133,17 @@
     overflow-y: auto;
 }
 
+.HelpButton{
+    background-image: url(../Images/ayudaIcono.png);
+    width: 25px;
+    height: 25px;
+    background-size: contain;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 5px;
+}
+
 .navHeader{
     width:100%;
     height:auto;
