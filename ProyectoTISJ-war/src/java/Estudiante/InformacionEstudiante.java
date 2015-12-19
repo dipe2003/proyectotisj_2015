@@ -56,7 +56,7 @@ public class InformacionEstudiante implements Serializable{
         String EstudiosCursados = "";
         List<Estudio> estudios = estudiante.getEstudiosCursadosEstudiante();
         for(int i = 0; i < estudios.size(); i++){
-            EstudiosCursados += estudios.get(i).getTipoEstudio().getTipoDeEstudio() + ": " + estudios.get(i).getOrientacionEstudio();
+            EstudiosCursados += estudios.get(i).getTipoDeEstudio().getTipoDeEstudio() + ": " + estudios.get(i).getOrientacionEstudio();
             if(i+1<estudios.size()) {
                 EstudiosCursados += ", ";
             }else{

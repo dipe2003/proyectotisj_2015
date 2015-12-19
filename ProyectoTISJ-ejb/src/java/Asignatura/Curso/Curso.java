@@ -77,8 +77,18 @@ public class Curso implements Serializable{
     public void setIdCurso(int IdCurso) {this.IdCurso = IdCurso;}
     public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
     public void setAnioCurso(int AnioCurso) {this.AnioCurso = AnioCurso;}
-    public void setDocenteCurso(Docente DocenteCurso) {this.DocenteCurso = DocenteCurso;}
-    public void setAsignaturaCurso(Asignatura AsignaturaCurso) {this.AsignaturaCurso = AsignaturaCurso;}
+    public void setDocenteCurso(Docente DocenteCurso) {
+        this.DocenteCurso = DocenteCurso;
+        if(!DocenteCurso.getCursosDocente().contains(this)){
+            DocenteCurso.addCursoDocente(this);
+        }
+    }
+    public void setAsignaturaCurso(Asignatura AsignaturaCurso) {
+        this.AsignaturaCurso = AsignaturaCurso;
+        if(!AsignaturaCurso.getCursosAsignatura().contains(this)){
+            AsignaturaCurso.addCursoAsignatura(this);
+        }
+    }
     public void setContratoDocenteCurso(String ContratoDocenteCurso) {this.ContratoDocenteCurso = ContratoDocenteCurso;}
     public void setEstudiantesCurso(List<Estudiante> EstudiantesCurso){this.EstudiantesCurso = EstudiantesCurso;}
     public void setClasesCurso(List<Clase> ClasesCurso) {this.ClasesCurso = ClasesCurso;}

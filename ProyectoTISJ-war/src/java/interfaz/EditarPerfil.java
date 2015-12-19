@@ -346,8 +346,8 @@ public class EditarPerfil implements Serializable{
                 for (int i = 0; i < ((Estudiante)usuario).getEstudiosCursadosEstudiante().size(); i++) {
                     Estudio estudio = ((Estudiante)usuario).getEstudiosCursadosEstudiante().get(i);
                     for (int j = 0; j < ListaEstudiosCursados.size(); j++) {
-                        if(ListaEstudiosCursados.get(j).getTipoEstudio().equals(estudio.getTipoEstudio().getTipoDeEstudio())){
-                            EstudioCursado est = new EstudioCursado(estudio.getTipoEstudio().getIdTipoEstudio(), estudio.getTipoEstudio().getTipoDeEstudio(), estudio.getOrientacionEstudio());
+                        if(ListaEstudiosCursados.get(j).getTipoEstudio().equals(estudio.getTipoDeEstudio().getTipoDeEstudio())){
+                            EstudioCursado est = new EstudioCursado(estudio.getTipoDeEstudio().getIdTipoEstudio(), estudio.getTipoDeEstudio().getTipoDeEstudio(), estudio.getOrientacionEstudio());
                             ListaEstudiosCursados.remove(j);
                             ListaEstudiosCursados.add(est);
                         }

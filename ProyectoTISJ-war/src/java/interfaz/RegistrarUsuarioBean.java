@@ -190,7 +190,6 @@ public class RegistrarUsuarioBean implements Serializable{
             if (this.PartImagenFormInscripcion == null) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono formulario de inscripcion.");
                 context.addMessage("frmIngresoDatos:inputFormIngreso", fm);
-                FacesContext.getCurrentInstance().responseComplete();
             }
         }
     }
