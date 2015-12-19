@@ -1,7 +1,6 @@
 package Usuario.Estudiante.Estudios;
 
 import Enumerados.TipoDeEstudio.TipoEstudio;
-import Usuario.Estudiante.Estudios.ManejadorEstudio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -72,7 +71,7 @@ public class ControladorEstudio {
         List<Estudio> estudios = mEst.ListarEstudios(IdsEstudios);
         List<String> estudiosOrientacion = new ArrayList<>();
         for (int i = 0; i < estudios.size(); i++) {
-            estudiosOrientacion.add(estudios.get(i).getTipoEstudio().getTipoDeEstudio()+"-"+estudios.get(i).getOrientacionEstudio());
+            estudiosOrientacion.add(estudios.get(i).getTipoDeEstudio().getTipoDeEstudio()+"-"+estudios.get(i).getOrientacionEstudio());
         }
         return estudiosOrientacion;
     }

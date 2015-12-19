@@ -3,6 +3,7 @@ package Asignatura.Curso.Evaluacion;
 
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.Evaluacion.Resultado.Resultado;
+import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,8 @@ abstract public class Evaluacion implements Serializable{
     private Curso CursoEvaluacion;
     @OneToMany(mappedBy = "EvaluacionResultado")
     private List<Resultado> ResultadosEvaluacion;
+    @ManyToOne
+    private Estudiante EstudianteEvaluacion;
     
     //  Constructores
     public Evaluacion() {}
@@ -41,6 +44,7 @@ abstract public class Evaluacion implements Serializable{
     public Date getFechaEvaluacion() {return FechaEvaluacion;}
     public Curso getCursoEvaluacion() {return CursoEvaluacion;}
     public List<Resultado> getResultadosEvaluacion() {return ResultadosEvaluacion;}
+    public Estudiante getEstudianteEvaluacion() {return EstudianteEvaluacion;}
     
     //  Setters
     public void setIdEvaluacion(int IdEvaluacion) {this.IdEvaluacion = IdEvaluacion;}
@@ -52,6 +56,12 @@ abstract public class Evaluacion implements Serializable{
         }
     }
     public void setResultadosEvaluacion(List<Resultado> ResultadosEvaluacion) {this.ResultadosEvaluacion = ResultadosEvaluacion;}
+    public void setEstudianteEvaluacion(Estudiante EstudianteEvaluacion) {
+        this.EstudianteEvaluacion = EstudianteEvaluacion;
+        if(!EstudianteEvaluacion.getEvaluacionesEstudiante().contains(this)){
+            EstudianteEvaluacion.addEvaluacionEstudiante(this);
+        }
+    }
     
     //  Resultados
     private void addResultadoEvaluacion(Resultado ResultadoEvaluacion){

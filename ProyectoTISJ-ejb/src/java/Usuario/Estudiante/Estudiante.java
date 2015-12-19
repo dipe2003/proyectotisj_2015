@@ -13,21 +13,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class Estudiante extends Usuario {
     private String FormInscripcion;
     private int GeneracionAnioEstudiante;
     
-    @OneToMany
+    @OneToMany(mappedBy = "EstudianteEvaluacion")
     private List<Evaluacion> EvaluacionesEstudiante;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "EstudianteEstudioCursado")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Estudio> EstudiosCursadosEstudiante;
     
     @ManyToMany
@@ -95,10 +97,20 @@ public class Estudiante extends Usuario {
     public void setEncuestasEstudiante(List<Encuesta> EncuestasEstudiante) {this.EncuestasEstudiante = EncuestasEstudiante;}
     
     //  Estudios Cursados
-    public void addEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.add(EstudioCursado);}
+    public void addEstudioCursado(Estudio EstudioCursado){
+        this.EstudiosCursadosEstudiante.add(EstudioCursado);
+        if(EstudioCursado.getEstudianteEstudioCursado()==null || !EstudioCursado.getEstudianteEstudioCursado().equals(this)){
+            EstudioCursado.setEstudianteEstudioCursado(this);
+        }
+    }
     public void removeEstudioCursado(Estudio EstudioCursado){this.EstudiosCursadosEstudiante.remove(EstudioCursado);}
     //  Evaluacion Estudiante
-    public void addEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){this.EvaluacionesEstudiante.add(EvaluacionEstudiante);}
+    public void addEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){
+        this.EvaluacionesEstudiante.add(EvaluacionEstudiante);
+        if(EvaluacionEstudiante.getEstudianteEvaluacion()==null || !EvaluacionEstudiante.getEstudianteEvaluacion().equals(this)){
+            EvaluacionEstudiante.setEstudianteEvaluacion(this);
+        }
+    }
     public void removeEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){this.EvaluacionesEstudiante.remove(EvaluacionEstudiante);}
     
     //Cursos

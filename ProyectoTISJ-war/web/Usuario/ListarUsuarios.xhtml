@@ -5,163 +5,171 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="page_content">
-        <div class="cabecera" >
-            <div class="titulo" >
-                <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Administrador'}">
-                    Listado de #{listarUsuariosBean.rol}es Registrados
-                </h:panelGroup>
-                <h:panelGroup rendered="#{listarUsuariosBean.rol != 'Administrador'}">
-                    Listado de #{listarUsuariosBean.rol}s Registrados
-                </h:panelGroup>
-                <a href="#openModal">
-                    <div title="Buscar #{listarUsuariosBean.rol}" id="BotonFiltro"></div>
-                </a>
-            </div>
-        </div>
-        <div id="contenedor">
-            <h:panelGroup id="actualizarLista" >
-                <h:panelGroup rendered="#{empty listarUsuariosBean.usuarios}">
-                    <div class="ListItemContainer" >
-                        No hay #{listarUsuariosBean.rol}s registrados.
-                    </div>            
-                </h:panelGroup>
-                <h:panelGroup  rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
-                    <span class="info" style="text-align: center;">
-                        Seleccionar Docente
-                    </span> 
-                </h:panelGroup>
-                <c:forEach var="usuario" items="#{listarUsuariosBean.usuariosFiltrados}">
-                    <div class="ListItemContainer" >
-                        <div class="ListItem" >
-                            <div class="item" style="width: 5%" >
-                                <div class="ImagenItem">
-                                    <img src="#{usuario.imagenUsuario}" height="100%" width="100%"/>
-                                </div>
-                            </div>
-                            <div title="#{usuario.cedulaUsuario}" class="item" style="width: 10%">
-                                #{usuario.cedulaUsuario}
-                            </div>
-                            <div title="#{usuario.nombreCompleto}" class="item" style="width: 35%">
-                                #{usuario.nombreCompleto}
-                            </div>
-                            <div title="#{usuario.correoUsuario}" class="item" style="width: 30%">
-                                #{usuario.correoUsuario}
-                            </div>
-                            <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
-                                <h:form>
-                                    <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}">
-                                        <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
-                                        <div class="optionItem" style="background-image: url(../Resources/Images/selectBlack.png)"></div>
-                                    </h:commandLink>
-                                    <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
-                                </h:form>
+        <f:view>
+            <c:choose>
+                <c:when test="#{login.rolSeleccionado != 'Administrador' and login.rolSeleccionado != 'Administrativo' }">
+                    <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
+                </c:when>
+                <c:otherwise>
+                    <div class="cabecera" >
+                        <div class="titulo" >
+                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Administrador'}">
+                                Listado de #{listarUsuariosBean.rol}es Registrados
                             </h:panelGroup>
-                            <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo' and listarUsuariosBean.rol!='Administrativo'}">
-                                <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
-                                    <div title="Editar datos del usuario" class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
-                                </a>
+                            <h:panelGroup rendered="#{listarUsuariosBean.rol != 'Administrador'}">
+                                Listado de #{listarUsuariosBean.rol}s Registrados
                             </h:panelGroup>
-                            <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
-                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
-                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
-                                    <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                                </a>
-                            </h:panelGroup>
-                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
-                                <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
-                                    <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                                </a>
-                            </h:panelGroup>
+                            <a href="#openModal">
+                                <div title="Buscar #{listarUsuariosBean.rol}" id="BotonFiltro"></div>
+                            </a>
                         </div>
-                        <div class="columna">
-                            <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
-                            <div class="negrita">Apellido: </div> #{usuario.apellidoUsuario}<br/>
-                            <div class="negrita">Cedula: </div> #{usuario.cedulaUsuario}<br/>
-                            <div class="negrita">Credencial: </div> #{usuario.credencialCivicaUsuario}<br/>
-                            <div class="negrita">Correo: </div> #{usuario.correoUsuario}<br/>
-                            <div class="negrita">Departamento: </div> #{usuario.departamentoUsuario}<br/>
-                            <div class="negrita">Localidad: </div> #{usuario.localidadUsuario}<br/>
-                            <div class="negrita">Domicilo: </div>#{usuario.domicilioUsuario}<br/>
-                            <div class="negrita">Telefono: </div> #{usuario.telefonoUsuario}<br/>
-                            <div class="negrita">Celular: </div> #{usuario.celularUsuario} <br/>
-                            <div class="negrita">Fecha de Nacimiento: </div> #{usuario.fechaNacimientoUsuario} <br/>
-                            <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
-                            <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario.estadoCivil} <br/>
-                            <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
-                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
-                                <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.estudiosCursadosEstudiante.get(usuario.idUsuario)}" /><br/>
+                    </div>
+                    <div id="contenedor">
+                        <h:panelGroup id="actualizarLista" >
+                            <h:panelGroup rendered="#{empty listarUsuariosBean.usuarios}">
+                                <div class="ListItemContainer" >
+                                    No hay #{listarUsuariosBean.rol}s registrados.
+                                </div>            
                             </h:panelGroup>
-                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
-                                <div class="negrita">Cursos Dictados: </div> <h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>
+                            <h:panelGroup  rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
+                                <span class="info" style="text-align: center;">
+                                    Seleccionar Docente
+                                </span> 
                             </h:panelGroup>
-                            
+                            <c:forEach var="usuario" items="#{listarUsuariosBean.usuariosFiltrados}">
+                                <div class="ListItemContainer" >
+                                    <div class="ListItem" >
+                                        <div class="item" style="width: 5%" >
+                                            <div class="ImagenItem">
+                                                <img src="#{usuario.imagenUsuario}" height="100%" width="100%"/>
+                                            </div>
+                                        </div>
+                                        <div title="#{usuario.cedulaUsuario}" class="item" style="width: 10%">
+                                            #{usuario.cedulaUsuario}
+                                        </div>
+                                        <div title="#{usuario.nombreCompleto}" class="item" style="width: 35%">
+                                            #{usuario.nombreCompleto}
+                                        </div>
+                                        <div title="#{usuario.correoUsuario}" class="item" style="width: 30%">
+                                            #{usuario.correoUsuario}
+                                        </div>
+                                        <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
+                                            <h:form>
+                                                <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}">
+                                                    <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
+                                                    <div class="optionItem" style="background-image: url(../Resources/Images/selectBlack.png)"></div>
+                                                </h:commandLink>
+                                                <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
+                                            </h:form>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo' and listarUsuariosBean.rol!='Administrativo'}">
+                                            <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
+                                                <div title="Editar datos del usuario" class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
+                                            </a>
+                                        </h:panelGroup>
+                                        <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
+                                            <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                                <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                            </a>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
+                                            <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                                <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                            </a>
+                                        </h:panelGroup>
+                                    </div>
+                                    <div class="columna">
+                                        <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
+                                        <div class="negrita">Apellido: </div> #{usuario.apellidoUsuario}<br/>
+                                        <div class="negrita">Cedula: </div> #{usuario.cedulaUsuario}<br/>
+                                        <div class="negrita">Credencial: </div> #{usuario.credencialCivicaUsuario}<br/>
+                                        <div class="negrita">Correo: </div> #{usuario.correoUsuario}<br/>
+                                        <div class="negrita">Departamento: </div> #{usuario.departamentoUsuario}<br/>
+                                        <div class="negrita">Localidad: </div> #{usuario.localidadUsuario}<br/>
+                                        <div class="negrita">Domicilo: </div>#{usuario.domicilioUsuario}<br/>
+                                        <div class="negrita">Telefono: </div> #{usuario.telefonoUsuario}<br/>
+                                        <div class="negrita">Celular: </div> #{usuario.celularUsuario} <br/>
+                                        <div class="negrita">Fecha de Nacimiento: </div> #{usuario.fechaNacimientoUsuario} <br/>
+                                        <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
+                                        <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario.estadoCivil} <br/>
+                                        <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
+                                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
+                                            <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.estudiosCursadosEstudiante.get(usuario.idUsuario)}" /><br/>
+                                        </h:panelGroup>
+                                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
+                                            <div class="negrita">Cursos Dictados: </div> <h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>
+                                        </h:panelGroup>
+                                            
+                                    </div>
+                                </div>            
+                            </c:forEach>
+                        </h:panelGroup>
+                    </div>
+                        
+                    <!-- PopUp para filtro -->
+                        
+                    <div id="openModal" class="modalDialog">
+                        <div>
+                            <a href="#close" title="Close" class="close">X</a>
+                            <h2>
+                                
+                                <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Administrador'}">
+                                    Filtro de #{listarUsuariosBean.rol}es Registrados
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{listarUsuariosBean.rol != 'Administrador'}">
+                                    Filtro de #{listarUsuariosBean.rol}s Registrados
+                                </h:panelGroup>
+                                    
+                            </h2>
+                            <h:form id="filtro">
+                                
+                                <div class="filtroLabel">Nombre</div>
+                                <h:inputText class="Texto" id="nameFilter" value="#{nameFilter}"> 
+                                    <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}" onevent="eventoClick"/>
+                                </h:inputText>
+                                    
+                                <div class="filtroLabel">Cedula </div>
+                                <h:inputText class="Texto" id="cedulaFilter" value="#{cedulaFilter}"> 
+                                    <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}" onevent="eventoClick"/>
+                                </h:inputText>
+                                    
+                                <h:panelGroup rendered="#{!(listarUsuariosBean.rol == 'Administrador' or listarUsuariosBean.rol == 'Administrativo')}"><!--hacer rendered en el caso de que sea docente o estudiante-->
+                                    
+                                    <div class="filtroLabel">Anio </div>
+                                    <h:selectOneMenu class="Texto" value="#{anioFilter}">
+                                        <f:selectItems value="#{listarUsuariosBean.aniosCursos}" />
+                                    </h:selectOneMenu>
+                                        
+                                        
+                                    <div class="filtroLabel">Semestre  </div>
+                                    <h:selectOneMenu class="Texto" value="#{semestreFilter}">
+                                        <f:selectItem itemValue="1" itemLabel="1" />
+                                        <f:selectItem itemValue="2" itemLabel="2" />
+                                        <f:selectItem itemValue="3" itemLabel="3" />
+                                        <f:selectItem itemValue="4" itemLabel="4" />
+                                        <f:selectItem itemValue="5" itemLabel="5" />	
+                                        <f:selectItem itemValue="6" itemLabel="6" />
+                                        <f:selectItem itemValue="0" itemLabel="Todos" />
+                                    </h:selectOneMenu>	
+                                        
+                                    <div class="filtroLabel">Asignatura</div>
+                                    <h:selectOneMenu class="Texto" value="#{asignaturaFilter}">
+                                        <f:selectItems value="#{listarUsuariosBean.asignaturasCursos}" />
+                                    </h:selectOneMenu>
+                                        
+                                    <div class="filtroLabel">
+                                        <h:commandButton class="boton" value="Filtrar">
+                                            <f:ajax listener="#{listarUsuariosBean.filtrarPorAnioSemestreAssignatura(anioFilter,semestreFilter,asignaturaFilter)}" event="click" execute="@form" render="actualizarLista" onevent="eventoClick"/>
+                                        </h:commandButton>
+                                    </div>
+                                        
+                                </h:panelGroup>
+                            </h:form>
                         </div>
-                    </div>            
-                </c:forEach>
-            </h:panelGroup>
-        </div>
-        
-        <!-- PopUp para filtro -->
-        
-        <div id="openModal" class="modalDialog">
-            <div>
-                <a href="#close" title="Close" class="close">X</a>
-                <h2>
-                    
-                    <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Administrador'}">
-                        Filtro de #{listarUsuariosBean.rol}es Registrados
-                    </h:panelGroup>
-                    <h:panelGroup rendered="#{listarUsuariosBean.rol != 'Administrador'}">
-                        Filtro de #{listarUsuariosBean.rol}s Registrados
-                    </h:panelGroup>
-                    
-                </h2>
-                <h:form id="filtro">
-                    
-                    <div class="filtroLabel">Nombre</div>
-                    <h:inputText class="Texto" id="nameFilter" value="#{nameFilter}"> 
-                        <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}" onevent="eventoClick"/>
-                    </h:inputText>
-                    
-                    <div class="filtroLabel">Cedula </div>
-                    <h:inputText class="Texto" id="cedulaFilter" value="#{cedulaFilter}"> 
-                        <f:ajax render="actualizarLista" event="keyup" execute="@form" listener="#{listarUsuariosBean.filtrarPorNombreCedula(nameFilter, cedulaFilter)}" onevent="eventoClick"/>
-                    </h:inputText>
-                    
-                    <h:panelGroup rendered="#{!(listarUsuariosBean.rol == 'Administrador' or listarUsuariosBean.rol == 'Administrativo')}"><!--hacer rendered en el caso de que sea docente o estudiante-->
-                        
-                        <div class="filtroLabel">Anio </div>
-                        <h:selectOneMenu class="Texto" value="#{anioFilter}">
-                            <f:selectItems value="#{listarUsuariosBean.aniosCursos}" />
-                        </h:selectOneMenu>
-                        
-                        
-                        <div class="filtroLabel">Semestre  </div>
-                        <h:selectOneMenu class="Texto" value="#{semestreFilter}">
-                            <f:selectItem itemValue="1" itemLabel="1" />
-                            <f:selectItem itemValue="2" itemLabel="2" />
-                            <f:selectItem itemValue="3" itemLabel="3" />
-                            <f:selectItem itemValue="4" itemLabel="4" />
-                            <f:selectItem itemValue="5" itemLabel="5" />	
-                            <f:selectItem itemValue="6" itemLabel="6" />
-                            <f:selectItem itemValue="0" itemLabel="Todos" />
-                        </h:selectOneMenu>	
-                        
-                        <div class="filtroLabel">Asignatura</div>
-                        <h:selectOneMenu class="Texto" value="#{asignaturaFilter}">
-                            <f:selectItems value="#{listarUsuariosBean.asignaturasCursos}" />
-                        </h:selectOneMenu>
-                        
-                        <div class="filtroLabel">
-                            <h:commandButton class="boton" value="Filtrar">
-                                <f:ajax listener="#{listarUsuariosBean.filtrarPorAnioSemestreAssignatura(anioFilter,semestreFilter,asignaturaFilter)}" event="click" execute="@form" render="actualizarLista" onevent="eventoClick"/>
-                            </h:commandButton>
-                        </div>
-                        
-                    </h:panelGroup>
-                </h:form>
-            </div>
-        </div>
-        
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </f:view>        
     </ui:define>
 </ui:composition>

@@ -30,7 +30,7 @@ public class Encuesta implements Serializable{
     @OneToOne(mappedBy = "EncuestaCurso")
     private Curso CursoEncuesta;
     
-    @ManyToMany
+    @ManyToMany(mappedBy = "EncuestasEstudiante")
     private List<Estudiante> EstudiantesEncuesta;
     
     @OneToMany(mappedBy = "EncuestaRespuestas")

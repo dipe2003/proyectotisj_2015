@@ -53,12 +53,12 @@ public class FacadeEstudiante implements Serializable {
         Estudiante estudiante = cEst.BuscarEstudiante(IdEstudiante);
         List<Estudio> estudios = estudiante.getEstudiosCursadosEstudiante();
         List<Integer> tiposEstudio = new ArrayList<>();
-        for(Estudio estudio: estudios) tiposEstudio.add(estudio.getTipoEstudio().getIdTipoEstudio());
+        for(Estudio estudio: estudios) tiposEstudio.add(estudio.getTipoDeEstudio().getIdTipoEstudio());
         if(!tiposEstudio.contains(IdTipoDeEstudio)){
             if(!Orientacion.isEmpty())agregarEstudiosEstudiante(IdTipoDeEstudio, Orientacion, IdEstudiante);
         }else{
             for (int i = 0; i < estudios.size(); i++) {
-                if(estudios.get(i).getTipoEstudio().getIdTipoEstudio() == IdTipoDeEstudio){
+                if(estudios.get(i).getTipoDeEstudio().getIdTipoEstudio() == IdTipoDeEstudio){
                     if(!Orientacion.isEmpty() && !Orientacion.equals(estudios.get(i).getOrientacionEstudio())){
                         // se actualiza el estudio
                         estudios.get(i).setOrientacionEstudio(Orientacion);
