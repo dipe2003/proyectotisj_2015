@@ -107,7 +107,7 @@ public class DatosRegCurso implements Serializable {
      */
     public boolean comprobarFormularioInscripcion(){
         String cedula = String.valueOf(fUsr.BuscarUsuario(idDocente).getCedulaUsuario());
-        ContratoDocenteCurso= fUp.guardarArchivo("ContratoDocente", PartContratoDocente, cedula);
+        ContratoDocenteCurso= fUp.guardarArchivo("ContratoDocente", PartContratoDocente, cedula+"_"+idAsignatura+"_"+AnioCurso);
         FacesContext context = FacesContext.getCurrentInstance();
         if (this.ContratoDocenteCurso == null || this.ContratoDocenteCurso.equals("no")) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono contrato.");
