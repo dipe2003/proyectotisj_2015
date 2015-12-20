@@ -29,7 +29,7 @@ function doSomething(){
         "color": "black",
         "background-color": "white",
         "text-shadow": "rgba(0, 0, 0, 0.3) 2px 2px 2px",
-        "background-image": "url(http://static.tumblr.com/c25db28edc166bfe367476a32913b4c5/0ztvotg/UKJn3km2m/tumblr_static_background-cool-backgrounds-vladstudio-2616004.jpg)",
+        "background-image": "url(http://localhost:8080/ProyectoTISJ-war/Resources/Images/twitterBackGround.jpg)",
         "background-size": "cover",
         "background-repeat-y": "repeat"
     });

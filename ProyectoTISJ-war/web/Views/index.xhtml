@@ -33,9 +33,9 @@
         <script src="../Resources/Scripts/Ayuda.js"></script>
         <script src="../Resources/Scripts/EditarPerfil.js"></script>
         <script src="../Resources/Scripts/IndicadorCarga.js"></script>
-
+        
     </h:head>
-    <h:body>
+    <h:body> 
         <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}" >
             <ui:include src="../Administrador/AdministradorMenu.xhtml" />
         </h:panelGroup>
@@ -54,7 +54,7 @@
                     <img height="50px" src="#{facesContext.externalContext.requestContextPath}/Resources/Images/loading_icon.gif"/>
                     <div>Cargando...</div>
                 </div>
-                </div>
+            </div>
             <div class="contentBody">                
                 <ui:insert name="page_content" >
                     <div id="triger" style="height: 300px;width: 100%;" >
@@ -65,19 +65,19 @@
                                 <param name="wmode" value="transparent" />
                                 <param name="swfversion" value="6.0.65.0" />
                             </object>
-                                
+                            
                         </div>  
                     </div>
                     <div id="fondo" style="background-image: url(../Resources/Images/tisj.png); background-size: cover; width: 100%; height: 300px; position: absolute; top: 0px; z-index: -1" ></div>
-                        
+                    
                     <!--                    <div id="street-view" style="height: 300px;" ></div>-->
-                        
+                    
                     <!--                    <div style="width: 150px; height: 50px; float: left; background-image: url(../Resources/Images/tweetss.png); margin-left: 20px; background-size: cover"></div>-->
-                        
+                    
                     <div id="escondedor" style="display: none; margin: 0 auto; height: 900px; margin-bottom: 25px;">
                         <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/ti_sj" data-widget-id="673021222955954176">Tweets por el @ti_sj.</a>
                     </div>
-                        
+                    
                     <div id="footer">
                         
                         <div class="contenedorLogos">
@@ -85,7 +85,7 @@
                             <div class="Logo" style="background-image: url(../Resources/Images/tecnoinf.png)"></div><div class="textoLogo" >Tecnologo en Informatica</div>
                             <div class="Logo" style="background-image: url(../Resources/Images/utuFondoBlanco.png)"></div><div class="textoLogo" >Universidad del Trabajo del Uruguay</div>
                         </div>
-                            
+                        
                         <div class="contenedorLogos" style="width: 600px">
                             <div class="textoLogo" style="line-height: normal; height: auto;">Contacto:</div>
                             <div class="textoLogo" style="line-height: normal; width: 350px; text-align: left; font-size: 14px;">
@@ -100,7 +100,7 @@
                                 <div class="Logo" id="mapa"></div>
                             </a>
                         </div>
-                            
+                        
                         <div class="contenedorLogos">
                             <div class="textoLogo" style=" height: auto; width: 350px">Sitios:</div>
                             <div class="textoLogo" style="line-height: normal; width: 350px;">
@@ -111,7 +111,7 @@
                                 <a class="Texto linkFooter" href="https://eva.fing.edu.uy/"> https://eva.fing.edu.uy/</a>
                             </div>
                         </div>
-                            
+                        
                         <div class="contenedorLogos" style="width: 200px;">
                             <div class="textoLogo" style=" height: auto;line-height: normal;width: 200px;">Soporte:</div>
                             <div class="textoLogo" style="line-height: normal; width: 200px;font-size: 14px;">
@@ -125,9 +125,9 @@
                                 098746671
                             </div>
                         </div>
-                            
-                    </div>
                         
+                    </div>
+                    
                     <!--                    <script>
                                             var panorama;
                                             function initialize() {
@@ -144,11 +144,11 @@
                                             
                                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0_QUhpHvpmjgWtmfieelQtjI1AgRzPH4&amp;signed_in=true&amp;callback=initialize">
                                         </script>-->
-                                            
-                </ui:insert>
                     
-            </div>
+                </ui:insert>
                 
+            </div>
+            
         </h:panelGroup>
     </h:body>
 </html>
