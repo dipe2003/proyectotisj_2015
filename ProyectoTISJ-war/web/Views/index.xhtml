@@ -11,7 +11,8 @@
         <link rel="stylesheet" href="../Resources/CSS/Modal.css" />
         <link rel="stylesheet" href="../Resources/CSS/jquery-ui.css" />
         <link rel="stylesheet" href="../Resources/CSS/InformacionEstudiante.css" />
-            
+        <link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/Resources/Images/tecnoinf_icon.ico"/>
+        
         <script src="../Resources/Scripts/jquery-1.11.3.min.js"></script>
         <script src="../Resources/Scripts/jquery-ui.js"></script>
         <script src="../Resources/Scripts/Slimscroll.js"></script>
@@ -47,11 +48,13 @@
             <ui:include src="../Estudiante/EstudianteMenu.xhtml" />
         </h:panelGroup>
         <h:panelGroup>
-            <div class="contentBody">
-                <div id="cargando" class="carga" >
-                    <img height="100px" src="#{facesContext.externalContext.requestContextPath}/Resources/Images/loading_icon.gif"/>
+            <div id="cargando" class="contenedor-carga">
+                <div class="carga" >
+                    <img height="50px" src="#{facesContext.externalContext.requestContextPath}/Resources/Images/loading_icon.gif"/>
                     <div>Cargando...</div>
                 </div>
+                </div>
+            <div class="contentBody">                
                 <ui:insert name="page_content" >
                     <div id="triger" style="height: 300px;width: 100%;" >
                         <div style="height: 300px;width: 1500px;overflow: hidden;margin: 0 auto;" >

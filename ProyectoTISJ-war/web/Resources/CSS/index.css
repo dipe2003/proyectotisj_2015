@@ -267,9 +267,20 @@ a:active {
 
 .carga{
     position:absolute; 
-    margin-left: 50%;
-    margin-top: 30%;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
     padding: 1%;
-    color:#00529B;
+    font-family: RobotoBold;
+    color:white;
     text-align: center;
+}
+
+.contenedor-carga{
+    position:absolute; 
+    width: 100%;
+    height: 100%;
+    background-color: #4b3f3f;
+    opacity: 0.6;
 }
