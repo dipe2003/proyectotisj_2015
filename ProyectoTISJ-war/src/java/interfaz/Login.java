@@ -158,72 +158,7 @@ public class Login implements Serializable {
     public void Init(){
         this.rolesUsuario = new ArrayList<>();
         this.Roles = new ArrayList<>();
-        /*
-        Estado Civil
-        */
-        try{
-            fEnum.crearEstadoCivil("Soltero");
-            fEnum.crearEstadoCivil("Casado");
-            fEnum.crearEstadoCivil("Divorciado");
-        }catch(Exception ex){}
-        
-        /*
-        Estudios Cursados
-        */
-        try{
-            fEnum.crearTipoDeEstudio("Universidad");
-            fEnum.crearTipoDeEstudio("UTU");
-            fEnum.crearTipoDeEstudio("Secundaria");
-            fEnum.crearTipoDeEstudio("Formacion Docente");
-            fEnum.crearTipoDeEstudio("Estudios Militares");
-        }catch(Exception ex){}
-        
-        /*
-        Usuarios
-        */
-        Date fNac;
-        Calendar cal = Calendar.getInstance();
-        // mes de 0 a 11
-        cal.set(1990, 1-1, 1);
-        fNac = cal.getTime();
-        int id = fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
-                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
-                EnumSexo.Masculino, "Administrador", 0);
-        fUsr.RegistrarUsuario("Administrador", "ApellidoAdmin", "Admin@administrador.edu.uy", "1234", "", 12345672, "ABC 1234", "Calle 1234",
-                "Departamento", "Localidad", "1234 1234", "09123456", fEnum.ListarEstadosCiviles().get(0), fNac, "Lugar de Nacimiento",
-                EnumSexo.Masculino, "Docente", id);
-        
-        /*
-        Preguntas Docente
-        */
-        try{
-            fEncuesta.CrearPregunta("Marca los objetivos específicos de cada clase.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Explica en clase con órden y claridad.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Define el vocabulario especializado o técnico que utiliza.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Sintetiza y subraya los conceptos que considera importantes.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Establece conexiones con los contenidos de otras asignaturas, presenta ejemplos aplicados a la vida profesional y/o a la vida cotidiana.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Cuando usa el pizarrón, transparencias, videos, etc., lo hace adecuadamente, ayudando a comprender mejor las explicaciones.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Favorece el planteo de preguntas y se preocupa por responderlas.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Motiva al estudiante por la asignatura.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Cumple con los horarios de clase.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Tiene una actitud respetuosa hacia los estudiantes.", EnumTipoPregunta.Docente);
-            fEncuesta.CrearPregunta("Juicio global sobre el docente.", EnumTipoPregunta.Docente);
-        }catch(Exception ex){}
-        /*
-        Preguntas Curso
-        */
-        
-        try{
-            fEncuesta.CrearPregunta("Son útiles las clases de consulta (presenciales, e-mail y/o foros de discusión)", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("Se recomiendan y utilizan materiales de estudio útiles para preparar la asignatura.", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("Le resulta útil la página web del curso.", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("Existe coordinación entre lo dictado en clases teóricas y prácticas.", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("La propuesta de evaluación realizada fue clara y sin ambigüedad.", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("La evaluación propuesta se puede realizar con los conociemientos que se han impartido durante el curso.", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("La evaluación se centró en la comprensión de la asignatura.", EnumTipoPregunta.Curso);
-            fEncuesta.CrearPregunta("Juicio global sobre el curso.", EnumTipoPregunta.Curso);
-        }catch(Exception ex){}
-        
+       
     }
     
 }
