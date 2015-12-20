@@ -62,21 +62,23 @@
                                                 <f:viewParam name="rol" value="#{listarUsuariosBean.rol}"/>
                                             </h:form>
                                         </h:panelGroup>
-                                        <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo' and listarUsuariosBean.rol!='Administrativo'}">
-                                            <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
-                                                <div title="Editar datos del usuario" class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
-                                            </a>
-                                        </h:panelGroup>
-                                        <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
-                                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
-                                            <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
-                                                <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                                            </a>
-                                        </h:panelGroup>
-                                        <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
-                                            <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
-                                                <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                                            </a>
+                                        <h:panelGroup rendered="#{listarUsuariosBean.opt != 'regcurso' or empty listarUsuariosBean.opt}">
+                                            <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo' and listarUsuariosBean.rol!='Administrativo'}">
+                                                <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
+                                                    <div title="Editar datos del usuario" class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
+                                                </a>
+                                            </h:panelGroup>
+                                            <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
+                                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
+                                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                                    <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                                </a>
+                                            </h:panelGroup>
+                                            <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
+                                                <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                                    <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                                </a>
+                                            </h:panelGroup>
                                         </h:panelGroup>
                                     </div>
                                     <div class="columna">

@@ -5,6 +5,7 @@ import Asignatura.Curso.Evaluacion.FacadeEvaluacion;
 import Asignatura.Curso.Evaluacion.Resultado.FacadeResultado;
 import Usuario.FacadeUsuario;
 import Usuario.Usuario;
+import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,7 +93,7 @@ public class RegistrarEvaluacion implements Serializable{
         }
     }
     
-    public void nuevaEvaluacion(String tipoEvaluacion){
+    public void nuevaEvaluacion(String tipoEvaluacion) throws IOException{
         int IdEva = fEva.RegistrarEvaluacion(idCurso, FechaEvaluacion, tipoEvaluacion);
         if (IdEva != -1) {
             for (Usuario item: Alumnos) {
@@ -103,6 +104,7 @@ public class RegistrarEvaluacion implements Serializable{
                     fRes.RegistrarResultadoEvaluacion(IdEva, item.getIdUsuario(), resultado);
                 }
             }
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Curso/ListarCursos.xhtml");
         }
         
     }

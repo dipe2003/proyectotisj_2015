@@ -1,4 +1,10 @@
 function RedirigirUsuarios(data){
+    if(data.status ==='begin'){
+        $("#cargando").show();
+    }
+    if(data.status === 'complete'){
+        $("#cargando").hide();
+    }
     if(data.status === 'success'){
         var exito = $('#frmIngresoDatos\\:regExito').val();
         var rol = $('#frmIngresoDatos\\:regRol').val();
@@ -10,9 +16,33 @@ function RedirigirUsuarios(data){
         }
     }
 };
+function RedirigirEditarPerfil(data){
+    if(data.status ==='begin'){
+        $("#cargando").show();
+    }
+    if(data.status === 'complete'){
+        $("#cargando").hide();
+    }
+    if(data.status === 'success'){
+        var exito = $('#frmIngresoDatos\\:editPerfilExito').val();
+        var rol = $('#frmIngresoDatos\\:regRol').val();
+        var destino = "index.xhtml";
+        if(exito === 'true'){
+            window.location.href=destino;
+        }else{
+            alert("No se pudo guardar los cambios");
+        }
+    }
+};
 
 
 function RedirigirEncuestas(data){
+    if(data.status ==='begin'){
+        $("#cargando").show();
+    }
+    if(data.status === 'complete'){
+        $("#cargando").hide();
+    }
     if(data.status === 'success'){
         var exito = $('#frmRegEncuesta\\:encExito').val();
         var destino = "ListarEncuesta.xhtml?rol=Administrador";
@@ -26,6 +56,12 @@ function RedirigirEncuestas(data){
 
 
 function RedirigirClases(data){
+    if(data.status ==='begin'){
+        $("#cargando").show();
+    }
+    if(data.status === 'complete'){
+        $("#cargando").hide();
+    }
     if(data.status === 'success'){
         var exito = $('#frmIngresoDatosClase\\:claseExito').val();
         var idcurso = $('#frmIngresoDatosClase\\:clasecursoid').val();
@@ -39,10 +75,22 @@ function RedirigirClases(data){
 };
 
 function RedirigirRespuestaEncuesta(data){
+    if(data.status ==='begin'){
+        $("#cargando").show();
+    }
+    if(data.status === 'complete'){
+        $("#cargando").hide();
+    }
     window.location.href="ListarEncuesta.xhtml?rol=Estudiante";
 };
 
 function RedirigirCurso(data){
+    if(data.status ==='begin'){
+        $("#cargando").show();
+    }
+    if(data.status === 'complete'){
+        $("#cargando").hide();
+    }
     if(data.status === 'success'){
         var exito = $('#frmIngresoDatos\\:exitoRegCurso').val();
         var destino = "ListarCursos.xhtml";

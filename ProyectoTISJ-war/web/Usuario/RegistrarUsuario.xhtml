@@ -32,7 +32,7 @@
                         <div class="inputContainer">
                             <img class="imagenMenuOpcion" src="../Resources/Images/cedula.png"/>
                             <h:inputText id="inputCedula" value="#{registrarUsuarioBean.cedulaUsuario}" required="true" requiredMessage="Debes ingresar una cedula." class="Texto" p:placeholder="Cedula">
-                                <f:ajax listener="#{registrarUsuarioBean.comprobarCedula(registrarUsuarioBean.cedulaUsuario)}"  render="msjCedula"/>
+                                <f:ajax listener="#{registrarUsuarioBean.comprobarCedula(registrarUsuarioBean.cedulaUsuario)}" onevent="indicador" render="msjCedula"/>
                             </h:inputText>
                         </div><h:message id="msjCedula" class="error" for="inputCedula"/>
                         <div class="inputContainer">
@@ -52,13 +52,13 @@
                         <div class="nombreDocente">Imagen</div>
                         <img src="../Resources/Images/imagen.png" width="100" height="100" style="margin-top: 50px;" id="ImagenSubida"/>
                         <div class="botonImagen"><h:inputFile  value="#{registrarUsuarioBean.partImagenPerfil}" class="boton subirImagen perfil" p:accept="image/*">
-                                <f:ajax event="change" listener="#{registrarUsuarioBean.setPartImagenPerfil(registrarUsuarioBean.partImagenPerfil)}"/>
+                                <f:ajax event="change" listener="#{registrarUsuarioBean.setPartImagenPerfil(registrarUsuarioBean.partImagenPerfil)}" onevent="indicador"/>
                             </h:inputFile>
                         </div>
                     </div>
                 </div>
                 <div class="menuOpcion" >
-                    <div class="nombreDocente">Contacto</div>
+                    <div class="nombreDocente">Contacto</div> 
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/mail.png"/>
                         <h:inputText id="inputMail" value="#{registrarUsuarioBean.correoUsuario}" required="true" requiredMessage="Debes ingresar correo." class="Texto" p:placeholder="Correo"/>            

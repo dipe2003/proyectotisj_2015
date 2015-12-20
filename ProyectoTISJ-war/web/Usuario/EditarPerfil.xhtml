@@ -139,9 +139,12 @@
                             </div>
                         </h:panelGroup>
                         <h:inputText id="regRol" value="#{editarPerfil.rol}" style="display:none;"/>
+                        <h:inputText id="editPerfilExito" value="#{editarPerfil.exito}" style="display:none;" />
                     </h:panelGroup>
                     <div class="menuOpcion" >
-                        <h:commandButton class="boton siguiente" value="Guardar" disabled="false" action="#{editarPerfil.guardarDatos()}"/>
+                        <h:commandButton class="boton siguiente" value="Guardar" disabled="false" >
+                            <f:ajax execute="@form" listener="#{editarPerfil.guardarDatos()}" render="editPerfilExito" onevent="RedirigirEditarPerfil" />
+                        </h:commandButton>
                     </div>                    
                 </h:form>
             </div> 
