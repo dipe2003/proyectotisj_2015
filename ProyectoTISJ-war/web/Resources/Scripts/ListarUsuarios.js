@@ -3,12 +3,12 @@ $(document).ready(function(){
     eventoClick();
     
     var tiempo=0;
-    $('.ListItemContainer').hide().each(function() {
-        $(this).delay(tiempo).fadeIn('fast');
-        tiempo += 10;
-    });
-    
-    $("#filtro\\:cedulaFilter").val("");
+//    $('.ListItemContainer').hide().each(function() {
+//        $(this).delay(tiempo).fadeIn('fast');
+//        tiempo += 10;
+//    });
+//    
+//    $("#filtro\\:cedulaFilter").val("");
     
 });
 

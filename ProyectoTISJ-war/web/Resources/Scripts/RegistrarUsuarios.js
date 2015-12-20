@@ -1,10 +1,10 @@
 $(document).ready(function(){
     
     var tiempo=0;
-    $('.menuOpcion').hide().each(function() {
-        $(this).delay(tiempo).fadeIn('slow');
-        tiempo += 200;
-    });
+//    $('.menuOpcion').hide().each(function() {
+//        $(this).delay(tiempo).fadeIn('slow');
+//        tiempo += 200;
+//    });
     
     $("#ImagenSubida").attr('src', '../Resources/Images/imagen.png');
     $(".boton.subirImagen.perfil").change(function(){
