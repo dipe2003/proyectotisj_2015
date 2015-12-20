@@ -264,3 +264,12 @@ a:hover {
 a:active {
     text-decoration: none;
 } 
+
+.carga{
+    position:absolute; 
+    margin-left: 50%;
+    margin-top: 30%;
+    padding: 1%;
+    color:#00529B;
+    text-align: center;
+}

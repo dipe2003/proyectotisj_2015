@@ -28,7 +28,14 @@
                         <div title="Mas Informacion" class="optionItem masInformacionSinColumna" style="background-image: url(../Resources/Images/mas.png)"></div>
                     </div>
                     <div class="sinColumna">
-                        <div class="negrita">Inasistencias: </div> #{listarClasesBean.inasistenciasClases.get(clase.idClase)}<br/>
+                        <div class="negrita">Inasistencias: </div>
+                        <c:if test="#{empty listarClasesBean.inasistenciasClases.get(clase.idClase)}">
+                            No hay inasistencias.
+                        </c:if>
+                        <c:if test="#{not empty listarClasesBean.inasistenciasClases.get(clase.idClase)}">
+                            #{listarClasesBean.inasistenciasClases.get(clase.idClase)}
+                        </c:if>
+                        <br/>
                     </div>
                 </div>
             </c:forEach>

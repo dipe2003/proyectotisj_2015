@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="../Resources/CSS/Modal.css" />
         <link rel="stylesheet" href="../Resources/CSS/jquery-ui.css" />
         <link rel="stylesheet" href="../Resources/CSS/InformacionEstudiante.css" />
-        
+            
         <script src="../Resources/Scripts/jquery-1.11.3.min.js"></script>
         <script src="../Resources/Scripts/jquery-ui.js"></script>
         <script src="../Resources/Scripts/Slimscroll.js"></script>
@@ -30,7 +30,8 @@
         <script src="../Resources/Scripts/Chart.js"></script>
         <script src="../Resources/Scripts/Twitter.js"></script>
         <script src="../Resources/Scripts/Ayuda.js"></script>
-        
+        <script src="../Resources/Scripts/IndicadorCarga.js"></script>
+
     </h:head>
     <h:body>
         <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}" >
@@ -47,25 +48,28 @@
         </h:panelGroup>
         <h:panelGroup>
             <div class="contentBody">
-                
+                <div id="cargando" class="carga" >
+                    <img height="100px" src="#{facesContext.externalContext.requestContextPath}/Resources/Images/loading_icon.gif"/>
+                    <div>Cargando...</div>
+                </div>
                 <ui:insert name="page_content" >
                     <div id="triger" style="height: 300px;width: 100%;" >
                         <div style="height: 300px;width: 1500px;overflow: hidden;margin: 0 auto;" >
-
-                                <object type="application/x-shockwave-flash" data="../Resources/Flash/tecnoinf(san jose).swf" width="2000" height="600" style="margin-left: -300px;margin-top: -130px;">
-                                    <param name="quality" value="high" />
-                                    <param name="wmode" value="transparent" />
-                                    <param name="swfversion" value="6.0.65.0" />
-                                </object>
-
+                            
+                            <object type="application/x-shockwave-flash" data="../Resources/Flash/tecnoinf(san jose).swf" width="2000" height="600" style="margin-left: -300px;margin-top: -130px;">
+                                <param name="quality" value="high" />
+                                <param name="wmode" value="transparent" />
+                                <param name="swfversion" value="6.0.65.0" />
+                            </object>
+                                
                         </div>  
                     </div>
                     <div id="fondo" style="background-image: url(../Resources/Images/tisj.png); background-size: cover; width: 100%; height: 300px; position: absolute; top: 0px; z-index: -1" ></div>
-                    
+                        
                     <!--                    <div id="street-view" style="height: 300px;" ></div>-->
                         
                     <!--                    <div style="width: 150px; height: 50px; float: left; background-image: url(../Resources/Images/tweetss.png); margin-left: 20px; background-size: cover"></div>-->
-                    
+                        
                     <div id="escondedor" style="display: none; margin: 0 auto; height: 900px; margin-bottom: 25px;">
                         <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/ti_sj" data-widget-id="673021222955954176">Tweets por el @ti_sj.</a>
                     </div>
@@ -103,7 +107,7 @@
                                 <a class="Texto linkFooter" href="https://eva.fing.edu.uy/"> https://eva.fing.edu.uy/</a>
                             </div>
                         </div>
-                        
+                            
                         <div class="contenedorLogos" style="width: 200px;">
                             <div class="textoLogo" style=" height: auto;line-height: normal;width: 200px;">Soporte:</div>
                             <div class="textoLogo" style="line-height: normal; width: 200px;font-size: 14px;">
@@ -119,24 +123,24 @@
                         </div>
                             
                     </div>
-                    
-<!--                    <script>
-                        var panorama;
-                        function initialize() {
-                            panorama = new google.maps.StreetViewPanorama(
-                                    document.getElementById('street-view'),
-                            {
-                                position: {lat: -34.3381841, lng: -56.7066139},
-                                pov: {heading: 165, pitch: 0},
-                                zoom: 1
-                            });
-                        }
                         
-                    </script>
-                        
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0_QUhpHvpmjgWtmfieelQtjI1AgRzPH4&amp;signed_in=true&amp;callback=initialize">
-                    </script>-->
-                        
+                    <!--                    <script>
+                                            var panorama;
+                                            function initialize() {
+                                                panorama = new google.maps.StreetViewPanorama(
+                                                        document.getElementById('street-view'),
+                                                {
+                                                    position: {lat: -34.3381841, lng: -56.7066139},
+                                                    pov: {heading: 165, pitch: 0},
+                                                    zoom: 1
+                                                });
+                                            }
+                                                
+                                        </script>
+                                            
+                                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0_QUhpHvpmjgWtmfieelQtjI1AgRzPH4&amp;signed_in=true&amp;callback=initialize">
+                                        </script>-->
+                                            
                 </ui:insert>
                     
             </div>

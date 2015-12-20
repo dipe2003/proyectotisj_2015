@@ -77,6 +77,11 @@ public class EditarPerfil implements Serializable{
     private String PasswordActual;
     private String PasswordNuevo;
     
+    /*
+    *   Redireccion
+    */
+    private boolean exito;
+    
     @EJB
     private FacadeUsuario fUsr;
     @Inject
@@ -130,6 +135,7 @@ public class EditarPerfil implements Serializable{
     
     public String getPasswordActual() {return PasswordActual;}
     public String getPasswordNuevo() {return PasswordNuevo;}
+    public boolean isExito() {return exito;}
     
     //  Setters
     public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
@@ -175,6 +181,7 @@ public class EditarPerfil implements Serializable{
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
     public void setGeneracionEstudiante(int GeneracionEstudiante) {this.GeneracionEstudiante = GeneracionEstudiante;}
     public void setListaEstudiosCursados(List<EstudioCursado> ListaEstudiosCursados) {EditarPerfil.ListaEstudiosCursados = ListaEstudiosCursados;}
+    public void setExito(boolean exito) {this.exito = exito;}
     
     /**
      * Comprueba que la cedula sea valida.
@@ -251,7 +258,7 @@ public class EditarPerfil implements Serializable{
             }catch(NullPointerException ex){}
         }
         if(ok!=-1) {
-            
+            exito = true;
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Views/index.xhtml");
         }
     }
@@ -307,7 +314,7 @@ public class EditarPerfil implements Serializable{
     public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        
+        exito = false;
         //  Estado Civil
         List<EstadoCivil> lstEstadoCivil = fEnum.ListarEstadosCiviles();
         this.ListEstadoCivil = new ArrayList<>();
