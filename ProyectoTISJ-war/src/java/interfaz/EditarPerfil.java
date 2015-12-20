@@ -15,7 +15,6 @@ import Usuario.FacadeUsuario;
 import Usuario.Usuario;
 import Utilidades.Cedula;
 import Utilidades.Seguridad;
-import interfaz.UsuarioLogueadoBean;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -32,6 +31,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 @Named
@@ -89,6 +89,8 @@ public class EditarPerfil implements Serializable{
     private FacadeEnumerados fEnum;
     @EJB
     private FacadeEstudiante fEst;
+    @EJB
+    private FileUpload fUp;
     
     //  Getters
     public String getNombreUsuario() {return NombreUsuario;}
@@ -216,6 +218,9 @@ public class EditarPerfil implements Serializable{
                 user.setEstadoCivilUsuario(EstadoCivilUsuario);
                 user.setFechaNacimientoUsuario(FechaNacimientoUsuario);
                 user.setIdUsuario(IdUsuario);
+                if(PartImagenPerfil!=null){
+                    ImagenUsuario = fUp.guardarArchivo("ImagenesPerfil", PartImagenPerfil, CedulaUsuario);
+                }
                 user.setImagenUsuario(ImagenUsuario);
                 user.setLocalidadUsuario(LocalidadUsuario);
                 user.setLugarNacimientoUsuario(LugarNacimientoUsuario);
@@ -245,7 +250,10 @@ public class EditarPerfil implements Serializable{
                 }
             }catch(NullPointerException ex){}
         }
-        if(ok!=-1) FacesContext.getCurrentInstance().getExternalContext().redirect("../Views/index.xhtml");
+        if(ok!=-1) {
+            
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Views/index.xhtml");
+        }
     }
     
     /**
