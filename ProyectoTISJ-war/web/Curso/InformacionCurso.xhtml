@@ -197,7 +197,20 @@
                     
                     <c:forEach var="resultados" items="#{informacionCurso.resultadosEsstudiante.get(estudiante.idUsuario)}">
                         <div title=" #{resultados}" class="item" style="width: 10%">
-                            #{resultados}
+                            <c:choose >
+                                <c:when test="#{resultados == 101}">
+                                Aprobado
+                                </c:when>
+                                <c:when test="#{resultados == 102}">
+                                    Reprobado
+                                </c:when>
+                                <c:when test="#{resultados == 103}">
+                                    No Entrega
+                                </c:when>
+                                <c:otherwise>
+                                     #{resultados}
+                                </c:otherwise>
+                            </c:choose>                           
                         </div>
                     </c:forEach>
                     <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
