@@ -78,13 +78,13 @@
             </h:panelGroup>
             <c:forEach var="curso" items="#{informacionEstudiante.cursos}">
                 <div class="ListItemContainer" >
-                    <div class="item">
+                    <div class="item" style="width: 15%">
                         #{curso.anioCurso}
                     </div>
-                    <div class="item">
+                    <div class="item" style="width: 20%">
                         #{curso.semestreCurso}° Semestre
                     </div> 
-                    <div class="item">
+                    <div class="item" style="width: 55%">
                         #{curso.asignaturaCurso.nombreAsignatura}
                     </div>
                     <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante')}">
