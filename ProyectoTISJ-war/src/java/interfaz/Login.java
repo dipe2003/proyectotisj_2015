@@ -123,6 +123,8 @@ public class Login implements Serializable {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         
         if(request.getSession().getAttribute("Usuario")!= null){
+            Usuario Usr = fUsr.BuscarUsuario(fUsr.ValidarLogin(Integer.valueOf(CedulaUsuario), Password, RolSeleccionado));
+            request.getSession().setAttribute("Usuario", Usr);
             this.RolSeleccionado = RolSeleccionado;
             context.getExternalContext().redirect("Views/index.xhtml");
         }

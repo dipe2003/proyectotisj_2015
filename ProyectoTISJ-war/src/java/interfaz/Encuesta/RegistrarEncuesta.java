@@ -6,6 +6,7 @@ import Asignatura.Curso.Encuesta.FacadeEncuesta;
 import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.FacadeCurso;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named
@@ -30,23 +33,18 @@ public class RegistrarEncuesta implements Serializable{
     private Map<Integer, Boolean> listChecked;
     private List<String> TiposPregunta;
     
-    private boolean Correcto;
-    
     //  Getters
     public List<Pregunta> getPreguntas() {return preguntas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public List<String> getTiposPregunta() {return TiposPregunta;}
-    public boolean isCorrecto() {return Correcto;}
     
     //  Setters
     public void setPreguntas(List<Pregunta> preguntas) {this.preguntas = preguntas;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setTiposPregunta(List<String> TiposPregunta) {this.TiposPregunta = TiposPregunta;}
-    public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
     
     @PostConstruct
     public void Init(){
-        Correcto = false;
         preguntas = new ArrayList<>();
         preguntas = fEnc.ListarPreguntas();
         
@@ -60,16 +58,34 @@ public class RegistrarEncuesta implements Serializable{
         }
     }
     
-    public void crearEncuesta(){
+    public void crearEncuesta() throws IOException{
+        FacesContext context = FacesContext.getCurrentInstance();
         List<Curso> CursosActuales = fCurso.GetCursosActuales();
         int idEncuesta = 0;
         List<Integer> preguntasSeleccionadas = getPreguntasSeleccionadas();
-        for(Curso curso: CursosActuales){
-            if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
-                fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
-                Correcto = true;
+        if(preguntasSeleccionadas.isEmpty()){
+            FacesMessage msj = new FacesMessage("No hay preguntas seleccionadas","No hay preguntas seleccionadas");
+            context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
+            context.renderResponse();
+        }else{
+            if(!CursosActuales.isEmpty()){
+                for(Curso curso: CursosActuales){
+                    if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
+                        fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+                        context.getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
+                        context.responseComplete();
+                    }else{
+                        FacesMessage msj = new FacesMessage("No se pudo crear la encuesta","No se pudo crear la encuesta");
+                        context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
+                        context.renderResponse();
+                    }
+                }
+            }else{
+                FacesMessage msj = new FacesMessage("No hay cursos en el semestre sin encuestas","No hay cursos en el semestre sin encuestas");
+                context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
+                context.renderResponse();
             }
-        }        
+        }
     }
     
     private List<Integer> getPreguntasSeleccionadas(){

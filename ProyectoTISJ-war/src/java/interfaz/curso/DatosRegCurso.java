@@ -29,7 +29,6 @@ public class DatosRegCurso implements Serializable {
     private String ContratoDocenteCurso;
     private String AsignaturaSeleccionada;
     private String DocenteSeleccionado;
-    private boolean Correcto;
     
     @EJB
     private FacadeCurso fCurso;
@@ -66,7 +65,6 @@ public class DatosRegCurso implements Serializable {
         return DocenteSeleccionado;
     }
     public Part getPartContratoDocente() {return PartContratoDocente;}
-    public boolean isCorrecto() {return Correcto;}
     
     //  Setters
     public void setSemestreCurso(int SemestreCurso) {this.SemestreCurso = SemestreCurso;}
@@ -77,7 +75,6 @@ public class DatosRegCurso implements Serializable {
     public void setIdDocente(int IdDocente) {this.idDocente = IdDocente;}
     public void setDocenteSeleccionado(String DocenteSeleccionado) {this.DocenteSeleccionado = DocenteSeleccionado;}
     public void setPartContratoDocente(Part PartContratoDocente) {this.PartContratoDocente = PartContratoDocente;}
-    public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
     
     /**
      * Se traen los valores de docente y asignatura desde el bean de conversacion
@@ -86,7 +83,6 @@ public class DatosRegCurso implements Serializable {
     public void init(){
         this.idAsignatura = reg.getIdAsignatura();
         this.idDocente = reg.getIdDocente();
-        this.Correcto = false;
     }
     
     /**
@@ -94,9 +90,8 @@ public class DatosRegCurso implements Serializable {
      * @throws IOException
      */
     public void onFinish() throws IOException {
-        if(comprobarFormularioInscripcion()){
+        if(comprobarContrato()){
             if ((fCurso.RegistrarCurso(SemestreCurso, AnioCurso, idDocente, idAsignatura, ContratoDocenteCurso))!=-1) {
-                Correcto=true;
                 reg.endConversation();                
             }
         }
@@ -104,14 +99,16 @@ public class DatosRegCurso implements Serializable {
     
     /**
      * Comprueba que se haya seleccionado el contrato del docente.
+     * @return 
      */
-    public boolean comprobarFormularioInscripcion(){
+    public boolean comprobarContrato(){
         String cedula = String.valueOf(fUsr.BuscarUsuario(idDocente).getCedulaUsuario());
         ContratoDocenteCurso= fUp.guardarArchivo("ContratoDocente", PartContratoDocente, cedula+"_"+idAsignatura+"_"+AnioCurso);
         FacesContext context = FacesContext.getCurrentInstance();
         if (this.ContratoDocenteCurso == null || this.ContratoDocenteCurso.equals("no")) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono contrato.");
-            context.addMessage("frmIngresoDatos:msjContrato", fm);
+            context.addMessage("frmIngresoDatos:inputContratoDocente", fm);
+            context.renderResponse();
             return false;
         }
         return true;

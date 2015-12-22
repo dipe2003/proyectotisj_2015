@@ -59,8 +59,7 @@ public class RegistrarUsuarioBean implements Serializable{
     
     // id solo con valor distinto de 0 cuando se esta registrando un nuevo rol
     private int IdUsuario;
-    
-    private boolean Correcto;
+
     /**
      * Lista de EstudiosCursados para utilizarse desde la pagina para registrar los estudios del estudiante.
      */
@@ -119,9 +118,6 @@ public class RegistrarUsuarioBean implements Serializable{
     public Part getPartImagenFormInscripcion() {return PartImagenFormInscripcion;}
     public int getGeneracionAnioEstudiante() {return GeneracionAnioEstudiante;}
     
-    /*  validacion  */
-    public boolean isCorrecto(){return this.Correcto;}
-    
     //  Setters
     public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
     public void setApellidoUsuario(String ApellidoUsuario) {this.ApellidoUsuario = ApellidoUsuario;}
@@ -161,7 +157,6 @@ public class RegistrarUsuarioBean implements Serializable{
         this.FechaNacimientoUsuario = cal.getTime();
     }
     public void setGeneracionAnioEstudiante(int GeneracionAnioEstudiante) {this.GeneracionAnioEstudiante = GeneracionAnioEstudiante;}
-    public void setCorrecto(boolean Correcto) {this.Correcto = Correcto;}
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
     
     /**
@@ -172,10 +167,12 @@ public class RegistrarUsuarioBean implements Serializable{
         if (!verifCedula.EsCedulaValida(Cedula)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
+            FacesContext.getCurrentInstance().renderResponse();
         }else{
             if (fUsr.ExisteUsuario(Cedula)) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
                 FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
+                FacesContext.getCurrentInstance().renderResponse();
             }
         }
         this.CedulaUsuario = Cedula;
@@ -190,6 +187,7 @@ public class RegistrarUsuarioBean implements Serializable{
             if (this.PartImagenFormInscripcion == null) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono formulario de inscripcion.");
                 context.addMessage("frmIngresoDatos:inputFormIngreso", fm);
+                context.renderResponse();
             }
         }
     }
@@ -203,9 +201,10 @@ public class RegistrarUsuarioBean implements Serializable{
         if (fUsr.ExisteUsuario(CedulaUsuario)){
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula ya esta registrada.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
+            FacesContext.getCurrentInstance().renderResponse();
         }else{
             if(registrarUsuario()!=-1) {
-                this.Correcto = true;
+                FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Usuario/ListarUsuarios.xhtml?rol=Estudiante");
             }
         }
     }
@@ -251,7 +250,7 @@ public class RegistrarUsuarioBean implements Serializable{
                     }
                 }else{
                     FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se selecciono formulario de inscripcion");
-                    context.addMessage("frmIngresoDatos:inputFormIngreso", fm);
+                    context.addMessage("frmIngresoDatos:inputFormIngreso", fm);                    
                     return -1;
                 }
             }else{
@@ -272,6 +271,7 @@ public class RegistrarUsuarioBean implements Serializable{
         }else{
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             context.addMessage("frmIngresoDatos:inputCedula", fm);
+            
         }
         return idUsr;
     }
@@ -326,7 +326,6 @@ public class RegistrarUsuarioBean implements Serializable{
                 ListaEstudiosCursados.add(new EstudioCursado(lstTipoEstudios.get(i).getIdTipoEstudio(), lstTipoEstudios.get(i).getTipoDeEstudio(),""));
             }
         }
-        this.Correcto = false;
     }
     
     /**

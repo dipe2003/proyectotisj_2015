@@ -31,7 +31,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 @Named
@@ -76,11 +75,6 @@ public class EditarPerfil implements Serializable{
     */
     private String PasswordActual;
     private String PasswordNuevo;
-    
-    /*
-    *   Redireccion
-    */
-    private boolean exito;
     
     @EJB
     private FacadeUsuario fUsr;
@@ -135,7 +129,6 @@ public class EditarPerfil implements Serializable{
     
     public String getPasswordActual() {return PasswordActual;}
     public String getPasswordNuevo() {return PasswordNuevo;}
-    public boolean isExito() {return exito;}
     
     //  Setters
     public void setNombreUsuario(String NombreUsuario) {this.NombreUsuario = NombreUsuario;}
@@ -181,7 +174,6 @@ public class EditarPerfil implements Serializable{
     public void setIdUsuario(int IdUsuario) {this.IdUsuario = IdUsuario;}
     public void setGeneracionEstudiante(int GeneracionEstudiante) {this.GeneracionEstudiante = GeneracionEstudiante;}
     public void setListaEstudiosCursados(List<EstudioCursado> ListaEstudiosCursados) {EditarPerfil.ListaEstudiosCursados = ListaEstudiosCursados;}
-    public void setExito(boolean exito) {this.exito = exito;}
     
     /**
      * Comprueba que la cedula sea valida.
@@ -191,6 +183,7 @@ public class EditarPerfil implements Serializable{
         if (!verifCedula.EsCedulaValida(this.CedulaUsuario)) {
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La Cedula no es valida.");
             FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputCedula", fm);
+            FacesContext.getCurrentInstance().renderResponse();
             return false;
         }
         return true;
@@ -258,7 +251,6 @@ public class EditarPerfil implements Serializable{
             }catch(NullPointerException ex){}
         }
         if(ok!=-1) {
-            exito = true;
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Views/index.xhtml");
         }
     }
@@ -287,6 +279,7 @@ public class EditarPerfil implements Serializable{
             if(PasswordActual.isEmpty() | PasswordNuevo.isEmpty()){
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Falta ingresar un password");
                 FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputPassNuevo", fm);
+                FacesContext.getCurrentInstance().renderResponse();
             }else{
                 String keyDocente = usuario.getSaltPasswordUsuario();
                 String passDocente = usuario.getPasswordUsuario();
@@ -294,6 +287,7 @@ public class EditarPerfil implements Serializable{
                 if(!passEditar.equals(passDocente)){
                     FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El password ingresado no es correcto");
                     FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:inputPassActual", fm);
+                    FacesContext.getCurrentInstance().renderResponse();
                 }else{
                     String[] nuevoPass = cSeg.getPasswordSeguro(PasswordNuevo);
                     PasswordUsuario = nuevoPass[1];
@@ -314,7 +308,6 @@ public class EditarPerfil implements Serializable{
     public void init(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        exito = false;
         //  Estado Civil
         List<EstadoCivil> lstEstadoCivil = fEnum.ListarEstadosCiviles();
         this.ListEstadoCivil = new ArrayList<>();

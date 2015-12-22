@@ -41,15 +41,14 @@
                         </div>
                     </a>
                 </div>
-                <h:inputText id="encExito" value="#{registrarEncuesta.correcto}" style="display: none;"/>
+                <h:message class="error" for="btnRegEncuesta"/>
                 <div class="menuOpcion" >
-                    <h:commandButton class="boton" value="Seleccionar">
-                        <f:ajax execute="@form" event="click" listener="#{registrarEncuesta.crearEncuesta()}" render="encExito" onevent="RedirigirEncuestas" />
+                    <h:commandButton id="btnRegEncuesta" class="boton" value="Seleccionar">
+                        <f:ajax execute="@form" event="click" listener="#{registrarEncuesta.crearEncuesta()}" render="@form" onevent="indicador" />
                     </h:commandButton>
                 </div>
                 
-            </h:form>
-            
+            </h:form>            
         </div>
     </ui:define>
 </ui:composition>

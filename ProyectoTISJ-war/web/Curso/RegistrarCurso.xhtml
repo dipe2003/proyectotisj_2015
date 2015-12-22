@@ -21,23 +21,23 @@
                 <div class="menuOpcion" style="display: block;">
                     
                     <div class="nombreDocente">Curso</div>
-                    
+                        
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/calendario.png"/>
                         <h:inputText id="inputAnio" value="#{datosRegCurso.anioCurso}" required="true" requiredMessage="Debes ingresar un año." class="Texto" p:placeholder="Año en que se va a dictar el curso."/>                                 
                     </div><h:message class="error" for="inputAnio"/>
-                    
+                        
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/semestre.png"/>
                         <h:inputText id="inputSemestre" value="#{datosRegCurso.semestreCurso}" required="true" requiredMessage="Debes ingresar un semestre." class="Texto" p:placeholder="Semestre en que se va a dictar el curso"/>                                 
                     </div><h:message class="error" for="inputSemestre"/>
-                    
+                        
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/nombreDocente.png"/>
                         <h:inputText disabled="true" id="outputDocente" value="#{datosRegCurso.docenteSeleccionado}" class="Texto" />
                     </div>
                         
-                    
+                        
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
                         <h:inputText disabled="true" id="outputAsignatura" value="#{datosRegCurso.asignaturaSeleccionada}" class="Texto" />                                 
@@ -49,22 +49,18 @@
                             <h:inputFile id="inputContratoDocente" class="boton subirImagen formulario" value="#{datosRegCurso.partContratoDocente}" p:accept="image/*">
                                 <f:ajax event="change" listener="#{datosRegCurso.setPartContratoDocente(datosRegCurso.partContratoDocente)}"/>
                             </h:inputFile>
-                            <h:message class="error" id="msjContrato" for="inputContratoDocente"/>
+                           
                         </div>
-                    </div>
-                    
-                    <h:inputText id="exitoRegCurso" value="#{datosRegCurso.correcto}" style="display: none;"/>
-                    
-                   
-                    
+                    </div>                    
                 </div>
-                
-                 <div class="menuOpcion">
-                        <h:commandButton class="boton siguiente" value="Registrar" >
-                            <f:ajax execute="@form" event="click" listener="#{datosRegCurso.onFinish()}" render="exitoRegCurso" onevent="RedirigirCurso" />
-                        </h:commandButton>
-                        <h:commandButton class="boton" value="Reset" type="reset"/> 
-                    </div>  
+                <h:message class="error" for="btnRegCurso"/>
+                 <h:message class="error" id="msjContrato" for="inputContratoDocente"/>
+                <div class="menuOpcion">
+                    <h:commandButton id="btnRegCurso" class="boton siguiente" value="Registrar" >
+                        <f:ajax execute="@form" event="click" listener="#{datosRegCurso.onFinish()}" render="@form" onevent="indicador" />
+                    </h:commandButton>
+                    <h:commandButton class="boton" value="Reset" type="reset"/> 
+                </div>  
             </div>
         </h:form>
     </ui:define>

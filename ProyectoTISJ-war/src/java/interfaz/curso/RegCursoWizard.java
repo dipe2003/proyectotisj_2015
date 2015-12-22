@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -45,7 +46,9 @@ public class RegCursoWizard implements Serializable {
     public void seleccionarAsignatura(String idAsig) throws IOException {
         this.idAsignatura = Integer.parseInt(idAsig);
         if(this.idAsignatura==0 || conversation == null) {
-            // tirar un mensaje de error porque no se selecciono nada
+            FacesMessage msj = new FacesMessage("No se selecciono Asignatura", "No se selecciono Asignatura");
+            FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:btnRegCurso", msj);
+            FacesContext.getCurrentInstance().renderResponse();
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("../Usuario/ListarUsuarios.xhtml?faces-redirect=true&rol=Docente&opt=regcurso&cid="+this.conversation.getId());
     }
@@ -53,7 +56,9 @@ public class RegCursoWizard implements Serializable {
     public void seleccionarDocente(String idDoc) throws IOException {
         this.idDocente = Integer.parseInt(idDoc);
         if(this.idDocente==0 || conversation == null) {
-            // tirar un mensaje de error porque no se selecciono nada
+           FacesMessage msj = new FacesMessage("No se selecciono Docente", "No se selecciono Docente");
+            FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:btnRegCurso", msj);
+            FacesContext.getCurrentInstance().renderResponse();
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/RegistrarCurso.xhtml?cid="+this.conversation.getId());
     }

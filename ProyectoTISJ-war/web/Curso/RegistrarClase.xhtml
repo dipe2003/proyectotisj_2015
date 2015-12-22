@@ -9,12 +9,12 @@
         <h:panelGroup rendered="#{ login.rolSeleccionado != 'Administrador' and login.rolSeleccionado != 'Administrativo' and login.rolSeleccionado != 'Docente'}" >
             <meta http-equiv="refresh" content="0;url=#{facesContext.externalContext.requestContextPath}/Error/Error401.xhtml"></meta>
         </h:panelGroup>
-            <div class="cabecera" >
-                <div class="titulo" >
-                    Clase de #{usuariosClase.nombreCurso} #{usuariosClase.anioCurso} - Clases dictadas: #{usuariosClase.clasesDictadas}
-                </div>
+        <div class="cabecera" >
+            <div class="titulo" >
+                Clase de #{usuariosClase.nombreCurso} #{usuariosClase.anioCurso} - Clases dictadas: #{usuariosClase.clasesDictadas}
             </div>
-         <h:form id="frmIngresoDatosClase">
+        </div>
+        <h:form id="frmIngresoDatosClase">
             <div id="contenedor">
                 <c:forEach var="usuario" items="#{usuariosClase.usuarios}">
                     <div class="ListItemContainer" >
@@ -36,20 +36,16 @@
                 <div class="menuOpcion" >
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/calendario.png"/>
-                        <h:inputText id="inputFechaClase" value="#{usuariosClase.strFechaClase}" required="true" requiredMessage="Debes ingresar una fecha." class="datepicker Texto" p:placeholder="Fecha">
-                            <f:ajax listener="#{usuariosClase.comprobarFecha}" event="change" render="msjFechaClase"/>
-                        </h:inputText>
+                        <h:inputText id="inputFechaClase" value="#{usuariosClase.strFechaClase}" required="true" requiredMessage="Debes ingresar una fecha." class="datepicker Texto" p:placeholder="Fecha"/>
                     </div><h:message class="error" for="inputFechaClase" id="msjFechaClase"/>
                     <div class="inputContainer">
                         <img class="imagenMenuOpcion" src="../Resources/Images/materia.png"/>
                         <h:inputText id="inputTema" value="#{usuariosClase.temaClase}" class="Texto" required="true" requiredMessage="Debes ingresar un tema." p:placeholder="Tema"/>         
                     </div><h:message class="error" for="inputTema" id="msjTemaClase"/>
                 </div>
-                <h:inputText id="claseExito" value="#{usuariosClase.correcto}" style="display: none;" />
-                <h:inputText id="clasecursoid" value="#{usuariosClase.idCurso}" style="display: none;" />
                 <div class="menuOpcion" >
                     <h:commandButton class="boton" value="Registrar Clase" >
-                        <f:ajax execute="@form" event="click" listener="#{usuariosClase.registrarClase()}" render="claseExito" onevent="RedirigirClases" />
+                        <f:ajax execute="@form" event="click" listener="#{usuariosClase.registrarClase()}" render="@form" onevent="indicador" />
                     </h:commandButton>
                 </div>
             </div>

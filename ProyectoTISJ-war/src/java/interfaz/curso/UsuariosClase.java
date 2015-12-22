@@ -117,7 +117,8 @@ public class UsuariosClase implements Serializable{
                 Correcto = true;
             }
             FacesContext context = FacesContext.getCurrentInstance();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);
+            context.getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);
+            context.responseComplete();
     }
     
     
@@ -139,6 +140,11 @@ public class UsuariosClase implements Serializable{
         return null;
     }
     
+    /**
+     * Comprueba si ya se dicto la clase en la fecha indicada.
+     * No utilizar si se contempla el caso de recuperacion de clases. Por lo que se podria dictar una clase de ese curso un dia repetido.
+     * @param event 
+     */
     public void comprobarFecha(AjaxBehaviorEvent event){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try{
@@ -146,6 +152,7 @@ public class UsuariosClase implements Serializable{
             if (fClase.ExisteFechaClase(idCurso,fecha)) {
                 FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error","Ya existe clase en esta fecha");
                 FacesContext.getCurrentInstance().addMessage("frmIngresoDatosClase:msjFechaClase", fm);
+                FacesContext.getCurrentInstance().renderResponse();
             }
         }catch(ParseException ex){}
     }
