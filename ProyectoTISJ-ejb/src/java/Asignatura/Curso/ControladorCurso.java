@@ -116,7 +116,7 @@ public class ControladorCurso {
                     if(curso.getEncuestaCurso()==null)lista.add(curso);
                 }
             }else{
-                if(semestre%3==0){
+                if(semestre == 1 || semestre == 3 || semestre == 5){
                     if(curso.getEncuestaCurso()==null)lista.add(curso);
                 }
             }
