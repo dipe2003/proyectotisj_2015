@@ -4,6 +4,7 @@ package Asignatura.Curso.Evaluacion.Resultado;
 import Usuario.Estudiante.Estudiante;
 import Asignatura.Curso.Evaluacion.Evaluacion;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ public class Resultado implements Serializable {
     private int ResultadoEvaluacion;
     @ManyToOne
     private Estudiante EstudianteResultado;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Evaluacion EvaluacionResultado;
     
     //  Constructores
@@ -39,13 +40,13 @@ public class Resultado implements Serializable {
     public void setResultadoEvaluacion(int ResultadoEvaluacion) {this.ResultadoEvaluacion = ResultadoEvaluacion;}
     public void setEstudianteResultado(Estudiante EstudianteResultado) {
         this.EstudianteResultado = EstudianteResultado;
-        if (!EstudianteResultado.getResultadosEstudiante().contains(this)) {
+        if (EstudianteResultado!=null && !EstudianteResultado.getResultadosEstudiante().contains(this)) {
             EstudianteResultado.getResultadosEstudiante().add(this);
         }
     }
     public void setEvaluacionResultado(Evaluacion EvaluacionResultado) {
         this.EvaluacionResultado = EvaluacionResultado;
-        if (!EvaluacionResultado.getResultadosEvaluacion().contains(this)) {
+        if (EvaluacionResultado != null && !EvaluacionResultado.getResultadosEvaluacion().contains(this)) {
             EvaluacionResultado.getResultadosEvaluacion().add(this);
         }
     }

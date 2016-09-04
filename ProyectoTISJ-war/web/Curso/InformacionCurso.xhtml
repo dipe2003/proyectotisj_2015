@@ -158,70 +158,81 @@
                 </div>
             </div>
         </h:panelGroup>
-        <div id="contenedor">
-            <div class="ListItemContainer ListItemClick" style="text-align: center" >
-                Alumnos del Curso
-            </div>
-            <h:panelGroup rendered="#{empty informacionCurso.estudiantes}">
+        <h:form id="frmInfoCurso">
+            <div id="contenedor">
+                <div class="ListItemContainer ListItemClick" style="text-align: center" >
+                    Alumnos del Curso
+                </div>
+                <h:panelGroup rendered="#{empty informacionCurso.estudiantes}">
+                    <div class="ListItemContainer" >
+                        Lista de Estudiantes Vacia
+                    </div>            
+                </h:panelGroup>
                 <div class="ListItemContainer" >
-                    Lista de Estudiantes Vacia
-                </div>            
-            </h:panelGroup>
-            <div class="ListItemContainer" >
-                <div title="Cedula" class="item" style="width: 10%">
-                    Cedula
-                </div>
-                <div title="Nombre" class="item" style="width: 10%">
-                    Nombre
-                </div>
-                <div title="Correo" class="item" style="width: 15%">
-                    Correo
-                </div>
-                <c:forEach var="evaluacion" items="#{informacionCurso.titulosEvaluaciones}">
-                    <div title="#{evaluacion}" class="item" style="width: 10%">
-                        #{evaluacion}
+                    <div title="Cedula" class="item" style="width: 10%">
+                        Cedula
                     </div>
-                </c:forEach>
-            </div>
-            <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
-                <div class="ListItemContainer" >
-                    <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">
-                        #{estudiante.cedulaUsuario}
+                    <div title="Nombre" class="item" style="width: 10%">
+                        Nombre
                     </div>
-                    <div title="#{estudiante.nombreCompleto}" class="item" style="width: 10%">
-                        #{estudiante.nombreCompleto}
+                    <div title="Correo" class="item" style="width: 15%">
+                        Correo
                     </div>
-                    <div title="#{estudiante.correoUsuario}" class="item" style="width: 15%">
-                        #{estudiante.correoUsuario}
-                    </div>
-                    
-                    <c:forEach var="resultados" items="#{informacionCurso.resultadosEsstudiante.get(estudiante.idUsuario)}">
-                        <div title=" #{resultados}" class="item" style="width: 10%">
-                            <c:choose >
-                                <c:when test="#{resultados == 101}">
-                                Aprobado
-                                </c:when>
-                                <c:when test="#{resultados == 102}">
-                                    Reprobado
-                                </c:when>
-                                <c:when test="#{resultados == 103}">
-                                    No Entrega
-                                </c:when>
-                                <c:otherwise>
-                                     #{resultados}
-                                </c:otherwise>
-                            </c:choose>                           
+                    <c:forEach var="evaluacion" items="#{informacionCurso.titulosEvaluaciones}">
+                        <div title="#{evaluacion}" class="item" style="width: 10%">
+                            #{evaluacion}
                         </div>
                     </c:forEach>
-                    <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
-                        <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
-                            <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
-                        </a>
-                    </h:panelGroup>
-                </div>            
-            </c:forEach>
-        </div>
-        
+                </div>
+                <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
+                    <div class="ListItemContainer" >
+                        <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">
+                            #{estudiante.cedulaUsuario}
+                        </div>
+                        <div title="#{estudiante.nombreCompleto}" class="item" style="width: 10%">
+                            #{estudiante.nombreCompleto}
+                        </div>
+                        <div title="#{estudiante.correoUsuario}" class="item" style="width: 15%">
+                            #{estudiante.correoUsuario}
+                        </div>
+                        
+                        
+                        <c:forEach var="resultados" items="#{informacionCurso.resultadosEsstudiante.get(estudiante.idUsuario)}">
+                            <div title=" #{resultados}" class="item" style="width: 10%">
+                                <c:choose >
+                                    <c:when test="#{resultados == 101}">
+                                        Aprobado
+                                    </c:when>
+                                    <c:when test="#{resultados == 102}">
+                                        Reprobado
+                                    </c:when>
+                                    <c:when test="#{resultados == 103}">
+                                        No Entrega
+                                    </c:when>
+                                    <c:otherwise>
+                                        #{resultados}
+                                    </c:otherwise>
+                                </c:choose>                           
+                            </div>
+                        </c:forEach>
+                        <h:panelGroup>
+                            <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
+                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
+                                    <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
+                                    </a>                            
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}">
+                                <h:commandLink id="btnRemover" action="#{informacionCurso.removerEstudiante(estudiante.idUsuario)}" class="SubmenuLink">
+                                    <div title="Remover Estudiante"  class="optionItem" style="background-image: url(../Resources/Images/RemoveUsrBlack.png)"></div>
+                                </h:commandLink>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </div> 
+                    <h:message for="btnRemover" class="error"/>
+                </c:forEach>
+                
+            </div>
+        </h:form>
         
         <div id="contenedor">
             <div class="ListItemContainer ListItemClick" style="text-align: center" >

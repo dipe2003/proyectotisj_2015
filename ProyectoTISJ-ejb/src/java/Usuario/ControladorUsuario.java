@@ -31,10 +31,11 @@ public class ControladorUsuario {
     
     /**
      * Borra los datos de un Usuario en la base de datos.
-     * @param usuario
+     * @param IdUsuario
      * @return Devuelve -1 si no se pudo borrar.
      */
-    public int BorrarUsuario(Usuario usuario){
+    public int BorrarUsuario(int IdUsuario){
+        Usuario usuario = mUsr.BuscarUsuarioPorId(IdUsuario);
         return mUsr.BorrarUsuario(usuario);
     }
     

@@ -111,7 +111,12 @@ public class Estudiante extends Usuario {
             EvaluacionEstudiante.setEstudianteEvaluacion(this);
         }
     }
-    public void removeEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){this.EvaluacionesEstudiante.remove(EvaluacionEstudiante);}
+    public void removeEvaluacionEstudiante(Evaluacion EvaluacionEstudiante){
+        this.EvaluacionesEstudiante.remove(EvaluacionEstudiante);
+        if(EvaluacionEstudiante != null ){
+            EvaluacionEstudiante.setEstudianteEvaluacion(null);
+        }
+    }
     
     //Cursos
     public void addCursoEstudiante(Curso CursoEstudiante){
@@ -135,6 +140,13 @@ public class Estudiante extends Usuario {
         this.ResultadosEstudiante.add(ResultadoEstudiante);
         if (ResultadoEstudiante.getEstudianteResultado()==null || !ResultadoEstudiante.getEstudianteResultado().equals(this)) {
             ResultadoEstudiante.setEstudianteResultado(this);
+        }
+    }
+    
+    public void removeResultadoEstudiante(Resultado ResultadoEstudiante){
+        this.ResultadosEstudiante.remove(ResultadoEstudiante);
+        if(ResultadoEstudiante != null){
+            ResultadoEstudiante.setEstudianteResultado(null);
         }
     }
     

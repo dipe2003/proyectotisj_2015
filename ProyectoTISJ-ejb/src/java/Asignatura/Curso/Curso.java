@@ -159,5 +159,12 @@ public class Curso implements Serializable{
             EvaluacionCurso.setCursoEvaluacion(this);
         }
     }
+    
+    public void removeEvaluacionCurso(Evaluacion EvaluacionCurso){
+        this.EvaluacionesCurso.remove(EvaluacionCurso);
+        if(EvaluacionCurso.getCursoEvaluacion() != null && EvaluacionCurso.getCursoEvaluacion().equals(this)){
+            EvaluacionCurso.setCursoEvaluacion(null);
+        }
+    }
   
 }

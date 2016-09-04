@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ abstract public class Evaluacion implements Serializable{
     private Date FechaEvaluacion;
     @ManyToOne
     private Curso CursoEvaluacion;
-    @OneToMany(mappedBy = "EvaluacionResultado")
+    @OneToMany(mappedBy = "EvaluacionResultado", cascade = CascadeType.REMOVE)
     private List<Resultado> ResultadosEvaluacion;
     @ManyToOne
     private Estudiante EstudianteEvaluacion;
@@ -51,14 +52,14 @@ abstract public class Evaluacion implements Serializable{
     public void setFechaEvaluacion(Date FechaEvaluacion) {this.FechaEvaluacion = FechaEvaluacion;}
     public void setCursoEvaluacion(Curso CursoEvaluacion) {
         this.CursoEvaluacion = CursoEvaluacion;
-        if (!CursoEvaluacion.getEvaluacionesCurso().contains(this)) {
+        if (CursoEvaluacion != null && !CursoEvaluacion.getEvaluacionesCurso().contains(this)) {
             CursoEvaluacion.getEvaluacionesCurso().add(this);
         }
     }
     public void setResultadosEvaluacion(List<Resultado> ResultadosEvaluacion) {this.ResultadosEvaluacion = ResultadosEvaluacion;}
     public void setEstudianteEvaluacion(Estudiante EstudianteEvaluacion) {
         this.EstudianteEvaluacion = EstudianteEvaluacion;
-        if(!EstudianteEvaluacion.getEvaluacionesEstudiante().contains(this)){
+        if(EstudianteEvaluacion != null && !EstudianteEvaluacion.getEvaluacionesEstudiante().contains(this)){
             EstudianteEvaluacion.addEvaluacionEstudiante(this);
         }
     }
@@ -69,6 +70,12 @@ abstract public class Evaluacion implements Serializable{
         if(ResultadoEvaluacion.getEvaluacionResultado()==null || !ResultadoEvaluacion.getEvaluacionResultado().equals(this)){
             ResultadoEvaluacion.setEvaluacionResultado(this);
         }
+    }
+    
+    public void removeResultado(Resultado ResultadoEvaluacion){
+        this.ResultadosEvaluacion.remove(ResultadoEvaluacion);
+        if(ResultadoEvaluacion != null && ResultadoEvaluacion.getEvaluacionResultado().equals(this))
+            ResultadoEvaluacion.setEvaluacionResultado(null);
     }
 
 }

@@ -7,6 +7,8 @@ import Usuario.Docente.ControladorDocente;
 import Enumerados.EstadoCivil.EstadoCivil;
 import Usuario.Estudiante.ControladorEstudiante;
 import Usuario.Estudiante.EnumSexo;
+import Usuario.Estudiante.Estudiante;
+import Usuario.Estudiante.Estudios.ControladorEstudio;
 import Utilidades.Seguridad;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ public class FacadeUsuario implements Serializable {
     private ControladorDocente cDoc;
     @EJB
     private ControladorEstudiante cEst;
+    @EJB
+    private ControladorEstudio cEstudios;
     @EJB
     private Seguridad cSeguridad;
     
@@ -315,5 +319,32 @@ public class FacadeUsuario implements Serializable {
      */
     public List<Usuario> listarUsuarioEstudianteSinCurso(int IdCurso){
         return (List<Usuario>) (ArrayList<?>) cEst.ListarEstudiantesSinCurso(IdCurso);
+    }
+    
+    /**
+     * Elimina el usuario Estudiante de la base de datos.
+     * @param IdUsuario
+     * @return Retorna -1 si no se elimino | Retorna el Id del usuario si se elimino coreectamente.
+     */
+    public boolean BorrarUsuario(int IdUsuario){
+        int res = -1;
+        Usuario usr = cUsr.BuscarUsuario(IdUsuario);
+        if(((Estudiante)usr).getClasesEstudiante() == null || ((Estudiante)usr).getClasesEstudiante().isEmpty()){
+            if(((Estudiante)usr).getCursosEstudiante() == null || ((Estudiante)usr).getCursosEstudiante().isEmpty()){
+                if(((Estudiante)usr).getEncuestasEstudiante()== null || ((Estudiante)usr).getEncuestasEstudiante().isEmpty()){
+                    if(((Estudiante)usr).getEvaluacionesEstudiante() == null || ((Estudiante)usr).getEvaluacionesEstudiante().isEmpty()){
+                        if(((Estudiante)usr).getResultadosEstudiante() == null || ((Estudiante)usr).getResultadosEstudiante().isEmpty()){
+                            for(int i = 0; i < ((Estudiante)usr).getEstudiosCursadosEstudiante().size(); i++){
+                                res = cEstudios.BorrarEstudio(((Estudiante)usr).getEstudiosCursadosEstudiante().get(i).getIdEstudio());
+                            }
+                            if(res != -1){
+                                res = cUsr.BorrarUsuario(IdUsuario);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return res >0;
     }
 }

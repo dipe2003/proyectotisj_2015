@@ -16,7 +16,7 @@ public class ControladorCurso {
     
     @EJB
     private ManejadorCurso mCurso;
-    
+
     /**
      * Crea un Curso y lo persiste.
      * @param SemestreCurso
@@ -116,16 +116,16 @@ public class ControladorCurso {
                     if(curso.getEncuestaCurso()==null)lista.add(curso);
                 }
             }else{
-                if(semestre == 1 || semestre == 3 || semestre == 5){
+                if(semestre%2!=0){
                     if(curso.getEncuestaCurso()==null)lista.add(curso);
                 }
             }
-        }        
+        }
         return lista;
     }
     
     public List<Curso> filtrarCursos(int anioFilter, int semestreFilter, int idAsignatura){
-       return mCurso.filtrarCursos(anioFilter, semestreFilter, idAsignatura);
-   }
-    
+        return mCurso.filtrarCursos(anioFilter, semestreFilter, idAsignatura);
+    }
+       
 }

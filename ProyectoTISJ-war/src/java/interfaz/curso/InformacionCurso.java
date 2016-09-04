@@ -23,6 +23,7 @@ import Usuario.Estudiante.Estudiante;
 import Usuario.Estudiante.FacadeEstudiante;
 import Usuario.Usuario;
 import interfaz.Login;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -167,6 +169,19 @@ public class InformacionCurso implements Serializable{
             }
             ResultadosEsstudiante.put(item.getIdUsuario(), notas);
         }
+    }
+    
+    public void removerEstudiante(int Idestudiante) throws IOException{
+        int res = fCur.removerEstudianteCurso(curso.getIdCurso(), Idestudiante);
+        if(res != -1){
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext()
+                    .getRequestContextPath()+"/Curso/InformacionCurso.xhtml?id="+curso.getIdCurso());
+        }else{
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se pudo remover el estudiante.");
+                    FacesContext.getCurrentInstance().addMessage("frmInfoCurso:btnRemover", fm);
+                    FacesContext.getCurrentInstance().renderResponse();
+        }
+        
     }
     
 }

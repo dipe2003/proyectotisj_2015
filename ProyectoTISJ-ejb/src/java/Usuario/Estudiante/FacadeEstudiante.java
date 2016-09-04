@@ -67,7 +67,7 @@ public class FacadeEstudiante implements Serializable {
                     }else{
                         if(Orientacion.isEmpty()){
                             // Se elimina el estudio.
-                            cEstudio.BorrarEstudio(estudios.get(i));
+                            cEstudio.BorrarEstudio(estudios.get(i).getIdEstudio());
                             estudiante.getEstudiosCursadosEstudiante().remove(estudios.get(i));
                             cEst.ModificarInstEstudiante(estudiante);
                         }

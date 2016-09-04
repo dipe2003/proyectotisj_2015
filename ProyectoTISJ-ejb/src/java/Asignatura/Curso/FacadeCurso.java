@@ -3,11 +3,18 @@ package Asignatura.Curso;
 
 
 import Asignatura.ControladorAsignatura;
+import Asignatura.Curso.Clase.Clase;
 import Asignatura.Curso.Clase.ControladorClase;
+import Asignatura.Curso.Evaluacion.ControladorEvaluacion;
+import Asignatura.Curso.Evaluacion.Evaluacion;
+import Asignatura.Curso.Evaluacion.Resultado.ControladorResultado;
+import Asignatura.Curso.Evaluacion.Resultado.Resultado;
 import Usuario.Docente.ControladorDocente;
 import Usuario.Estudiante.ControladorEstudiante;
+import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -28,6 +35,10 @@ public class FacadeCurso implements Serializable {
     private ControladorEstudiante cEst;
     @EJB
     private ControladorClase cClase;
+    @EJB
+    private ControladorResultado cRes;
+    @EJB
+    private ControladorEvaluacion cEval;
     
     public FacadeCurso() {}
     
@@ -153,5 +164,40 @@ public class FacadeCurso implements Serializable {
             }
         }
         return cursosFiltrados;
+    }
+    
+    /**
+     * Remueve el estudiante indicado del curso.
+     * @param idCurso
+     * @param idEstudiante
+     * @return Retorna -1 si no se pudo remover | Retorna el IdCurso si se removio.
+     */
+    public int removerEstudianteCurso(int idCurso, int idEstudiante){
+        Estudiante estudiante = cEst.BuscarEstudiante(idEstudiante);
+        Curso curso = cCurso.BuscarCurso(idCurso);
+        boolean tieneEvaluacion = false;
+        for(Evaluacion eva: curso.getEvaluacionesCurso()){
+            int id = 0;
+            for(Resultado res: eva.getResultadosEvaluacion()){                
+                if(estudiante.getResultadosEstudiante().contains(res)){
+                    estudiante.removeResultadoEstudiante(res);
+                    id = res.getEvaluacionResultado().getIdEvaluacion();
+                    res.setEvaluacionResultado(null);
+                    cRes.BorrarResultado(res);
+                }
+            }
+            if(eva.getIdEvaluacion() == id) cEval.BorrarEvaluacion(eva);
+        }
+        if(tieneEvaluacion == false){
+            Iterator<Clase> it = estudiante.getClasesEstudiante().iterator();
+            while(it.hasNext()){
+                Clase clase = it.next();
+                if(clase.getCursoClase().getIdCurso()==idCurso)
+                    it.remove();
+            }
+            estudiante.removeCursoEstudiante(curso);
+            return cEst.ModificarInstEstudiante(estudiante);
+        }
+        return -1;
     }
 }

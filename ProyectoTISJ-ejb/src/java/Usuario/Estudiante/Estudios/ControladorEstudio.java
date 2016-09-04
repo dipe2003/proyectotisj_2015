@@ -38,10 +38,11 @@ public class ControladorEstudio {
     
     /**
      * Borra un Estudio de la base de datos.
-     * @param estudio
+     * @param IdEstudio
      * @return Devuelve -1 si no se pudo borrar.
      */
-    public int BorrarEstudio(Estudio estudio){
+    public int BorrarEstudio(int IdEstudio){
+        Estudio estudio = mEst.BuscarEstudio(IdEstudio);
         return mEst.BorrarEstudio(estudio);
     }
     

@@ -366,6 +366,16 @@ public class EditarPerfil implements Serializable{
         }catch(NullPointerException ex){}
     }
     
+    public void eliminarUsuario() throws IOException{
+        if(fUsr.BorrarUsuario(IdUsuario)== true){
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Views/Usuario/ListarUsuarios.xhtml?Rol=Estudiante");
+        }else{
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Solo se pueden eliminar estudiantes sin registros agregados.");
+                    FacesContext.getCurrentInstance().addMessage("frmIngresoDatos:btnEliminar", fm);
+                    FacesContext.getCurrentInstance().renderResponse();
+        }
+    }
+    
     /**
      * clase para representar los estudios cursados por el estudiante.
      */
