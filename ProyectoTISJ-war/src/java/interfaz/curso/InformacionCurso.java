@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -64,7 +65,7 @@ public class InformacionCurso implements Serializable{
     
     private Docente docente;
     
-    private List<Estudiante> Estudiantes;
+    private Map<String, Estudiante> MapEstudiantes;
     
     private List<String> titulosEvaluaciones;
     
@@ -80,7 +81,8 @@ public class InformacionCurso implements Serializable{
     
     public Curso getCurso() {return curso;}
     public Docente getDocente() {return docente;}
-    public List<Estudiante> getEstudiantes() {return Estudiantes;}
+    public Map<String, Estudiante> getMapEstudiantes() {return MapEstudiantes;}
+    
     public List<Clase> getClases(){return Clases;}
     public String getOpt() {return this.opt;}
     public String getNombreCurso(){return this.NombreCurso;}
@@ -89,7 +91,7 @@ public class InformacionCurso implements Serializable{
     public List<String> getTitulosEvaluaciones() {return titulosEvaluaciones;}
     public Map<Integer, List<Integer>> getResultadosEsstudiante() {return ResultadosEsstudiante;}
 
-    public void setEstudiantes(List<Estudiante> Estudiantes) {this.Estudiantes = Estudiantes;}
+    public void setMapEstudiantes(Map<String, Estudiante> MapEstudiantes) {this.MapEstudiantes = MapEstudiantes;}    
     public void setCurso(Curso curso) {this.curso = curso;}
     public void setDocente(Docente docente) {this.docente = docente;}
     public void setClases(List<Clase> Clases){this.Clases = Clases;}
@@ -107,7 +109,12 @@ public class InformacionCurso implements Serializable{
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         int idCurso = Integer.valueOf(request.getParameter("id"));
-        Estudiantes = fEst.ListarEstudiantesCurso(idCurso);
+        List<Estudiante> Estudiantes = fEst.ListarEstudiantesCurso(idCurso);
+        MapEstudiantes = new HashMap<>(); 
+        for(Estudiante estudiante: Estudiantes){
+            MapEstudiantes.put(estudiante.getNombreCompleto(), estudiante);
+        }
+        MapEstudiantes = new TreeMap<>(MapEstudiantes);
         docente = fDoc.getDocenteCurso(idCurso);
         curso = fCur.BuscarCurso(idCurso);
         this.Clases = new ArrayList<>();

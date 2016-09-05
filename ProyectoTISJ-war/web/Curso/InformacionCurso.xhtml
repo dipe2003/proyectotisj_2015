@@ -163,12 +163,15 @@
                 <div class="ListItemContainer ListItemClick" style="text-align: center" >
                     Alumnos del Curso
                 </div>
-                <h:panelGroup rendered="#{empty informacionCurso.estudiantes}">
+                <h:panelGroup rendered="#{empty informacionCurso.mapEstudiantes}">
                     <div class="ListItemContainer" >
                         Lista de Estudiantes Vacia
                     </div>            
                 </h:panelGroup>
                 <div class="ListItemContainer" >
+                    <div title="Cedula" class="item" style="width: 5%">
+                        #
+                    </div>
                     <div title="Cedula" class="item" style="width: 10%">
                         Cedula
                     </div>
@@ -184,20 +187,22 @@
                         </div>
                     </c:forEach>
                 </div>
-                <c:forEach var="estudiante" items="#{informacionCurso.estudiantes}">
+                <c:forEach var="estudiante" items="#{informacionCurso.mapEstudiantes}" varStatus="indice">                        
                     <div class="ListItemContainer" >
-                        <div title=" #{estudiante.cedulaUsuario}" class="item" style="width: 10%">
-                            #{estudiante.cedulaUsuario}
+                        <div title="indice" class="item" style="width: 5%">
+                            #{indice.index+1}
                         </div>
-                        <div title="#{estudiante.nombreCompleto}" class="item" style="width: 10%">
-                            #{estudiante.nombreCompleto}
+                        <div title=" #{estudiante.value.cedulaUsuario}" class="item" style="width: 10%">
+                            #{estudiante.value.cedulaUsuario}
                         </div>
-                        <div title="#{estudiante.correoUsuario}" class="item" style="width: 15%">
-                            #{estudiante.correoUsuario}
+                        <div title="#{estudiante.value.nombreCompleto}" class="item" style="width: 10%">
+                            #{estudiante.value.nombreCompleto}
                         </div>
+                        <div title="#{estudiante.value.correoUsuario}" class="item" style="width: 15%">
+                            #{estudiante.value.correoUsuario}
+                        </div>                        
                         
-                        
-                        <c:forEach var="resultados" items="#{informacionCurso.resultadosEsstudiante.get(estudiante.idUsuario)}">
+                        <c:forEach var="resultados" items="#{informacionCurso.resultadosEsstudiante.get(estudiante.value.idUsuario)}">
                             <div title=" #{resultados}" class="item" style="width: 10%">
                                 <c:choose >
                                     <c:when test="#{resultados == 101}">
@@ -217,20 +222,19 @@
                         </c:forEach>
                         <h:panelGroup>
                             <h:panelGroup rendered="#{!(login.rolSeleccionado == 'Estudiante') and !(login.rolSeleccionado == 'Docente')}">
-                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.idUsuario}" class="SubmenuLink">
+                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{estudiante.value.idUsuario}" class="SubmenuLink">
                                     <div title="Mas Informacion" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                                     </a>                            
                             </h:panelGroup>
                             <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}">
-                                <h:commandLink id="btnRemover" action="#{informacionCurso.removerEstudiante(estudiante.idUsuario)}" class="SubmenuLink">
+                                <h:commandLink id="btnRemover" action="#{informacionCurso.removerEstudiante(estudiante.value.idUsuario)}" class="SubmenuLink">
                                     <div title="Remover Estudiante"  class="optionItem" style="background-image: url(../Resources/Images/RemoveUsrBlack.png)"></div>
                                 </h:commandLink>
                             </h:panelGroup>
                         </h:panelGroup>
                     </div> 
                     <h:message for="btnRemover" class="error"/>
-                </c:forEach>
-                
+                </c:forEach>                
             </div>
         </h:form>
         
