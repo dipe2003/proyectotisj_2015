@@ -227,7 +227,8 @@
                                     </a>                            
                             </h:panelGroup>
                             <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}">
-                                <h:commandLink id="btnRemover" action="#{informacionCurso.removerEstudiante(estudiante.value.idUsuario)}" class="SubmenuLink">
+                                <h:commandLink onclick="if (! confirm('Seguro que desea quitar el estudiante?')) return false"
+                                               id="btnRemover" action="#{informacionCurso.removerEstudiante(estudiante.value.idUsuario)}" class="SubmenuLink">
                                     <div title="Remover Estudiante"  class="optionItem" style="background-image: url(../Resources/Images/RemoveUsrBlack.png)"></div>
                                 </h:commandLink>
                             </h:panelGroup>

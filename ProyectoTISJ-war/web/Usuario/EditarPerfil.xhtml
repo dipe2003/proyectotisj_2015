@@ -144,7 +144,7 @@
                         <h:commandButton class="boton siguiente" value="Guardar" disabled="false" >
                             <f:ajax execute="@form" listener="#{editarPerfil.guardarDatos()}" render="@form" onevent="indicador" />
                         </h:commandButton>
-                        <h:commandButton class="boton siguiente" id="btnEliminar" value="Eliminar" disabled="false" 
+                        <h:commandButton onclick="if (! confirm('Seguro que desea eliminar el usuario?')) return false" class="boton siguiente" id="btnEliminar" value="Eliminar" disabled="false" 
                                          rendered="#{login.rolSeleccionado == 'Administrador'and 
                                                      login.idUsuarioLogueado != editarPerfil.idUsuario
                                                      and editarPerfil.rol == 'Estudiante'}">
