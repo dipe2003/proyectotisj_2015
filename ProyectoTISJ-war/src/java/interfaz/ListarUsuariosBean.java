@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -45,7 +46,9 @@ public class ListarUsuariosBean implements Serializable{
     private RegistrarUsuarioBean UsrData;
     
     private List<Usuario> Usuarios;
+    private Map<String, Usuario> MapUsuarios;
     private List<Usuario> UsuariosFiltrados;
+    private Map<String, Usuario> MapUsuariosFiltrados;
     private Usuario UsuarioSeleccionado;
     private Map<Integer, Boolean> listChecked;
     private String Opt;
@@ -56,11 +59,13 @@ public class ListarUsuariosBean implements Serializable{
     
     //  Getters
     public List<Usuario> getUsuarios() {return this.Usuarios;}
+    public Map<String, Usuario> getMapUsuarios() {return MapUsuarios;}
     public Usuario getUsuarioSeleccionado() {return this.UsuarioSeleccionado;}
     public String getRol() {return Rol;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public String getOpt(){return this.Opt;}
     public List<Usuario> getUsuariosFiltrados() {return UsuariosFiltrados;}
+    public Map<String, Usuario> getMapUsuariosFiltrados() {return MapUsuariosFiltrados;}
     public List<String> getAniosCursos() {return AniosCursos;}
     public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
     public int getIdOpt() {return IdOpt;}
@@ -69,10 +74,12 @@ public class ListarUsuariosBean implements Serializable{
     //  Setters
     public void setRol(String Rol){this.Rol = Rol;}
     public void setUsuarios(List<Usuario> Usuarios) {this.Usuarios = Usuarios;}
+    public void setMapUsuarios(Map<String, Usuario> MapUsuarios) {this.MapUsuarios = MapUsuarios;}
     public void setUsuarioSeleccionado(Usuario UsuarioSeleccionado) {this.UsuarioSeleccionado = UsuarioSeleccionado;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setOpt(String Opt){this.Opt = Opt;}
     public void setUsuariosFiltrados(List<Usuario> UsuariosFiltrados) {this.UsuariosFiltrados = UsuariosFiltrados;}
+    public void setMapUsuariosFiltrados(Map<String, Usuario> MapUsuariosFiltrados){this.MapUsuariosFiltrados = MapUsuariosFiltrados;}
     public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
     public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
     public void setIdOpt(int IdOpt) {this.IdOpt = IdOpt;}
@@ -107,33 +114,54 @@ public class ListarUsuariosBean implements Serializable{
             Rol = request.getParameter("rol");
         }
         this.Usuarios = new ArrayList<>();
+        this.MapUsuarios = new HashMap<>();
         String currentURL = context.getViewRoot().getViewId();
         if (currentURL.equals("/Usuario/ListarUsuarios.xhtml")){
             if(this.Opt.equals("estudianteCurso")){
                 this.Usuarios = fUsr.listarUsuarioEstudianteCurso(IdOpt);
+                for(Usuario usr: Usuarios){
+                    MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                    MapUsuarios = new TreeMap<>(MapUsuarios);
+                }
             }else{
                 this.Usuarios = fUsr.listarUsuarios(Rol);
+                for(Usuario usr: Usuarios){
+                    MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                    MapUsuarios = new TreeMap<>(MapUsuarios);
+                }
             }
         }else if(currentURL.equals("/Usuario/SeleccionarUsuarios.xhtml")){
             switch(Opt){
                 case "nuevorol":
                     this.Usuarios = fUsr.listarUsuariosSinRol(Rol);
+                    for(Usuario usr: Usuarios){
+                        MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                        MapUsuarios = new TreeMap<>(MapUsuarios);
+                    }
                     break;
                     
                 case "addestcurso":
                     this.Usuarios = fUsr.listarUsuarioEstudianteSinCurso(IdOpt);
+                    for(Usuario usr: Usuarios){
+                        MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                        MapUsuarios = new TreeMap<>(MapUsuarios);
+                    }
                     break;
                     
                 default:
                     this.Usuarios = fUsr.listarUsuarios(Rol);
+                    for(Usuario usr: Usuarios){
+                        MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                        MapUsuarios = new TreeMap<>(MapUsuarios);
+                    }
                     break;
             }
         }
         listChecked = new HashMap<>();
-        for (Usuario Usr : Usuarios) {
+        for (Usuario Usr : MapUsuarios.values()) {
             listChecked.put(Usr.getIdUsuario(), Boolean.FALSE);
         }
-        this.UsuariosFiltrados = this.Usuarios;
+        this.MapUsuariosFiltrados = this.MapUsuarios;
         
         this.AniosCursos = new ArrayList<>();
         this.AniosCursos = fCurso.getAniosCursos();
@@ -147,7 +175,7 @@ public class ListarUsuariosBean implements Serializable{
         AsignaturasCursos.put("Todos",0);
         EstudiosCursadosEstudiante = new HashMap<>();
         if(Rol.equals("Estudiante")){
-            for(Usuario user: Usuarios){
+            for(Usuario user: MapUsuarios.values()){
                 if(user instanceof Estudiante){
                     String EstudiosCursados = "";
                     List<Estudio> estudios = ((Estudiante) user).getEstudiosCursadosEstudiante();
@@ -162,7 +190,7 @@ public class ListarUsuariosBean implements Serializable{
                     EstudiosCursadosEstudiante.put(user.getIdUsuario(), EstudiosCursados);
                 }
             }
-        }        
+        }
     }
     
     /**
@@ -185,7 +213,7 @@ public class ListarUsuariosBean implements Serializable{
      * @return retorna null en caso contrario
      */
     private Usuario findUser(int id){
-        for (Usuario Usr : Usuarios) {
+        for (Usuario Usr : MapUsuarios.values()) {
             if (Usr.getIdUsuario()==id) return Usr;
         }
         return null;
@@ -273,14 +301,18 @@ public class ListarUsuariosBean implements Serializable{
     }
     
     public void filtrarPorNombreCedula(String nameFilter, String cedulaFilter ){
+        List<Usuario> listUsuarios = new ArrayList<>();
         if (((nameFilter == null) || (nameFilter.isEmpty()))&&((cedulaFilter == null) || (cedulaFilter.isEmpty()))){
-            UsuariosFiltrados = Usuarios;
+            MapUsuariosFiltrados = MapUsuarios;
         }else{
-            UsuariosFiltrados = new ArrayList<>();
-            for (int i = 0; i < Usuarios.size(); i++) {
-                if (((Usuarios.get(i).getNombreUsuario().toLowerCase().contains(nameFilter.toLowerCase())))
-                        && ((String.valueOf(Usuarios.get(i).getCedulaUsuario()).contains(cedulaFilter))))
-                    UsuariosFiltrados.add(Usuarios.get(i));
+            MapUsuariosFiltrados = new HashMap<>();
+            for(Usuario usr: MapUsuarios.values()){
+                listUsuarios.add(usr);
+            }
+            for(int i = 0; i < listUsuarios.size(); i++){
+                if(((listUsuarios.get(i).getNombreCompleto().toLowerCase().contains(nameFilter.toLowerCase())))
+                        && ((String.valueOf(listUsuarios.get(i).getCedulaUsuario()).contains(cedulaFilter))))
+                    MapUsuariosFiltrados.put(listUsuarios.get(i).getApellidoUsuario(), listUsuarios.get(i));
             }
         }
     }
@@ -295,10 +327,18 @@ public class ListarUsuariosBean implements Serializable{
         
         if(Rol.equals("Docente")){
             Usuarios = fUsr.listarUsuariosDocente(semestre, anio, Idasignatura);
+            for(Usuario usr: Usuarios){
+                MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                MapUsuarios = new TreeMap<>(MapUsuarios);
+            }
         }else if (Rol.equals("Estudiante")){
             Usuarios = fUsr.listarUsuariosEstudiante(semestre, anio, Idasignatura);
+            for(Usuario usr: Usuarios){
+                MapUsuarios.put(usr.getApellidoUsuario(), usr);
+                MapUsuarios = new TreeMap<>(MapUsuarios);
+            }
         }
-        UsuariosFiltrados = Usuarios;
+        MapUsuariosFiltrados = MapUsuarios;
     }
     
 }

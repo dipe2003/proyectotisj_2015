@@ -118,5 +118,11 @@ abstract public class Usuario implements Serializable{
      * @return 
      */
     public String getNombreCompleto(){return this.NombreUsuario + " " + this.ApellidoUsuario;}
+    
+    /**
+     * Devuelve el nombre completo del usuario por Apellido + Nombre
+     * @return 
+     */
+    public String getNombreCompletoPorApellido(){return this.ApellidoUsuario + " " + this.NombreUsuario;}
 
 }

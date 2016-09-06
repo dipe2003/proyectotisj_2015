@@ -112,7 +112,7 @@ public class InformacionCurso implements Serializable{
         List<Estudiante> Estudiantes = fEst.ListarEstudiantesCurso(idCurso);
         MapEstudiantes = new HashMap<>(); 
         for(Estudiante estudiante: Estudiantes){
-            MapEstudiantes.put(estudiante.getNombreCompleto(), estudiante);
+            MapEstudiantes.put(estudiante.getApellidoUsuario(), estudiante);
         }
         MapEstudiantes = new TreeMap<>(MapEstudiantes);
         docente = fDoc.getDocenteCurso(idCurso);

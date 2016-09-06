@@ -26,7 +26,7 @@
                     </div>
                     <div id="contenedor">
                         <h:panelGroup id="actualizarLista" >
-                            <h:panelGroup rendered="#{empty listarUsuariosBean.usuarios}">
+                            <h:panelGroup rendered="#{empty listarUsuariosBean.mapUsuarios}">
                                 <div class="ListItemContainer" >
                                     No hay #{listarUsuariosBean.rol}s registrados.
                                 </div>            
@@ -36,26 +36,29 @@
                                     Seleccionar Docente
                                 </span> 
                             </h:panelGroup>
-                            <c:forEach var="usuario" items="#{listarUsuariosBean.usuariosFiltrados}">
+                            <c:forEach var="usuario" items="#{listarUsuariosBean.mapUsuariosFiltrados}" varStatus="indice">
                                 <div class="ListItemContainer" >
                                     <div class="ListItem" >
+                                        <div title="Indice" class="item" style="width: 5%">
+                                            #{indice.index+1}
+                                        </div>
                                         <div class="item" style="width: 5%" >
                                             <div class="ImagenItem">
-                                                <img src="#{usuario.imagenUsuario}" height="100%" width="100%"/>
+                                                <img src="#{usuario.value.imagenUsuario}" height="100%" width="100%"/>
                                             </div>
                                         </div>
-                                        <div title="#{usuario.cedulaUsuario}" class="item" style="width: 10%">
-                                            #{usuario.cedulaUsuario}
+                                        <div title="#{usuario.value.cedulaUsuario}" class="item" style="width: 10%">
+                                            #{usuario.value.cedulaUsuario}
                                         </div>
-                                        <div title="#{usuario.nombreCompleto}" class="item" style="width: 35%">
-                                            #{usuario.nombreCompleto}
+                                        <div title="#{usuario.value.nombreCompletoPorApellido}" class="item" style="width: 35%">
+                                            #{usuario.value.nombreCompletoPorApellido}
                                         </div>
-                                        <div title="#{usuario.correoUsuario}" class="item" style="width: 30%">
-                                            #{usuario.correoUsuario}
+                                        <div title="#{usuario.value.correoUsuario}" class="item" style="width: 30%">
+                                            #{usuario.value.correoUsuario}
                                         </div>
                                         <h:panelGroup rendered="#{(login.rolSeleccionado == 'Administrador' or login.rolSeleccionado == 'Administrativo') and listarUsuariosBean.opt == 'regcurso' }">
                                             <h:form>
-                                                <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.idUsuario)}">
+                                                <h:commandLink action="#{regCursoWizard.seleccionarDocente(usuario.value.idUsuario)}">
                                                     <f:param name="cid" value="#{regCursoWizard.conversation.id}" />
                                                     <div class="optionItem" style="background-image: url(../Resources/Images/selectBlack.png)"></div>
                                                 </h:commandLink>
@@ -64,43 +67,43 @@
                                         </h:panelGroup>
                                         <h:panelGroup rendered="#{listarUsuariosBean.opt != 'regcurso' or empty listarUsuariosBean.opt}">
                                             <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador' or login.rolSeleccionado=='Administrativo' and listarUsuariosBean.rol!='Administrativo'}">
-                                                <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
+                                                <a href="../Usuario/EditarPerfil.xhtml?id=#{usuario.value.idUsuario}&amp;Rol=#{listarUsuariosBean.rol}" class="SubmenuLink">
                                                     <div title="Editar datos del usuario" class="optionItem" style="background-image: url(../Resources/Images/editShadow.png)"></div>
                                                 </a>
                                             </h:panelGroup>
                                             <div title="Mas Informacion" class="optionItem masInformacion" style="background-image: url(../Resources/Images/mas.png)"></div>
                                             <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
-                                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                                <a href="../Estudiante/InformacionEstudiante.xhtml?id=#{usuario.value.idUsuario}" class="SubmenuLink">
                                                     <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                                                 </a>
                                             </h:panelGroup>
                                             <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
-                                                <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.idUsuario}" class="SubmenuLink">
+                                                <a href="../Docente/InformacionDocente.xhtml?id=#{usuario.value.idUsuario}" class="SubmenuLink">
                                                     <div title="Informacion Detallada" class="optionItem" style="background-image: url(../Resources/Images/Info.png)"></div>
                                                 </a>
                                             </h:panelGroup>
                                         </h:panelGroup>
                                     </div>
                                     <div class="columna">
-                                        <div class="negrita">Nombre: </div> #{usuario.nombreUsuario}<br/>
-                                        <div class="negrita">Apellido: </div> #{usuario.apellidoUsuario}<br/>
-                                        <div class="negrita">Cedula: </div> #{usuario.cedulaUsuario}<br/>
-                                        <div class="negrita">Credencial: </div> #{usuario.credencialCivicaUsuario}<br/>
-                                        <div class="negrita">Correo: </div> #{usuario.correoUsuario}<br/>
-                                        <div class="negrita">Departamento: </div> #{usuario.departamentoUsuario}<br/>
-                                        <div class="negrita">Localidad: </div> #{usuario.localidadUsuario}<br/>
-                                        <div class="negrita">Domicilo: </div>#{usuario.domicilioUsuario}<br/>
-                                        <div class="negrita">Telefono: </div> #{usuario.telefonoUsuario}<br/>
-                                        <div class="negrita">Celular: </div> #{usuario.celularUsuario} <br/>
-                                        <div class="negrita">Fecha de Nacimiento: </div> #{usuario.fechaNacimientoUsuario} <br/>
-                                        <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.lugarNacimientoUsuario}<br/>
-                                        <div class="negrita">Estado Civil: </div> #{usuario.estadoCivilUsuario.estadoCivil} <br/>
-                                        <div class="negrita">Sexo: </div> #{usuario.sexoUsuario} <br/>
+                                        <div class="negrita">Nombre: </div> #{usuario.value.nombreUsuario}<br/>
+                                        <div class="negrita">Apellido: </div> #{usuario.value.apellidoUsuario}<br/>
+                                        <div class="negrita">Cedula: </div> #{usuario.value.cedulaUsuario}<br/>
+                                        <div class="negrita">Credencial: </div> #{usuario.value.credencialCivicaUsuario}<br/>
+                                        <div class="negrita">Correo: </div> #{usuario.value.correoUsuario}<br/>
+                                        <div class="negrita">Departamento: </div> #{usuario.value.departamentoUsuario}<br/>
+                                        <div class="negrita">Localidad: </div> #{usuario.value.localidadUsuario}<br/>
+                                        <div class="negrita">Domicilo: </div>#{usuario.value.domicilioUsuario}<br/>
+                                        <div class="negrita">Telefono: </div> #{usuario.value.telefonoUsuario}<br/>
+                                        <div class="negrita">Celular: </div> #{usuario.value.celularUsuario} <br/>
+                                        <div class="negrita">Fecha de Nacimiento: </div> #{usuario.value.fechaNacimientoUsuario} <br/>
+                                        <div class="negrita">Lugar de Nacimiento: </div>  #{usuario.value.lugarNacimientoUsuario}<br/>
+                                        <div class="negrita">Estado Civil: </div> #{usuario.value.estadoCivilUsuario.estadoCivil} <br/>
+                                        <div class="negrita">Sexo: </div> #{usuario.value.sexoUsuario} <br/>
                                         <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Estudiante'}">
-                                            <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.estudiosCursadosEstudiante.get(usuario.idUsuario)}" /><br/>
+                                            <div class="negrita">Estudios Cursados: </div><h:outputText value="#{listarUsuariosBean.estudiosCursadosEstudiante.get(usuario.value.idUsuario)}" /><br/>
                                         </h:panelGroup>
                                         <h:panelGroup rendered="#{listarUsuariosBean.rol == 'Docente'}">
-                                            <div class="negrita">Cursos Dictados: </div> <h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.idUsuario)}" /><br/>
+                                            <div class="negrita">Cursos Dictados: </div> <h:outputText value="#{listarUsuariosBean.listarAsignaturasDocente(usuario.value.idUsuario)}" /><br/>
                                         </h:panelGroup>
                                             
                                     </div>
