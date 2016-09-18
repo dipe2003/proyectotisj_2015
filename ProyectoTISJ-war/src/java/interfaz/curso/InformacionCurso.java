@@ -185,7 +185,7 @@ public class InformacionCurso implements Serializable{
                     .getRequestContextPath()+"/Curso/InformacionCurso.xhtml?id="+curso.getIdCurso());
         }else{
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se pudo remover el estudiante.");
-                    FacesContext.getCurrentInstance().addMessage("frmInfoCurso:btnRemover", fm);
+                    FacesContext.getCurrentInstance().addMessage("frmInfoCurso:btnRemoverEstudiante", fm);
                     FacesContext.getCurrentInstance().renderResponse();
         }
         

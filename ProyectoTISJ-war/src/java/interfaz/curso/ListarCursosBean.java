@@ -120,7 +120,7 @@ public class ListarCursosBean implements Serializable{
                     .getRequestContextPath()+"/Curso/ListarCursos.xhtml");
         }else{
             FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se pudo quitar el curso");
-                    FacesContext.getCurrentInstance().addMessage("frmListarCurso:btnRemoverCurso", fm);
+                    FacesContext.getCurrentInstance().addMessage("frmListaCurso:btnRemoverCurso", fm);
                     FacesContext.getCurrentInstance().renderResponse();
         }
     }

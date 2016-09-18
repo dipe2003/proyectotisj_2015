@@ -54,7 +54,7 @@
                                 </a>
                                 <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}">
                                     <h:commandLink onclick="if (! confirm('Seguro que desea quitar curso y todos los datos relacionados (Encuestas, Clases, Evaluacines)?')) return false"
-                                                   id="btnRemover" action="#{listarCursosBean.quitarCurso(curso.idCurso)}" class="SubmenuLink">
+                                                   id="btnRemoverCurso" action="#{listarCursosBean.quitarCurso(curso.idCurso)}" class="SubmenuLink">
                                         <div title="Remover Curso"  class="optionItem" style="background-image: url(../Resources/Images/RemoveCurso.png)"></div>
                                     </h:commandLink>
                                 </h:panelGroup>                            
