@@ -3,6 +3,7 @@ package Asignatura.Curso.Encuesta.Pregunta.Respuesta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.Encuesta.RespuestaEncuesta;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class Respuesta implements Serializable {
     @ManyToOne
     private Pregunta PreguntaRespuesta;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private RespuestaEncuesta respuestaEncuesta;
 
     //  Constructores
@@ -46,7 +47,7 @@ public class Respuesta implements Serializable {
         }
     }
     public void setRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta) {
-        if (!respuestaEncuesta.getRespuestasEncuesta().contains(this)) {
+        if (respuestaEncuesta != null && !respuestaEncuesta.getRespuestasEncuesta().contains(this)) {
             respuestaEncuesta.getRespuestasEncuesta().add(this);
         }
         this.respuestaEncuesta = respuestaEncuesta;}

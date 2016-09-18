@@ -9,6 +9,7 @@ import Asignatura.FacadeAsignatura;
 import Usuario.Estudiante.FacadeEstudiante;
 import Usuario.Usuario;
 import interfaz.Login;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -109,5 +111,17 @@ public class ListarCursosBean implements Serializable{
             anio = Integer.valueOf(anioFilter);
         }
         Cursos = fCurso.filtrarCursos(nameDocente, nameAsignatura, anio, semestreFilter, idAsignatura);
+    }
+    
+    public void quitarCurso(int idcurso) throws IOException{
+        int res = fCurso.quitarCurso(idcurso);
+        if(res != -1){
+            FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext()
+                    .getRequestContextPath()+"/Curso/ListarCursos.xhtml");
+        }else{
+            FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "No se pudo quitar el curso");
+                    FacesContext.getCurrentInstance().addMessage("frmListarCurso:btnRemoverCurso", fm);
+                    FacesContext.getCurrentInstance().renderResponse();
+        }
     }
 }

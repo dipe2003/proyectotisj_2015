@@ -8,9 +8,11 @@ import Usuario.Estudiante.Estudiante;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +35,7 @@ public class Encuesta implements Serializable{
     @ManyToMany(mappedBy = "EncuestasEstudiante")
     private List<Estudiante> EstudiantesEncuesta;
     
-    @OneToMany(mappedBy = "EncuestaRespuestas")
+    @OneToMany(mappedBy = "EncuestaRespuestas", cascade = CascadeType.REMOVE)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<RespuestaEncuesta> RespuestasEncuesta;
     
@@ -62,7 +64,8 @@ public class Encuesta implements Serializable{
     public void setEstudiantesEncuesta(List<Estudiante> EstudiantesEncuesta) {this.EstudiantesEncuesta = EstudiantesEncuesta;}
     public void setCursoEncuesta(Curso CursoEncuesta) {
         this.CursoEncuesta = CursoEncuesta;
-        if(CursoEncuesta.getEncuestaCurso()==null || !CursoEncuesta.getEncuestaCurso().equals(this)){
+        if(CursoEncuesta!= null)
+            if(CursoEncuesta.getEncuestaCurso() == null || !CursoEncuesta.getEncuestaCurso().equals(this)){
             CursoEncuesta.setEncuestaCurso(this);
         }
     }
@@ -81,6 +84,13 @@ public class Encuesta implements Serializable{
         this.RespuestasEncuesta.add(respuestaEncuesta);
         if (respuestaEncuesta.getEncuestaRespuestas()==null || !respuestaEncuesta.getEncuestaRespuestas().equals(this)) {
             respuestaEncuesta.setEncuestaRespuestas(this);
+        }
+    }
+    
+    public void removeRespuestaEncuesta(RespuestaEncuesta respuestaEncuesta){
+        this.RespuestasEncuesta.remove(respuestaEncuesta);
+        if(respuestaEncuesta.getEncuestaRespuestas() != null && respuestaEncuesta.getEncuestaRespuestas().equals(this)){
+            respuestaEncuesta.setEncuestaRespuestas(null);
         }
     }
     

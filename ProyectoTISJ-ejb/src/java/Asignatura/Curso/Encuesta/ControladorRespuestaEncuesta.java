@@ -52,5 +52,15 @@ public class ControladorRespuestaEncuesta {
     public int ObtenerRespuestaEncuestaPorPregunta(int IdEncuesta, int IdPregunta){
         return mRespEnc.ObtenerRespuestaEncuestaPorPregunta(IdEncuesta, IdPregunta);
     }
+    
+    /**
+     * Elimina la respuesta de encuesta seleccionada.
+     * @param IdRespuestaEncuesta
+     * @return Retorna el id de la respuesta de encuesta si se elimino. Retorna -1 si no se elimino.
+     */
+    public int EliminarRespuestaEncuesta(int IdRespuestaEncuesta){
+        RespuestaEncuesta respuestaEncuesta = mRespEnc.BuscarRespuestaEncuesta(IdRespuestaEncuesta);
+        return mRespEnc.BorrarRespuestaEncuesta(respuestaEncuesta);
+    }
    
 }

@@ -16,7 +16,7 @@ public class ControladorCurso {
     
     @EJB
     private ManejadorCurso mCurso;
-
+    
     /**
      * Crea un Curso y lo persiste.
      * @param SemestreCurso
@@ -124,8 +124,26 @@ public class ControladorCurso {
         return lista;
     }
     
+    /**
+     * Devuelve los cursos dictados en el año actual según el semestre seleccionado.
+     * @param semestre
+     * @return
+     */
+    public List<Curso> GetCursosActuales(int semestre){
+        int Anio = Calendar.getInstance().get(Calendar.YEAR);
+        List<Curso> cursos = mCurso.FiltrarCursos(Anio);
+        List<Curso> lista = new ArrayList<>();
+        
+        for(Curso curso: cursos){
+            if(semestre == curso.getSemestreCurso()){
+                if(curso.getEncuestaCurso()==null)lista.add(curso);
+            }
+        }
+        return lista;
+    }
+    
     public List<Curso> filtrarCursos(int anioFilter, int semestreFilter, int idAsignatura){
         return mCurso.filtrarCursos(anioFilter, semestreFilter, idAsignatura);
     }
-       
+    
 }

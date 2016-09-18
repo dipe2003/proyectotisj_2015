@@ -58,6 +58,9 @@ abstract public class Evaluacion implements Serializable{
     }
     public void setResultadosEvaluacion(List<Resultado> ResultadosEvaluacion) {this.ResultadosEvaluacion = ResultadosEvaluacion;}
     public void setEstudianteEvaluacion(Estudiante EstudianteEvaluacion) {
+        if(EstudianteEvaluacion == null && this.EstudianteEvaluacion != null){
+            this.EstudianteEvaluacion.getEvaluacionesEstudiante().remove(this);
+        }
         this.EstudianteEvaluacion = EstudianteEvaluacion;
         if(EstudianteEvaluacion != null && !EstudianteEvaluacion.getEvaluacionesEstudiante().contains(this)){
             EstudianteEvaluacion.addEvaluacionEstudiante(this);

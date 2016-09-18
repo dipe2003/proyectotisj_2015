@@ -5,7 +5,9 @@ import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Respuesta.Respuesta;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,12 +20,12 @@ import javax.persistence.OneToMany;
 public class RespuestaEncuesta implements Serializable {
     @Id@GeneratedValue(strategy = GenerationType.AUTO)
     private int IdRespuestaEncuesta;
-    @OneToMany(mappedBy = "respuestaEncuesta", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "respuestaEncuesta", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Respuesta> RespuestasEncuesta;
     @ManyToOne
     private Pregunta PreguntaRespuestasEncuesta;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Encuesta EncuestaRespuestas;
     
     //  Constructores
@@ -47,7 +49,10 @@ public class RespuestaEncuesta implements Serializable {
     public void setRespuestasEncuesta(List<Respuesta> RespuestasEncuesta) {this.RespuestasEncuesta = RespuestasEncuesta;}
     public void setPreguntaRespuestasEncuesta(Pregunta PreguntaRespuestasEncuesta) {this.PreguntaRespuestasEncuesta = PreguntaRespuestasEncuesta;} 
     public void setEncuestaRespuestas(Encuesta EncuestaRespuestas) {
-        if (!EncuestaRespuestas.getRespuestasEncuesta().contains(this)) {
+        if(EncuestaRespuestas == null && this.EncuestaRespuestas != null){
+            this.EncuestaRespuestas.getRespuestasEncuesta().remove(this);
+        }
+        if (EncuestaRespuestas != null && !EncuestaRespuestas.getRespuestasEncuesta().contains(this)) {
             EncuestaRespuestas.getRespuestasEncuesta().add(this);
         }
         this.EncuestaRespuestas = EncuestaRespuestas;}
@@ -59,6 +64,13 @@ public class RespuestaEncuesta implements Serializable {
             RespuestaEncuesta.setRespuestaEncuesta(this);
         }
     }
+    
+    public void removeRespuestaEncuesta(Respuesta RespuestaEncuesta){
+        this.RespuestasEncuesta.remove(RespuestaEncuesta);
+        if(RespuestaEncuesta.getRespuestaEncuesta() != null && RespuestaEncuesta.getRespuestaEncuesta().equals(this)){
+            RespuestaEncuesta.setRespuestaEncuesta(null);
+        }
+    } 
     
     //  Resultados
     public float getPromedioResultado(){

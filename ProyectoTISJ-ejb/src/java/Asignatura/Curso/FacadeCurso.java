@@ -5,6 +5,11 @@ package Asignatura.Curso;
 import Asignatura.ControladorAsignatura;
 import Asignatura.Curso.Clase.Clase;
 import Asignatura.Curso.Clase.ControladorClase;
+import Asignatura.Curso.Encuesta.ControladorEncuesta;
+import Asignatura.Curso.Encuesta.ControladorRespuestaEncuesta;
+import Asignatura.Curso.Encuesta.Encuesta;
+import Asignatura.Curso.Encuesta.Pregunta.Respuesta.ControladorRespuesta;
+import Asignatura.Curso.Encuesta.RespuestaEncuesta;
 import Asignatura.Curso.Evaluacion.ControladorEvaluacion;
 import Asignatura.Curso.Evaluacion.Evaluacion;
 import Asignatura.Curso.Evaluacion.Resultado.ControladorResultado;
@@ -39,6 +44,12 @@ public class FacadeCurso implements Serializable {
     private ControladorResultado cRes;
     @EJB
     private ControladorEvaluacion cEval;
+    @EJB
+    private ControladorEncuesta cEnc;
+    @EJB
+    private ControladorRespuesta cRespuestas;
+    @EJB
+    private ControladorRespuestaEncuesta cRespEnc;
     
     public FacadeCurso() {}
     
@@ -149,6 +160,13 @@ public class FacadeCurso implements Serializable {
     public List<Curso> GetCursosActuales(){
         return cCurso.GetCursosActuales();
     }
+    /**
+     * Devuelve los cursos dictados en el año actual según el semestre seleccionado.
+     * @return
+     */
+    public List<Curso> GetCursosActuales(int NumeroSemestre){
+        return cCurso.GetCursosActuales(NumeroSemestre);
+    }
     
     public List<Curso> filtrarCursos(String nameDocente, String nameAsignatura, int anioFilter, int semestreFilter, int idAsignatura){
         List<Curso> cursos = cCurso.filtrarCursos(anioFilter, semestreFilter, idAsignatura);
@@ -175,10 +193,10 @@ public class FacadeCurso implements Serializable {
     public int removerEstudianteCurso(int idCurso, int idEstudiante){
         Estudiante estudiante = cEst.BuscarEstudiante(idEstudiante);
         Curso curso = cCurso.BuscarCurso(idCurso);
-        boolean tieneEvaluacion = false;
+        // eliminar evaluaciones
         for(Evaluacion eva: curso.getEvaluacionesCurso()){
             int id = 0;
-            for(Resultado res: eva.getResultadosEvaluacion()){                
+            for(Resultado res: eva.getResultadosEvaluacion()){
                 if(estudiante.getResultadosEstudiante().contains(res)){
                     estudiante.removeResultadoEstudiante(res);
                     id = res.getEvaluacionResultado().getIdEvaluacion();
@@ -188,16 +206,42 @@ public class FacadeCurso implements Serializable {
             }
             if(eva.getIdEvaluacion() == id) cEval.BorrarEvaluacion(eva);
         }
-        if(tieneEvaluacion == false){
-            Iterator<Clase> it = estudiante.getClasesEstudiante().iterator();
-            while(it.hasNext()){
-                Clase clase = it.next();
-                if(clase.getCursoClase().getIdCurso()==idCurso)
-                    it.remove();
-            }
-            estudiante.removeCursoEstudiante(curso);
-            return cEst.ModificarInstEstudiante(estudiante);
+        // eliminar clases
+        Iterator<Clase> it = estudiante.getClasesEstudiante().iterator();
+        while(it.hasNext()){
+            Clase clase = it.next();
+            if(clase.getCursoClase().getIdCurso()==idCurso)
+                it.remove();
         }
-        return -1;
+        estudiante.removeCursoEstudiante(curso);
+        return cEst.ModificarInstEstudiante(estudiante);
     }
+    
+    /**
+     * Elimina el curso seleccionado de la base de datos.
+     * Se elimina <b>Toda la informacion relacionada (Encuestas, Clases, Evaluaciones, Respuestas de Encuestas) se elimina </b>
+     * @param IdCurso
+     * @return Retorna -1 si no se pudo remover | Retorna el IdCurso si se removio.
+     */
+    public int quitarCurso(int IdCurso){
+        Curso curso = cCurso.BuscarCurso(IdCurso);
+        if(curso.getEncuestaCurso() != null){
+            Encuesta encuesta = curso.getEncuestaCurso();
+            Iterator<Estudiante> itEstudiante = encuesta.getEstudiantesEncuesta().iterator();
+            while(itEstudiante.hasNext()){
+                Estudiante estudiante = itEstudiante.next();
+                estudiante.getEncuestasEstudiante().remove(encuesta);
+                itEstudiante.remove();
+            }
+            cEnc.BorrarEncuesta(encuesta);
+            curso.setEncuestaCurso(null);
+        }
+        // estudiante
+        Iterator<Estudiante> itEstudiante = curso.getEstudiantesCurso().iterator();
+        while(itEstudiante.hasNext()){
+            removerEstudianteCurso(IdCurso, itEstudiante.next().getIdUsuario());
+        }        
+        return cCurso.BorrarCurso(curso);
+    }
+    
 }

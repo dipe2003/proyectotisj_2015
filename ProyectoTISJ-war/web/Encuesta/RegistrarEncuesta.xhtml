@@ -19,6 +19,26 @@
             
             <h:form id="frmRegEncuesta">
                 
+                <div id="openModal" class="modalDialog">
+                    <div style="width: 250px;">
+                        <a href="#close" title="Close" class="close">X</a>
+                        <h2> Seleccionar Semestre</h2>
+                        <div style="width: 100px; height: 100px">
+                            <h:selectOneListbox value="#{registrarEncuesta.numeroSemestre}">
+                                <f:selectItem itemValue="1" itemLabel="Primer" />
+                                <f:selectItem itemValue="2" itemLabel="Segundo" />
+                                <f:selectItem itemValue="3" itemLabel="Tercer" />
+                                <f:selectItem itemValue="4" itemLabel="Cuarto" />
+                                <f:selectItem itemValue="5" itemLabel="Quinto" />
+                                <f:selectItem itemValue="6" itemLabel="Sexto" />
+                            </h:selectOneListbox>
+                        </div>
+                        <h:commandButton id="btnRegEncuesta" class="boton" value="Seleccionar">
+                            <f:ajax execute="@form" event="click" listener="#{registrarEncuesta.crearEncuesta()}" render="@form" onevent="indicador" />
+                        </h:commandButton>
+                    </div>
+                </div>
+                
                 <c:forEach var="pregunta" items="#{registrarEncuesta.preguntas}">
                     <div class="ListItemContainer" >
                         <div class="item" style=" width: 10%">
@@ -43,9 +63,9 @@
                 </div>
                 <h:message class="error" for="btnRegEncuesta"/>
                 <div class="menuOpcion" >
-                    <h:commandButton id="btnRegEncuesta" class="boton" value="Seleccionar">
-                        <f:ajax execute="@form" event="click" listener="#{registrarEncuesta.crearEncuesta()}" render="@form" onevent="indicador" />
-                    </h:commandButton>
+                    <a href="#openModal">
+                        <div id="btnSelectSemestre" class="boton">Seleccionar Semestre</div>
+                    </a>
                 </div>
                 
             </h:form>            

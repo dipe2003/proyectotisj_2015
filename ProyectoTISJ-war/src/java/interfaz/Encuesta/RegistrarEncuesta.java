@@ -33,15 +33,19 @@ public class RegistrarEncuesta implements Serializable{
     private Map<Integer, Boolean> listChecked;
     private List<String> TiposPregunta;
     
+    private String NumeroSemestre;
+    
     //  Getters
     public List<Pregunta> getPreguntas() {return preguntas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public List<String> getTiposPregunta() {return TiposPregunta;}
+    public String getNumeroSemestre() {return NumeroSemestre;}
     
     //  Setters
     public void setPreguntas(List<Pregunta> preguntas) {this.preguntas = preguntas;}
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setTiposPregunta(List<String> TiposPregunta) {this.TiposPregunta = TiposPregunta;}
+    public void setNumeroSemestre(String NumeroSemestre) {this.NumeroSemestre = NumeroSemestre;}
     
     @PostConstruct
     public void Init(){
@@ -60,7 +64,7 @@ public class RegistrarEncuesta implements Serializable{
     
     public void crearEncuesta() throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
-        List<Curso> CursosActuales = fCurso.GetCursosActuales();
+        List<Curso> CursosActuales = fCurso.GetCursosActuales(Integer.valueOf(NumeroSemestre));
         int idEncuesta = 0;
         List<Integer> preguntasSeleccionadas = getPreguntasSeleccionadas();
         if(preguntasSeleccionadas.isEmpty()){
@@ -81,7 +85,7 @@ public class RegistrarEncuesta implements Serializable{
                     }
                 }
             }else{
-                FacesMessage msj = new FacesMessage("No hay cursos en el semestre sin encuestas","No hay cursos en el semestre sin encuestas");
+                FacesMessage msj = new FacesMessage("No hay cursos en el semestre seleccionado sin encuestas","No hay cursos en el semestre seleccionado sin encuestas");
                 context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
                 context.renderResponse();
             }

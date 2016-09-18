@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -55,17 +56,22 @@ public class ListarEncuesta implements Serializable{
     
     private String Rol;
     
+    private String NumeroSemestre;
+    
+    // getters
     public String getRol() {return Rol;}
     public List<Encuesta> getEncuestas() {return encuestas;}
     public Map<Integer, Boolean> getListChecked() {return listChecked;}
     public List<String> getAniosCursos() {return AniosCursos;}
     public Map<String, Integer> getAsignaturasCursos() {return AsignaturasCursos;}
-    
+    public String getNumeroSemestre() {return NumeroSemestre;}
+    // setters
     public void setListChecked(Map<Integer, Boolean> listChecked) {this.listChecked = listChecked;}
     public void setEncuestas(List<Encuesta> encuestas) {this.encuestas = encuestas;}
     public void setRol(String Rol) {this.Rol = Rol;}
     public void setAniosCursos(List<String> AniosCursos) {this.AniosCursos = AniosCursos;}
     public void setAsignaturasCursos(Map<String, Integer> AsignaturasCursos) {this.AsignaturasCursos = AsignaturasCursos;}
+    public void setNumeroSemestre(String NumeroSemestre) {this.NumeroSemestre = NumeroSemestre;}
     
     private int idEstudiante;
     
@@ -108,14 +114,24 @@ public class ListarEncuesta implements Serializable{
         }
     }
     
-    public void importarEncuesta(){
-        List<Curso> CursosActuales = fCurso.GetCursosActuales();
+    public void importarEncuesta() throws IOException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        List<Curso> CursosActuales = fCurso.GetCursosActuales(Integer.valueOf(NumeroSemestre));
         List<Integer> preguntasSeleccionadas = getIdPreguntasEncuesta();
-        for(Curso curso: CursosActuales){
-            int idEncuesta;
-            if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
-                fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+        if(!CursosActuales.isEmpty()){
+            for(Curso curso: CursosActuales){
+                int idEncuesta;
+                if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
+                    fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+                }
             }
+            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
+            context.responseComplete();
+        }else{
+            FacesMessage msj = new FacesMessage("No se pudo crear la encuesta, no hay cursos en el semestre seleccionado sin encuestas",
+                    "No se pudo crear la encuesta, no hay cursos en el semestre seleccionado sin encuestas");
+            context.addMessage("formulario:btnImpEncuesta", msj);
+            context.renderResponse();
         }
     }
     

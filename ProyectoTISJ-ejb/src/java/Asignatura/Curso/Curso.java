@@ -10,6 +10,7 @@ import Asignatura.Curso.Evaluacion.Evaluacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +38,7 @@ public class Curso implements Serializable{
     @ManyToMany(mappedBy="CursosEstudiante")
     private List<Estudiante> EstudiantesCurso;
     
-    @OneToMany(mappedBy = "CursoClase")
+    @OneToMany(mappedBy = "CursoClase", cascade = CascadeType.REMOVE)
     private List<Clase> ClasesCurso;
     
     @OneToMany(mappedBy = "CursoEvaluacion")
@@ -94,8 +95,11 @@ public class Curso implements Serializable{
     public void setClasesCurso(List<Clase> ClasesCurso) {this.ClasesCurso = ClasesCurso;}
     public void setEvaluacionesCurso(List<Evaluacion> EvaluacionesCurso) {this.EvaluacionesCurso = EvaluacionesCurso;}
     public void setEncuestaCurso(Encuesta EncuestaCurso) {
+        if(EncuestaCurso == null && this.EncuestaCurso != null){
+            this.EncuestaCurso.setCursoEncuesta(null);
+        }
         this.EncuestaCurso = EncuestaCurso;
-        if(EncuestaCurso.getCursoEncuesta() == null || !EncuestaCurso.getCursoEncuesta().equals(this)){
+        if(EncuestaCurso != null && !EncuestaCurso.getCursoEncuesta().equals(this)){
             EncuestaCurso.setCursoEncuesta(this);
         }
     }
