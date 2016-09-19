@@ -73,16 +73,25 @@ public class RegistrarEncuesta implements Serializable{
             context.renderResponse();
         }else{
             if(!CursosActuales.isEmpty()){
+                List<String> nombreCursos = new ArrayList<>();
                 for(Curso curso: CursosActuales){
                     if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
                         fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
                         context.getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
                         context.responseComplete();
                     }else{
-                        FacesMessage msj = new FacesMessage("No se pudo crear la encuesta","No se pudo crear la encuesta");
-                        context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
-                        context.renderResponse();
+                        nombreCursos.add(curso.getAsignaturaCurso().getNombreAsignatura());
                     }
+                }
+                if(!nombreCursos.isEmpty()){
+                    String cursos = new String();
+                    for(int i = 0; i < nombreCursos.size(); i++){
+                        cursos += nombreCursos.get(i);
+                        cursos += " ";
+                    }
+                    FacesMessage msj = new FacesMessage("No se pudo crear la encuesta","No se pudo crear la encuesta para " + cursos);
+                    context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
+                    context.renderResponse();
                 }
             }else{
                 FacesMessage msj = new FacesMessage("No hay cursos en el semestre seleccionado sin encuestas","No hay cursos en el semestre seleccionado sin encuestas");

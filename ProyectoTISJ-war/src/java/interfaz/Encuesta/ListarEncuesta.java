@@ -5,7 +5,6 @@ import Asignatura.Asignatura;
 import Asignatura.Curso.Curso;
 import Asignatura.Curso.Encuesta.Encuesta;
 import Asignatura.Curso.Encuesta.FacadeEncuesta;
-import Asignatura.Curso.Encuesta.Pregunta.EnumTipoPregunta;
 import Asignatura.Curso.Encuesta.Pregunta.Pregunta;
 import Asignatura.Curso.FacadeCurso;
 import Asignatura.FacadeAsignatura;
@@ -22,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -119,14 +117,28 @@ public class ListarEncuesta implements Serializable{
         List<Curso> CursosActuales = fCurso.GetCursosActuales(Integer.valueOf(NumeroSemestre));
         List<Integer> preguntasSeleccionadas = getIdPreguntasEncuesta();
         if(!CursosActuales.isEmpty()){
+            List<String> nombreCursos = new ArrayList<>();
             for(Curso curso: CursosActuales){
                 int idEncuesta;
                 if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
                     fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
+                }else{
+                    nombreCursos.add(curso.getAsignaturaCurso().getNombreAsignatura());
                 }
             }
-            context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
-            context.responseComplete();
+            if(!nombreCursos.isEmpty()){
+                String cursos = new String();
+                for(int i = 0; i < nombreCursos.size(); i++){
+                    cursos += nombreCursos.get(i);
+                    cursos += " ";
+                }
+                FacesMessage msj = new FacesMessage("No se pudo crear la encuesta","No se pudo crear la encuesta para " + cursos);
+                context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
+                context.renderResponse();
+            }else{
+                context.getExternalContext().redirect(context.getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
+                context.responseComplete();
+            }
         }else{
             FacesMessage msj = new FacesMessage("No se pudo crear la encuesta, no hay cursos en el semestre seleccionado sin encuestas",
                     "No se pudo crear la encuesta, no hay cursos en el semestre seleccionado sin encuestas");
