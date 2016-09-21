@@ -108,6 +108,12 @@ public class UsuariosClase implements Serializable{
     }
     
     public void registrarClase() throws IOException{
+        FacesContext context = FacesContext.getCurrentInstance();
+        if(this.Usuarios.isEmpty()){
+            FacesMessage msj = new FacesMessage("No se puede registrar clases en cursos sin estudiantes","No se puede registrar clases en cursos sin estudiantes");
+            context.addMessage("frmIngresoDatosClase:btnRegClase", msj);
+            context.renderResponse();
+        }else{
             List<Usuario> CheckedUsers = this.getCheckedUsers();
             int idClase = fClase.RegistarClase(FechaClase, TemaClase, idCurso );
             if (idClase!=-1) {
@@ -116,9 +122,9 @@ public class UsuariosClase implements Serializable{
                 }
                 Correcto = true;
             }
-            FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().redirect("../Curso/ListarClases.xhtml?opt="+idCurso);
-            context.responseComplete();
+            context.responseComplete();            
+        }
     }
     
     
@@ -143,7 +149,7 @@ public class UsuariosClase implements Serializable{
     /**
      * Comprueba si ya se dicto la clase en la fecha indicada.
      * No utilizar si se contempla el caso de recuperacion de clases. Por lo que se podria dictar una clase de ese curso un dia repetido.
-     * @param event 
+     * @param event
      */
     public void comprobarFecha(AjaxBehaviorEvent event){
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
