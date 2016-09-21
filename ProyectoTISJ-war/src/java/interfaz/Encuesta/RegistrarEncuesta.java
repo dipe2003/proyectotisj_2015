@@ -77,8 +77,6 @@ public class RegistrarEncuesta implements Serializable{
                 for(Curso curso: CursosActuales){
                     if((idEncuesta = fEnc.CrearEncuesta(curso.getIdCurso()))!=-1){
                         fEnc.AgregarPreguntasEncuesta(idEncuesta, preguntasSeleccionadas);
-                        context.getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
-                        context.responseComplete();
                     }else{
                         nombreCursos.add(curso.getAsignaturaCurso().getNombreAsignatura());
                     }
@@ -92,6 +90,9 @@ public class RegistrarEncuesta implements Serializable{
                     FacesMessage msj = new FacesMessage("No se pudo crear la encuesta","No se pudo crear la encuesta para " + cursos);
                     context.addMessage("frmRegEncuesta:btnRegEncuesta", msj);
                     context.renderResponse();
+                }else{                    
+                    context.getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+"/Encuesta/ListarEncuesta.xhtml?rol=Administrador");
+                    context.responseComplete();
                 }
             }else{
                 FacesMessage msj = new FacesMessage("No hay cursos en el semestre seleccionado sin encuestas","No hay cursos en el semestre seleccionado sin encuestas");

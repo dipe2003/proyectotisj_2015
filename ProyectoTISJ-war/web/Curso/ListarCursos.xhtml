@@ -53,7 +53,7 @@
                                     <div title="Registrar Evaluacion" class="optionItem" style="background-image: url(../Resources/Images/EvaluateUsr.png)"></div>
                                 </a>
                                 <h:panelGroup rendered="#{login.rolSeleccionado == 'Administrador'}">
-                                    <h:commandLink onclick="if (! confirm('Seguro que desea quitar curso y todos los datos relacionados (Encuestas, Clases, Evaluacines)?')) return false"
+                                    <h:commandLink onclick="if (! confirm('Seguro que desea quitar este curso y todos los datos relacionados (Encuestas, Clases, Evaluaciones)?')) return false"
                                                    id="btnRemoverCurso" action="#{listarCursosBean.quitarCurso(curso.idCurso)}" class="SubmenuLink">
                                         <div title="Remover Curso"  class="optionItem" style="background-image: url(../Resources/Images/RemoveCurso.png)"></div>
                                     </h:commandLink>

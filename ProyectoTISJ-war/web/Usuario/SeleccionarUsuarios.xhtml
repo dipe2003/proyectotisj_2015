@@ -11,25 +11,25 @@
             </div>
         </div>
         <div id="contenedor">
-            <h:panelGroup rendered="#{empty listarUsuariosBean.usuarios}">
+            <h:panelGroup rendered="#{empty listarUsuariosBean.mapUsuarios}">
                 <div class="ListItemContainer" >
                     No hay #{listarUsuariosBean.rol}s registrados.
                 </div>            
             </h:panelGroup>
             <h:form>
-                <c:forEach var="usuario" items="#{listarUsuariosBean.usuarios}">
+                <c:forEach var="usuario" items="#{listarUsuariosBean.mapUsuarios}">
                     <div class="ListItemContainer" >
                         <div class="item" style="width: 5%" >
-                            <h:selectBooleanCheckbox class="BotonCheck" value="#{listarUsuariosBean.listChecked[usuario.idUsuario]}" />
+                            <h:selectBooleanCheckbox class="BotonCheck" value="#{listarUsuariosBean.listChecked[usuario.value.idUsuario]}" />
                         </div>
-                        <div title="#{usuario.cedulaUsuario}" class="item" style="width: 10%">
-                            #{usuario.cedulaUsuario}
+                        <div title="#{usuario.value.cedulaUsuario}" class="item" style="width: 10%">
+                            #{usuario.value.cedulaUsuario}
                         </div>
-                        <div title="#{usuario.nombreCompleto}" class="item" style="width: 35%">
-                            #{usuario.nombreCompleto}
+                        <div title="#{usuario.value.nombreCompleto}" class="item" style="width: 50%">
+                            #{usuario.value.nombreCompletoPorApellido}
                         </div>
-                        <div title="#{usuario.correoUsuario}" class="item" style="width: 30%">
-                            #{usuario.correoUsuario}
+                        <div title="#{usuario.value.correoUsuario}" class="item" style="width: 30%">
+                            #{usuario.value.correoUsuario}
                         </div>
                     </div>            
                 </c:forEach>
